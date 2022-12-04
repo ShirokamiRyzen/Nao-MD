@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Nao-Botz V2</h1>
 
-## Note!! Scan Pake Script Md Yang Lain Buat Dapetin SessionNya 
+
 
 
 [![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285864034767) 

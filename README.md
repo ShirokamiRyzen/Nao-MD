@@ -1,7 +1,7 @@
 <p align="center">
     <img src="https://telegra.ph/file/a8641df0da430cb23f976.jpg" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
-<h1 align="center">Yushino V2</h1>
+<h1 align="center">Nao-Botz V2</h1>
 
 ## Note!! Scan Pake Script Md Yang Lain Buat Dapetin SessionNya 
 
@@ -25,8 +25,8 @@ $ pkg install git -y
 $ pkg install nodejs -y
 $ pkg install ffmpeg -y
 $ pkg install imagemagick -y
-$ git clone https://github.com/Hyuura-Official/YushinoMdV2
-$ cd YushinoMdV2
+$ git clone https://github.com/ShirokamiRyzen/Nao-MD
+$ cd Nao-MD
 $ npm i 
 ```
 If error try using yarn instead of npm, see [here](https://github.com/Jikarinka/Kannabotv2#if-npm-install-failed--try--using-yarn-instead-of-npm)
@@ -68,8 +68,8 @@ apt install wget curl git ffmpeg imagemagick build-essential libcairo2-dev libpa
 ubuntu
 curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 apt install -y nodejs gcc g++ make
-git clone https://github.com/Hyuura-Official/YushinoMdV2
-cd Yushino-V1
+git clone https://github.com/ShirokamiRyzen/Nao-MD
+cd Nao-MD
 npm install
 npm update
 ```
@@ -84,8 +84,8 @@ npm update
 * Download And Install ImageMagick [`Click Here`](https://imagemagick.org/script/download.php)
 
 ```bash
-git https://github.com/Hyuura-Official/YushinoMdV2
-cd YushinoMdV2
+git https://github.com/ShirokamiRyzen/Nao-MD
+cd Nao-MD
 npm install
 npm update
 ```

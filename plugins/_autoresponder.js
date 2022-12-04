@@ -78,6 +78,29 @@ let sayangkamuh = saymu[Math.floor(Math.random() * saymu.length)]
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
 /* - - - - - - - Ini autoresponder by wh mods dev - - - - - - - */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+let regh = /(woy botak)/i
+    let woybotak = regh.exec(m.text)
+    let woy = [
+'❤️',
+'🥰',
+'😍'
+]
+let kerjabagus = woy[Math.floor(Math.random() * woy.length)]
+    if (woybotak && !m.fromMe) {
+    conn.sendMessage(m.chat, {
+        react: {
+          text: `${kerjabagus}`,
+          key: m.key,
+        }})
+   setTimeout(() => {
+        conn.reply(m.chat, `Kerja bagus ${kerjabagus}`, m)
+    }, 1000)
+    }
+    
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
+/* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     
 }
 

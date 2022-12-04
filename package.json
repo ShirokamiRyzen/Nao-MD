@@ -1,7 +1,7 @@
 {
-    "name": "ShirokamiRyzn",
+    "name": "AldiXaisyah",
     "version": "3.0.0",
-    "description": "WhatsApp BOT By Ryzn",
+    "description": "WhatsApp BOT By Aldi",
     "main": "index.js",
     "type": "module",
     "directories": {
@@ -22,16 +22,16 @@
         "whatsapp",
         "wabot-aq"
     ],
-    "homepage": "https://github.com/ShirokamiRyzen",
+    "homepage": "https://github.com/hyuura-official",
     "author": {
-        "name": "Ryzn"
+        "name": "Aldi"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ShirokamiRyzen"
+        "url": "git+https://github.com/hyuura-official"
     },
     "bugs": {
-        "url": "https://github.com/ShirokamiRyzen"
+        "url": "https://github.com/hyuura-official"
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {

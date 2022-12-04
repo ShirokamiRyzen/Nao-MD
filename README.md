@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://telegra.ph/file/a8641df0da430cb23f976.jpg" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
+    <img src="./media/own.jpg" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
 <h1 align="center">Nao-Botz V2</h1>
 

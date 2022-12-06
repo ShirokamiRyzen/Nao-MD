@@ -101,7 +101,53 @@ let kerjabagus = woy[Math.floor(Math.random() * woy.length)]
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
 /* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+let regsawit = /(salman sawit)/i
+    let sawit = regsawit.exec(m.text)
+    let dalam = [
+'😜',
+'😏',
+'🤣'
+]
+let pedalaman = dalam[Math.floor(Math.random() * woy.length)]
+    if (sawit && !m.fromMe) {
+    conn.sendMessage(m.chat, {
+        react: {
+          text: `${pedalaman}`,
+          key: m.key,
+        }})
+   setTimeout(() => {
+        conn.reply(m.chat, `Woy pedalaman ${pedalaman}`, m)
+    }, 1000)
+    }
     
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
+/* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    
+let fajri = /(fajri)/i
+    let beban = fajri.exec(m.text)
+    let jriban = [
+'😜',
+'😏',
+'🤣'
+]
+let epicabadi = jriban[Math.floor(Math.random() * woy.length)]
+    if (beban && !m.fromMe) {
+    conn.sendMessage(m.chat, {
+        react: {
+          text: `${epicabadi}`,
+          key: m.key,
+        }})
+   setTimeout(() => {
+        conn.reply(m.chat, `Beban rank awokawok ${epicabadi}`, m)
+    }, 1000)
+    }
+    
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
+/* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 }
 
 handler.limit = false

@@ -109,7 +109,7 @@ let regsawit = /(salman sawit)/i
 '😏',
 '🤣'
 ]
-let pedalaman = dalam[Math.floor(Math.random() * woy.length)]
+let pedalaman = dalam[Math.floor(Math.random() * dalam.length)]
     if (sawit && !m.fromMe) {
     conn.sendMessage(m.chat, {
         react: {
@@ -132,7 +132,7 @@ let fajri = /(fajri)/i
 '😏',
 '🤣'
 ]
-let epicabadi = jriban[Math.floor(Math.random() * woy.length)]
+let epicabadi = jriban[Math.floor(Math.random() * jriban.length)]
     if (beban && !m.fromMe) {
     conn.sendMessage(m.chat, {
         react: {
@@ -155,7 +155,7 @@ let xiaomi = /(xiaomi)/i
 '😏',
 '🤣'
 ]
-let xiaomiampas = mipas[Math.floor(Math.random() * woy.length)]
+let xiaomiampas = mipas[Math.floor(Math.random() * mipas.length)]
     if (ampas && !m.fromMe) {
     conn.sendMessage(m.chat, {
         react: {

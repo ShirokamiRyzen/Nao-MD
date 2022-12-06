@@ -79,7 +79,7 @@ let handler = async (m, { conn,isOwner, isROwner, text }) => {
 `,
    'Menu','.menu',
      'Owner','.owner',
-       'Donasi','.donasi'
+       'Donasi','.owner kontak'
        )
     }
   m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)

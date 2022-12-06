@@ -218,7 +218,7 @@ title: `${htki} SUPPORT ${htka}`,
 rows: [
 {title: `🔖 ${emot} SEWA`, rowId: ".sewa", description: "Menampilkan list harga sewa BOT"},
 {title: `🌟 ${emot} BUY PREMIUM`, rowId: ".premium", description: "Menampilkan list harga premium"},
-{title: `💹 ${emot} DONASI`, rowId: ".donasi", description: 'Support BOT agar lebih fast respon'},
+{title: `💹 ${emot} DONASI`, rowId: ".owner kontak", description: 'Support BOT agar lebih fast respon'},
 ]
 },{
 title: `${htki} MENU ${htka}`,

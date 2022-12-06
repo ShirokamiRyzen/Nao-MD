@@ -56,7 +56,7 @@ rows: [
 ]}, {
 title: `⬔ Sᴜᴘᴘᴏʀᴛ Mᴇ ⬔`,
 rows: [
-{title: "〠 Donasi", rowId: ".owner nomor"},
+{title: "〠 Donasi", rowId: ".owner kontak"},
 {title: "〠 Sewa", rowId: ".sewa"},
 {title: "〠 Buy Premium", rowId: ".premium"},
 ]},]

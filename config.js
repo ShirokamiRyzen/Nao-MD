@@ -87,7 +87,7 @@ global.prems = []
 global.nomorbot = '6285864034767'
 global.nomorown = '6281387307198'
 global.nomorown1 = '6281387307198'
-global.nomorown2 = '6281348106274'
+global.nomorown2 = '6281387307198'
 global.nomorwa = '0'
 
 

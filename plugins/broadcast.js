@@ -55,7 +55,7 @@ let bcbg = `${pickRandom(['./media/broad1.jpg', './media/broad2.jpg'])}`
 `,
    'Menu','.menu',
      'Owner','.owner',
-       'Donasi','.donasi'
+       'Donasi','.owner kontak'
        )
 
      }

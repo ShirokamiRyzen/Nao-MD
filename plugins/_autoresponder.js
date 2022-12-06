@@ -148,6 +148,29 @@ let epicabadi = jriban[Math.floor(Math.random() * woy.length)]
 /* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+let xiaomi = /(xiaomi)/i
+    let ampas = xiaomi.exec(m.text)
+    let mipas = [
+'😜',
+'😏',
+'🤣'
+]
+let xiaomiampas = mipas[Math.floor(Math.random() * woy.length)]
+    if (ampas && !m.fromMe) {
+    conn.sendMessage(m.chat, {
+        react: {
+          text: `${xiaomiampas}`,
+          key: m.key,
+        }})
+   setTimeout(() => {
+        conn.reply(m.chat, `Yang hpnya xiaomi, apalagi pake stock MemeUI mending buang aja kelaut hpnya ${xiaomiampas}`, m)
+    }, 1000)
+    }
+    
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
+/* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 }
 
 handler.limit = false

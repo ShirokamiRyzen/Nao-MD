@@ -55,10 +55,8 @@ const fgclink = {
     }}
     })*/
     conn.sendButtonImg(korban + '@s.whatsapp.net', `${pickRandom(flaaa2)}` + `${ucapan()}`, `*⟝⟖ Cʜᴀᴛ Mᴇɴғᴇss ⟕⟞*\n\n⟐⟗ Hᴀɪ Kᴀᴋ @${number.replace(/@.+/, '')},${tag} Tᴇʟᴀʜ Mᴇɴɢɪʀɪᴍ Pᴇsᴀɴ Kᴇ Kᴀᴍᴜ Mᴇʟᴀʟᴜɪ Bᴏᴛ\n➴`, spam1, 'menu', '.menu', m, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://instagram.com/_b4c00t4an_s3l3b',
-    mediaType: 2, 
     description: sgc,
-    title: "Join Sini Juga Cuy!",
+    title: "Shirokami Ryzen",
     body: wm,
     thumbnail: fs.readFileSync('./thumbnail.jpg'),
     sourceUrl: sgc

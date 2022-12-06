@@ -35,7 +35,7 @@ let handler = async (m, { conn, args, command }) => {
     mediaUrl: 'wa.me/6281387307198?text=Halo+ganteng❀',
     mediaType: 2, 
     description: sgc,
-    title: "Join Sini Juga Cuy!",
+    title: "Shirokami Ryzen",
     body: wm,
     thumbnail: fs.readFileSync('./thumbnail.jpg'),
     sourceUrl: sgc

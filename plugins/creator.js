@@ -83,10 +83,8 @@ await conn.sendMessage(m.chat, { contacts: { displayName: wm, contacts: [{ vcard
                 ['Menu', `${usedPrefix}menu`]
             ], m, { contextInfo: { mentionedJid: [nomorown1] }})*/
  conn.send2ButtonImg(m.chat, fs.readFileSync('./media/own.jpg').buffer, teksnomor, `Halo ${tag}\nIᴛᴜ Oᴡɴᴇʀ Kᴜ⫺⫰⫹\n` + botdate, `Sewa Bot`, `.sewa`, 'Menu', `.menu`, ftroli, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://instagram.com/_b4c00t4an_s3l3b',
-    mediaType: 2, 
     description: sgc,
-    title: "Join Sini Juga Cuy!",
+    title: "Shirokami Ryzen",
     body: wm,
     thumbnail: fs.readFileSync('./thumbnail.jpg'),
     sourceUrl: sgc

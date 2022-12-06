@@ -119,7 +119,7 @@ function ucapan() {
   const time = moment.tz('Asia/Jakarta').format('HH')
   let res = "Sudah Dini Hari Kok Belum Tidur Kak? 🥱"
   if (time >= 4) {
-    res = "Pagi Lord 🌄"
+    res = "Pagi Kak 🌄"
   }
   if (time >= 10) {
     res = "Selamat Siang Kak ☀️"

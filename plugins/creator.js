@@ -6,7 +6,7 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
 
  let tag = `@${m.sender.split('@')[0]}`
  let ftroli = { key: { remoteJid: 'status@broadcast', participant: '0@s.whatsapp.net' }, message: { orderMessage: { itemCount: 9999999999, status: 1, surface: 1, message: `${command} ${type}`, orderTitle: wm, sellerJid: '0@s.whatsapp.net' } } }
-  let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;Ryzn⸙;;;\nFN:Ryzn⸙\nORG:Ryzn⸙\nTITLE:\nitem1.TEL;waid=6281361281833:+62 813-6128-1833\nitem1.X-ABLabel:Ryzn⸙\nX-WA-BIZ-DESCRIPTION:${htjava} Tᴀᴋ ᴍᴇɴᴇʀɪᴍᴀ sᴀᴠᴇ ᴋᴏɴᴛᴀᴋ!!\nX-WA-BIZ-NAME:Ryzn⸙\nEND:VCARD`
+  let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;Ryzn⸙;;;\nFN:Ryzn⸙\nORG:Ryzn⸙\nTITLE:\nitem1.TEL;waid=6281387307198:+62 813-8730-7198\nitem1.X-ABLabel:Ryzn⸙\nX-WA-BIZ-DESCRIPTION:${htjava} Tidak menerima save kontak!!\nX-WA-BIZ-NAME:Ryzn⸙\nEND:VCARD`
 //------- NOMOR
  const pp = fs.readFileSync('./media/own.jpg')
   let nowner1 = `${nomorown1.split`@`[0]}@s.whatsapp.net`
@@ -37,13 +37,14 @@ let teksbio = `┆⫹⫺ 💌 Nama : Ryzn
 
   let tek = `⟣⟞⟚⟝ 〨⎣ *Nᴏᴛᴇ* ⎤〨 ⟞⟚⟝⟢
 ┆
-𐚀 Oᴡɴᴇʀ Tɪᴅᴀᴋ Rᴇsᴘᴏɴᴅ Cʜᴀᴛ Aɴᴇʜ
-𐚀 Oᴡɴᴇʀ Bᴇʀʜᴀᴋ Bʟᴏᴄᴋ Sɪᴀᴘᴀ Sᴀᴊᴀ
-𐚀 Gᴀᴋ Rᴇsᴘᴏɴᴅ Kᴀʟᴏ Mɪɴᴛᴀ Sᴄ
-𐚀 Eᴛɪᴋᴀɴʏᴀ Dɪᴘᴀᴋᴇ
-𐚀 Cʜᴇᴛ Cᴇᴡᴇ Gᴡ Aɴᴇʜ Aɴᴇʜ Gᴡ Bᴜᴀᴛ Tɪᴅᴜʀ Lᴜ
-𐚀 Cʜᴇᴛ Aɴᴇʜ Gᴀᴋ Jᴇʟᴀs Bᴀɴ/Bʟᴏᴄᴋ
-𐚀 Cᴀʟʟ Bʟᴏᴄᴋ\n⫹ Kᴇᴛɪ *.rules* Uɴᴛᴜᴋ Mᴇʟɪʜᴀᴛ Rᴜʟᴇs Sᴇʟᴇɴɢᴋᴀᴘɴʏ ⫺`
+𐚀 Owner tidak respon chat aneh
+𐚀 Owner berhak block siapa saja
+𐚀 SC? github
+𐚀 Etika dipake
+𐚀 Chat aneh auto block
+𐚀 Chat Kalo perlu
+𐚀 Call or VC block
+⫹ Ketik .rules untuk selengkapnya ⫺`
 const sections = 
 [{
 title: `⫹⫺ Oᴛʜᴇʀ ⫹⫺`,

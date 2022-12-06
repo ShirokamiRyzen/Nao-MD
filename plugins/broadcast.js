@@ -60,7 +60,7 @@ let bcbg = `${pickRandom(['./media/broad1.jpg', './media/broad2.jpg'])}`
 
      }
 
-  m.reply(`Suksess Broadcastke ${chats.length} `)
+  m.reply(`Suksess Broadcast ke ${chats.length} `)
 
 }
 

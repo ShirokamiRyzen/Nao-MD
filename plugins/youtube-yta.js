@@ -27,25 +27,30 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
   if ((!(source instanceof ArrayBuffer) || !link || !res.ok) && !isLimit) throw 'Error: ' + (lastError || 'Can\'t download audio')
   if (!isY && !isLimit) await conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
 *${htki} YOUTUBE ${htka}*
-
 *${htjava} Title:* ${title}
-*${htjava} Status:* Audio sedang diproses...
-
+*${htjava} Type:* mp3
+*${htjava} Filesize:* ${audio.fileSizeH}
 *L O A D I N G. . .*
 `.trim(), m)
   if (!isLimit) await conn.sendFile(m.chat, source, title + '.mp3', `
 *${htki} YOUTUBE ${htka}*
-
 *${htjava} Title:* ${title}
-*${htjava}* Quality:* 128kbps
-*${htjava} Format:* mp3
-
+*${htjava} Type:* mp3
+*${htjava} Filesize:* ${audio.fileSizeH}
 *L O A D I N G. . .*
 `.trim(), m, null, {
-    asDocument: chat.useDocument
+    asDocument: chat.useDocument, mimetype: 'audio/mp4', ptt: false, contextInfo: {
+        externalAdReply: { showAdAttribution: true,
+            title: '▶︎ ━━━━━━━•─────────────── ', 
+            body: 'Now Playing...',
+            description: 'Now Playing...',
+            mediaType: 2,
+          thumbnail: await (await fetch(thumb)).buffer()
+        }
+     }
   })
 }
-handler.help = ['ytmp3 <url> <without message>']
+handler.help = ['mp3', 'a'].map(v => 'yt' + v + ` <url> <without message>`)
 handler.tags = ['downloader']
 handler.command = /^yt(a|mp3)$/i
 

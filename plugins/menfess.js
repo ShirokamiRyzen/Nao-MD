@@ -34,6 +34,6 @@ handler.tags = ['memfess']
 handler.help = ['menfess', 'mfs'].map(v => v + ' <nomor|nama pengirim|pesan>')
 handler.command = /^(mfs|menfess|menfes)$/i
 handler.register = true
-handler.private = true
+handler.private = false
 
 export default handler

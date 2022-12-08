@@ -29,8 +29,7 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 *${htki} YOUTUBE ${htka}*
 
 *${htjava} Title:* ${title}
-*${htjava} Quality:* 360p
-*${htjava} Filesize:* ${video.fileSizeH}
+*${htjava} Status:* Video sedang diproses...
 `.trim(), m)
   let _thumb = {}
   try { _thumb = { thumbnail: await (await fetch(thumbnail)).buffer() } }
@@ -39,14 +38,14 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 *${htki} YOUTUBE ${htka}*
 
 *${htjava} Title:* ${title}
-*${htjava} Quality:* 360p
-*${htjava} Filesize:* ${video.fileSizeH}
+*${htjava} Quality:* 1080p
+*${htjava} Format:* mp4
 `.trim(), m, false, {
     ..._thumb,
     asDocument: chat.useDocument
   })
 }
-handler.help = ['mp4', 'v', ''].map(v => 'yt' + v + ` <url> <without message>`)
+handler.help = ['ytmp4 <url> <without message>']
 handler.tags = ['downloader']
 handler.command = /^yt(v|mp4)?$/i
 

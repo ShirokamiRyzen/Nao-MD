@@ -29,8 +29,7 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 *${htki} YOUTUBE ${htka}*
 
 *${htjava} Title:* ${title}
-*${htjava} Type:* mp3
-*${htjava} Filesize:* ${audio.fileSizeH}
+*${htjava} Status:* Audio sedang diproses...
 
 *L O A D I N G. . .*
 `.trim(), m)
@@ -38,15 +37,15 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 *${htki} YOUTUBE ${htka}*
 
 *${htjava} Title:* ${title}
-*${htjava} Type:* mp3
-*${htjava} Filesize:* ${audio.fileSizeH}
+*${htjava}* Quality:* 128kbps
+*${htjava} Format:* mp3
 
 *L O A D I N G. . .*
 `.trim(), m, null, {
     asDocument: chat.useDocument
   })
 }
-handler.help = ['mp3', 'a'].map(v => 'yt' + v + ` <url> <without message>`)
+handler.help = ['ytmp3 <url> <without message>']
 handler.tags = ['downloader']
 handler.command = /^yt(a|mp3)$/i
 

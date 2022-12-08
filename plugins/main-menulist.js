@@ -46,10 +46,11 @@ let tags
 let emot = `${pickRandom(['⎔', '◈▻', '✦', '⭑', 'ᯬ', '⭔', '◉', '⬟', '᭻', '»', '〆', '々', '⛥', '✗', '⛊', '⚜', '⚝', '⚚', '♪'])}`
 let rndom = `${pickRandom(['defaultMenu', 'defmenu1'])}`
 let teks = `${args[0]}`.toLowerCase()
-let arrayMenu = ['all', 'anime', 'update', 'maker', 'berita', 'edukasi', 'news', 'random', 'game', 'xp', 'islamic', 'stiker', 'rpg', 'kerangajaib', 'quotes', 'admin', 'group', 'premium', 'internet', 'anonymous', 'nulis', 'downloader', 'tools', 'fun', 'database","quran', 'vote', 'nsfw', 'audio', 'jadibot', 'info', 'owner', 'nocategory']
+let arrayMenu = ['all', 'anime', 'update', 'memfess', 'maker', 'berita', 'edukasi', 'news', 'random', 'game', 'xp', 'islamic', 'stiker', 'rpg', 'kerangajaib', 'quotes', 'admin', 'group', 'premium', 'internet', 'anonymous', 'nulis', 'downloader', 'tools', 'fun', 'database","quran', 'vote', 'nsfw', 'audio', 'jadibot', 'info', 'owner', 'nocategory']
 if (!arrayMenu.includes(teks)) teks = '404'
 if (teks == 'all') tags = {
 'main': 'Main',
+'memfess': 'Memfess',
 'game': 'Game',
 'rpg': 'RPG Games',
 'xp': 'Exp & Limit',
@@ -78,6 +79,9 @@ if (teks == 'all') tags = {
 'advanced': 'Advanced',
 'info': 'Info',
 '': 'No Category',
+}
+if (teks == 'memfess') tags = {
+'memfess': 'Memfess'
 }
 if (teks == 'game') tags = {
 'game': 'Game'
@@ -224,6 +228,7 @@ rows: [
 title: `${htki} MENU ${htka}`,
 rows: [
 {title: `${emot} All`, rowId: ".? all", description: "Menampilkan Semua command BOT"},
+{title: `${emot} Memfess`, rowId: ".? memfess", description: "Mengirim pesan secara anonim"},
 {title: `${emot} Rpg`, rowId: ".? rpg", description: "Game Epic Rpg!"},
 {title: `${emot} Exp`, rowId: ".? xp", description: "Ayo tingkatkan pangkat mu!"},
 {title: `${emot} Game`, rowId: ".? game", description: "Gamenya seru seru lho >-<"},

@@ -16,8 +16,6 @@ let flaaa2 = [
     let kon = `*Database saat ini ${totalreg} user*\n*Registrasi saat ini ${rtotalreg} user*`
     await /*conn.sendButtonLoc(m.chat, await(await require('node-fetch')(fla + `${command}`)).buffer(), kon, wm, 'Menu', usedPrefix + 'menu', m)*/
     conn.sendButtonImg(m.chat, `${pickRandom(flaaa2)}` + `*Database saat ini ${totalreg} user*\n*Registrasi saat ini ${rtotalreg} user*`, ' ', `${bottime}`,'Speed', `${usedPrefix}speed`, m, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://facebook.com/sadtime098',
-    mediaType: 2, 
     description: sgc,
     title: "Jᴀɴɢᴀɴ Lᴜᴘᴀ Mᴀɴᴅɪ!!",
     body: wm,

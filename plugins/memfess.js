@@ -7,16 +7,16 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let data = (await conn.onWhatsApp(jid))[0] || {};
     if (!data.exists) throw 'Nomer tidak terdaftar di whatsapp.';
     
-    if (jid == m.sender) throw 'tidak bisa mengirim pesan memfess ke diri sendiri.'
+   // if (jid == m.sender) throw 'tidak bisa mengirim pesan memfess ke diri sendiri.'
     
     let mf = Object.values(conn.menfess).find(mf => mf.status === true)
     if (mf) return !0
     try {
     	let id = + new Date
-        let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Memfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}\n\nMau balas pesan ini kak? bisa kak. kakak tinggal ketik pesan kakak nanti saya sampaikan ke *${name}*.`.trim();
+        let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Menfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}\n\nMau balas pesan ini kak? bisa kak. kakak tinggal ketik pesan kakak nanti saya sampaikan ke *${name}*.`.trim();
         await conn.sendButton(data.jid, txt, wm, [' '], null)
         .then(() => {
-            m.reply('Berhasil mengirim pesan memfess.')
+            m.reply('Berhasil mengirim pesan menfess.')
             conn.menfess[id] = {
                 id,
                 dari: m.sender,
@@ -32,9 +32,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         m.reply('eror');
     }
 }
-handler.tags = ['memfess']
-handler.help = ['memfess', 'mfs'].map(v => v + ' <nomor|nama pengirim|pesan>')
-handler.command = /^(mfs|memfess|memfes)$/i
+handler.tags = ['menfess']
+handler.help = ['menfess', 'mfs'].map(v => v + ' <nomor|nama pengirim|pesan>')
+handler.command = /^(mfs|menfess|menfes)$/i
 handler.register = true
 handler.private = false
 

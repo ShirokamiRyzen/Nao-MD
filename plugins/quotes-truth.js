@@ -16,8 +16,6 @@ let flaaa2 = [
 let cin = await dare()
 let nth = '❲ *Dᴀʀᴇ* ❳'
 conn.send2ButtonImg(m.chat, `${pickRandom(flaaa2)}` + `${ucapan()} ` + `${name}`, nth, '❏ ' + cin, 'Dare', `${usedPrefix}dare`, 'Truth', `${usedPrefix}truth`, m, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://facebook.com/sadtime098',
-    mediaType: 2, 
     description: sgc,
     title: "Jᴀɴɢᴀɴ Lᴜᴘᴀ Mᴀɴᴅɪ!!",
     body: wm,
@@ -28,7 +26,7 @@ conn.send2ButtonImg(m.chat, `${pickRandom(flaaa2)}` + `${ucapan()} ` + `${name}`
 }
 handler.help = ['truth']
 handler.tags = ['quotes']
-handler.command = /^(truh)$/i
+handler.command = /^(truth)$/i
 export default handler
 
 function ucapan() {

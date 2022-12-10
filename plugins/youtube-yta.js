@@ -41,7 +41,7 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 `.trim(), m, null, {
     asDocument: chat.useDocument, mimetype: 'audio/mp4', ptt: false, contextInfo: {
         externalAdReply: { showAdAttribution: true,
-            title: '▶︎ ━━━━━━━•─────────────── ', 
+            title: 'Nao-MD', 
             body: 'Now Playing...',
             description: 'Now Playing...',
             mediaType: 2,

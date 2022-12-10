@@ -1,4 +1,4 @@
-/*import axios from "axios"
+import axios from "axios"
 let handler = async (m, {command, conn}) => {
 if (command == 'akira') {
 let haha = await conn.getFile(`https://raw.githubusercontent.com/WH-MODS-BOT/scrape/main/akira.json`)
@@ -120,8 +120,9 @@ conn.sendButton(m.chat, `_${command}_`.trim(), author, haha.data, [['🔄 NEXT �
 }
 handler.command = handler.help = ['akira', 'akiyama', 'anna', 'ana', 'asuna', 'ayuzawa', 'boruto', 'chiho', 'chitoge', 'deidara', 'erza', 'elaina', 'eba', 'emilia', 'hestia', 'hinata', 'hinata', 'hekel', 'inori', 'isuzu', 'itachi', 'itori', 'kaga', 'kagura', 'kaori', 'keneki', 'kotori', 'kurumi', 'madara', 'mikasa', 'miku', 'minato', 'naruto', 'nezuko', 'sagiri', 'sasuke', 'sakura', 'cosplay']
 handler.tags = ['anime']
-export default handler */
+export default handler
 
+/*
 import axios from "axios"
 let handler = async (m, {command, conn}) => {
 if (command == 'akira') {
@@ -230,9 +231,10 @@ if (command == 'cosplay') {
 let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/random/cosplay?apikey=apirey`)
 conn.sendButton(m.chat, `_${command}_`.trim(), author, haha.data, [['🔄 NEXT 🔄', `/${command}`]], m)}     
 }
+
 handler.command = handler.help = ['akira', 'akiyama', 'anna', 'asuna', 'ayuzawa', 'boruto', 'chiho', 'chitoge', 'deidara', 'erza', 'elaina', 'eba', 'emilia', 'hestia', 'hinata', 'inori', 'isuzu', 'itachi', 'itori', 'kaga', 'kagura', 'kaori', 'keneki', 'kotori', 'kurumi', 'madara', 'mikasa', 'miku', 'minato', 'naruto', 'nezuko', 'sagiri', 'sasuke', 'sakura', 'cosplay']
 handler.tags = ['anime']
 export default handler
-
+*/
 
 

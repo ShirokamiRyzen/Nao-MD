@@ -8,6 +8,7 @@
 
 [![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285864034767) 
 [![ONWER](https://img.shields.io/badge/Owner%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6281387307198) 
+[![Uptime Status](https://api.netlify.com/api/v1/badges/074dc5c6-dc02-47eb-afdb-f504d226ba3b/deploy-status)](https://app.netlify.com/sites/nao-md/deploys)
 ---------
 
 ## ```Heroku Buildpack```

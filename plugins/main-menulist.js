@@ -82,7 +82,7 @@ if (teks == 'all') tags = {
 '': 'No Category',
 }
 if (teks == 'stress') tags = {
-'menfess': 'Stress'
+'stress': 'Stress'
 }
 if (teks == 'menfess') tags = {
 'menfess': 'Menfess'

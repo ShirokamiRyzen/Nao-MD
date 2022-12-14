@@ -36,6 +36,6 @@ if (!text) throw `Masukkan text!`
 }
 }
 handler.command = handler.help = ['genjot', 'nenen', 'wangy', 'curhat', 'perkosa']
-handler.tags = ['fun']
+handler.tags = ['stress']
 
 export default handler

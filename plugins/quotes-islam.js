@@ -1,60 +1,58 @@
-import fetch from 'node-fetch'
-const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = (await import('@adiwajshing/baileys')).default
-let handler = async (m) => {
-    let who
-    if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
-    else who = m.sender
-    let user = global.db.data.users[who]
-let anu =`
-${pickRandom(global.islam)}
-`
-     const message = {
-            document: { url: thumb },
-            jpegThumbnail: await (await fetch(thumb)).buffer(), fileName: '─────〔 QUOTE 〕─────', mimetype: dpdf, fileLength: fsizedoc, pageCount: fpagedoc,
-            caption: anu,
-            footer: wm,
-            templateButtons: [
-                {
-                    urlButton: {
-                        displayText: '🌎 OFFICIAL GROUP',
-                        url: sgc
-                    }
-                },
-                {
-                    urlButton: {
-                        displayText: '📷 FOLLOW ME',
-                        url: sig
-                    }
-                },
-                {
-                    quickReplyButton: {
-                        displayText: 'NEXT',
-                        id: '.q-islam'
-                    }
-                },
-            ]
-        }
-        conn.sendMessage(m.chat, message)
+import fs from 'fs'
+import moment from 'moment-timezone'
+
+let handler = async (m, { conn, usedPrefix, __dirname, text, command }) => {
+let tag = `@${m.sender.replace(/@.+/, '')}`
+  let mentionedJid = [m.sender]
+let name = conn.getName(m.sender)
+let flaaa2 = [
+'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=water-logo&script=water-logo&fontsize=90&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextColor=%23000&shadowGlowColor=%23000&backgroundColor=%23000&text=',
+'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=crafts-logo&fontsize=90&doScale=true&scaleWidth=800&scaleHeight=500&text=',
+'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=amped-logo&doScale=true&scaleWidth=800&scaleHeight=500&text=',
+'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text=',
+'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text=']
+let islam = `${pickRandom(global.islam)}`
+let nth = `☰ ━━┉┉┈┈ *ISLAM* ┈┈┉┉━━ ☰`
+conn.sendButtonImg(m.chat, `${pickRandom(flaaa2)}` + `${ucapan()} ` + `${name}`, nth, '❏ ' + islam, 'Next', `${usedPrefix}q-islam`, m, { contextInfo: { externalAdReply: { showAdAttribution: true,
+    description: sgc,
+    title: "Jᴀɴɢᴀɴ Lᴜᴘᴀ Mᴀɴᴅɪ!!",
+    body: wm,
+    thumbnail: fs.readFileSync('./thumbnail.jpg'),
+    sourceUrl: sgc
+     }}
+  })
 }
 handler.help = ['q-islam']
 handler.tags = ['quotes']
 handler.command = /^(q-islam)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
+handler.register = true
 
 export default handler
 
-function pickRandom(list) {
-  return list[Math.floor(list.length * Math.random())]
+function ucapan() {
+  const time = moment.tz('Asia/Jakarta').format('HH')
+  let res = "Selamat Malam"
+  if (time >= 4) {
+    res = "Selamat Pagi"
+  }
+  if (time >= 10) {
+    res = "Selamat Siang"
+  }
+  if (time >= 15) {
+    res = "Selamat Sore"
+  }
+  if (time >= 18) {
+    res = "Selamat Malam"
+  }
+  return res
 }
+
+function pickRandom(list) {
+  return list[Math.floor(Math.random() * list.length)]
+}
+
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
 
 global.islam = [
 'Segala sesuatu telah Allah takdirkan. - QS. Al Qamar : 49',

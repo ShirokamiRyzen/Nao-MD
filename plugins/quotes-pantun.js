@@ -1,5 +1,3 @@
-
-
 import fs from 'fs'
 import moment from 'moment-timezone'
 
@@ -14,10 +12,8 @@ let flaaa2 = [
 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text=',
 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text=']
 let cin = `${pickRandom(global.bacot)}`
-let nth = '❲ *Pᴀɴᴛᴜɴ* ❳'
+let nth = '❲ *PANTUN* ❳'
 conn.sendButtonImg(m.chat, `${pickRandom(flaaa2)}` + `${ucapan()} ` + `${name}`, nth, '❏ ' + cin, 'Nᴇxᴛ', `${usedPrefix}pantun`, m, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://facebook.com/sadtime098',
-    mediaType: 2, 
     description: sgc,
     title: "Jᴀɴɢᴀɴ Lᴜᴘᴀ Mᴀɴᴅɪ!!",
     body: wm,

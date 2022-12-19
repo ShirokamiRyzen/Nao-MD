@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     try {
     	let id = + new Date
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Menfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}\n\nMau balas pesan ini kak? bisa kak. kakak tinggal ketik pesan kakak nanti saya sampaikan ke *${name}*.`.trim();
-        await conn.sendButton(data.jid, txt, wm, [' '], null)
+        await conn.sendButton(data.jid, txt, wm, null, [[' ']])
         .then(() => {
             m.reply('Berhasil mengirim pesan menfess.')
             conn.menfess[id] = {
@@ -29,12 +29,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         })
     } catch (e) {
         console.log(e)
-        m.reply('eror');
+        m.reply('error');
     }
 }
 handler.tags = ['menfess']
 handler.help = ['menfess', 'mfs'].map(v => v + ' <nomor|nama pengirim|pesan>')
-handler.command = /^(mfs|menfess|menfes)$/i
+handler.command = /^(mfs|menfess|menfes|confes)$/i
 handler.register = true
 handler.private = false
 

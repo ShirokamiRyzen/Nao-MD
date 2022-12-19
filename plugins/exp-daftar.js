@@ -50,9 +50,9 @@ let handler = async function (m, { text, usedPrefix, command }) {
 
 const listMessage = {
   text: `│›Please select your age at the bottom button...`,
-  footer: wm,
+  footer: `┗ *ʏᴏᴜʀ ɴᴀᴍᴇ:* ${conn.getName(m.sender)}\nCreate by Ryzn`,
   title: "▢━━━━「 Registration 」━━━━▢",
-  buttonText: "Register",
+  buttonText: " Register ",
   sections
 }
 
@@ -63,8 +63,8 @@ const listMessage = {
   if (!name) throw 'Nama tidak boleh kosong (Alphanumeric)'
   if (!age) throw 'Umur tidak boleh kosong (Angka)'
   age = parseInt(age)
-  if (age > 30) throw 'Batas 30 tahun untuk berteman dengan bot!!'
-  if (age < 5) throw 'Batas 5 tahun untuk berteman dengan bot!!'
+  if (age > 30) throw 'WOI TUA (。-`ω´-)'
+  if (age < 5) throw 'Halah dasar bocil'
   user.name = name.trim()
   user.age = age
   user.regTime = + new Date
@@ -79,10 +79,10 @@ const listMessage = {
 │▸ *ɴᴀᴍᴇ:* ${name}
 │▸ *ᴀɢᴇ:* ${age} ʏᴇᴀʀs
 │▸ *sɴ:* ${sn}
-╰═┅═━––––––๑
+╰═┅═━––––––
 `
   let buttonMessage= {
-'document':{'url':sig},
+'document':{'url':'https://www.youtube.com/c/akiraid'},
 'mimetype':global.ddocx,
 'fileName':'▢━━━━「 Registration 」━━━━▢',
 'fileLength':fsizedoc,
@@ -91,17 +91,18 @@ const listMessage = {
 'forwardingScore':555,
 'isForwarded':true,
 'externalAdReply':{
-'mediaUrl':sig,
+'mediaUrl':'https://www.youtube.com/c/akiraid',
 'mediaType':2,
 'previewType':'pdf',
 'title':global.titlebot,
 'body':global.titlebot,
-'thumbnail':await(await fetch(imagebot)).buffer(),
-'sourceUrl':sig}},
+'thumbnail':await(await fetch('https://raw.githubusercontent.com/ShirokamiRyzen/Nao-MD/main/media/own.jpg')).buffer(),
+'sourceUrl':'https://www.youtube.com/c/akiraid'}},
 'caption':cap,
 'footer':botdate,
 'buttons':[
-{'buttonId':'.menu','buttonText':{'displayText':'🌹 Menu'},'type':1}
+{'buttonId':'.menu','buttonText':{'displayText':'Menu'},'type':1},
+{'buttonId':'.owner kontak','buttonText':{'displayText':'Owner'},'type':1}
 ],
 'headerType':6}
     await conn.sendMessage(m.chat,buttonMessage, { quoted:m})

@@ -9,5 +9,6 @@ handler.help = ['openai <pertanyaan>']
 handler.tags = ['main']
 handler.command = /^(openai)$/i
 handler.limit = false
+handler.register = true
 
 export default handler

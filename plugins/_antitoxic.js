@@ -9,14 +9,14 @@ export function before(m, { isBotAdmin }) {
 
     if (chat.antiBadword && isBadword) {
         user.warning += 1
-        this.sendButton(m.chat, `*📮ᴛᴏxɪᴄ ᴛᴇʀᴅᴇᴛᴇᴋꜱɪ !\nhttps://saipulanuar.ga/ ᯤ*
+        this.sendButton(m.chat, `*📮TOXIC TERDETEKSI!!*
 あ Warning: ${user.warning} / 5 ┊
 
 [❗] Jika warning mencapai 5 kamu akan *dibanned+kick*
 
 Anda hanya bisa meminta Owner untuk membuka banned-nya !\n\n🌸 Nao-Botz
 
-“Barang siapa yang beriman kepada Allah dan Hari Akhir maka hendaklah dia berkata baik atau diam” (HR. al-Bukhari dan Muslim).`, wm, [['🎀CEK WARN', '.cekwarn'], ['🎐AUTHOR BOT', '.owner']], m)
+“Barang siapa yang beriman kepada Allah dan Hari Akhir maka hendaklah dia berkata baik atau diam” (HR. al-Bukhari dan Muslim).`, wm, [['🎀CEK WARN', '.cekwarn'], ['🎐AUTHOR BOT', '.owner kontak']], m)
         if (user.warning >= 5) {
             user.banned = true
             if (m.isGroup) {

@@ -72,6 +72,8 @@ export async function handler(chatUpdate) {
                     user.afkReason = ''
                 if (!('banned' in user))
                     user.banned = false
+                if (!isNumber(user.warning))
+                    user.warning = 0
                 if (!isNumber(user.warn))
                     user.warn = 0
                 if (!isNumber(user.level))

@@ -1,17 +1,16 @@
-let handler = async (m, { conn, text }) => {
-    if (!text) throw 'Who wants to be premium ?'
+let handler = async (m, { conn, command, text, args }) => {
+    if (!text) throw 'Who wants to increase the limit ?'
     let who
     if (m.isGroup) who = m.mentionedJid[0]
     else who = m.chat
     if (!who) throw 'Tag??'
     let users = global.db.data.users
-    users[who].premium = true
-    users[who].premiumTime = 2592000
+    users[who].limit = 1000
     conn.reply(m.chat, 'Done!', m)
 }
-handler.help = ['addprem']
+handler.help = ['addlimit']
 handler.tags = ['owner']
-handler.command = /^addprem(user)?$/i
+handler.command = /^addlimit(user)?$/i
 handler.rowner = true
 
 export default handler

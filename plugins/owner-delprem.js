@@ -1,4 +1,4 @@
-let handler = async (m, { usedPrefix, command, text }) => {
+/*let handler = async (m, { usedPrefix, command, text }) => {
     let who
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : false
     else who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
@@ -13,6 +13,23 @@ handler.tags = ['owner']
 handler.command = /^(-|del)p(rem)?$/i
 
 handler.group = true
+handler.rowner = true
+
+export default handler */
+let handler = async (m, { conn, text }) => {
+    if (!text) throw 'Who wants to be remove ?'
+    let who
+    if (m.isGroup) who = m.mentionedJid[0]
+    else who = m.chat
+    if (!who) throw 'Tag??'
+    let users = global.db.data.users
+    users[who].premium = false
+    users[who].premiumTime = 0
+    conn.reply(m.chat, 'Done!', m)
+}
+handler.help = ['delprem']
+handler.tags = ['owner']
+handler.command = /^delprem(user)?$/i
 handler.rowner = true
 
 export default handler

@@ -18,7 +18,7 @@ if (!args[0]) throw `Use example ${usedPrefix}${command} https://www.tiktok.com/
 ${description}
 ◈ ━┉┈┄┈┈ ►
 
-script : https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg
+script : https://github.com/ShirokamiRyzen/Nao-MD
 `.trim(), m)
 }
 handler.help = ['tiktok'].map(v => v + ' <url>')

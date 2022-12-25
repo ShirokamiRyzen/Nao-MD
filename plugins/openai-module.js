@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 let handler = async (m, { conn }) => {
   let caption = `
-Tunggu coy
+Type .chatgpt <your question> for using chatGPT AI
 `.trim()
   m.reply(caption)
 }
@@ -12,3 +12,9 @@ handler.limit = false
 handler.register = true
 
 export default handler
+
+/*
+want to use this cmd? you need to run another nodejs for openAI to make this work
+you can fork from this link :
+https://github.com/ShirokamiRyzen/Wa-OpenAI
+*/

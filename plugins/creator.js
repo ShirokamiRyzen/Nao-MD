@@ -52,7 +52,6 @@ rows: [
 {title: "⸙ Kontak", rowId: ".owner kontak"},
 {title: "⸙ Nomor", rowId: ".owner nomor"},
 {title: "⸙ Biodata Ryzn", rowId: ".owner bio"},
-{title: "⸙ Script", rowId: ".sc"},
 ]}, {
 title: `⬔ Sᴜᴘᴘᴏʀᴛ Mᴇ ⬔`,
 rows: [

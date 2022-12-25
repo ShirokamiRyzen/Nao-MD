@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 let handler = async (m, { conn }) => {
   let caption = `
-Type .chatgpt <your question> for using chatGPT AI
+Type .ai <your question> for using chatGPT AI
 `.trim()
   m.reply(caption)
 }

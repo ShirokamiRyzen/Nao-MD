@@ -1,18 +1,24 @@
-import { facebookdl, facebookdlv2 } from '@bochilteam/scraper'
+import fg from 'api-dylux'
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-if (!args[0]) throw `Use example ${usedPrefix + command} https://www.facebook.com/watch?v=636541475139*`
-const { result } = await facebookdl(args[0]).catch(async _ => await facebookdlv2(args[0]))
-for (const { url, isVideo } of result.reverse()) conn.sendFile(m.chat, url, `facebook.${!isVideo ? 'bin' : 'mp4'}`, `✨ *ᴜʀʟ:* ${url}`, m)
-  let info = `💝 *ʟᴏᴀᴅɪɴɢ....., 
-WH-MODS-BOT-V1-ᴍᴜʟᴛɪᴅᴇᴠɪᴄᴇ*
-  `.trim()
-  
-await conn.sendHydrated(m.chat, info, wm, null, sig, 'ɪɴsᴛᴀɢʀᴀᴍ✨', null, null, [
-['🥀️⃟⃪͡ꦽᴍᴇɴᴜ🔖️⃟⃪͡ꦽ', '/menu'],
-['☙⃝✈️ᴋᴇᴄᴇᴘᴀᴛᴀɴ ʙᴏᴛ☙⃝🚀️', '/ping']
-], m,)
+ 
+ if (!args[0]) throw `✳️ Masukan link video Facebook\n\n📌 Contoh:\n*${usedPrefix + command}* https://fb.watch/d7nB8-L-gR/`
+    
+   try {
+   let res = await fg.fbdl(args[0])
+    for (let result of res.download) {
+    	  let tex = `
+┌─⊷ *FBDL*
+▢ *Resolution:* ${result.quality}
+└───────────`
+    conn.sendFile(m.chat, result.url, 'fb.mp4', tex, m)
+     } 
+   
+ } catch {
+ 	m.reply('Error: Link not found')
+ 	} 
 }
 handler.help = ['facebook'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.command = /^((facebook|fb)(downloder|dl)?)$/i
+
 export default handler

@@ -10,14 +10,14 @@ let handler= async (m, { conn, args, usedPrefix, command }) => {
     let json = JSON.parse(JSON.stringify(res))
     let iggs = `「  STALKING 」
     
-    ● Username : ${json.username}
-    ● Nickname : ${json.fullname}
-    ● Follower : ${json.followersM}
-    ● Following : ${json.followingM}
-    ● Posting : ${json.postsCountM}
-    ● Bio : ${json.bio}
+● Username : ${json.username}
+● Nickname : ${json.fullname}
+● Follower : ${json.followers}
+● Following : ${json.following}
+● Posting : ${json.post}
+● Bio : ${json.bio}
     
-    Link User : https://instagram.com/${json.username}`
+Link User : https://instagram.com/${json.username}`
   .trim() 
   
   conn.sendFile(m.chat, json.profile, 'error.jpg', iggs)

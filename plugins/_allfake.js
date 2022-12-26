@@ -52,9 +52,6 @@ handler.all = async function (m) {
 		}
 		global.fakeig = {
          contextInfo: { externalAdReply: { showAdAttribution: true,
-            mediaUrl: "https://www.instagram.com/ryzen_vermillion",
-            mediaType: "VIDEO",
-            description: "https://www.instagram.com/ryzen_vermillion", 
             title: 'Nao-Botz',
             body: wm,
             thumbnailUrl: pp,

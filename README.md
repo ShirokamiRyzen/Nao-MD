@@ -6,14 +6,14 @@
 
 ##
 <p align="center">
-      <img loading="lazy" src="https://telegra.ph/file/8e0d14a72b840010a4c23.jpg" alt="" width="180">
-      <img loading="lazy" src="https://telegra.ph/file/7bb246df30a1c8deae4b2.jpg" alt="" width="180">
-      <img loading="lazy" src="https://telegra.ph/file/8bb4d15a2fd0db8a08487.jpg" alt="" width="180">
+      <img loading="lazy" src="https://telegra.ph/file/8e0d14a72b840010a4c23.jpg" alt="" width="15%">
+      <img loading="lazy" src="https://telegra.ph/file/7bb246df30a1c8deae4b2.jpg" alt="" width="15%">
+      <img loading="lazy" src="https://telegra.ph/file/8bb4d15a2fd0db8a08487.jpg" alt="" width="15%">
 </p>
 <p align="center">
-      <img loading="lazy" src="https://telegra.ph/file/3c9780136966d5cd19ffe.jpg" alt="" width="180">
-      <img loading="lazy" src="https://telegra.ph/file/24e3ef2b507836714a2c5.jpg" alt="" width="180">
-      <img loading="lazy" src="https://telegra.ph/file/5a3507746dd9c6f300cc9.jpg" alt="" width="180">
+      <img loading="lazy" src="https://telegra.ph/file/3c9780136966d5cd19ffe.jpg" alt="" width="15%">
+      <img loading="lazy" src="https://telegra.ph/file/24e3ef2b507836714a2c5.jpg" alt="" width="15%">
+      <img loading="lazy" src="https://telegra.ph/file/5a3507746dd9c6f300cc9.jpg" alt="" width="15%">
 </p>
 
 ##

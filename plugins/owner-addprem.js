@@ -1,17 +1,27 @@
-let handler = async (m, { conn, text }) => {
-    if (!text) throw 'Who wants to be premium ?'
+let handler = async (m, { conn, text, usedPrefix, command }) => {
     let who
-    if (m.isGroup) who = m.mentionedJid[0]
+    if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : false
     else who = m.chat
-    if (!who) throw 'Tag??'
-    let users = global.db.data.users
-    users[who].premium = true
-    users[who].premiumTime = 2592000
-    conn.reply(m.chat, 'Done!', m)
+    let user = db.data.users[who]
+    if (!who) throw `tag or mention someone!`
+    let txt = text.replace('@' + who.split`@`[0], '').trim()
+    if (!txt) throw `where the number of days?`
+    if (isNaN(txt)) return m.reply(`only number!\n\nexample:\n${usedPrefix + command} @${m.sender.split`@`[0]} 7`)
+    var jumlahHari = 86400000 * txt
+    var now = new Date() * 1
+    if (now < user.premiumTime) user.premiumTime += jumlahHari
+    else user.premiumTime = now + jumlahHari
+user.premium = true
+    m.reply(`✔️ Success
+📛 *Name:* ${user.name}
+📆 *Days:* ${txt} days
+📉 *Countdown:* ${user.premiumTime - now}`)
 }
-handler.help = ['addprem']
+handler.help = ['addprem [@user] <days>']
 handler.tags = ['owner']
-handler.command = /^addprem(user)?$/i
+handler.command = /^(add|tambah|\+)p(rem)?$/i
+
+handler.group = false
 handler.rowner = true
 
 export default handler

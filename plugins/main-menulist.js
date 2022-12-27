@@ -276,7 +276,7 @@ let tek = `*${ucapan()} @${m.sender.split`@`[0]}*
 ╭╼╼╼╼╼╼╼╼╺╴╴╳
 ┊ 「 *S t a t u sI n f o 比* 」
 ┊⧠ *ᴜᴘᴛɪᴍᴇ:* ${mpt}
-┊⧠ *ᴛɪᴍᴇ:* ${moment.tz('Asia/Jakarta').format('HH')} H${moment.tz('Asia/Jakarta').format('mm')} M${moment.tz('Asia/Jakarta').format('ss')} S
+┊⧠ *ᴛɪᴍᴇ:* Jam ${moment.tz('Asia/Jakarta').format('HH')}:${moment.tz('Asia/Jakarta').format('mm')}:${moment.tz('Asia/Jakarta').format('ss')} WIB
 ┊⧠ *ᴜsᴇʀs:* ${Object.keys(global.db.data.users).length}
 ┊⧠ *ʟɪᴍɪᴛ:* ${usrs.limit}
 ┊⧠ *ʟᴇᴠᴇʟ:* ${usrs.level}

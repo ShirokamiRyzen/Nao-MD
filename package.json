@@ -100,7 +100,6 @@
         "xfarr-api": "github:xfar05/xfarr-api",
         "xmldom": "^0.6.0",
         "yargs": "^17.5.1",
-        "@shineiichijo/nhentai-ts": "^1.0.0",
         "zs-extract": "^1.4.1"
     },
     "optionalDependencies": {

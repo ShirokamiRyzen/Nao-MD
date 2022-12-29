@@ -23,10 +23,9 @@ let imagepdf = await toPDF(pages)
 await conn.sendMessage(m.chat, { document: imagepdf, jpegThumbnail, fileName: data.title.english + '.pdf', mimetype: 'application/pdf' }, { quoted: m })
 } 
 handler.command = /^(nhenpdf)$/i
-handler.tags = ['nhenpdf']
-handler.help = ['nhentai <code> ']
+handler.tags = ['nsfw']
+handler.help = ['nhenpdf <code> ']
 handler.premium = true
-handler.limit = true
 
 export default handler 
 

@@ -18,5 +18,7 @@ cap += '\n' + '•••••••••••••••••••••�
   conn.sendButton(m.chat, cap, author, [['MENU', '.m']], m)
 }
 handler.command = /^(nhentai)$/i
+handler.tag = ['nsfw']
+handler.premium = true
 
 export default handler

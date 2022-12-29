@@ -4,13 +4,27 @@
 <h1 align="center">Nao-Botz V2</h1>
 
 
+##
+<p align="center">
+      <img loading="lazy" src="https://telegra.ph/file/8e0d14a72b840010a4c23.jpg" alt="" width="180">
+      <img loading="lazy" src="https://telegra.ph/file/7bb246df30a1c8deae4b2.jpg" alt="" width="180">
+</p>
+<p align="center">
+      <img loading="lazy" src="https://telegra.ph/file/8bb4d15a2fd0db8a08487.jpg" alt="" width="180">
+      <img loading="lazy" src="https://telegra.ph/file/3c9780136966d5cd19ffe.jpg" alt="" width="180">
+</p>
+<p align="center">
+      <img loading="lazy" src="https://telegra.ph/file/24e3ef2b507836714a2c5.jpg" alt="" width="180">
+      <img loading="lazy" src="https://telegra.ph/file/5a3507746dd9c6f300cc9.jpg" alt="" width="180">
+</p>
 
-
+##
 [![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285864034767) 
 [![ONWER](https://img.shields.io/badge/Owner%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6281387307198) 
 
 ##
 [![Uptime Status](https://api.netlify.com/api/v1/badges/074dc5c6-dc02-47eb-afdb-f504d226ba3b/deploy-status)](https://app.netlify.com/sites/nao-md/deploys)
+<a><img src="https://img.shields.io/badge/Maintaned%3F-Actively%20Developed-blue?style=flat-square"></a>
 ---------
 
 ## ```Heroku Buildpack```

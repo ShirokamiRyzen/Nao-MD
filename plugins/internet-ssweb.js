@@ -3,7 +3,7 @@ import axios from 'axios'
 let handler = async (m, { 
 conn, text, command, usedPrefix
 }) => {
-if (!text) return m.reply(`Gunakan format ${usedPrefix + command} <url>\n\n*Contoh :* ${usedPrefix + command} https://github.com/Rlxfly`)
+if (!text) return m.reply(`Gunakan format ${usedPrefix + command} <url>\n\n*Contoh :* ${usedPrefix + command} https://github.com/ShirokamiRyzen`)
 m.reply("_Loading. . ._")
 var phone = await ssweb(text, 'phone')
 var desktop = await ssweb(text, 'desktop')
@@ -52,13 +52,13 @@ async function ssweb(url, device = 'desktop'){
                     }).then(({ data }) => {
                        let result = {
                             status: 200,
-                            author: 'Re7Pntx',
+                            author: 'Ryzn',
                             result: data
                         }
                          resolve(result)
                     })
                } else {
-                    reject({ status: 404, author: 'Re7Pntx', message: data.data })
+                    reject({ status: 404, author: 'Ryzn', message: data.data })
                }
           }).catch(reject)
      })

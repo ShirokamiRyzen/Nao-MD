@@ -7,7 +7,7 @@ let handler = async (m, {
  usedPrefix, 
  command
  }) => {
-    if (!text) throw `Use example ${usedPrefix}${command} Apa itu OpenAI`
+    if (!text) throw `Contoh:\n${usedPrefix + command} Apa itu OpenAI`
 
 let res = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=SGWN&text=${text}&user=user-unique-id`)
 if (!res.ok) throw eror

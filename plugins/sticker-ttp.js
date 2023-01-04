@@ -1,3 +1,4 @@
+/*
 import { sticker } from '../lib/sticker.js'
 
 let handler = async (m, { conn, text }) => {
@@ -6,6 +7,29 @@ let handler = async (m, { conn, text }) => {
     if (stiker) return conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     throw stiker.toString()
 }
+handler.help = ['ttp <teks>']
+handler.tags = ['sticker']
+
+handler.command = /^ttp$/i
+
+export default handler
+*/
+import { sticker } from '../lib/sticker.js'
+import { Sticker } from 'wa-sticker-formatter'
+import fetch from 'node-fetch'
+
+let handler = async (m, { 
+conn, 
+text, 
+command 
+}) => {
+  let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
+  if (/^ttp?$/i.test(command)) {
+    let stiker = await sticker(null, API('https://api.tiodevhost.my.id', '/api/maker/ttp', { file: '', text: teks }))
+    if (stiker) return await conn.sendFile(m.chat, stiker, '', '', m)
+    throw stiker.toString()
+  }
+};
 handler.help = ['ttp <teks>']
 handler.tags = ['sticker']
 

@@ -11,22 +11,20 @@ let flaaa2 = [
 'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=amped-logo&doScale=true&scaleWidth=800&scaleHeight=500&text=',
 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text=',
 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text=']
-let rules = `➯ *Tɪᴅᴀᴋ Sᴘᴀᴍ Bᴏᴛ*
- ⟬Kᴀʟᴏ Uᴅᴀʜ Dɪ Bᴀɴ/Bʟᴏᴋ Jᴀɴɢᴀɴ Nɢᴇᴍɪs Mɪɴᴛᴀ Uɴʙᴀɴ/Uɴʙʟᴏᴋ⟭
-➯ *Tɪᴅᴀᴋ Mᴇɴᴊᴜᴀʟ Nᴏᴍᴏʀ Bᴏᴛ!*
-⟬Mɪɴɪᴍᴀʟ Mᴀɴᴅɪ Wᴀᴊɪʙ Dᴜʟᴜ Bʀᴏ Bɪᴀʀ Tᴀᴜ Dɪᴍᴀɴᴀ Lᴇᴛᴀᴋ Kᴇsᴀʟᴀʜᴀɴ Lᴜ⟭
-➯ *Cᴀʟʟ AᴜᴛᴏBʟᴏᴄᴋ*
-⟬Mᴀᴍᴘᴜs Lᴜ⟭
-➯ *Mᴀᴋsᴀ Mɪɴᴛᴀ Sᴄʀɪᴘᴛ Bᴏᴛ*
-⟬Eᴍᴀɴɢ Nʏᴀ Lᴜ Sᴀᴘᴀ? Uᴅʜ Mɪɴᴛᴀ Mᴀᴋsᴀ Pᴜʟᴀ⟭
-➯ *Hɪɴᴀ Bᴏᴛ Gᴡ*
-⟬Nɢᴇʜɪɴᴀ Eʟɪᴛ,Bᴜᴋᴛɪ Sᴜʟɪᴛ⟭
-➯ *Bot Delay/Lama Bles?*
-⟬Lu Di Chet Ayang Lu Aja Lama Blesny⟭
-➯ *Maksa Masukin Gc Lu*
-⟬Minimal Donasi Lah Cuy Biar Cuan Gw⟭
-➯ *Chet Aneh² Di Cwe Gw, Gw Block Lu Hdup²*
-⟬Mɪɴɪᴍᴀʟ Nɢᴏᴛᴀᴋ⟭
+let rules = `➯ *TIDAK SPAM BOT*
+ ⟬Kena BAN? chat owner⟭
+➯ *Jangan menjual nomer BOT!!*
+⟬Ini project open source jangan perjualbelikan⟭
+➯ *Call auto block*
+⟬Mampus⟭
+➯ *Maksa minta sc BOT*
+⟬Minim literasi, padahal udah ada⟭
+➯ *Bot Delay atau Slow respon?*
+⟬Lu di chat aja balesnya lama, ga ngaca⟭
+➯ *Masukin BOT ke GC*
+⟬Kontak Owner⟭
+➯ *Tidak melayani Chat aneh-aneh*
+⟬Buang waktu⟭
 ❏┳━━◩
 ┍┛
 ┆⟥⟤ ➠ (${global.bottime})

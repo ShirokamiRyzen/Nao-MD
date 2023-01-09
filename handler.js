@@ -332,7 +332,7 @@ export async function handler(chatUpdate) {
                     delete: true,
                     antiLink: true,
                     viewonce: false,
-                    antiBadword: true,
+                    antiBadword: false,
                     simi: false,
                     expired: 0,
                     nsfw: false,

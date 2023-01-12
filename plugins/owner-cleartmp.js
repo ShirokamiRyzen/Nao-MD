@@ -43,7 +43,7 @@ let handler = async (m) => {
 }
 handler.help = ['cleartmp']
 handler.tags = ['owner']
-handler.command = /^(cleartmp2)$/i
+handler.command = /^(cleartmp)$/i
 
 handler.rowner = true
 

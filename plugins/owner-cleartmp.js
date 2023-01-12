@@ -41,7 +41,7 @@ let handler = async (m) => {
         o = e
     } 
 }
-handler.help = ['cleartmp2']
+handler.help = ['cleartmp']
 handler.tags = ['owner']
 handler.command = /^(cleartmp2)$/i
 

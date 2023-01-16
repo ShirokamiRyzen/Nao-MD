@@ -3,7 +3,7 @@ let handler = async (m, { conn }) => {
   let caption = `
 *「 Owner Website 」*
 
-main page  -> www.ryzn.site
+main page  -> www.ryzn.my.id
 blogspot   -> www.win-tweak.my.id
 `.trim()
   m.reply(caption)

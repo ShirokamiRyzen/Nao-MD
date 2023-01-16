@@ -3,7 +3,7 @@ let handler = async (m, { conn }) => {
   let caption = `
 *「 Owner Website 」*
 
-Download disini -> www.ryzn.site/spotify
+Download disini -> www.ryzn.my.id/spotify
 `.trim()
   m.reply(caption)
 }

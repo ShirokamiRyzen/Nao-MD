@@ -23,10 +23,10 @@ handler.register = true
 export default handler
 */
 import { Configuration, OpenAIApi } from "openai";
-let handler = async (m, { conn, text }) => {
-if (!text) throw "Contoh:\n${usedPrefix + command} Apa itu OpenAI"
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+if (!text) throw `Contoh:\n${usedPrefix + command} Apa itu OpenAI`
 const configuration = new Configuration({
-    apiKey: "" //isi dengan OpenAI key mu
+    apiKey: "" //api key bisa ambil dari beta.openai.com
 });
 const openai = new OpenAIApi(configuration);
         const response = await openai.createCompletion({
@@ -45,3 +45,5 @@ handler.tags = ['main']
 handler.command = /^(ai)$/i
 handler.limit = false
 handler.register = true
+
+export default handler

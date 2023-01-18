@@ -9,7 +9,7 @@ let handler = async (m, {
  }) => {
     if (!text) throw `Contoh:\n${usedPrefix + command} Apa itu OpenAI`
 
-let res = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=SGWN&text=${text}&user=user-unique-id`)
+let res = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=${global.lolkey}&text=${text}&user=user-unique-id`)
 if (!res.ok) throw eror
         let json = await res.json()
         await m.reply(`${json.result}`)

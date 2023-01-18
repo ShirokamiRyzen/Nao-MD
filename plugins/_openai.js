@@ -26,7 +26,7 @@ import { Configuration, OpenAIApi } from "openai";
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 if (!text) throw `Contoh:\n${usedPrefix + command} Apa itu OpenAI`
 const configuration = new Configuration({
-    apiKey: "" //api key bisa ambil dari beta.openai.com
+    apiKey: "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"
 });
 const openai = new OpenAIApi(configuration);
         const response = await openai.createCompletion({
@@ -41,7 +41,7 @@ const openai = new OpenAIApi(configuration);
             m.reply(response.data.choices[0].text)
     }
 handler.help = ['ai <pertanyaan>']
-handler.tags = ['main']
+handler.tags = ['ai']
 handler.command = /^(ai)$/i
 handler.limit = false
 handler.register = true

@@ -13,7 +13,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 }
 
 handler.help = ['dalle <prompt>']
-handler.tags = ['main']
+handler.tags = ['ai']
 handler.command = /^(dalle)$/i
 
 handler.premium = false

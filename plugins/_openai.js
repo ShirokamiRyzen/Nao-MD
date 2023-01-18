@@ -26,7 +26,7 @@ import { Configuration, OpenAIApi } from "openai";
 let handler = async (m, { conn, text }) => {
 if (!text) throw "Contoh:\n${usedPrefix + command} Apa itu OpenAI"
 const configuration = new Configuration({
-    apiKey: ""
+    apiKey: "" //isi dengan OpenAI key mu
 });
 const openai = new OpenAIApi(configuration);
         const response = await openai.createCompletion({

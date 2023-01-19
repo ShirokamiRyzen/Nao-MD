@@ -39,7 +39,7 @@ handler.help = ['gempa']
 handler.tags = ['internet']
 handler.command = /^(gempa)$/i
 
-handler.premium = true
-handler.limit = true
+handler.premium = false
+handler.limit = false
 
 export default handler

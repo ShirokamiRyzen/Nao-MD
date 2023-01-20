@@ -34,7 +34,7 @@ conn.reply(m.chat, `Berhasil menghapus catatan!`, m, false, {
 }
 
 handler.help = ['delnote <title>']
-handler.tags = ['internet']
+handler.tags = ['main']
 handler.command = /^delnote$/i
 handler.limit = false
 handler.register = true

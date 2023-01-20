@@ -20,7 +20,7 @@ let handler = async(m, {conn, command, usedPrefix, text}) => {
 }
 
 handler.help = ['notepad <title|isi>']
-handler.tags = ['internet']
+handler.tags = ['main']
 handler.command = /^(notepad)$/i
 handler.limit = false
 handler.register = true

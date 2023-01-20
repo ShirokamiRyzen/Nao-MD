@@ -23,7 +23,7 @@ conn.reply(m.chat, `${isi}`, m, false, {
 }
 
 handler.help = ['viewnote <title>']
-handler.tags = ['internet']
+handler.tags = ['main']
 handler.command = /^viewnote$/i
 handler.limit = false
 handler.register = true

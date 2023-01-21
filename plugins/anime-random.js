@@ -1,3 +1,4 @@
+/*
 import axios from "axios"
 let handler = async (m, {command, conn}) => {
 if (command == 'akira') {

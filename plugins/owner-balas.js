@@ -58,7 +58,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         m.reply('Berhasil mengirim pesan owner.');
     }
 }
-handler.help = ['balas'].map(v => v + ' <nomor|nama pengirim|pesan>')
+handler.help = ['balas'].map(v => v + ' <nomor|pesan>')
 handler.tags = ['owner']
 handler.command = /^(balas|reply)/i
 

@@ -105,9 +105,9 @@ let kerjabagus = woy[Math.floor(Math.random() * woy.length)]
 let regsawit = /(salman sawit)/i
     let sawit = regsawit.exec(m.text)
     let dalam = [
-'😜',
-'😏',
-'🤣'
+'😢',
+'🤬',
+'😡'
 ]
 let pedalaman = dalam[Math.floor(Math.random() * dalam.length)]
     if (sawit && !m.fromMe) {
@@ -117,7 +117,7 @@ let pedalaman = dalam[Math.floor(Math.random() * dalam.length)]
           key: m.key,
         }})
    setTimeout(() => {
-        conn.reply(m.chat, `Woy pedalaman ${pedalaman}`, m)
+        conn.reply(m.chat, `Gaboleh gitu lu anjing ${pedalaman}`, m)
     }, 1000)
     }
     

@@ -1,30 +1,24 @@
 import fetch from 'node-fetch'
 let handler = async (m, { text, command, usedPrefix }) => {
-    if (!text) throw `contoh:\n${usedPrefix + command} stikerinbot`
+    if (!text) throw 'Cari apa?'
     let res = await fetch(global.API('https://api.github.com', '/search/repositories', {
         q: text
     }))
-    if (!res.ok) throw eror
     let json = await res.json()
+    if (res.status !== 200) throw json
     let str = json.items.map((repo, index) => {
-        return `>      「 ${ 1 + index } 」       <
-ɴᴀᴍᴇ ʀᴇᴘᴏ : ${repo.name}
-ʙʏ : ${repo.owner.login}
-ғᴏʀᴋᴇᴅ : ${repo.fork ? 'True' : 'False'}
-ᴘʀɪᴠᴀᴛᴇ : ${repo.private ? 'True': 'False'}
-
-➔ ᴄʀᴇᴀᴛᴇᴅ ᴏɴ : ${formatDate(repo.created_at)}
-➔ ʟᴀsᴛ ᴜᴘᴅᴀᴛᴇ ᴏɴ :${formatDate(repo.updated_at)}
+        return `
+${1 + index}. *${repo.full_name}*${repo.fork ? ' (fork)' : ''}
+_${repo.html_url}_
+_Dibuat pada *${formatDate(repo.created_at)}*_
+_Terakhir update pada *${formatDate(repo.updated_at)}*_
 👁  ${repo.watchers}   🍴  ${repo.forks}   ⭐  ${repo.stargazers_count}
-❗ ɪssᴜᴇ : ${repo.open_issues} ${repo.description ? `
-📚 ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:
-${repo.description}` : ''}
-
-⑂ ᴄʟᴏɴᴇ :
-$ git clone ${repo.clone_url}
+${repo.open_issues} Issue${repo.description ? `
+*Deskripsi:*\n${repo.description}` : ''}
+*Clone:* \`\`\`$ git clone ${repo.clone_url}\`\`\`
 `.trim()
-    }).join('\n— — — — — — — — — — — — — —\n')
-    conn.sendHydrated(m.chat, `*${htki} ɢɪᴛʜᴜʙ sᴇᴀʀᴄʜ ${htka}*\n` + str, botdate, null, json.items.map((repo, index) => { return `${repo.html_url}` }), ['[ 1 ] ʟ ɪ ɴ ᴋ', '[ 2 ] ʟ ɪ ɴ ᴋ', '[ 3 ] ʟ ɪ ɴ ᴋ'], null,null, [[null,null],[null,null],[null,null]],m)
+    }).join('\n\n')
+    m.reply(str)
 }
 handler.help = ['githubsearch'].map(v => v + ' <pencarian>')
 handler.tags = ['internet','downloader']
@@ -36,13 +30,12 @@ export default handler
 function formatDate(n, locale = 'id') {
     let d = new Date(n)
     return d.toLocaleDateString(locale, {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
     })
-}
-
+  }

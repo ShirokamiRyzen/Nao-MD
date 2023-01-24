@@ -29,7 +29,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			} catch (e) {
 				console.log(e)
 				try {
-					anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${global.api}&img=${out}`)
+					anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${global.lolkey}&img=${out}`)
 					buffer = Buffer.from(await anu.arrayBuffer())
 					if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
 					await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })

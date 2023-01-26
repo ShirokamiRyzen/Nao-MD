@@ -1,5 +1,5 @@
 {
-    "name": "Shirokami Ryzen",
+    "name": "ShirokamiRyzen",
     "version": "3.0.0",
     "description": "Nao-MD By Ryzen",
     "main": "index.js",
@@ -22,16 +22,16 @@
         "whatsapp",
         "wabot-aq"
     ],
-    "homepage": "https://github.com/hyuura-official",
+    "homepage": "https://github.com/ShirokamiRyzen",
     "author": {
-        "name": "Aldi"
+        "name": "ShirokamiRyzen"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/hyuura-official"
+        "url": "git+https://github.com/ShirokamiRyzen"
     },
     "bugs": {
-        "url": "https://github.com/hyuura-official"
+        "url": "https://github.com/ShirokamiRyzen"
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
@@ -97,7 +97,6 @@
         "translate-google-api": "^1.0.4",
         "url-regex-safe": "^3.0.0",
         "util": "^0.12.5",
-        "xfarr-api": "github:xfar05/xfarr-api",
         "xmldom": "^0.6.0",
         "yargs": "^17.5.1",
         "zs-extract": "^1.4.1",

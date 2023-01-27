@@ -1,25 +1,28 @@
-import { tiktokdl, tiktokdlv2, tiktokdlv3 } from '@bochilteam/scraper'
+import nodeF from 'node-fetch'
+let handler = async (m, {
+	conn,
+	args,
+	usedPrefix,
+	command
+}) => {
+if (!args[0]) throw `Masukan URL!\n\ncontoh:\n${usedPrefix + command} https://vm.tiktok.com/ZGJAmhSrp/`
+if (!args[0].match(/tiktok/gi)) throw `URL Tidak Ditemukan!`
+m.reply('*Please wait..*.')
+ let tioxd = await nodeF(`https://api.botcahx.biz.id/api/dowloader/tikok?url=${args[0]}&apikey=Admin`)
+if (!tioxd.ok) throw await tioxd.text()
+let tiodl = await tioxd.json()
+if (!tiodl.status) throw tiodl
+let { 
+video, 
+video2, 
+username,
+description 
+} = tiodl.result
+await conn.sendFile(m.chat, video, 'tiovid.mp4', `
+*Deskripsi*: ${description}
+\n*Username*: ${username}`, m, false, { contextInfo: { forwardingScore: 999, isForwarded: true }})
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-if (!args[0]) throw `Use example ${usedPrefix}${command} https://www.tiktok.com/@omagadsus/video/7025456384175017243`
-    const { author: { nickname }, video, description } = await tiktokdl(args[0])
-    .catch(async _ => await tiktokdlv2(args[0]))
-        .catch(async _ => await tiktokdlv3(args[0]))
-    const url = video.no_watermark || video.no_watermark2 || video.no_watermark_raw
-    if (!url) throw 'Can\'t download video!'
-    conn.sendFile(m.chat, url, 'tiktok.mp4', 
-`
-⟐⟞⟚⟝⟮ *Usᴇʀɴᴀᴍᴇ:* ⟯⟞⟚⟝⟐
-┇⟣⟪ ${nickname} ⟫⟢
-▥ ━┉┄┄┈┈ ▢
-
-┇⟐⟞⟚⟝⟮ *Dᴇsᴄʀɪᴘᴛɪᴏɴ:* ⟯⟞⟚⟝⟐
-▥ ━┉┄┄┈┈ ▢
-${description}
-◈ ━┉┈┄┈┈ ►
-
-script : https://github.com/ShirokamiRyzen/Nao-MD
-`.trim(), m)
+conn.sendFile(m.chat, video2, 'tok2.mp4', 'hasil 2', m)
 }
 handler.help = ['tiktok'].map(v => v + ' <url>')
 handler.tags = ['downloader']

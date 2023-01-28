@@ -14,7 +14,7 @@ let handler = async(m, { conn, text, args, usedPrefix, command }) => {
     if (!text) throw `*CONTOH*\n${usedPrefix + command} Bot`
     let teks = encodeURI(text)
     if (command == 'attp') {
-    conn.sendFile(m.chat, `https://api.lolhuman.xyz/api/attp?apikey=495ed4ae18bd2e4d61401a23&text=${teks}`, 'sticker.webp', '', m, { asSticker: true })}
+    conn.sendFile(m.chat, `https://api.lolhuman.xyz/api/attp?apikey=${global.lolkey}&text=${teks}`, 'sticker.webp', '', m, { asSticker: true })}
     }
     handler.help = ['attp <teks>']
     handler.tags = ['sticker']

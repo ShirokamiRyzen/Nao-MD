@@ -78,7 +78,7 @@ let name = await conn.getName(who)
   })
 }
 handler.help = ['textpro'].map(v => v + ' <effect> <text>')
-handler.tags = ['maker']
+handler.tags = ['maker','textpro']
 handler.command = /^(textpro)$/i
 
 export default handler
@@ -937,4 +937,3 @@ async function textpro(effect, ...texts) {
   let results = await resImgUrl.json()
   return 'https://textpro.me' + results.fullsize_image
 }
-

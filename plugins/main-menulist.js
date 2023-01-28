@@ -46,7 +46,7 @@ let tags
 let emot = `${pickRandom(['⎔', '◈▻', '✦', '⭑', 'ᯬ', '⭔', '◉', '⬟', '᭻', '»', '〆', '々', '⛥', '✗', '⛊', '⚜', '⚝', '⚚', '♪'])}`
 let rndom = `${pickRandom(['defaultMenu', 'defmenu1'])}`
 let teks = `${args[0]}`.toLowerCase()
-let arrayMenu = ['all', 'ai', 'anime', 'update', 'stress', 'menfess', 'maker', 'berita', 'edukasi', 'news', 'random', 'game', 'xp', 'islamic', 'stiker', 'rpg', 'kerangajaib', 'quotes', 'admin', 'group', 'premium', 'internet', 'anonymous', 'nulis', 'downloader', 'tools', 'fun', 'database","quran', 'vote', 'nsfw', 'audio', 'jadibot', 'info', 'owner', 'nocategory']
+let arrayMenu = ['all', 'ai', 'anime', 'update', 'stress', 'menfess', 'maker', 'berita', 'edukasi', 'news', 'random', 'game', 'xp', 'islamic', 'stiker', 'rpg', 'textpro', 'kerangajaib', 'quotes', 'admin', 'group', 'premium', 'internet', 'anonymous', 'nulis', 'downloader', 'tools', 'fun', 'database","quran', 'vote', 'nsfw', 'audio', 'jadibot', 'info', 'owner', 'nocategory']
 if (!arrayMenu.includes(teks)) teks = '404'
 if (teks == 'all') tags = {
 'main': 'Main',
@@ -55,6 +55,7 @@ if (teks == 'all') tags = {
 'menfess': 'Menfess',
 'game': 'Game',
 'rpg': 'RPG Games',
+'textpro': 'Make text logo',
 'xp': 'Exp & Limit',
 'sticker': 'Sticker',
 'kerang': 'Kerang Ajaib',
@@ -118,6 +119,9 @@ if (teks == 'xp') tags = {
 if (teks == 'stiker') tags = {
 'sticker': 'Stiker'
 }
+if (teks == 'textpro') tags = {
+      'textpro': 'Textpro'
+      }
 if (teks == 'kerangajaib') tags = {
 'kerang': 'Kerang Ajaib'
 }
@@ -242,6 +246,7 @@ rows: [
 {title: `${emot} Exp`, rowId: ".? xp", description: "Ayo tingkatkan pangkat mu!"},
 {title: `${emot} Game`, rowId: ".? game", description: "Gamenya seru seru lho >-<"},
 {title: `${emot} Fun`, rowId: ".? fun", description: "Fitur yang aman untuk keluarga"},
+{title: `${emot} Text Pro`, rowId: ".? textpro", description: "Buat text dari logo"},
 {title: `${emot} Kerang`, rowId: ".? kerangajaib", description: "Tanyakan pada ketua club"},
 {title: `${emot} Quotes`, rowId: ".? quotes", description: "Random Inspirasi"},
 {title: `${emot} Anime`, rowId: ".? anime", description: "Kamu wibu ya bang?"},

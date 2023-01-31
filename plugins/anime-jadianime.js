@@ -22,14 +22,14 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			let img = await q.download?.()
 			let out = await uploadImage(img)
 			try {
-				anu = await fetch(`https://api.ibeng.tech/api/maker/anime?url=${out}&apikey=ibeng`)
+				anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${global.lolkey}&img=${out}`)
 				buffer = Buffer.from(await anu.arrayBuffer())
 				if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
 				await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })
 			} catch (e) {
 				console.log(e)
 				try {
-					anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${global.lolkey}&img=${out}`)
+					anu = await fetch(`https://api.ibeng.tech/api/maker/anime?url=${out}&apikey=ibeng`)
 					buffer = Buffer.from(await anu.arrayBuffer())
 					if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
 					await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })

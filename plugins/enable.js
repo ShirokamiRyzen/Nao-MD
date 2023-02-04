@@ -23,6 +23,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
 	{title: "💬 | PcOnly", rowId: `${usedPrefix + command} pconly`},
 	{title: "🏢 | GcOnly", rowId: `${usedPrefix + command} gconly`},
 	{title: "📷 | SwOnly", rowId: `${usedPrefix + command} swonly`},
+  {title: "❗ | AutoBio", rowId: `${usedPrefix + command} autobio`},
 	]
     },
 ]
@@ -193,6 +194,15 @@ const listMessage = {
         throw false
       }
       global.opts['autoread'] = isEnable
+      break
+    case 'autobio':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('rowner', m, conn)
+          throw false
+        }
+      }
+      chat.autoBio = isEnable
       break
     case 'pconly':
     case 'privateonly':

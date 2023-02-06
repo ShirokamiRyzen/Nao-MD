@@ -44,8 +44,7 @@ $ pkg install ffmpeg -y
 $ pkg install imagemagick -y
 $ git clone https://github.com/ShirokamiRyzen/Nao-MD
 $ cd Nao-MD
-$ npm i 
-$ npm install -g npm@9.2.0
+$ npm i
 ```
 If error try using yarn instead of npm, see [here](https://github.com/Jikarinka/Kannabotv2#if-npm-install-failed--try--using-yarn-instead-of-npm)
 ```bash
@@ -90,7 +89,6 @@ git clone https://github.com/ShirokamiRyzen/Nao-MD
 cd Nao-MD
 npm install
 npm update
-npm install -g npm@9.2.0
 ```
 
 ---------
@@ -106,7 +104,6 @@ npm install -g npm@9.2.0
 git https://github.com/ShirokamiRyzen/Nao-MD
 cd Nao-MD
 npm install
-npm install -g npm@9.2.0
 npm update
 ```
 

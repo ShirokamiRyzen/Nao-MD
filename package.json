@@ -37,7 +37,7 @@
     "dependencies": {
         "@adiwajshing/baileys": "4.4.0",
         "@adiwajshing/keyed-db": "^0.2.4",
-        "@bochilteam/scraper": "3.0.0",
+        "@bochilteam/scraper": "4.0.22-alpha.0",
         "acrcloud": "^1.4.0",
         "api-dylux": "^1.2.6",
         "awesome-phonenumber": "^2.68.0",

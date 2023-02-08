@@ -43,7 +43,8 @@ let handler = async (m, {conn, text }) => {
 ↳ 👁 *_Views :_* ${v.views}`}}).filter(v => v).join('\n\n◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦\n\n')
   conn.sendFile(m.chat, tes[0].thumbnail, 'yts.jpeg', teks, m)
 }
-handler.help = ['', 'earch'].map(v => 'yts' + v + ' <pencarian>')
+
+handler.help = ['yts <query>']
 handler.tags = ['tools']
 handler.command = /^yts(earch)?$/i
 

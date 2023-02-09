@@ -1,15 +1,18 @@
-import fetch from 'node-fetch'
-
+import { Configuration, OpenAIApi } from "openai";
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	if (!text) throw `[!] Masukkan detail teks.`
-	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/dall-e?apikey=${global.lolkey}&text=${encodeURIComponent(text)}`)
-		let anu = Buffer.from(await res.arrayBuffer())
-		await conn.sendMessage(m.chat, { image: anu, caption: `Open AI Dall E :\n${text}` }, { quoted: m })
-	} catch (e) {
-		console.log(e)
-		throw `Fitur Error.`
-	}
+        
+            if (!text) throw (`Membuat gambar dari AI.\n\nContoh:\n${prefix}${command} Wooden house on snow mountain`);
+            const configuration = new Configuration({
+              apiKey: '' //api key bisa didapatkan dari https://openai.com/api/
+            });
+            const openai = new OpenAIApi(configuration);
+            const response = await openai.createImage({
+              prompt: text,
+              n: 1,
+              size: "512x512",
+            });
+        
+conn.send3TemplateButtonImg(m.chat, response.data.data[0].url, 'Ini Resultnya Kak', wm, 'SewaBot', '.sewa', 'Owner', '.owner', 'Menu', '.menu', m)
 }
 
 handler.help = ['dalle <prompt>']

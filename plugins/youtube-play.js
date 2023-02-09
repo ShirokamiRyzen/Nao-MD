@@ -1,7 +1,7 @@
 import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 import yts from 'yt-search'
 var handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Use example ${usedPrefix}${command} naruto blue bird`
+  if (!text) throw `Use example\n${usedPrefix}${command} seven oops orange`
   await m.reply(wait)
   let search = await yts(text)
   let vid = search.videos[Math.floor(Math.random() * search.videos.length)]

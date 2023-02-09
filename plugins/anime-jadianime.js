@@ -1,3 +1,4 @@
+/*
 import uploadImage from '../lib/uploadImage.js'
 import { JadiAnime } from 'jadianime-ts'
 import fs from 'fs'
@@ -51,8 +52,8 @@ handler.command = /^(jadianime)$/i
 handler.limit = true
 
 export default handler
+*/
 
-/*
 import Jimp from 'jimp'
 import axios from 'axios';
 import md5 from 'md5';
@@ -149,4 +150,4 @@ async function Crop(img, x, y, lebar, tinggi) {
 	let tong = await po.crop(Number(x), Number(y), Number(lebar), Number(tinggi)).getBufferAsync(Jimp.MIME_JPEG)
 	return tong
   }
-  */
+  

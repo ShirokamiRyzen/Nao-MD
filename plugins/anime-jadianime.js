@@ -103,6 +103,12 @@ async function jadianime(buffer) {
             'HQ31X02e',
             );
         const response = await axios.request({
+            /*
+            proxy: {
+                host: '172.105.247.104',
+                port: 8080
+              },
+            */
             method: 'POST',
             url: 'https://ai.tu.qq.com/trpc.shadow_cv.ai_processor_cgi.AIProcessorCgi/Process',
             data: obj,

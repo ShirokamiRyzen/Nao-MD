@@ -1,43 +1,9 @@
 
 /*
-⫰⫯ Note!! Kalo Mau Hapus Ngotak Dulu,Siapa Yg Buat Siapa Yg Kerja Siapa Yang Nyediain Scriptnya
-
-𝐀𝐮𝐭𝐡𝐨𝐫 : 𝐴𝑙𝑑𝑖 𝐿𝑒𝑠𝑚𝑎𝑛𝑎 
-𝐖𝐚 : 081361281833
-𝐛𝐚𝐬𝐞 : 𝑁𝑎𝑟𝑢𝑡𝑜𝑚𝑜
-𝐌𝐲 𝐏𝐫𝐨𝐣𝐞𝐜𝐭 : 22 𝐴𝑔𝑢𝑠𝑡𝑢𝑠 2022
-
-⫹❰⫺ 𝐵𝐼𝐺 𝑇𝐻𝐴𝑁𝐾𝑆 𝑇𝑂 ⫹❱⫺
-⭝ 𝑨𝒍𝒍𝒂𝒉 𝒀𝒂𝒏𝒈 𝑴𝒂𝒉𝒂 𝑬𝒔𝒂
-⭝ 𝑶𝒓𝒂𝒏𝒈 𝑻𝒖𝒂
-⭝ 𝑻𝒆𝒎𝒆𝒏 𝑮𝒘
-⭝ 𝑴𝒂𝒔𝒕𝒂𝒉 𝑴𝒂𝒔𝒕𝒂𝒉
-
-⫹⫺ 𝑇𝒉𝑒 𝑁𝑎𝑚𝑒 𝑇𝒉𝑎𝑡 𝐻𝑒𝑙𝑝𝑒𝑑 𝑀𝑒 ⫹⫺
-⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔⸔
-⭝ 𝑨𝒅𝒊𝒘𝒂𝒋𝒊𝒔𝒉𝒊𝒏𝒈
-⭝ 𝑵𝒂𝒓𝒖𝒕𝒐𝒎𝒐
-⭝ 𝑹𝒊𝒔𝒎𝒂𝑩𝒐𝒕𝒛 𝑶𝒇𝒇𝒄
-⭝ 𝑱𝒂𝒓𝒐𝒕 𝑶𝒇𝒇𝒄
-⭝ 𝑯𝒚𝒛𝒆𝒓
-⭝ 𝑫𝒆𝒇𝒇𝒓𝒊
-⭝ 𝑲𝒂𝒏𝒏𝒂𝑪𝒉𝒂𝒏
-⭝ 𝑪𝒉𝒓𝒊𝒔𝒕𝒊𝒂𝒏 𝑰𝒅
-⭝ 𝑨𝒊𝒏𝒆
-⭝ 𝑨𝒓𝒊𝒇𝒇𝒃
-⭝ 𝑰𝒍𝒎𝒂𝒏
-⭝ 𝑨𝒎𝒊𝒓𝒖𝒍
-⭝ 𝑰𝒔𝒕𝒊𝒌𝒎𝒂𝒍
-⭝ 𝑭𝒛𝒐𝒏𝒆
-⭝ 𝑭𝒂𝑱𝒂𝒓
-⭝ 𝑨𝒓𝒖𝒍𝒍 𝑶𝒇𝒄
-⭝ 𝒁𝒆𝒆𝒐𝒏𝒆 𝑶𝒇𝒄
-⭝ 𝑹𝒂𝒎𝒍𝑎𝑛
-⭝ 𝑮𝒆𝒎𝒑𝒚𝒓𝑻𝒐𝒏
-let nowner1 = `${nomorown1.split`@`[0]}@s.whatsapp.net`
-  let nowner2 = `${nomorown2.split`@`[0]}@s.whatsapp.net`
-  let teksnomor = `${htki} *OWNER* ${htka}
-✦ @${nomorown1.split`@`[0]} ✦
+𝐀𝐮𝐭𝐡𝐨𝐫 : Shirokami Ryzen 
+𝐖𝐚 : +6281387307198
+𝐛𝐚𝐬𝐞 : Narutomo & Elaina
+𝐌𝐲 𝐏𝐫𝐨𝐣𝐞𝐜𝐭 : 22 Nov 2022
 */
 
 import { watchFile, unwatchFile } from 'fs'
@@ -161,9 +127,9 @@ global.htjava = '⫹⫺'    //hiasan Doang :v
 global.hsquere = ['⛶','❏','⫹⫺']
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RESPOND ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-global.stiker_wait = '▰▰▰▰▰▰▱▱ 98% 𝚠𝚊𝚒𝚝!!'
-global.wait = '▰▰▰▰▰▰▱▱ 98% 𝚠𝚊𝚒𝚝!!'
-global.eror = 'Mohon Maaf Server Kami Sedang Error!'
+global.stiker_wait = 'Please Wait...'
+global.wait = 'Please Wait...'
+global.eror = 'Error!'
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RESPOND GEME ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
@@ -249,6 +215,7 @@ global.rpg = {
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WEBSITE APIKEY ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 global.zenzkey = 'b8040941f7'
 global.lolkey = 'SGWN'
+global.caliph = 'Lwlct6wi'
 global.APIs = { // API Prefix
   // name: 'https://website'
   nrtm: 'https://nurutomo.herokuapp.com',
@@ -337,9 +304,9 @@ global.hoppai = ['https://telegra.ph/file/f34d76df4a2065af1a5ba.jpg','https://te
 'https://telegra.ph/file/180e28807e78419d45537.jpg','https://telegra.ph/file/140eff27be983e0cd6781.jpg','https://telegra.ph/file/1581b791e16d0029e16b5.jpg','https://telegra.ph/file/6a4b36372b4f265bae3bc.jpg','https://telegra.ph/file/093caff422f194f00bc6c.jpg','https://telegra.ph/file/2294b7ab49eca8a8046b2.jpg','https://telegra.ph/file/869224d1c417e8b5c8ff1.jpg','https://telegra.ph/file/a78443f0ee887f46808d7.jpg','https://telegra.ph/file/1889878933264d16c58bf.jpg','https://telegra.ph/file/735aeb47d9c4aa87aaaf3.jpg','https://telegra.ph/file/fcf861516db09dda164e0.jpg','https://telegra.ph/file/355d96d7e06d109435f67.jpg']
 
 
-global.dtu = 'ɪɴꜱᴛᴀɢʀᴀᴍ'
+global.dtu = 'INSTAGRAM'
 global.urlnya = "https://www.instagram.com/ryzen_vermillion"
-global.dtc = 'ᴄᴀʟʟ ᴏᴡɴᴇʀ'
+global.dtc = 'CALL OWNER'
 global.phn = '0813 8730 7198'
 
 

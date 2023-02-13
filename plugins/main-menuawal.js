@@ -11,8 +11,8 @@ let tag = `@${m.sender.replace(/@.+/, '')}`
 let ucpn = `${ucapan()}`
 let name = conn.getName(m.sender)
 
-//tim
-let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
+    //time
+    let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
     let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
     let wibs = moment.tz('Asia/Jakarta').format('ss')

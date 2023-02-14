@@ -5,6 +5,7 @@
 
 
 ##
+/*
 <p align="center">
       <img loading="lazy" src="https://telegra.ph/file/8e0d14a72b840010a4c23.jpg" alt="" width="180">
       <img loading="lazy" src="https://telegra.ph/file/7bb246df30a1c8deae4b2.jpg" alt="" width="180">
@@ -17,6 +18,7 @@
       <img loading="lazy" src="https://telegra.ph/file/24e3ef2b507836714a2c5.jpg" alt="" width="180">
       <img loading="lazy" src="https://telegra.ph/file/5a3507746dd9c6f300cc9.jpg" alt="" width="180">
 </p>
+*/
 
 ##
 [![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285864034767) 

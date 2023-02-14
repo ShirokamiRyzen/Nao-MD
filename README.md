@@ -5,7 +5,34 @@
 
 
 ## NOTE BEFORE USING!!
-s
+- Edit all Owner Information on config.js
+- If the feature not working, just buy your own API key
+- If you facing some issue, just open Issues on github page
+---------
+- Ubah semua Informasi Owner di config.js
+- Jika sebagian fitur ada yang tidak berfungsi, beli API key lu sendiri
+- Jika kamu mengalami masalah, bisa buat Issues di page ini
+
+### a little about this bot
+- ✔️ | **Simple** 
+- ✔️ | **Button Template** 
+- ✔️ | **Multi Device** 
+- ✔️ | **Button Document** 
+---------
+### Some of the features include
+- ✔️ | Menfess
+- ✔️ | AntiCall
+- ✔️ | Game & Rpg Game
+- ✔️ | AI Feature (ChatGPT/DALL-E)
+- ✔️ | Jadi Anime
+- ✔️ | Sticker 
+- ✔️ | Kerang Ajaib 
+- ✔️ | Quotes
+- ✔️ | Anime 
+- ✔️ | Premium 
+- ✔️ | Tools 
+---------
+
 ##
 [![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285864034767) 
 [![ONWER](https://img.shields.io/badge/Owner%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6281387307198) 

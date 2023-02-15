@@ -1,4 +1,3 @@
-/*
 import uploadImage from '../lib/uploadImage.js'
 import { JadiAnime } from 'jadianime-ts'
 import fs from 'fs'
@@ -30,10 +29,10 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			} catch (e) {
 				console.log(e)
 				try {
-					anu = await fetch(`https://api.ibeng.tech/api/maker/anime?url=${out}&apikey=ibeng`)
-					buffer = Buffer.from(await anu.arrayBuffer())
-					if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
-					await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })
+				anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${global.lolkey}&img=${out}`)
+				buffer = Buffer.from(await anu.arrayBuffer())
+				if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
+				await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })
 				} catch (e) {
 					console.log(e)
 					m.reply(`[ ! ] Gagal, gunakan foto lainnya.`)
@@ -52,8 +51,8 @@ handler.command = /^(jadianime)$/i
 handler.limit = true
 
 export default handler
-*/
 
+/*
 import Jimp from 'jimp'
 import axios from 'axios';
 import md5 from 'md5';
@@ -82,6 +81,8 @@ async function jadianime(buffer) {
     try {
         let imgData = buffer.toString('base64')
 
+        const chinaProxy = "http://172.105.247.104:8080"
+
         const obj = {
             busiId: 'different_dimension_me_img_entry',
             extra: JSON.stringify({
@@ -106,7 +107,7 @@ async function jadianime(buffer) {
             //proxy: { host: '172.105.247.104', port: 8080 },
             method: 'POST',
             url: 'https://ai.tu.qq.com/trpc.shadow_cv.ai_processor_cgi.AIProcessorCgi/Process',
-            data: obj,
+            data: obj, chinaProxy,
             headers: {
                 'Content-Type': 'application/json',
                 'Origin': 'https://h5.tu.qq.com',
@@ -151,4 +152,4 @@ async function Crop(img, x, y, lebar, tinggi) {
 	let tong = await po.crop(Number(x), Number(y), Number(lebar), Number(tinggi)).getBufferAsync(Jimp.MIME_JPEG)
 	return tong
   }
-  
+*/

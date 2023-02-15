@@ -1,4 +1,4 @@
-/* import * as baileys from '@adiwajshing/baileys'
+import * as baileys from '@adiwajshing/baileys'
 import { Brainly } from 'brainly-scraper-v2'
 import fetch from 'node-fetch'
 let brainly = new Brainly('id')
@@ -23,7 +23,15 @@ ${v.content}${v.attachments.length > 0 ? `\n*Media Url*: ${v.attachments.join(',
 		}
 	}
 }
-*/
+
+handler.help = handler.alias = ['brainly']
+handler.tags = ['tools']
+handler.command = /^(brainly)$/i
+handler.limit = true
+
+export default handler
+
+/*
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
@@ -50,3 +58,4 @@ handler.tags = ['tools']
 handler.command = /^(brainly)$/i
 handler.limit = true
 export default handler
+*/

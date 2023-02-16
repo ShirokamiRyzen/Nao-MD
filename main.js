@@ -83,7 +83,7 @@ global.loadDatabase = async function loadDatabase() {
   global.db.chain = chain(global.db.data)
 }
 loadDatabase()
-global.authFile = `${opts._[0] || 'session'}.ryzen.json`
+global.authFile = `${opts._[0] || 'ryzen'}.session.json`
 const { state, saveState } = useSingleFileAuthState(global.authFile)
 
 const connectionOptions = {

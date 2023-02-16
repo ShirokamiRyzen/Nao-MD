@@ -49,6 +49,7 @@ handler.tags = ['anime', 'ai']
 handler.command = /^(jadianime)$/i
 
 handler.limit = true
+handler.premium = false
 
 export default handler
 
@@ -74,6 +75,7 @@ handler.tags = ['anime', 'ai']
 handler.command = /^(jadianime)$/i
 
 handler.limit = true
+handler.premium = false
 
 export default handler
 

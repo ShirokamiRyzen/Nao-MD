@@ -3,10 +3,12 @@ let handler = async (m, { conn }) => {
   let caption = `
 *「 Owner Website 」*
 
-main page   -> ryzn.my.id
-blogspot    -> www.win-tweak.my.id
-uptime      -> uptime.ryzn.my.id
+Main Pages   -> ryzn.my.id
+Blogspot    -> www.win-tweak.my.id
+Uptime      -> uptime.ryzn.my.id
 
+----------------------
+Prosekai Sticker Maker -> sekai.ryzn.my.id
 ----------------------
 
 Revanced    -> ryzn.my.id/revanced

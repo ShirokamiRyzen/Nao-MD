@@ -15,7 +15,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			let path = `./tmp/${id}.jpg`
 			buffer = Buffer.from(img)
 			await fs.writeFile(path, buffer, (err) => { if (err) throw err })
-			let image = await JadiAnime(path)
+			let image = await JdiAnime(path)
 			await conn.sendMessage(m.chat, { image: { url: image.img }, caption: c }, { quoted: m })
 		} catch (e) {
 			console.log(e)

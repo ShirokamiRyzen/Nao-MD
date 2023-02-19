@@ -109,7 +109,7 @@ async function jadianime(buffer) {
             //proxy: { host: '172.105.247.104', port: 8080 },
             method: 'POST',
             url: 'https://ai.tu.qq.com/trpc.shadow_cv.ai_processor_cgi.AIProcessorCgi/Process',
-            data: obj, chinaProxy,
+            data: obj,
             headers: {
                 'Content-Type': 'application/json',
                 'Origin': 'https://h5.tu.qq.com',

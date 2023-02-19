@@ -214,7 +214,7 @@ global.rpg = {
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WEBSITE APIKEY ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 global.zenzkey = 'b8040941f7'
-global.lolkey = 'SGWN'
+global.lolkey = 'SGWN' //backup : AryaXyz
 global.caliph = 'Lwlct6wi'
 global.APIs = { // API Prefix
   // name: 'https://website'

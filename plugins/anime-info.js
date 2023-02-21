@@ -22,4 +22,5 @@ handler.help = ['animeinfo <anime>']
 handler.tags = ['anime', 'limitmenu']
 handler.command = /^(animeinfo)$/i
 handler.limit = false
+
 export default handler

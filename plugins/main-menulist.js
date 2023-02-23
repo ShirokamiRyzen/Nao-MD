@@ -46,7 +46,7 @@ let tags
 let emot = `${pickRandom(['⎔', '◈▻', '✦', '⭑', 'ᯬ', '⭔', '◉', '⬟', '᭻', '»', '〆', '々', '⛥', '✗', '⛊', '⚜', '⚝', '⚚', '♪'])}`
 let rndom = `${pickRandom(['defaultMenu', 'defmenu1'])}`
 let teks = `${args[0]}`.toLowerCase()
-let arrayMenu = ['all', 'ai', 'anime', 'update', 'stress', 'menfess', 'maker', 'berita', 'edukasi', 'news', 'random', 'game', 'xp', 'islamic', 'stiker', 'rpg', 'textpro', 'kerangajaib', 'quotes', 'admin', 'group', 'premium', 'internet', 'anonymous', 'nulis', 'downloader', 'tools', 'fun', 'database","quran', 'vote', 'nsfw', 'audio', 'jadibot', 'info', 'owner', 'nocategory']
+let arrayMenu = ['all', 'ai', 'anime', 'update', 'stress', 'stalk', 'menfess', 'maker', 'berita', 'edukasi', 'news', 'random', 'game', 'xp', 'islamic', 'stiker', 'rpg', 'textpro', 'kerangajaib', 'quotes', 'admin', 'group', 'premium', 'internet', 'anonymous', 'nulis', 'downloader', 'tools', 'fun', 'database","quran', 'vote', 'nsfw', 'audio', 'jadibot', 'info', 'owner', 'nocategory']
 if (!arrayMenu.includes(teks)) teks = '404'
 if (teks == 'all') tags = {
 'main': 'Main',
@@ -67,7 +67,7 @@ if (teks == 'all') tags = {
 'vote': 'Voting',
 'absen': 'Absen',
 'premium': 'Premium',
-'anonymous': 'Anonymous Chat',
+'stalk': 'Stalk',
 'internet': 'Internet',
 'downloader': 'Downloader',
 'tools': 'Tools',
@@ -144,8 +144,8 @@ if (teks == 'premium') tags = {
 if (teks == 'internet') tags = {
 'internet': 'Internet'
 }
-if (teks == 'anonymous') tags = {
-'anonymous': 'Anonymous Chat'
+if (teks == 'stalk') tags = {
+'stalk': 'Stalk'
 }
 if (teks == 'nulis') tags = {
 'nulis': 'Nulis',
@@ -252,7 +252,7 @@ rows: [
 {title: `${emot} Anime`, rowId: ".? anime", description: "Kamu wibu ya bang?"},
 {title: `${emot} Nsfw`, rowId: ".? nsfw", description: "Tch, dasar sagne"},
 {title: `${emot} Premium`, rowId: ".? premium", description: "Only premium Users"},
-{title: `${emot} Anonymous Chats`, rowId: ".? anonymous", description: "Bicara dengan orang tidak dikenal"},
+{title: `${emot} Stalk`, rowId: ".? stalk", description: "Kepoin akun seseorang"},
 {title: `${emot} Al-Quran`, rowId: ".? quran", description: "Tobat yuk kak"},
 {title: `${emot} Internet`, rowId: ".? internet", description: "Cari sesuatu diBOT"},
 {title: `${emot} Berita`, rowId: ".? berita", description: "Cari berita terupdate"},

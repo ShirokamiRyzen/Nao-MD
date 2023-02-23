@@ -50,7 +50,7 @@ conn.sendFile(m.chat, avatar_url, 'github-stalk.png', teks, m)
 
 }
 handler.help = ['githubstalk'].map(v => v + ' <query>')
-handler.tags = ['internet']
+handler.tags = ['stalk']
 handler.command = /^(githubstalk)$/i
 
 export default handler

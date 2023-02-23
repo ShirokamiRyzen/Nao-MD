@@ -19,7 +19,7 @@ let handler= async (m, { conn, args, text, usedPrefix, command }) => {
 }
 
 handler.help = ['igstalk'].map(v => v + ' <username>')
-handler.tags = ['internet']
+handler.tags = ['stalk']
 
 handler.command = /^(igstalk)$/i
 

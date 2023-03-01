@@ -1,4 +1,3 @@
-
 /*
 𝐀𝐮𝐭𝐡𝐨𝐫 : Shirokami Ryzen 
 𝐖𝐚 : +6281387307198
@@ -133,9 +132,9 @@ global.eror = 'Error!'
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RESPOND GEME ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-global.benar = '𝙶𝚘𝚘𝚍 𝙹𝚘𝚋𝚋! ◕◡◕'
-global.salah = '𝙽𝚘𝚝 𝙱𝚊𝚍! ◕◠◕'
-global.dikit = "𝙳𝚒𝚔𝚒𝚝 𝙻𝚊𝚐𝚒,𝚂𝚎𝚖𝚊𝚗𝚐𝚊𝚝!!"
+global.benar = 'Good Job! ◕◡◕'
+global.salah = 'Not Bad! ◕◠◕'
+global.dikit = "Dikit Lagi, Semangat!!"
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RPG GAME ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
@@ -235,7 +234,7 @@ global.APIs = { // API Prefix
   kanx: 'https://kannxapi.herokuapp.com/', 
   violetics : 'https://violetics.pw',
   ziy : 'https://ziy.herokuapp.com',
-  males : 'https://malesin.xyz'
+  males : 'https://api.lolhuman.xyz' //web api terserah ganti apa aja (buat welcome sama leave gc)
 }
 
 //⳹ NOTE !! EXAMPLE ➢ Name Api: 'website api'

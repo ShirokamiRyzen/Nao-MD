@@ -1,16 +1,6 @@
-/*
-import instagramGetUrl from 'instagram-url-direct'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-    if (!args[0]) throw `Use example ${usedPrefix}${command} https://www.instagram.com/p/ByxKbUSnubS/?utm_source=ig_web_copy_link`
-    const results = (await instagramGetUrl(args[0])).url_list[0]
-
-    conn.sendFile(m.chat, results, 'instagram.mp4', `*INSTAGRAM DOWNLOADER*`, m)
-}
-*/
-
 import axios from 'axios'
 var handler = async (m, { conn, command, text, usedPrefix }) => {
-	if (!text) throw `Use example\n${usedPrefix}${command} https://www.instagram.com/p/BmjK1KOD_UG/?utm_medium=copy_link`
+	if (!text) throw `Use example\n${usedPrefix}${command} https://www.instagram.com/reel/CpXfhcayb6_/?igshid=YmMyMTA2M2Y=`
 	const req = await igeh(text)
 	const { url_list } = req
     return conn.sendMessage(m.chat, { video : { url : url_list }}, m) 

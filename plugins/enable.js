@@ -36,7 +36,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
 	{title: "👤 | WhiteListMyContact", rowId: `${usedPrefix + command} whitelistmycontact`},
 	{title: "🌟 | Restrict", rowId: `${usedPrefix + command} restrict`},
 	{title: "😐 | Nyimak", rowId: `${usedPrefix + command} nyimak`},
-	{title: "🤬 | AntiToxic", rowId: `${usedPrefix + command} antitoxic`},
+	{title: "🤬 | Antibadword", rowId: `${usedPrefix + command} antibadword`},
 	{title: "💬 | PcOnly", rowId: `${usedPrefix + command} pconly`},
 	{title: "🏢 | GcOnly", rowId: `${usedPrefix + command} gconly`},
 	{title: "📷 | SwOnly", rowId: `${usedPrefix + command} swonly`},

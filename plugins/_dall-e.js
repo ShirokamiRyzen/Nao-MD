@@ -3,7 +3,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         
             if (!text) throw (`Membuat gambar dari AI.\n\nContoh:\n${prefix}${command} Wooden house on snow mountain`);
             const configuration = new Configuration({
-              apiKey: "" //api key bisa didapatkan dari https://openai.com/api/
+              apiKey: `${global.openai}` //api key bisa didapatkan dari https://openai.com/api/
             });
             const openai = new OpenAIApi(configuration);
             const response = await openai.createImage({

@@ -15,7 +15,7 @@ export function before(m, { isBotAdmin }) {
 Anda hanya bisa meminta Owner untuk membuka banned-nya !\n\n🌸 Nao-Botz
 “Barang siapa yang beriman kepada Allah dan Hari Akhir maka hendaklah dia berkata baik atau diam” (HR. al-Bukhari dan Muslim).`, wm, [['🎀CEK WARN', '.cekwarn'], ['🎐AUTHOR BOT', '.owner']], m)
         if (user.warning >= 5) {
-            user.banned = true
+            user.banned = false
             if (m.isGroup) {
                 if (isBotAdmin) {
                 	this.groupParticipantsUpdate(m.chat, [m.sender], "remove")
@@ -26,28 +26,3 @@ Anda hanya bisa meminta Owner untuk membuka banned-nya !\n\n🌸 Nao-Botz
     }
     return !0
 }
-/*
-let handler = m => m
-
-let toxic = /(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g ([iueo]) b l ([iueo]) (k|g)|a (n j (i n g|i r)?)s u|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i
-handler.before = function (m, { user }) {
-  if (m.isBaileys && m.fromMe) return true
-  if (/masuk|lanjutkan|banjir|(per)?panjang/g.exec(m.text)) return true
-  let chat = global.db.data.chats[m.chat]
-  let isGroupToxic = toxic.exec(m.text)
-
-  if (chat.antiToxic && isGroupToxic) {
-    m.reply('Jangan Toxic ya!!')
-    if (global.opts['restrict']) {
-      // if (!user.isAdmin) return true
-      // this.groupRemove(m.chat, [m.sender])
-    }
-  }
-  return true
-}
-
-export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-*/

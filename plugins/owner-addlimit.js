@@ -5,7 +5,7 @@ let handler = async (m, { conn, command, text, args }) => {
     else who = m.chat
     if (!who) throw 'Tag??'
     let users = global.db.data.users
-    users[who].limit = 1000
+    users[who].limit += 1000
     conn.reply(m.chat, 'Done!', m)
 }
 handler.help = ['addlimit']

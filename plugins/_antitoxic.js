@@ -16,6 +16,7 @@ Anda hanya bisa meminta Owner untuk membuka banned-nya !\n\n🌸 Nao-Botz
 “Barang siapa yang beriman kepada Allah dan Hari Akhir maka hendaklah dia berkata baik atau diam” (HR. al-Bukhari dan Muslim).`, wm, [['🎀CEK WARN', '.cekwarn'], ['🎐AUTHOR BOT', '.owner']], m)
         if (user.warning >= 5) {
             user.banned = false
+            user.warning = 0
             if (m.isGroup) {
                 if (isBotAdmin) {
                 	this.groupParticipantsUpdate(m.chat, [m.sender], "remove")

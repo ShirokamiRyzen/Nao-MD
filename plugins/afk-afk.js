@@ -4,7 +4,7 @@ var handler = async (m, { text }) => {
     user.afkReason = text
     m.reply(`${conn.getName(m.sender)} is now AFK${text ? ': ' + text : ''}`)
   }
-  handler.help = ['afk [alasan]']
+  handler.help = ['afk <alasan>']
   handler.tags = ['main']
   handler.command = /^afk$/i
   

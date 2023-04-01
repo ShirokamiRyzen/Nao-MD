@@ -9,7 +9,7 @@ export function before(m, { isBotAdmin }) {
 
     if (chat.antiBadword && isBadword) {
         user.warning += 1
-        m.reply('Jangan Toxic ya!!\n' + `kamu memiliki ${user.warning} warning` + '\nMau Matikan? ketik */disable antitoxic*')
+        m.reply('Jangan Toxic ya!!\n' + `kamu memiliki ${user.warning} warning` + '\nUntuk mematikan ketik *.disable antibadword*')
         if (user.warning >= 5) {
             user.banned = false
             user.warning = 0

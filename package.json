@@ -35,8 +35,9 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "4.4.0",
+        "@adiwajshing/baileys": "npm:baileys@^6.0.7",
         "@adiwajshing/keyed-db": "^0.2.4",
+        "@vitalets/google-translate-api": "^8.0.0",
         "@arugaz/ai2d": "^1.0.1-z.8",
         "@bochilteam/scraper": "4.0.22-alpha.0",
         "acrcloud": "^1.4.0",
@@ -94,7 +95,6 @@
         "steno": "^3.0.0",
         "syntax-error": "^1.4.0",
         "terminal-image": "^2.0.0",
-        "translate-google-api": "^1.0.4",
         "url-regex-safe": "^3.0.0",
         "util": "^0.12.5",
         "wa-sticker-formatter": "^4.3.2",

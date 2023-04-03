@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from "openai"
 var handler = async (m, { conn, usedPrefix, command, text }) => {
 try {
-            if (!text) return reply(`Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Halo? `);
+            if (!text) return m.reply(`Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Halo? `);
             const configuration = new Configuration({
               apiKey: `${global.openai}`, // edit on config.js
             });                  

@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 import deepai from 'deepai';
 
-deepai.setApiKey('quickstart-QUdJIGlzIGNvbWluZy4uLi4K');
+deepai.setApiKey(`${global.deepai}`);
 
 let handler = async (m) => {
   let q = m.quoted ? m.quoted : m
@@ -19,7 +19,7 @@ let handler = async (m) => {
   let resp = await fetch('https://api.deepai.org/api/torch-srgan', {
     method: 'POST',
     headers: {
-      'api-key': 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K',
+      'api-key': `${global.deepai}`,
     },
     body: form,
   })

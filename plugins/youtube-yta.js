@@ -1,56 +1,4 @@
-/*let limit = 80
-import fetch from 'node-fetch'
-import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper';
-let handler = async (m, { conn, args, isPrems, isOwner }) => {
-  if (!args || !args[0]) throw 'Uhm... urlnya mana?'
-  let chat = global.db.data.chats[m.chat]
-  const isY = /y(es)/gi.test(args[1])
-  const { thumbnail, audio: _audio, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
-  const limitedSize = (isPrems || isOwner ? 99 : limit) * 1024
-  let audio, source, res, link, lastError, isLimit
-  for (let i in _audio) {
-    try {
-      audio = _audio[i]
-      isLimit = limitedSize < audio.fileSize
-      if (isLimit) continue
-      link = await audio.download()
-      if (link) res = await fetch(link)
-      isLimit = res?.headers.get('content-length') && parseInt(res.headers.get('content-length')) < limitedSize
-      if (isLimit) continue
-      if (res) source = await res.arrayBuffer()
-      if (source instanceof ArrayBuffer) break
-    } catch (e) {
-      audio = link = source = null
-      lastError = e
-    }
-  }
-  if ((!(source instanceof ArrayBuffer) || !link || !res.ok) && !isLimit) throw 'Error: ' + (lastError || 'Can\'t download audio')
-  if (!isY && !isLimit) await conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
-*${htki} YOUTUBE ${htka}*
-*${htjava} Title:* ${title}
-*${htjava} Type:* mp3
-*${htjava} Filesize:* ${audio.fileSizeH}
-*L O A D I N G. . .*
-`.trim(), m)
-  if (!isLimit) await conn.sendFile(m.chat, source, title + '.mp3', `
-*${htki} YOUTUBE ${htka}*
-*${htjava} Title:* ${title}
-*${htjava} Type:* mp3
-*${htjava} Filesize:* ${audio.fileSizeH}
-*L O A D I N G. . .*
-`.trim(), m, null, {
-    asDocument: chat.useDocument, mimetype: 'audio/mp4', ptt: false, contextInfo: {
-        externalAdReply: { showAdAttribution: true,
-            title: 'Nao-MD', 
-            body: 'Now Playing...',
-            description: 'Now Playing...',
-            mediaType: 2,
-          thumbnail: await (await fetch(thumb)).buffer()
-        }
-     }
-  })
-}
-*/
+/*
 import fetch from 'node-fetch'
 import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 import { niceBytes, isUrl, somematch } from '../lib/others.js'
@@ -117,4 +65,44 @@ handler.command = /^yt(a|mp3)$/i
 handler.register = true
 handler.limit = true
 
+export default handler
+*/
+
+import { 
+    youtubedl,
+    youtubedlv2 
+} from '@bochilteam/scraper'
+
+var handler = async (m, { conn, args }) => {
+  if (!args[0]) throw 'Urlnya Mana Banh? >:('
+  let q = '128kbps'
+  let v = args[0]
+
+  // Ambil info dari video
+  const yt = await youtubedl(v).catch(async () => await  youtubedlv2(v))
+  const dl_url = await yt.audio[q].download()
+  const ttl = await yt.title
+  const size = await yt.audio[q].fileSizeH
+
+  await m.reply('Permintaan download audio/mp3 youtube sedang diproses, mohon bersabar...')
+
+  // Tampilkan informasi file beserta thumbnail
+  const info = `
+● Judul: ${ttl}
+● Ukuran: ${size}
+● Link YouTube: ${v}
+● Credits by Xnuvers007, https://github.com/Xnuvers007`
+
+  // Kirim pesan dan file audio ke user
+  await conn.sendMessage(m.chat, { 
+    document: { url: dl_url }, 
+    mimetype: 'audio/mpeg', 
+    fileName: `${ttl}.mp3`,
+    caption: info
+  }, {quoted: m})
+}
+
+// Jika ingin menambahkan tag, ubah code berikut:
+handler.tags = ['downloader']
+handler.command = /^yta|ytmp3|youtubemp3$/i
 export default handler

@@ -45,27 +45,27 @@ const readMore = more.repeat(4001)
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ NO OWNER ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 
 global.owner = [
-['6281387307198', 'Ryzn', true]
+['6285923463470', 'AnggaKz🗿', true]
 ]
 global.mods = []
 global.prems = []
-global.nomorbot = '6285864034767'
-global.nomorown = '6281387307198'
-global.nomorown1 = '6281387307198'
-global.nomorown2 = '6281387307198'
+global.nomorbot = '6283861079743'
+global.nomorown = '6285923463470'
+global.nomorown1 = '6285923463470'
+global.nomorown2 = '6285923463470'
 global.nomorwa = '0'
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WM ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 
 global.readMore = readMore
-global.author = 'Ryzn'
-global.namebot = '​ NaoBotz'
-global.wm = '© NaoBotz By Ryzn'
+global.author = 'AnggaKz'
+global.namebot = '​ Lisabotz-MD'
+global.wm = ' Lisabotz-MD'
 global.media = 'https://telegra.ph/file/5d45a3d1e12726d98c5e4.jpg'
-global.wm = 'Ryzn '
+global.wm = 'AnggaKz '
 global.watermark = wm
-global.wm2 = 'Ryzn '
+global.wm2 = 'AnggaKz '
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`
 global.titlebot = `NaoBotz`

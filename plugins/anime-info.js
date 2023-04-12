@@ -1,26 +1,29 @@
 import fetch from 'node-fetch'
-let handler = async(m, { conn, text }) => {
-  if (!text) throw `Masukkan query!`
-  let res = await fetch(global.API('https://api.jikan.moe', '/v4/anime', { q: text }))
-  if (!res.ok) throw await res.text()
-  let json = await res.json()
-  let { title, members, synopsis, episodes, url, rated, score, image_url, type, start_date, end_date } = json.data[0]
-let animeingfo = `✨️ *Title:* ${title}
-🎆️ *Episodes:* ${episodes}
-➡️ *Start date:* ${start_date}
-🔚 *End date:* ${end_date}
-💬 *Show Type:* ${type}
-💌️ *Rating:* ${rated}
-❤️ *Score:* ${score}
-👥 *Members:* ${members}
-💚️ *Synopsis:* ${synopsis}
-🌐️ *URL*: ${url}`
-  conn.sendFile(m.chat, image_url, '', animeingfo, m)
-}
 
+var handler = async (m, { conn, text }) => {
+if (!text) throw `*Masukan Judul Anime Yang Ingin Kamu Cari !*`
+let res = await fetch('https://api.jikan.moe/v4/manga?q=' + text)
+if (!res.ok) throw 'Tidak Ditemukan'
+let json = await res.json()
+let { chapters, title_japanese, url, type, score, members, background, status, volumes, synopsis, favorites } = json.data[0]
+let author = json.data[0].authors[0].name
+let animeingfo = `📚 Title: ${title_japanese}
+📑 Chapter: ${chapters}
+✉️ Transmisi: ${type}
+🗂 Status: ${status}
+🗃 Volumes: ${volumes}
+🌟 Favorite: ${favorites}
+🧮 Score: ${score}
+👥 Members: ${members}
+⛓️ Url: ${url}
+👨‍🔬 Author: ${author}
+📝 Background: ${background}
+💬 Sinopsis: ${synopsis}
+`
+conn.sendFile(m.chat, json.data[0].images.jpg.image_url, 'anjime.jpg', `*${htki} ANIME INFO ${htka}*\n` + animeingfo, m)
+}
 handler.help = ['animeinfo <anime>']
-handler.tags = ['anime', 'limitmenu']
+handler.tags = ['anime']
 handler.command = /^(animeinfo)$/i
-handler.limit = false
 
 export default handler

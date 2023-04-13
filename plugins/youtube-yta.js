@@ -104,5 +104,6 @@ var handler = async (m, { conn, args }) => {
 
 // Jika ingin menambahkan tag, ubah code berikut:
 handler.tags = ['downloader']
+handler.help = ['ytmp3 <link>']
 handler.command = /^yta|ytmp3|youtubemp3$/i
 export default handler

@@ -2,7 +2,7 @@ import fetch from "node-fetch"
 import { generateWAMessageFromContent } from "@adiwajshing/baileys"
 import fs from 'fs'
 import { Configuration, OpenAIApi } from 'openai'
-const configuration = new Configuration({ organization: 'Your-Org', apiKey: `${global.openai}` });
+const configuration = new Configuration({ organization: `${global.org}`, apiKey: `${global.openai}` });
 const openai = new OpenAIApi(configuration);
 let handler = async (m, { conn, text }) => {
 try {

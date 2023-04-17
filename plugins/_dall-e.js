@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai'
-const configuration = new Configuration({ organization: 'Your-Org', apiKey: `${global.openai}`});
+const configuration = new Configuration({ organization: `${global.org}`, apiKey: `${global.openai}`});
 const openaiii = new OpenAIApi(configuration);
 let handler = async (m, { conn, text, command }) => {
         

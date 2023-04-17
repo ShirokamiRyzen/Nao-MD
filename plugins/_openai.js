@@ -1,11 +1,12 @@
-import { Configuration, OpenAIApi } from "openai"
-var handler = async (m, { conn, usedPrefix, command, text }) => {
+import fetch from "node-fetch"
+import { generateWAMessageFromContent } from "@adiwajshing/baileys"
+import fs from 'fs'
+import { Configuration, OpenAIApi } from 'openai'
+const configuration = new Configuration({ organization: 'Your-Org', apiKey: `${global.openai}` });
+const openai = new OpenAIApi(configuration);
+let handler = async (m, { conn, text }) => {
 try {
             if (!text) return m.reply(`Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Halo? `);
-            const configuration = new Configuration({
-              apiKey: `${global.openai}`, // edit on config.js
-            });                  
-            const openai = new OpenAIApi(configuration);
 
             const response = await openai.createChatCompletion({
           model: "gpt-3.5-turbo",

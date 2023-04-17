@@ -1,18 +1,17 @@
-import { Configuration, OpenAIApi } from "openai";
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+import { Configuration, OpenAIApi } from 'openai'
+const configuration = new Configuration({ organization: 'Your-Org', apiKey: `${global.openai}`});
+const openaiii = new OpenAIApi(configuration);
+let handler = async (m, { conn, text, command }) => {
         
-            if (!text) throw (`Membuat gambar dari AI.\n\nContoh:\n${prefix}${command} Wooden house on snow mountain`);
-            const configuration = new Configuration({
-              apiKey: `${global.openai}`
-            });
+            if (!text) throw (`Membuat gambar dari AI.\n\nContoh:\n.aiimage Wooden house on snow mountain`);
+            await m.reply(wait)
             const openai = new OpenAIApi(configuration);
             const response = await openai.createImage({
               prompt: text,
               n: 1,
-              size: "512x512",
+              size: "1024x1024",
             });
-        
-conn.send3TemplateButtonImg(m.chat, response.data.data[0].url, 'Ini Resultnya Kak', wm, 'SewaBot', '.sewa', 'Owner', '.owner', 'Menu', '.menu', m)
+conn.sendButtonImg(m.chat, response.data.data[0].url, 'Done', wm, 'Menu', '.m', m)
 }
 
 handler.help = ['dalle <prompt>']

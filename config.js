@@ -213,10 +213,12 @@ global.rpg = {
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WEBSITE APIKEY ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 global.openai = ''  //api key bisa didapatkan dari https://openai.com/api/
+global.org = ''  //openAI Organization name
 global.deepai = 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K' // https://deepai.org
 global.zenzkey = 'b8040941f7'
 global.lolkey = 'SGWN' //backup : AryaXyz
 global.caliph = 'Lwlct6wi'
+
 global.APIs = { // API Prefix
   // name: 'https://website'
   nrtm: 'https://nurutomo.herokuapp.com',

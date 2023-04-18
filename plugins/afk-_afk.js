@@ -19,7 +19,7 @@ Selama ${(new Date - user.afk).toTimeString()}
     m.reply(`
 Jangan tag dia!
 Dia sedang AFK ${reason ? 'dengan alasan ' + reason : 'tanpa alasan'}
-Selama ${(new Date - afkTime).toTimeString()}}
+Selama ${(new Date - afkTime).toTimeString()}
 `.trim())
   }
   return true

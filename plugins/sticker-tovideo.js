@@ -22,6 +22,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 handler.help = ['tovideo']
 handler.tags = ['sticker']
 
-handler.command = ['tovideo']
+handler.command = ['tovideo', 'tomp4']
 
 export default handler

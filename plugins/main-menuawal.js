@@ -420,7 +420,7 @@ let tags = {
     throw e
   }
 }
-handler.help = ['menu', 'help', '?']
+handler.help = ['menu']
 handler.tags = ['main']
 handler.command = /^(menu|help|\?)$/i
 

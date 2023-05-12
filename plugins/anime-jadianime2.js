@@ -1,5 +1,5 @@
-let fetch = require('node-fetch')
-let uploadImage = require('../lib/uploadImage.js')
+import fetch from 'node-fetch'
+import uploadImage from '../lib/uploadImage.js'
 
 let handler = async (m, { conn, usedPrefix, command, text }) => {
 let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
@@ -19,4 +19,4 @@ handler.tags = ['anime', 'ai']
 handler.command = /^(jadianime2)$/i
 handler.limit = true
 
-module.exports = handler
+export default handler

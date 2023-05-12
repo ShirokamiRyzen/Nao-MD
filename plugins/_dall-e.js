@@ -13,7 +13,7 @@ let handler = async (m, { conn, text, command }) => {
             size: "1024x1024",
         });
         
-        conn.sendButtonImg(m.chat, response.data.data[0].url, 'Done', wm, 'Menu', '.m', m)
+        conn.sendFile(m.chat, response.data.data[0].url, text)
         
     } catch (error) {
         if (error.response) {

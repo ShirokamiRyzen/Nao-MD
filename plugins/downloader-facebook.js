@@ -4,7 +4,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
 let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 let name = await conn.getName(who)
 if (!args[0]) throw `Linknya?`
-  let res = await fetch(`http://api.lannn.me/api/download/fbdown?url=${args[0]}&apikey=${global.lankey}`)
+  let res = await fetch(`http://api.betabotz.me/api/download/fbdown?url=${args[0]}&apikey=${global.lankey}`)
   let x = await res.json()
   m.reply('Tunggu Sebentar...')
   let cap = `Nih Kak Videonya >,<`
@@ -13,6 +13,7 @@ if (!args[0]) throw `Linknya?`
 
 handler.help = ['fb'].map(v => v + ' <url>')
 handler.tags = ['downloader']
+handler.limit = true
 
 handler.command = /^(fb(dl)?)$/i
 

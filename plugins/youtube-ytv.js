@@ -63,6 +63,7 @@ export default handler
 import { youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 
 const handler = async (m, { conn, args, command }) => {
+  if (!args || !args[0]) throw 'Uhm... urlnya mana?'
   const v = args[0]
 
   const resolutions = ["144p", "240p", "360p", "480p", "720p", "1080p"]

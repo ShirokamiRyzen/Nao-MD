@@ -212,14 +212,15 @@ global.rpg = {
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WEBSITE APIKEY ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-global.openai = ''  //api key bisa didapatkan dari https://openai.com/api/
-global.org = ''  //openAI Organization name
+global.openai = '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'  //api key bisa didapatkan dari https://openai.com/api/
+global.org = 'org-J9XB3FigDG1NgjsDpc7mBOQQ'  //openAI Organization name
 global.deepai = 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K' // https://deepai.org
 global.zenzkey = 'b8040941f7'
 global.ibeng = 'tamvan'
 global.lolkey = 'SGWN' //backup : AryaXyz
+global.lankey = '' //buy API at https://api.lannn.me/
 global.caliph = 'Lwlct6wi'
-global.uptime = '' // Masukin APIKEY uptimerobot kamu disini ===== https://uptimerobot.com/dashboard?ref=website-header#mySettings
+global.uptime = 'u1931038-1f70a77eef5964be82e7d606' // Masukin APIKEY uptimerobot kamu disini ===== https://uptimerobot.com/dashboard?ref=website-header#mySettings
 
 global.APIs = { // API Prefix
   // name: 'https://website'

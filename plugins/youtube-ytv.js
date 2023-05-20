@@ -43,7 +43,7 @@ const handler = async (m, { conn, args, command }) => {
 
     await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title, ...thumb } }, { quoted: m })
 
-    await m.reply(`▢ Title: ${title}
+    await m.reply(`● Title: ${title}
 ● Resolution: ${selectedResolution}
 ● Size: ${size}
 ● Video telah berhasil diunduh!`)

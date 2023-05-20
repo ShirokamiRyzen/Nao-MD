@@ -1,30 +1,7 @@
-/*let { MessageType } = (await import('@adiwajshing/baileys')).default
-let handler = async (m, { conn, args, text }) => {
-    conn.req = conn.req ? conn.req : {}
-    if (!args || !text) return m.reply('Silahkan Masukan Teksnya')
-    let lmfao = args[0]
-    let bruh = (lmfao + '@s.whatsapp.net')
-    let tex = args.slice(1).join(' ')
-    let txt = conn.req[bruh].text || m.quoted ? m.quoted.text ? m.quoted.text : text ? text : m.text : text ? text : m.text
-    let name = m.fromMe ? conn.user : conn.contacts[m.sender]
-    let _text = (txt)
-    conn.reply(m.chat, 'Pesan Anda sudah terkirim', m)
-    conn.sendMessage(bruh, _text, MessageType.text)
-    delete conn.req[bruh]
-    
-}
-handler.help = ['balas'].map(v => v + ' [nomor] [teks]')
-handler.tags = ['owner']
-handler.command = /^(balas|reply)/i
+import fs from 'fs'
+import fetch from 'node-fetch'
+import moment from 'moment-timezone'
 
-handler.owner = true
-
-handler.fail = null
-
-export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)*/
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     conn.ownreply = conn.ownreply ? conn.ownreply : {}
     if (!text) throw `*Cara penggunaan :*\n\n${usedPrefix + command} nomor|pesan\n\n*Contoh:* ${usedPrefix + command} ${m.sender.split`@`[0]}|Halo.`;
@@ -41,7 +18,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     try {
     	let id = + new Date
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Dari: *Owner*\nPesan: \n${pesan}`.trim();
-        await conn.sendButton(data.jid, txt, wm, null, [[' ']])
+        await conn.reply(data.jid, txt, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
         .then(() => {
             conn.ownreply[id] = {
                 id,

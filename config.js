@@ -16,6 +16,7 @@ let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
     let wibs = moment.tz('Asia/Jakarta').format('ss')
     let wktuwib = `${wibh} H ${wibm} M ${wibs} S`
+    let wktugeneral = `${wibh}:${wibm}:${wibs}`
     
     let d = new Date(new Date + 3600000)
     let locale = 'id'
@@ -69,8 +70,8 @@ global.wm2 = 'Ryzn '
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`
 global.titlebot = `NaoBotz`
-global.stickpack = 'NaoBotz'
-global.stickauth = `© Ryzn`
+global.stickpack = `Sticker Dibuat pada ${week} ${date}\nJam: ${wktugeneral}\n\nNao-Bot\n+6285864034767`
+global.stickauth = `© NaoBotz by Ryzen`
 global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ OWNER INFO ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
@@ -78,7 +79,7 @@ global.nameown1= 'Ryzn'
 global.nameown2 = 'Ryzn'
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ MEDIA LINK ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 global.Linkgc = 'Bentar'
-global.lynk = 'https://lynk.id/hyuuraofc'
+global.lynk = ''
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ MEDIA SOSSIAL ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺

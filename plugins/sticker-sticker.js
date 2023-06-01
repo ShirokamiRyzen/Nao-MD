@@ -50,11 +50,11 @@ async function createSticker(img, url, packName, authorName, quality) {
 
 async function mp4ToWebp(file, stickerMetadata) {
 	if (stickerMetadata) {
-		if (!stickerMetadata.pack) stickerMetadata.pack = '‎'
-		if (!stickerMetadata.author) stickerMetadata.author = '‎'
+		if (!stickerMetadata.pack) stickerMetadata.pack = stickpack
+		if (!stickerMetadata.author) stickerMetadata.author = stickauth
 		if (!stickerMetadata.crop) stickerMetadata.crop = false
 	} else if (!stickerMetadata) {
-		stickerMetadata = { pack: '‎', author: '‎', crop: false }
+		stickerMetadata = { pack: stickpack, author: stickauth, crop: false }
 	}
 	let getBase64 = file.toString('base64')
 	const Format = {

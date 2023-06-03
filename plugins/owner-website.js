@@ -11,8 +11,6 @@ Uptime -> https://ouo.io/J105N
 Prosekai Sticker Maker -> https://ouo.io/TDd2Bk
 ----------------------
 
-Revanced -> https://ouo.io/M6eHv4
-Spotify Mod -> https://ouo.io/a9QdDV3
 `.trim()
   m.reply(caption)
 }

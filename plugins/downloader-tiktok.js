@@ -13,6 +13,7 @@ var handler = async (m, { conn, args}) => {
 handler.help = ['tiktok'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.command = /^(tiktok|tt|ttdl|tiktokdl)$/i
+handler.limit = true
 
 export default handler
 

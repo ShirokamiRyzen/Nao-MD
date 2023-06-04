@@ -5,6 +5,7 @@ let handler = async (m, { text, usedPrefix, command }) => {
     let res = await fetch(API('https://api.openweathermap.org', '/data/2.5/weather', {
         q: text,
         units: 'metric',
+        lang: 'id',
         appid: '060a6bcfa19809c2cd4d97a212b19273'
     }))
     if (!res.ok) throw 'lokasi tidak ditemukan'
@@ -15,10 +16,11 @@ Lokasi: ${json.name}
 Negara: ${json.sys.country}
 Cuaca: ${json.weather[0].description}
 Suhu saat ini: ${json.main.temp} °C
-Suhu tertinggi: ${json.main.temp_max} °C
-Suhu terendah: ${json.main.temp_min} °C
+Terasa seperti: ${json.main.feels_like} °C
 Kelembapan: ${json.main.humidity} %
 Angin: ${json.wind.speed} km/jam
+
+Nao-MD
     `.trim())
 }
 

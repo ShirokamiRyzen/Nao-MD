@@ -220,6 +220,7 @@ global.zenzkey = 'b8040941f7'
 global.ibeng = 'tamvan'
 global.lolkey = 'SGWN' //backup : AryaXyz
 global.lankey = '' //buy API at https://api.lannn.me/
+global.botcahx = '' //https://api.botcahx.live/
 global.caliph = 'Lwlct6wi'
 global.uptime = 'u1931038-1f70a77eef5964be82e7d606' // Masukin APIKEY uptimerobot kamu disini ===== https://uptimerobot.com/dashboard?ref=website-header#mySettings
 

@@ -51,7 +51,7 @@ export async function handler(chatUpdate) {
                 if (!isNumber(user.exp))
                     user.exp = 0
                 if (!isNumber(user.limit))
-                    user.limit = 100
+                    user.limit = 10
                 if (!isNumber(user.lastclaim))
                     user.lastclaim = 0
                 if (!isNumber(user.pasangan))
@@ -209,7 +209,7 @@ export async function handler(chatUpdate) {
             } else
                 global.db.data.users[m.sender] = {
                     exp: 0,
-                    limit: 100,
+                    limit: 10,
                     lastclaim: 0,
                     registered: false,
                     name: m.name,
@@ -855,7 +855,7 @@ let msg = {
   
   
     let msgg = {
-    	unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar'
+    	unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .regiter untuk mendaftar'
 }[type]
 if (msgg) return conn.reply(m.chat, msgg, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 }

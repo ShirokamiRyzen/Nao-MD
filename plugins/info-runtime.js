@@ -31,7 +31,7 @@ let handler = async (m, { conn, args, command }) => {
        let tag = `@${m.sender.replace(/@.+/, '')}`
   let mentionedJid = [m.sender]
     
- conn.sendButtonDoc(m.chat, `𝑩𝒐𝒕 𝑼𝒑𝒕𝒊𝒎𝒆`, muptime + '\n\n', 'MENU', '.menu', m, { contextInfo: { externalAdReply: { showAdAttribution: true,
+ conn.sendButtonDoc(m.chat, `*Bot Uptime*`, muptime + '\n\n', 'MENU', '.menu', m, { contextInfo: { externalAdReply: { showAdAttribution: true,
     mediaUrl: 'wa.me/6281387307198?text=Halo+ganteng❀',
     mediaType: 2, 
     description: sgc,

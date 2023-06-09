@@ -28,5 +28,6 @@ handler.tags = ['downloader']
 handler.command = /^(spotify(a(audio)?|mp3)?)$/i
 
 handler.limit = true
+handler.register = true
 
 export default handler

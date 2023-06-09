@@ -11,6 +11,8 @@ handler.help = handler.alias = ['apkdl']
 handler.tags = ['downloader', 'limitmenu']
 handler.command = /^(apkdl)$/i
 handler.limit = true
+handler.register = true
+
 export default handler
 
 async function apkDl(url) {

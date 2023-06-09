@@ -14,6 +14,7 @@ if (!args[0]) throw `Linknya?`
 handler.help = ['fb'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.limit = true
+handler.register = true
 
 handler.command = /^(fb(dl)?)$/i
 

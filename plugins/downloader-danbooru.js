@@ -13,6 +13,7 @@ let handler = async (m, { conn, args }) => {
 handler.tags = ['downloader']
 handler.command = /^danbooru$/i
 handler.help = ['Danbooru']
+handler.register = true
 
 export default handler
 

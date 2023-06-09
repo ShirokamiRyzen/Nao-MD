@@ -34,5 +34,6 @@ handler.command = /^(dalle)$/i
 
 handler.premium = false
 handler.limit = true
+handler.register = true
 
 export default handler

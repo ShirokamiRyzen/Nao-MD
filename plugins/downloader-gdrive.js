@@ -17,6 +17,7 @@ handler.help = ['gdrive'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.command = /^(gdrive)$/i
 handler.limit = true
+handler.register = true
 
 export default handler
 

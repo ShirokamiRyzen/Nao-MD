@@ -17,5 +17,6 @@ handler.tags = ['downloader']
 handler.command = /^(mediafire|mf)$/i
 
 handler.limit = true
+handler.register = true
 
 export default handler

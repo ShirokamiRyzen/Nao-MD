@@ -26,6 +26,7 @@ handler.help = ['telesticker']
 handler.tags = ['downloader']
 handler.command = /^(telestic?ker|stic?kertele)$/i
 handler.limit = true
+handler.register = true
 
 export default handler
 

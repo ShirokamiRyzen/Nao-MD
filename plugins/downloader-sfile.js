@@ -19,6 +19,7 @@ handler.help = handler.alias = ['sfile']
 handler.tags = ['downloader']
 handler.command = /^(sfile)$/i
 handler.limit = true
+handler.register = true
 export default handler
 
 async function sfileSearch(query, page = 1) {

@@ -24,5 +24,6 @@ handler.tags = ['downloader']
 handler.command = /^spotify?search$/i
 
 handler.limit = true
+handler.register = true
 
 export default handler

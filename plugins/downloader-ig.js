@@ -22,5 +22,6 @@ handler.tags = ['downloader']
 
 handler.command = /^(ig(dl)?)$/i
 handler.limit = true
+handler.register = true
 
 export default handler

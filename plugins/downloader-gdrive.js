@@ -10,8 +10,8 @@ let handler = async (m, { conn, args }) => {
 		if (!res) throw res
 		await m.reply(JSON.stringify(res, null, 2))
 		conn.sendMessage(m.chat, { document: { url: res.downloadUrl }, fileName: res.fileName, mimetype: res.mimetype }, { quoted: m })
-	}),
-	m.reply('\nNote: downloading content with 1gb up file size will result Ban to your Number') //disable if u have highend cloud server bandwitdh
+	})
+	//m.reply('\nNote: downloading content with 1gb up file size will result Ban to your Number') //disable if u have highend cloud server bandwitdh
 }
 handler.help = ['gdrive'].map(v => v + ' <url>')
 handler.tags = ['downloader']

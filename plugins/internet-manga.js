@@ -33,8 +33,8 @@ let animeingfo = `📚 Title: ${judul}
 `
 conn.sendFile(m.chat, json.data[0].images.jpg.image_url, 'manga.jpg', `*MANGA INFO*\n` + animeingfo, m)
 }
-handler.help = ['mangainfo <manga>', 'manga <namaManga>', 'infomanga <NamaManga/Anime>']
+handler.help = ['mangainfo <manga>']
 handler.tags = ['anime']
-handler.command = /^(mangainfo|manga|infomanga)$/i
+handler.command = /^(mangainfo)$/i
 
 export default handler

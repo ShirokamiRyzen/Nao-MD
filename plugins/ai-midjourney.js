@@ -1,7 +1,7 @@
 import fetch from "node-fetch"
 
 let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
-	let query = "input text\nEx. .openjourney hello world\n<command> <tex>"
+	let query = "input text Ex:\n.midjourney man kissing"
 	let text
 	if (args.length >= 1) {
 		text = args.slice(0).join(" ")
@@ -19,7 +19,7 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
             
 }
 
-handler.help = ["midjourney <promt>"]
+handler.help = ["midjourney"]
 handler.tags = ["ai"]
 handler.command = /^midjourney$/i
 

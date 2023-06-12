@@ -1,6 +1,6 @@
 {
     "name": "ShirokamiRyzen",
-    "version": "3.0.0",
+    "version": "5.0.0",
     "description": "Nao-MD By Ryzen",
     "main": "index.js",
     "type": "module",
@@ -39,7 +39,7 @@
         "@adiwajshing/keyed-db": "^0.2.4",
         "@vitalets/google-translate-api": "^8.0.0",
         "@arugaz/ai2d": "^1.0.1-z.8",
-        "@bochilteam/scraper": "4.0.22-alpha.0",
+        "@bochilteam/scraper": "4.2.2",
         "acrcloud": "^1.4.0",
         "awesome-phonenumber": "^2.68.0",
         "axios": "^1.3.4",

@@ -46,21 +46,13 @@ let handler = async (m, { conn, generateWAMessageFromContent, }) => {
 │✧  ${nsfw ? '✅' : '❌'} *Mode Nsfw*
 ╰────────────⬣`
 
-conn.sendButtonDoc(m.chat, '▷ʙᴏᴛ sᴛᴀᴛᴜs◁', sts, 'Owner', '.owner', m, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https//wa.me/6281387307198?text=Halo+Gantengku',
-    mediaType: 2, 
-    description: 'wa.me/6281387307198?text=Halo+Gantengku',
-    title: "Iɴɪ Fᴀᴄᴇʙᴏᴏᴋ Gᴡ!",
-    body: wm,
-    thumbnail: fs.readFileSync('./thumbnail.jpg'),
-    sourceUrl: 'https://facebook.com/Nao.Tomori.UwU'
-     }}
-  })
+m.reply(sts)
 
 }
-handler.help = ['botstatus']
+
+handler.help = ['botstat']
 handler.tags = ['info']
-handler.command = /^botstat(us)?$/i
+handler.command = /^botstat?$/i
 
 export default handler
 

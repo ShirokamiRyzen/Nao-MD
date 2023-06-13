@@ -22,11 +22,11 @@
 ### Some of the features include
 - ✔️ | Menfess
 - ✔️ | AntiCall
-- ✔️ | Game & Rpg Game
-- ✔️ | AI Feature (ChatGPT/DALL-E)
+- ✔️ | Welcome & Leave
+- ✔️ | AI Feature (ChatGPT/DALL-E/MidJourney)
 - ✔️ | Jadi Anime
 - ✔️ | Sticker 
-- ✔️ | Kerang Ajaib 
+- ✔️ | Downloader 
 - ✔️ | Quotes
 - ✔️ | Anime 
 - ✔️ | Premium 

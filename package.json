@@ -36,6 +36,7 @@
     "license": "GPL-3.0-or-later",
     "dependencies": {
         "@adiwajshing/baileys": "npm:baileys@^6.0.9",
+        "@ibaraki-douji/pixivts": "*",
         "@vitalets/google-translate-api": "^8.0.0",
         "@arugaz/ai2d": "^1.0.1-z.8",
         "@bochilteam/scraper": "4.2.2",

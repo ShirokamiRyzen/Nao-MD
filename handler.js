@@ -679,58 +679,44 @@ export async function participantsUpdate({ id, participants, action }) {
     let chat = global.db.data.chats[id] || {}
     let text = ''
     switch (action) {
-                case 'add':
-        case 'remove':
-            if (chat.welcome) {
-                let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
-                for (let user of participants) {
-                    let pp = 'https://telegra.ph/file/2d06f0936842064f6b3bb.png'
-                    try {
-                        pp = await this.profilePictureUrl(user, 'image')
-                    } catch (e) {
-                    } finally {
-                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-                            (chat.sBye || this.bye || conn.bye || 'Bye @user')).replace(/@user/g, '@' + user.split`@`[0])
-                        let wel = API('males', '/welcome2', {
-                                profile: pp,
-                                username: await this.getName(user),
-                                background: 'https://telegra.ph/file/7f827ca45c833542777f0.jpg',
-                                groupname: await this.getName(id),
-                                membercount: groupMetadata.participants.length
+        case 'add':
+            case 'remove':
+                if (chat.welcome) {
+                    let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
+                    for (let user of participants) {
+                        let pp = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9mFzSckd12spppS8gAJ2KB2ER-ccZd4pBbw&usqp=CAU'
+                        try {
+                            pp = await this.profilePictureUrl(user, 'image')
+                        } catch (e) {
+                        } finally {
+                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc ? String.fromCharCode(8206).repeat(4001) + groupMetadata.desc : '') :
+                                (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', await this.getName(user))
+                            let wel = API('alpis', '/api/maker/welcome1', {
+                                name: await this.getName(user),
+                                gpname: await this.getName(id),
+                                member: groupMetadata.participants.length, 
+                                pp: pp, 
+                                bg: 'https://i.ibb.co/8B6Q84n/LTqHsfYS.jpg',
+                                apikey: alpiskey
                             })
-                            let lea = API('males', '/goodbye2', {
-                                profile: pp,
-                                username: await this.getName(user),
-                                background: 'https://telegra.ph/file/7f827ca45c833542777f0.jpg',
-                                groupname: await this.getName(id),
-                                membercount: groupMetadata.participants.length
+                            let lea = API('alpis', '/api/maker/goodbye1', {
+                                name: await this.getName(user),
+                                gpname: await this.getName(id),
+                                member: groupMetadata.participants.length, 
+                                pp: pp,
+                                bg: 'https://i.ibb.co/8B6Q84n/LTqHsfYS.jpg',
+                                apikey: alpiskey
                             })
-                            
- /* conn.sendButtonDoc(id, wm, text, action == 'add' ? 'ᴡᴇʟᴄᴏᴍᴇ' : 'sᴀʏᴏɴᴀʀᴀᴀ', action === 'add' ? '.intro' : 'Aʟᴅɪ X Aɪsʏᴀʜ', fkontak, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://instagram/b4c00t4an_s3l3b',
-    mediaType: 2, 
-    description: sgc,
-    title: 'Hᴀʟᴏ Nɢᴀʙ',
-    body: wm,
-    thumbnail: await(await fetch(action === 'add' ? wel : lea)).buffer(),
-    sourceUrl: sgc
-     }}
-  })*/
-  let welcom = 'https://telegra.ph/file/35f17bb371d308504bc46.jpg'
-
-  let godbye = 'https://telegra.ph/file/b44e48066aed4fb7ad291.jpg'
-  conn.sendButtonImg(id, await(await fetch(action === 'add' ? wel : lea)).buffer(), 'Group Messege', text, action == 'add' ? 'WELCOME' : 'SAYONARA', action === 'add' ? '.intro' : 'Ryzen', fkontak, { contextInfo: { externalAdReply: { showAdAttribution: true, 
-    description: sgc,
-    title: "Nao-Botz",
-    body: wm,
-    thumbnail: await(await fetch(action === 'add' ? welcom : godbye)).buffer(),
-    sourceUrl: sgc
-     }}
-  })
-  
+                             /*this.sendFile(id, action === 'add' ? wel : lea, 'pp.jpg', text, null, false, { mentions: [user] })
+                        }
                     }
                 }
-            }
+                break*/
+                
+                           this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
+                        }
+                    }
+                }
             break
         case 'promote':
             text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')

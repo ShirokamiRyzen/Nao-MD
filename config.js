@@ -213,36 +213,21 @@ global.rpg = {
 
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WEBSITE APIKEY ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+global.alpiskey = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://alpis.eu.org
 global.openai = ''  //api key bisa didapatkan dari https://openai.com/api/
 global.org = ''  //openAI Organization name
 global.deepai = 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K' // https://deepai.org
-global.zenzkey = 'b8040941f7'
 global.ibeng = 'tamvan'
 global.lolkey = 'SGWN' //backup : AryaXyz
 global.lankey = '' //buy API at https://api.lannn.me/
 global.botcahx = '' //https://api.botcahx.live/
-global.caliph = 'Lwlct6wi'
 global.uptime = 'u1931038-1f70a77eef5964be82e7d606' // Masukin APIKEY uptimerobot kamu disini ===== https://uptimerobot.com/dashboard?ref=website-header#mySettings
 
 global.APIs = { // API Prefix
   // name: 'https://website'
-  nrtm: 'https://nurutomo.herokuapp.com',
-  rey: 'https://server-api-rey.herokuapp.com',
-  xteam: 'https://api.xteam.xyz',
-  zahir: 'https://zahirr-web.herokuapp.com',
+  alpis: 'https://alpis.eu.org',
   lol: 'https://api.lolhuman.xyz',
-  dhnjing: 'https://dhnjing.xyz',
-  neoxr: 'https://neoxr-api.herokuapp.com',
-  zeks: 'https://api.zeks.me',
-  pencarikode: 'https://pencarikode.xyz',
-  ana: 'https://anabotofc.herokuapp.com/',
-  amel: 'https://melcanz.com',
-  hardianto: 'https://hardianto.xyz',
-  botstyle: 'https://botstyle-api.herokuapp.com',
-  adiisus: 'https://adiixyzapi.herokuapp.com',
-  kanx: 'https://kannxapi.herokuapp.com/', 
   violetics : 'https://violetics.pw',
-  ziy : 'https://ziy.herokuapp.com',
   males : 'https://api.lolhuman.xyz' //web api terserah ganti apa aja (buat welcome sama leave gc)
 }
 
@@ -250,19 +235,8 @@ global.APIs = { // API Prefix
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-  'https://api.xteam.xyz': 'ebb6251cc00f9c63',
-  'https://anabotofc.herokuapp.com/': 'AnaBot',
   'https://api.lolhuman.xyz': 'SGWN',
-  'https://zahirr-web.herokuapp.com': 'zahirgans',
-  'https://api.zeks.me': 'apivinz',
-  'https://pencarikode.xyz': 'pais',
-  'https://melcanz.com': 'melcantik',
-  'https://neoxr-api.herokuapp.com': 'yntkts',
-  'https://server-api-rey.herokuapp.com': 'apirey',
-  'https://botstyle-api.herokuapp.com': 'Apikeymu',
-  'https://hardianto.xyz': 'hardianto',
   'https://violetics.pw': 'beta',
-  'https://ziy.herokuapp.com' : 'xZiyy'
 }
 //⳹ NOTE !! EXAMPLE ➢ 'https://WebsiteApi': 'Apikey'
 

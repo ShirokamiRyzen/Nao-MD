@@ -1,14 +1,17 @@
 import fetch from 'node-fetch'
-import fs from 'fs'
-let handler = async (m, { conn, usedPrefix, args, command, text }) => {
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let name = await conn.getName(who)
-if (!args[0]) throw `Linknya?`
-  let res = await fetch(`https://saipulanuar.cf/api/download/fb?url=${args[0]}`)
-  let x = await res.json()
-  m.reply('Tunggu Sebentar...')
-  let cap = `Nih Kak Videonya >,<`
-  conn.sendFile(m.chat, x.result.hd, 'fb.mp4', cap, m)
+
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+  if (!args[0]) throw `Masukan URL!\n\ncontoh:\n${usedPrefix + command} https://www.facebook.com/100082288819998/videos/3440449526202780/`
+  try {
+    let get = await fetch(`https://api.botcahx.live/api/dowloader/fbdown?url=${args[0]}&apikey=${global.botcahx}`);
+    let js = await get.json()
+    conn.sendFile(m.chat, js.result.HD, 'fb.mp4', '', m)
+  } catch (e) {
+    console.log(e);
+    if (m.sender) {
+      conn.reply(m.chat, `_*Terjadi kesalahan!*_`, m)
+    }
+  }
 }
 
 handler.help = ['fb'].map(v => v + ' <url>')
@@ -19,7 +22,3 @@ handler.register = true
 handler.command = /^(fb(dl)?)$/i
 
 export default handler
-
-function pickRandom(list) {
-  return list[Math.floor(list.length * Math.random())]
-}

@@ -15,12 +15,12 @@ let handler = async (m, {
 	]
 
 	let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
-	if (!lister.includes(feature)) return m.reply("*Example:*\n.apkpures search|vpn\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
+	if (!lister.includes(feature)) return m.reply("*Example:*\n.apkpure search|vpn\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
 
 	if (lister.includes(feature)) {
 
 		if (feature == "search") {
-			if (!inputs) return m.reply("Input query link\nExample: .apkpures search|vpn")
+			if (!inputs) return m.reply("Input query link\nExample: .apkpure search|vpn")
 			await m.reply(wait)
 			try {
 				let res = await searchapkpures(inputs)

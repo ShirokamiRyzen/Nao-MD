@@ -841,7 +841,7 @@ let msg = {
   
   
     let msgg = {
-    	unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .regiter untuk mendaftar'
+    	unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar'
 }[type]
 if (msgg) return conn.reply(m.chat, msgg, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 }

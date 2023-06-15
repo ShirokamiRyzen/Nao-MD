@@ -1,24 +1,27 @@
 import { cpus as _cpus, totalmem, freemem } from 'os'
-import util from 'util'
 import os from 'os'
+import util from 'util'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
+import { join } from 'path'
+import { promises } from 'fs'
+import moment from 'moment-timezone'
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
 let format = sizeFormatter({
   std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
   decimalPlaces: 2,
   keepTrailingZeroes: false,
   render: (literal, symbol) => `${literal} ${symbol}B`,
 })
-let handler = async (m, { conn, isRowner}) => {
-	let _muptime
-    if (process.send) {
-      process.send('uptime')
-      _muptime = await new Promise(resolve => {
-        process.once('message', resolve)
-        setTimeout(resolve, 1000)
-      }) * 1000
-    }
-    let muptime = clockString(_muptime)
+let handler = async (m, { conn, usedPrefix, __dirname, text, command }) => {
+    let date = moment.tz('Asia/Jakarta').format("dddd, Do MMMM, YYYY")
+    let time = moment.tz('Asia/Jakarta').format('HH:mm:ss')
+    let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
+    let _uptime = process.uptime() * 1000
+    let uptime = clockString(_uptime)
+    let totalreg = Object.keys(global.db.data.users).length
+    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
   const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
   const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
   const used = process.memoryUsage()
@@ -47,50 +50,40 @@ let handler = async (m, { conn, isRowner}) => {
     }
   })
   let old = performance.now()
-  await m.reply(`${htjava} *T e s t i n g. . .*`)
   let neww = performance.now()
   let speed = neww - old
-  let txt = `${htjava} *P I N G*
-  ${speed}ms
-  
-  ${htjava} *R U N T I M E* 
-  ${muptime}
-  ${readMore}
-  ${htki} *CHATS* ${htka}
-  • *${groupsIn.length}* Group Chats
-  • *${groupsIn.length}* Groups Joined
-  • *${groupsIn.length - groupsIn.length}* Groups Left
-  • *${chats.length - groupsIn.length}* Personal Chats
-  • *${chats.length}* Total Chats
-  
-  
-  ${htki} *SERVER* ${htka}
-  *🛑 RAM:* ${format(totalmem() - freemem())} / ${format(totalmem())}
-  *🔵 FreeRAM:* ${format(freemem())}
-  
-  *💻 Platform:* ${os.platform()}
-  *🧿 Server:* ${os.hostname()}
-  ${readMore}
-  *${htjava} NodeJS Memory Usage*
-  ${'```' + Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${format(used[key])}`).join('\n') + '```'}
-  
-  ${cpus[0] ? `_Total CPU Usage_
-  ${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
-  
-  _CPU Core(s) Usage (${cpus.length} Core CPU)_
-  ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
-  `
-.trim()
-  m.reply(txt)
+  let capti = `*Name*: ${_package.name}
+🧩 *Version*: ${_package.version}
+📚 *Library*: ${_package.description}
+
+⏳ *Uptime*:\n ${uptime}
+📈 *Database*: ${totalreg}
+
+📅 *Date*: ${date}
+⌚ *Time*: ${time} ﹙ɢᴍᴛ +5:30﹚
+
+🖥️ SERV INFO :
+⮕ *Ping*: ${speed} ᴍs
+⮕ *Platform:* ${os.platform()}
+⮕ *Ram*: ${format(totalmem() - freemem())} / ${format(totalmem())}
+
+💬 Status :
+⮕ ${groupsIn.length} - Group Chats
+⮕ ${groupsIn.length} - Groups Joined
+⮕ ${groupsIn.length - groupsIn.length} - Groups Left
+⮕ ${chats.length - groupsIn.length} - Personal Chats
+⮕ ${chats.length} - Total Chats
+`.trim()
+
+m.reply(capti)
+
 }
+
 handler.help = ['ping', 'speed']
 handler.tags = ['info', 'tools']
 
 handler.command = /^(ping|speed|info)$/i
 export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
 
 function clockString(ms) {
   let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000)

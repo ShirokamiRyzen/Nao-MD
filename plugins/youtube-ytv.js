@@ -1,4 +1,4 @@
-import { youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
+import { youtubedlv2, youtubedl } from '@bochilteam/scraper'
 
 const handler = async (m, { conn, args, command }) => {
   if (!args[0]) throw 'Where`s Url?' // Zod
@@ -16,9 +16,9 @@ const handler = async (m, { conn, args, command }) => {
 
   let yt
   try {
-    yt = await youtubedlv2(v)
+    yt = await youtubedl(v)
   } catch {
-    yt = await youtubedlv3(v)
+    yt = await youtubedlv2(v)
   }
 
   const title = await yt.title
@@ -54,6 +54,6 @@ const handler = async (m, { conn, args, command }) => {
 
 handler.help = ["ytmp4 <link>"]
 handler.tags = ['downloader']
-handler.command = /^ytmp4$/i
+handler.command = /(^ytmp4)$/i
 
 export default handler

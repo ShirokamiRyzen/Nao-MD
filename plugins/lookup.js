@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 let handler = async (m, { text, usedPrefix, command }) => {
   if (!text) throw `Masukkan Domain/Sub Domain!\n\n*Contoh:* ryzendesu.com`;
 
-  if (text.includes('https://') || text.includes('http://')) throw `Tolong masukkan domain/sub domain secara lengkap. Contoh: botcahx.live`;
+  if (text.includes('https://') || text.includes('http://')) throw `Tolong masukkan domain/sub domain secara lengkap. Contoh: ryzendesu.com`;
 
   try {
     // fetch pertama

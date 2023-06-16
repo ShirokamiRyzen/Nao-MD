@@ -90,12 +90,12 @@ global.sdc = '-' //discord
 global.snh = 'https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg'
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ DONASI ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-global.pdana = '0813 8730 7198'
+global.pdana = '0851 7426 9046'
 global.povo = '-'
-global.pgopay = '0813 8730 7198'
+global.pgopay = '0851 7426 9046'
 global.plinkaja = '-' //link aja
-global.ppulsa = '0813 8730 7198'
-global.ppulsa2 = '0813 8730 7198'
+global.ppulsa = '0851 7426 9046'
+global.ppulsa2 = '0851 7426 9046'
 global.psaweria = '-'
 
 

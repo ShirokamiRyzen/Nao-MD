@@ -63,7 +63,6 @@ global.readMore = readMore
 global.author = 'Ryzn'
 global.namebot = '​ NaoBotz'
 global.wm = '©NaoBotz By ShirokamiRyzen'
-global.media = 'https://telegra.ph/file/5d45a3d1e12726d98c5e4.jpg'
 global.watermark = wm
 global.wm2 = 'Ryzn '
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
@@ -89,12 +88,12 @@ global.sdc = '-' //discord
 global.snh = 'https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg'
 
 //⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ DONASI ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-global.pdana = '0851 7426 9046'
+global.pdana = '085174269046'
 global.povo = '-'
-global.pgopay = '0851 7426 9046'
+global.pgopay = '085174269046'
 global.plinkaja = '-' //link aja
-global.ppulsa = '0851 7426 9046'
-global.ppulsa2 = '0851 7426 9046'
+global.ppulsa = '085174269046'
+global.ppulsa2 = '085174269046'
 global.psaweria = '-'
 
 

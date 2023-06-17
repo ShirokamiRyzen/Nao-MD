@@ -1,17 +1,14 @@
 import fetch from 'node-fetch'
-
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) throw `Masukan URL!\n\ncontoh:\n${usedPrefix + command} https://www.facebook.com/100082288819998/videos/3440449526202780/`
-  try {
-    let get = await fetch(`https://api.botcahx.live/api/dowloader/fbdown?url=${args[0]}&apikey=${global.botcahx}`);
-    let js = await get.json()
-    conn.sendFile(m.chat, js.result.HD, 'fb.mp4', '', m)
-  } catch (e) {
-    console.log(e);
-    if (m.sender) {
-      conn.reply(m.chat, `_*Terjadi kesalahan!*_`, m)
-    }
-  }
+  const linknya = args[0]
+
+  if (!args[0]) throw `Input *URL*`
+  let p = await fetch(`https://xzn.wtf/api/download?url=${linknya}&apikey=${global.xzn}`)
+  let v = await p.json()
+  let o = v.url[0].url
+  let wm = `${global.wm}`
+  await m.reply('Sedang diproses...')
+  await conn.sendFile(m.chat, o, '', wm, m)
 }
 
 handler.help = ['fb'].map(v => v + ' <url>')

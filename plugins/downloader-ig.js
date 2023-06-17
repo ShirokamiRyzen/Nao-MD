@@ -4,7 +4,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
   if (!args[0]) throw `Input *URL*`
   if (!args[0].match(/https:\/\/www.instagram.com\/(p|reel|tv)/gi)) throw `*Link salah! Perintah ini untuk mengunduh postingan ig/reel/tv`
-  let api = await axios.get(`https://xzn.wtf/api/igdl?url=${linknya}&apikey=ikyy`)
+  let api = await axios.get(`https://xzn.wtf/api/igdl?url=${linknya}&apikey=${global.xzn}`)
   let wm = `${global.wm}`
   await m.reply('Sedang diproses...')
   for (let e of api.data.media)

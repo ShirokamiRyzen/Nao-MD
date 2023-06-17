@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url'
 import moment from 'moment-timezone'
 import { group } from 'console'
 import PhoneNumber from 'awesome-phonenumber'
+
 /*============= WAKTU =============*/
 let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
@@ -20,10 +21,6 @@ let wibh = moment.tz('Asia/Jakarta').format('HH')
     
     let d = new Date(new Date + 3600000)
     let locale = 'id'
-    // d.getTimeZoneOffset()
-    // Offset -420 is 18.00
-    // Offset    0 is  0.00 
-    // Offset  420 is  7.00
     let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
     let week = d.toLocaleDateString(locale, { weekday: 'long' })
     let date = d.toLocaleDateString(locale, {
@@ -31,20 +28,10 @@ let wibh = moment.tz('Asia/Jakarta').format('HH')
       month: 'long',
       year: 'numeric'
     })
- /*   let tag = `@${m.sender.replace(/@.+/, '')}`
-  let mentionedJid = [m.sender]
-let ucpn = `${ucapan()}`
-let name = conn.getName(m.sender)*/
     const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 
-      /*============== SOCIAL ==============*/
-
-// kalo ga punya ketik "-" atau biarin aja biar ada creditsnya :v
- // my youtube channel
-
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ NO OWNER ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-
+/*============= MAIN INFO =============*/
 global.owner = [
 ['6281387307198', 'Ryzn', true]
 ]
@@ -57,8 +44,7 @@ global.nomorown2 = '6281387307198'
 global.nomorwa = '0'
 
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WM ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-
+/*============= WATERMARK =============*/
 global.readMore = readMore
 global.author = 'Ryzn'
 global.namebot = '​ NaoBotz'
@@ -72,22 +58,23 @@ global.stickpack = `Sticker Dibuat pada ${week} ${date}\nJam: ${wktugeneral}\n\n
 global.stickauth = `© NaoBotz by Ryzen`
 global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ OWNER INFO ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+
+/*============= OWNER INFO =============*/
 global.nameown1= 'Ryzn'
 global.nameown2 = 'Ryzn'
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ MEDIA LINK ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= MEDIA LINK =============*/
 global.Linkgc = 'Bentar'
 global.lynk = ''
 
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ MEDIA SOSSIAL ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+//*============= SOSMED =============*/
 global.sig = 'https://www.instagram.com/ryzen_vermillion'
 global.sgh = 'https://github.com/ShirokamiRyzen' //github
 global.sgc = '-' //group whatsapp
 global.sdc = '-' //discord
 global.snh = 'https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg'
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ DONASI ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= DONASI =============*/
 global.pdana = '085174269046'
 global.povo = '-'
 global.pgopay = '085174269046'
@@ -97,9 +84,8 @@ global.ppulsa2 = '085174269046'
 global.psaweria = '-'
 
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ TAMPILAN ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= TAMPILAN =============*/
 global.ListHargaSewa = '├ 5 Hari IDR 3.000\n├ 7 Hari IDR 5.000\n├ 15+5 Hari IDR 10.000\n├ 30 Hari IDR 15.000'
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ TAMPILAN ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
 global.LyAtas1 = '☰ ━━━ ❨'
 global.LyAtas2 = '❩ ━━┄┈ •⟅'
 global.Ly = '┃'
@@ -124,19 +110,18 @@ global.lolm = 'Ⓛ' //LOGO LIMIT/FREE ON MENU.JS
 global.htjava = '⫹⫺'    //hiasan Doang :v
 global.hsquere = ['⛶','❏','⫹⫺']
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RESPOND ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= RESPON =============*/
 global.stiker_wait = 'Please Wait...'
 global.wait = 'Please Wait...'
 global.eror = 'Error!'
 
-
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RESPOND GEME ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= RESPON GAME =============*/
 global.benar = 'Good Job! ◕◡◕'
 global.salah = 'Not Bad! ◕◠◕'
 global.dikit = "Dikit Lagi, Semangat!!"
 
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ RPG GAME ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= RPG GAME =============*/
 global.multiplier = 69 // The higher, The harder levelup
 global.rpg = {
   emoticon(string) {
@@ -210,7 +195,7 @@ global.rpg = {
 }
 
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ WEBSITE APIKEY ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= WEB API KEY =============*/
 global.alpiskey = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://alpis.eu.org
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
@@ -222,7 +207,7 @@ global.botcahx = 'YOUR_APIKEY_HERE' //https://api.botcahx.live/
 global.uptime = 'u1931038-1f70a77eef5964be82e7d606' // Masukin APIKEY uptimerobot kamu disini ===== https://uptimerobot.com/dashboard?ref=website-header#mySettings
 global.xzn = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://xzn.wtf/
 
-global.APIs = { // API Prefix
+global.APIs = {
   // name: 'https://website'
   alpis: 'https://alpis.eu.org',
   lol: 'https://api.lolhuman.xyz',
@@ -230,17 +215,13 @@ global.APIs = { // API Prefix
   males : 'https://api.lolhuman.xyz' //web api terserah ganti apa aja (buat welcome sama leave gc)
 }
 
-//⳹ NOTE !! EXAMPLE ➢ Name Api: 'website api'
-
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
   'https://api.lolhuman.xyz': 'SGWN',
   'https://violetics.pw': 'beta',
 }
-//⳹ NOTE !! EXAMPLE ➢ 'https://WebsiteApi': 'Apikey'
 
-
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ OTHER ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
+/*============= OTHER =============*/
 global.dpptx = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
 global.ddocx = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 global.dxlsx = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -280,8 +261,7 @@ global.dtc = 'CALL OWNER'
 global.phn = '0813 8730 7198'
 
 
-//⫹⫺ ╳╶╼╶╶╶╶┈ ⎝ JNGN DI UBAH ⎞ ┈╴╴╴╴╾╴╳ ⫹⫺
-
+/*============= JANGAN DIUBAH =============*/
 global.fsizedoc = '99999999999999'
 global.fpagedoc = '999'
 global.thumbdoc = 'https://telegra.ph/file/6e45318d7c76f57e4a8bd.jpg'

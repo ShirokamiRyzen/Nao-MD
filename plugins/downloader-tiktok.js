@@ -2,12 +2,13 @@ import fetch from 'node-fetch'
 import axios from 'axios'
 import cheerio from 'cheerio'
 
-var handler = async (m, { conn, args}) => {
-  if (!args[0]) throw 'Uhm...url nya mana?'
+var handler = async (m, { conn, args }) => {
+    if (!args[0]) throw 'Uhm...url nya mana?'
+    m.reply('_In progress, please wait..._')
     const { thumbnail, video, audio } = await tiktokdl(args[0])
     const url = video
     if (!url) throw 'Can\'t download video!'
-    await conn.sendMessage(m.chat, { video: { url: url }},m) 
+    await conn.sendMessage(m.chat, { video: { url: url } }, m)
 }
 
 handler.help = ['tiktok'].map(v => v + ' <url>')
@@ -18,7 +19,7 @@ handler.register = true
 
 export default handler
 
-async function tiktokdl (url) {
+async function tiktokdl(url) {
     if (!/tiktok/.test(url)) return error.link;
     const gettoken = await axios.get("https://tikdown.org/id");
     const $ = cheerio.load(gettoken.data);

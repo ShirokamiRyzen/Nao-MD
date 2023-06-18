@@ -48,14 +48,14 @@ global.nomorwa = '0'
 global.readMore = readMore
 global.author = 'Ryzn'
 global.namebot = '​ NaoBotz'
-global.wm = '©NaoBotz By ShirokamiRyzen'
+global.wm = '© NaoBotz By ShirokamiRyzen'
 global.watermark = wm
 global.wm2 = 'Ryzn '
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`
 global.titlebot = `NaoBotz`
 global.stickpack = `Sticker Dibuat pada ${week} ${date}\nJam: ${wktugeneral}\n\nNao-Bot\n+6285864034767`
-global.stickauth = `© NaoBotz by Ryzen`
+global.stickauth = `© NaoBotz By ShirokamiRyzen`
 global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
 

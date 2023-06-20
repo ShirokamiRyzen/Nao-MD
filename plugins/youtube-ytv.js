@@ -56,4 +56,6 @@ handler.help = ["ytmp4 <link>"]
 handler.tags = ['downloader']
 handler.command = /(^ytmp4)$/i
 
+handler.register = true
+
 export default handler

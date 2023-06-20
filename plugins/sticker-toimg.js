@@ -13,4 +13,6 @@ handler.help = ['toimg (reply)']
 handler.tags = ['sticker']
 handler.command = ['toimg']
 
+handler.register = true
+
 export default handler

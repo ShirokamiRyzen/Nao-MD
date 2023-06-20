@@ -21,4 +21,6 @@ handler.help = ['yts <query>']
 handler.tags = ['tools']
 handler.command = /^yts(earch)?$/i
 
+handler.register = true
+
 export default handler

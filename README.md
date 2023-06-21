@@ -1,7 +1,7 @@
 <p align="center">
     <img src="./media/own.jpg" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
-<h1 align="center">Nao-Botz V2</h1>
+<h1 align="center">Nao-Botz V5</h1>
 
 
 ## NOTE BEFORE USING!!
@@ -15,9 +15,9 @@
 
 ### a little about this bot
 - ✔️ | **Simple** 
-- ✔️ | **Button Template** 
+- ✔️ | **No Button** 
 - ✔️ | **Multi Device** 
-- ✔️ | **Button Document** 
+- ✔️ | **Plugins** 
 ---------
 ### Some of the features include
 - ✔️ | Menfess
@@ -34,7 +34,7 @@
 ---------
 
 ##
-[![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285864034767) 
+[![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send/?phone=6285864034767&text=.menu) 
 [![ONWER](https://img.shields.io/badge/Owner%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6281387307198) 
 
 ##

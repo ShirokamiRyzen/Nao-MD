@@ -15,70 +15,27 @@ let handler = async (m, { conn, args: [effect], text: txt, usedPrefix, command }
   let result = await axios.get(res, {
     responseType: 'arraybuffer'
   })
- /* await m.reply('*Sedang Membuat...*')*/
- let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let pp = await conn.profilePictureUrl(who).catch(_ => hwaifu.getRandom())
-let name = await conn.getName(who)
- let stiker = await sticker(null, global.API(`https://telegra.ph/file/d34b2ab2cb233c749776c.png`), global.packname, global.author)
- const fliveLoc2 = {
-            key:
-            { fromMe: false,
-            participant: `0@s.whatsapp.net`, ...(m.chat ? 
-            { remoteJid: "status@broadcast" } : {}) },
-            message: { "liveLocationMessage": { "title": "© CREATED BY NAO BOTZ","RYZN": wm, 'jpegThumbnail': fs.readFileSync('./thumbnail.jpg')}}
-           }
-       let tag = `@${m.sender.replace(/@.+/, '')}`
-  let mentionedJid = [m.sender]
-  
- conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, null, { fileLength: 100, contextInfo: {
-          externalAdReply :{
-          showAdAttribution: true,
-    mediaUrl: 'https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg',
-    mediaType: 2,
-    description: 'Ryzn', 
-    title: `${command} Sedang Di Proses`,
-    body: botdate,
-    thumbnail: await(await fetch(pp)).buffer(),
-    sourceUrl: 'https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg'
-     }}
-  })
-  
- /* await conn.sendFile(m.chat, result.data, 'textpro.jpg', tag, global.fkontak, null, { fileLength: 100, contextInfo: {
-         externalAdReply: { showAdAttribution: true,
- mediaUrl: sgc,
-    mediaType: 2, 
-    description: 'www.instagram.com/hyuura-official',
-    title: `${effect}nya Sudah Jadi Boz`,
-    body: wm,
-    thumbnail: fs.readFileSync('./thumbnail.jpg'),
-    sourceUrl: sgc
-}}
-     })*/
-     /*conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, null, { fileLength: 100, contextInfo: {
-          externalAdReply :{
-          showAdAttribution: true,
-    mediaUrl: sgc,
-    mediaType: 2,
-    description: '𝑨𝒍𝒅𝒊 𝑿 𝑨𝒊𝒔𝒚𝒂𝒉', 
-    title: 'Hai, ' + name + ' ' + ucapan,
-    body: botdate,
-    thumbnail: await(await fetch(pp)).buffer(),
-    sourceUrl: sgc
-     }}
-  })*/
- conn.send3ButtonImg(m.chat, result.data, `Effect *${effect}nya* Dah Jadi ${tag}`,`Subs My Channel ${global.snh}`, 'Menu', '.menu', 'Owner', '.owner', 'Credit', '.credit', global.fkontak, { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: sgc,
-    mediaType: 2, 
-    description: sgc,
-    title: "Iɴɪ Dʜ Sɪᴀᴘ Cᴜʏ 〠",
-    body: 'Scriptnya ini cuy: https://github.com/ShirokamiRyzen',
-    thumbnail: fs.readFileSync('./thumbnail.jpg'),
-    sourceUrl: `https://github.com/ShirokamiRyzen`
-     }}
+  await m.reply('*Sedang Membuat...*')
+
+  let tag = `@${m.sender.replace(/@.+/, '')}`
+
+  conn.sendFile(m.chat, result.data, 'textpro.jpg', tag, global.fkontak, null, {
+    fileLength: 100, contextInfo: {
+      externalAdReply: {
+        showAdAttribution: true,
+        mediaUrl: sgc,
+        mediaType: 2,
+        description: 'www.instagram.com/ryzen_vermillion',
+        title: `${effect}nya Sudah Jadi :D`,
+        body: wm,
+        thumbnail: fs.readFileSync('./thumbnail.jpg'),
+        sourceUrl: sgc
+      }
+    }
   })
 }
 handler.help = ['textpro'].map(v => v + ' <effect> <text>')
-handler.tags = ['maker','textpro']
+handler.tags = ['maker', 'textpro']
 handler.command = /^(textpro)$/i
 
 export default handler
@@ -90,7 +47,7 @@ function pickRandom(list) {
 import formData from 'form-data'
 import cheerio from 'cheerio'
 var effects = [
-    {
+  {
     "title": "│ • 1917Style",
     "url": "https://textpro.me/1917-style-text-effect-online-980.html"
   },
@@ -198,27 +155,27 @@ var effects = [
     "title": "3DChrome",
     "url": "https://textpro.me/3d-chrome-text-effect-827.html"
   },
-    {
+  {
     "title": "AbstraGold",
     "url": "https://textpro.me/abstra-gold-text-effect-859.html"
   },
-    {
+  {
     "title": "Americanflag3D",
     "url": "https://textpro.me/create-american-flag-3d-text-effect-online-1051.html"
   },
-    {
+  {
     "title": "Artisticbw",
     "url": "https://textpro.me/create-artistic-black-and-white-status-and-quote-with-your-photos-1021.html"
   },
-    {
+  {
     "title": "AspookyHalloween",
     "url": "https://textpro.me/create-a-spooky-halloween-text-effect-online-1046.html"
   },
-    {
+  {
     "title": "Avatargold",
     "url": "https://textpro.me/create-avatar-gold-online-956.html"
   },
-   {
+  {
     "title": "Bagel",
     "url": "https://textpro.me/bagel-text-effect-857.html"
   },
@@ -270,7 +227,7 @@ var effects = [
     "title": "BlueJewelry1",
     "url": "https://textpro.me/blue-sparkling-jewelry-text-effect-898.html"
   },
- {
+  {
     "title": "BlueJewelry2",
     "url": "https://textpro.me/blue-jewelry-text-effect-844.html"
   },
@@ -342,39 +299,39 @@ var effects = [
     "title": "coolwallgraffiti",
     "url": "https://textpro.me/create-cool-wall-graffiti-text-effect-online-1009.html"
   },
-{
+  {
     "title": "CyanJewelry2",
     "url": "https://textpro.me/cyan-jewelry-text-effect-845.html"
   },
-{
+  {
     "title": "CyanJewelry1",
     "url": "https://textpro.me/cyan-sparkling-jewelry-text-effect-893.html"
-},
-{
+  },
+  {
     "title": "CyanGlass",
     "url": "https://textpro.me/cyan-glass-text-effect-909.html"
   },
-{
+  {
     "title": "CyanBalloon",
     "url": "https://textpro.me/cyan-foil-balloon-text-effect-924.html"
   },
-{
+  {
     "title": "DoubleExposure",
     "url": "https://textpro.me/double-exposure-text-effect-black-white-976.html"
   },
-{
+  {
     "title": "DeluxeSilver",
     "url": "https://textpro.me/deluxe-silver-text-effect-970.html"
   },
-{
+  {
     "title": "DeluxeGold",
     "url": "https://textpro.me/deluxe-gold-text-effect-966.html"
   },
-{
+  {
     "title": "Denim",
     "url": "https://textpro.me/denim-text-effect-online-919.html"
   },
-{
+  {
     "title": "DecorateGreen",
     "url": "https://textpro.me/decorate-green-text-effect-918.html"
   },
@@ -382,11 +339,11 @@ var effects = [
     "title": "DecoratePurple",
     "url": "https://textpro.me/decorate-purple-text-effect-917.html"
   },
-{
+  {
     "title": "Dropwater",
     "url": "https://textpro.me/dropwater-text-effect-872.html"
   },
-{
+  {
     "title": "DecorativeGlass",
     "url": "https://textpro.me/decorative-glass-text-effect-891.html"
   },
@@ -822,7 +779,7 @@ var effects = [
     "title": "Thunder1",
     "url": "https://textpro.me/online-thunder-text-effect-generator-1031.html"
   },
-    {
+  {
     "title": "Thunder2",
     "url": "https://textpro.me/create-thunder-text-effect-online-881.html"
   },

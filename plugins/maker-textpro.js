@@ -17,7 +17,7 @@ let handler = async (m, { conn, args: [effect], text: txt, usedPrefix, command }
   })
   await m.reply('*Sedang Membuat...*')
 
-  let tag = `@${m.sender.replace(/@.+/, '')}`
+  let tag = `${global.wm}`
 
   conn.sendFile(m.chat, result.data, 'textpro.jpg', tag, global.fkontak, null, {
     fileLength: 100, contextInfo: {

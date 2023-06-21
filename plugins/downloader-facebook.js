@@ -6,9 +6,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   let p = await fetch(`https://xzn.wtf/api/download?url=${linknya}&apikey=${global.xzn}`)
   let v = await p.json()
   let o = v.url[0].url
-  let wm = `${global.wm}`
   await m.reply('Sedang diproses...')
-  await conn.sendFile(m.chat, o, '', wm, m)
+  await conn.sendFile(m.chat, o, '', global.wm, m)
 }
 
 handler.help = ['fb'].map(v => v + ' <url>')

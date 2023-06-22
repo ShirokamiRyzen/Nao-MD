@@ -10,7 +10,7 @@ handler.all = async function (m, { isBlocked }) {
 /* - - - - - - - Ini autoresponder - - - - - - - */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-let regj = /(.jadibotak)/i
+/*let regj = /(.jadibotak)/i
     let isJadibot = regj.exec(m.text)
     let jadbot = [
 '🤖',
@@ -27,7 +27,7 @@ let jadibot = jadbot[Math.floor(Math.random() * jadbot.length)]
    setTimeout(() => {
         conn.reply(m.chat, `mau jadibot? Ketik .sewa ${jadibot}`, m)
     }, 1000)
-    }
+    }*/
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
 /* - - - - - - - Ini autoresponder - - - - - - - */
@@ -118,29 +118,6 @@ let pedalaman = dalam[Math.floor(Math.random() * dalam.length)]
         }})
    setTimeout(() => {
         conn.reply(m.chat, `Gaboleh gitu lu anjing ${pedalaman}`, m)
-    }, 1000)
-    }
-    
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - */
-/* - - - - - - - Ini autoresponder by ryzn - - - - - - - */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-    
-let fajri = /(fajri)/i
-    let beban = fajri.exec(m.text)
-    let jriban = [
-'😜',
-'😏',
-'🤣'
-]
-let epicabadi = jriban[Math.floor(Math.random() * jriban.length)]
-    if (beban && !m.fromMe) {
-    conn.sendMessage(m.chat, {
-        react: {
-          text: `${epicabadi}`,
-          key: m.key,
-        }})
-   setTimeout(() => {
-        conn.reply(m.chat, `Beban rank awokawok ${epicabadi}`, m)
     }, 1000)
     }
     

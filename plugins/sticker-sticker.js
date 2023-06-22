@@ -1,4 +1,4 @@
-import { sticker } from '../lib/sticker.js'
+import { sticker, sticker5 } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { webp2png } from '../lib/webp2mp4.js'
@@ -19,7 +19,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         else if (/image/g.test(mime)) out = await uploadImage(img)
         else if (/video/g.test(mime)) out = await uploadFile(img)
         if (typeof out !== 'string') out = await uploadImage(img)
-        stiker = await sticker(false, out, global.stickpack, global.stickauth)
+        stiker = await sticker5(false, out, global.stickpack, global.stickauth)
       } catch (e) {
         console.error(e)
       } finally {

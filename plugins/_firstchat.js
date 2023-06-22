@@ -8,7 +8,10 @@ export async function before(m) {
 ${user.banned ? '📮Maaf, kamu dibanned & Tidak bisa menggunakan bot ini lagi' : `💬Ada yg bisa ${this.user.name} bantu?`}`.trim()
 
     if (new Date() - user.pc < 21600000) return // waktu ori 21600000 (6 jam)
-    await m.reply('📮Note: Jangan spam botnya\n⏩Ketik *.menu* untuk menampilkan menu' + '\n\n📝Free 24/7 Hosting at pylexnodes.net\nUse refferal code "RYZEN" to get 250 Pylex Coins')
+    await m.reply(`📮Note: Jangan spam botnya
+⏩Ketik *.menu* untuk menampilkan menu
+
+📝Ads text here`)
     user.pc = new Date * 1
 }
 

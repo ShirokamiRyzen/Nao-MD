@@ -27,8 +27,10 @@ var handler = async (m, { args }) => {
    let media2 = res2.url
    let cap = res2.title
      return this.sendFile(m.chat, media, 'instagram.mp4', cap, m)
-     } finally {
-   }
+     } catch (e) {
+      console.log(e)
+      m.reply(`Fitur error atau Otak pengguna error`)
+    }
   }
 }
 

@@ -43,6 +43,8 @@ handler.tags = ['sticker']
 handler.alias = ['stiker', 'sticker', 'sgif', 'stikergif', 'stickergif']
 handler.command = /^s(tic?ker)?(gif)?$/i
 
+handler.register = true
+
 export default handler
 
 const isUrl = (text) => {

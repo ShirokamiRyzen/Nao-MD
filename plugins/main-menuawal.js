@@ -1,6 +1,3 @@
-// Script Ori By BochilGaming
-// Ditulis Ulang Oleh ImYanXiao
-
 import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
@@ -11,79 +8,40 @@ import fetch from 'node-fetch'
 const { generateWAMessageFromContent, proto } = (await import('@adiwajshing/baileys')).default
 
 const defaultMenu = {
-  before: `
-╭─────═[ INFO USER ]═─────⋆
-│╭───────────────···
-┴│☂︎ *Name:* %name
-⬡│☂︎ *Tag:* %tag
-⬡│☂︎ *Premium:* %prems
-⬡│☂︎ *Limit:* %limit
-⬡│☂︎ *Money:* %money
-⬡│☂︎ *Role:* %role
-⬡│☂︎ *Level:* %level
-┬│☂︎ *Total Xp:* %totalexp
-│╰────────────────···
-┠─────═[ TODAY ]═─────⋆
-│╭────────────────···
-┴│    *${ucapan()} %name!*
-⬡│☂︎ *Tanggal:* %week %weton
-⬡│☂︎ *Date:* %date
-⬡│☂︎ *Tanggal Islam:* %dateIslamic
-┬│☂︎ *Waktu:* %time
-│╰────────────────···
-┠─────═[ INFO BOT ]═─────⋆
-│╭────────────────···
-┴│☂︎ *Nama Bot:* %me
-⬡│☂︎ *Mode:* %mode
-⬡│☂︎ *Prefix:* [ *%_p* ]
-⬡│☂︎ *Baileys:* Multi Device
-⬡│☂︎ *Platform:* %platform
-⬡│☂︎ *Type:* Node.Js
-⬡│☂︎ *Uptime:* %muptime
-┬│☂︎ *Database:* %rtotalreg dari %totalreg
-│╰────────────────···
-╰──────────═┅═──────────
-
-⃝▣──「 *INFO CMD* 」───⬣
-│ *Ⓟ* = Premium
-│ *Ⓛ* = Limit
-▣────────────⬣
+  before: `❏ *Nama:*  %name 
+❏ *Nomor:* %tag
+❏︎ *Premium:* %prems
+❏︎ *Limit:* %limit
+❏︎ *Money:* %money
+❏ *Role:* %role
+❏︎ *Level:* %level
+❏︎ *Xp:* %exp / %maxexp
+❏︎ *Total Xp:* %totalexp
 %readmore
 `.trimStart(),
-  header: '⃝▣──「 %category 」───⬣',
-  body: '│○ %cmd %isPremium %islimit',
-  footer: '▣───────────⬣\n',
-  after: `%c4 %me`,
+  header: '╭─────『 %category 』',
+  body: '❏︎ %cmd %isPremium %islimit',
+  footer: '╰–––––––––––––––༓',
+  after: ``,
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command}) => {
 let tags = {
 'main': 'Main',
 'ai': 'Ai feature',
-'stress': 'Stress',
-'menfess': 'Menfess',
-//'game': 'Game',
-//'rpg': 'RPG Games',
-'textpro': 'Make text logo',
-'xp': 'Exp & Limit',
-'sticker': 'Sticker',
-//'kerang': 'Kerang Ajaib',
-'quotes': 'Quotes',
-//'fun': 'Fun',
 'anime': 'Anime',
-'group': 'Group',
-'premium': 'Premium',
-'stalk': 'Stalk',
 'internet': 'Internet',
 'downloader': 'Downloader',
+'sticker': 'Sticker',
 'tools': 'Tools',
-//'nulis': 'MagerNulis & Logo',
-'audio': 'Audio',
-'maker': 'Maker',
-'database': 'Database',
-'quran': 'Al Qur\'an',
-'owner': 'Owner',
+//'islamic': 'Islamic',
+'group': 'Group',
+//'game': 'Game',
+//'fun': 'Fun',
+//'rpg': 'RPG Games',
+'quotes': 'Quotes',
+'maker': 'Maker Text Logo',
 'info': 'Info',
-  //'': 'No Category',
+'owner': 'Owner',
 }
  
   try {
@@ -153,56 +111,8 @@ let tags = {
     }
     let mpt = clockString(_mpt)
     let usrs = db.data.users[m.sender]
-   
-   const sections = [
-   {
-	title: `${htki} ᴍᴀɪɴ ${htka}`,
-	rows: [
-    {title: `⚡ ${pmenus} SPEED BOT`, rowId: ".speed", description: "Menampilkan kecepatan respon BOT"},
-    {title: `💌 ${pmenus} OWNER BOT`, rowId: ".owner", description: "Menampilkan List owner BOT"},
-	]
-    },{
-	title: `${htki} sᴜᴘᴘᴏʀᴛ ${htka}`,
-	rows: [
-    {title: `🔖 ${pmenus} SEWA`, rowId: ".sewa", description: "Menampilkan list harga sewa BOT"},
-    {title: `🌟 ${pmenus} BUY PREMIUM`, rowId: ".premium", description: "Menampilkan list harga premium"},
-    {title: `💹 ${pmenus} DONASI`, rowId: ".owner kontak", description: 'Support BOT agar lebih fast respon'},
-	]
-	},{
-	title: `${htki} ᴍᴇɴᴜ ${htka}`,
-	rows: [
-    {title: `${pmenus} All`, rowId: ".? all", description: "Menampilkan Semua command BOT"},
-    {title: `${pmenus} Ai`, rowId: ".? ai", description: "All AI features"},
-    {title: `${pmenus} Stress`, rowId: ".? Stress", description: "Kali aja kamu halu"},
-    {title: `${pmenus} Menfess`, rowId: ".? menfess", description: "Mengirim pesan secara anonim"},
-    {title: `${pmenus} Rpg`, rowId: ".? rpg", description: "Game Epic Rpg!"},
-    {title: `${pmenus} Exp`, rowId: ".? xp", description: "Ayo tingkatkan pangkat mu!"},
-    {title: `${pmenus} Game`, rowId: ".? game", description: "Gamenya seru seru lho >-<"},
-    {title: `${pmenus} Fun`, rowId: ".? fun", description: "Fitur yang aman untuk keluarga"},
-    {title: `${pmenus} Text Pro`, rowId: ".? textpro", description: "Buat text dari logo"},
-    {title: `${pmenus} Kerang`, rowId: ".? kerangajaib", description: "Tanyakan pada ketua club"},
-    {title: `${pmenus} Quotes`, rowId: ".? quotes", description: "Random Inspirasi"},
-    {title: `${pmenus} Anime`, rowId: ".? anime", description: "Kamu wibu ya bang?"},
-    {title: `${pmenus} Nsfw`, rowId: ".? nsfw", description: "Tch, dasar sagne"},
-    {title: `${pmenus} Premium`, rowId: ".? premium", description: "Only premium Users"},
-    {title: `${pmenus} Stalk`, rowId: ".? stalk", description: "Kepoin akun seseorang"},
-    {title: `${pmenus} Al-Quran`, rowId: ".? quran", description: "Tobat yuk kak"},
-    {title: `${pmenus} Internet`, rowId: ".? internet", description: "Cari sesuatu diBOT"},
-    {title: `${pmenus} Berita`, rowId: ".? berita", description: "Cari berita terupdate"},
-    {title: `${pmenus} Stikers`, rowId: ".? stiker", description: "Buat Sticker diBOT"},
-    {title: `${pmenus} Nulis`, rowId: ".? nulis", description: "Nulis kok males kak?"},
-    {title: `${pmenus} Audio`, rowId: ".? audio", description: "Ubah Audio dengan Filter"},
-    {title: `${pmenus} Sound Menu`, rowId: ".soundmenu", description: "Kumpulan 120 Sound"},
-    {title: `${pmenus} Group`, rowId: ".? group", description: "Only Groups"},
-    {title: `${pmenus} Admin`, rowId: ".? admin", description: "Only Admin Group"},
-    {title: `${pmenus} Database`, rowId: ".? database", description: "Simpan sesuatu diBOT"},
-    {title: `${pmenus} Tools`, rowId: ".? tools", description: "Mungkin tools ini bisa membantu?"},
-    {title: `${pmenus} Info`, rowId: ".? info", description: "Info info BOT"},
-    {title: `${pmenus} Owner`, rowId: ".? owner", description: "Owner Only!"},
-    ] },
-]
-
- let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
+      
+    let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
     let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
     let wibs = moment.tz('Asia/Jakarta').format('ss')
@@ -210,7 +120,7 @@ let tags = {
     let wita = moment.tz('Asia/Makassar').format('HH:mm:ss')
     let wktuwib = `${wibh} H ${wibm} M ${wibs} S`
  
- let mode = global.opts['self'] ? 'Private' : 'Publik'
+    let mode = global.opts['self'] ? 'Private' : 'Publik'
     let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
     let { age, exp, limit, level, role, registered, money} = global.db.data.users[m.sender]
     let { min, xp, max } = xpRange(level, global.multiplier)
@@ -282,139 +192,9 @@ let tags = {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     
-    //----------------- FAKE
- let fvn = {quoted: { key: {participant : '0@s.whatsapp.net'},message: { "audioMessage": {"mimetype":"audio/ogg; codecs=opus","seconds": "2022","ptt": "true"} } }}
- let floc = {quoted: { key: { participant : '0@s.whatsapp.net'}, message: { "liveLocationMessage": { "caption": `Menu`,"h": `${name}`, 'jpegThumbnail': fs.readFileSync('./thumbnail.jpg')}} }}
- let fdocs = {quoted: { key : { participant : '0@s.whatsapp.net'},message: {documentMessage: {title: `Hai Kak ${name}!`,  jpegThumbnail: fs.readFileSync('./thumbnail.jpg') }}}}
- let fgclink = {quoted: {key: {participant : '0@s.whatsapp.net'},message: {groupInviteMessage: {groupJid: "17608914335-1625305606@g.us",inviteCode: null,groupName: `Hai ${name}!`,  caption: wm,  jpegThumbnail: fs.readFileSync('./thumbnail.jpg') }} }}
- let fgif = {quoted: {key: { participant : '0@s.whatsapp.net'}, message: {  "videoMessage": {  "title": `Hai Kak ${name}!`, "h": `Hmm`, 'seconds': '999999999',  'gifPlayback': 'true',  'caption': wm, 'jpegThumbnail': fs.readFileSync('./thumbnail.jpg') } } } }
  let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
- 
-    let ftoko = {
-    key: {
-    fromMe: false,
-    participant: `${m.sender.split`@`[0]}` + '@s.whatsapp.net',
-    remoteJid: 'status@broadcast',
-  },
-  message: {
-  "productMessage": {
-  "product": {
-  "productImage":{
-  "mimetype": "image/jpeg",
-  "jpegThumbnail": fs.readFileSync('./media/own.jpg'),
-    },
-  "title": `${ucapan()}`,
-  "description": '𝗧 𝗜 𝗠 𝗘 : ' + wktuwib,
-  "currencyCode": "US",
-  "priceAmount1000": "100",
-  "retailerId": wm,
-  "productImageCount": 999
-        },
-  "businessOwnerJid": `${m.sender.split`@`[0]}@s.whatsapp.net`
-  }
-  }
-  }
-  
-    let urls = pickRandom(['https://telegra.ph/file/035e524939ab0294ba91f.jpg', 'https://telegra.ph/file/96b2275d3b14d071290bc.jpg', 'https://telegra.ph/file/2c6b7660bc6126404a9bb.jpg', 'https://telegra.ph/file/c635bf577bb9d59a3e00b.jpg', 'https://telegra.ph/file/be8dd52f6363f9e9f5a60.jpg', 'https://telegra.ph/file/02e53361b9dc946f63c8d.jpg', 'https://telegra.ph/file/298ed2f1bba17aeb64ca8.jpg', 'https://telegra.ph/file/be2a18221974147f66ea0.jpg'])
-    const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')
-    
-    //FAKE TROLI
-
-    const ftrol = {
-    key : {
-    remoteJid: 'status@broadcast',
-    participant : '0@s.whatsapp.net'
-    },
-    message: {
-    orderMessage: {
-    itemCount : 2022,
-    status: 1,
-    surface : 1,
-    message: `Hai Kak ${name}!`, 
-    orderTitle: `▮Menu ▸`,
-    thumbnail: await (await fetch(fotonya2 + 'Menu')).buffer(), //Gambarnye
-    sellerJid: '0@s.whatsapp.net' 
-    }
-    }
-    }
-    
-    const fload = {
-    key : {
-    remoteJid: 'status@broadcast',
-    participant : '0@s.whatsapp.net'
-    },
-    message: {
-    orderMessage: {
-    itemCount : 2022,
-    status: 1,
-    surface : 1,
-    message: '[❗] Memuat Menu ' + '...\n Sabar Ya Kak ^ω^', 
-    orderTitle: `▮Menu ▸`,
-    thumbnail: await (await fetch(fotonya2 + 'Loading')).buffer(), //Gambarnye
-    sellerJid: '0@s.whatsapp.net' 
-    }
-    }
-    }
-    await conn.reply(m.chat, '*Tunggu Sebentar Kak. . .*', ftrol) 
-   
-    //------------------ DOCUMENT
-    let d1 = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-    let d2 = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    let d3  = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    let d4 = 'application/pdf'
-    let d5 = 'application/vnd.android.package-archive'
-    let d6 = 'application/zip'
-    let td = `${pickRandom([d1,d2,d3,d4,d5,d6])}`
-
-//-------DOC TEMPLATE
-    const message = { 
-            document: { url: thumbdoc },
-            jpegThumbnail: await (await fetch(urls)).buffer(),
-            fileName: wm,
-            mimetype: td,
-            fileLength: fsizedoc,
-            pageCount: fpagedoc,
-            caption: text,
-            footer: titlebot,
-            templateButtons: [
-                {
-                    urlButton: {
-                        displayText: `${namebot}`,
-                        url: 'https://github.com/ShirokamiRyzen/Nao-MD'
-                    }
-                },
-                {
-                    urlButton: {
-                        displayText: 'Instagram',
-                        url: sig
-                    }
-                },
-                {
-                    quickReplyButton: {
-                        displayText: 'Owner🎐',
-                        id: '.owner'
-                    }
-                },
-                {
-                    quickReplyButton: {
-                        displayText: 'Speed⚡',
-                        id: '.ping'
-                    }
-                },
-                {
-                    quickReplyButton: {
-                        displayText: 'Donasi💵',
-                        id: '.donasi'
-                    }
-                },
-            ]
-        }
-     //---Made By @ImYanXiao
-    // Mampus Di Enc 🧢
-    // Gausah Dihapus, Thx
-    //------------------ DOCUMENT WITH EXTERNALADS WITHOUT BUTTON
-    function _0x2daf(){const _0x4c1076=['namedoc','social','1017dFLzIP','11680bWFOeX','sendMessage','1FnTozH','6qNtNxK','445374chjKag','2096504ySppGm','627669MaFyqj','readFileSync','ʜᴏᴡ\x20ᴀʀᴇ\x20ʏᴏᴜ\x20ᴛᴏᴅᴀʏ?','374160lMCurS','356228pujvOS','./media/own.jpg','1019845zOpQQK','pdf','chat'];_0x2daf=function(){return _0x4c1076;};return _0x2daf();}const _0x110137=_0x13bb;(function(_0x14d3d7,_0x67b65e){const _0x3a56bf={_0x2e964c:0x1b0,_0x4fc539:0x1bd,_0x2a1845:0x1b1,_0x2b6724:0x1b3,_0x4293cc:0x1b8,_0x59080a:0x1b9},_0x30692c=_0x13bb,_0x119b1c=_0x14d3d7();while(!![]){try{const _0x181128=parseInt(_0x30692c(0x1bb))/0x1*(parseInt(_0x30692c(_0x3a56bf._0x2e964c))/0x2)+parseInt(_0x30692c(_0x3a56bf._0x4fc539))/0x3+parseInt(_0x30692c(_0x3a56bf._0x2a1845))/0x4+parseInt(_0x30692c(_0x3a56bf._0x2b6724))/0x5*(parseInt(_0x30692c(0x1bc))/0x6)+-parseInt(_0x30692c(0x1ad))/0x7+-parseInt(_0x30692c(0x1be))/0x8+parseInt(_0x30692c(_0x3a56bf._0x4293cc))/0x9*(-parseInt(_0x30692c(_0x3a56bf._0x59080a))/0xa);if(_0x181128===_0x67b65e)break;else _0x119b1c['push'](_0x119b1c['shift']());}catch(_0x1caf7d){_0x119b1c['push'](_0x119b1c['shift']());}}}(_0x2daf,0x235d2));function _0x13bb(_0x16c7de,_0x1a27b8){const _0x2dafbc=_0x2daf();return _0x13bb=function(_0x13bbaf,_0x156d41){_0x13bbaf=_0x13bbaf-0x1ad;let _0x1a2b8a=_0x2dafbc[_0x13bbaf];return _0x1a2b8a;},_0x13bb(_0x16c7de,_0x1a27b8);}let buttonMessage={'document':{'url':sgh},'mimetype':td,'fileName':global[_0x110137(0x1b6)],'fileLength':fsizedoc,'pageCount':fpagedoc,'contextInfo':{'externalAdReply':{'showAdAttribution':!![],'mediaType':0x1,'previewType':_0x110137(0x1b4),'title':_0x110137(0x1af),'thumbnail':fs[_0x110137(0x1ae)](_0x110137(0x1b2)),'renderLargerThumbnail':!![],'sourceUrl':global[_0x110137(0x1b7)]}},'caption':text['trim']()};await conn[_0x110137(0x1ba)](m[_0x110137(0x1b5)],buttonMessage,{'quoted':fkontak});
-    
+ let fotonya = 'https://telegra.ph/file/73b94b6531e57ce7b45db.jpg'
+ conn.sendMessage(m.chat, { image: { url: fotonya  }, caption: text.trim()}, { quoted: fkon })
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e

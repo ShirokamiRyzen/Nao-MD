@@ -1,4 +1,4 @@
-import { sticker5, sticker6 } from '../lib/sticker.js'
+import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { webp2png } from '../lib/webp2mp4.js'
@@ -19,14 +19,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         else if (/image/g.test(mime)) out = await uploadImage(img)
         else if (/video/g.test(mime)) out = await uploadFile(img)
         if (typeof out !== 'string') out = await uploadImage(img)
-        stiker = await sticker6(false, out, global.stickpack, global.stickauth)
+        stiker = await sticker(false, out, global.stickpack, global.stickauth)
       } catch (e) {
         console.error(e)
       } finally {
-        if (!stiker) stiker = await sticker6(img, false, global.stickpack, global.stickauth)
+        if (!stiker) stiker = await sticker(img, false, global.stickpack, global.stickauth)
       }
     } else if (args[0]) {
-      if (isUrl(args[0])) stiker = await sticker5(false, args[0], global.stickpack, global.stickauth)
+      if (isUrl(args[0])) stiker = await sticker(false, args[0], global.stickpack, global.stickauth)
       else return m.reply('URL tidak valid!')
     }
   } catch (e) {
@@ -42,8 +42,6 @@ handler.help = ['sticker','s']
 handler.tags = ['sticker']
 handler.alias = ['stiker', 'sticker', 'sgif', 'stikergif', 'stickergif']
 handler.command = /^s(tic?ker)?(gif)?$/i
-
-handler.register = true
 
 export default handler
 

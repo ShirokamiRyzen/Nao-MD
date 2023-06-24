@@ -48,6 +48,24 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       chat.delete = !isEnable
       break
+    case 'autobio':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.autoBio = isEnable
+      break
+    case 'autobio':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.autoBio = !isEnable
+      break
     case 'autodelvn':
       if (m.isGroup) {
         if (!(isAdmin || isOwner)) {
@@ -217,6 +235,7 @@ List option:
 | antilink
 | antidelete
 | antisticker
+| autobio
 | autosticker
 | autolevelup
 | detect

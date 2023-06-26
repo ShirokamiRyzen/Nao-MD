@@ -26,6 +26,6 @@ wa.me/${numberowner} (Owner)
 
 handler.help = ['donasi']
 handler.tags = ['main']
-handler.command = /^(donasi)$/i
+handler.command = /^(donasi|donate)$/i
 
 export default handler

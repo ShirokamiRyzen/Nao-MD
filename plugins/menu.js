@@ -17,6 +17,12 @@ const defaultMenu = {
 ❏︎ *Level:* %level
 ❏︎ *Xp:* %exp / %maxexp
 ❏︎ *Total Xp:* %totalexp
+
+*${ucapan()} %name!*
+❏ *Tanggal:* %week %weton
+❏︎ *Date:* %date
+❏︎ *Tanggal Islam:* %dateIslamic
+❏︎ *Waktu:* %time
 %readmore
 `.trimStart(),
   header: '╭─────『 %category 』',

@@ -23,6 +23,10 @@ const defaultMenu = {
 ❏︎ *Date:* %date
 ❏︎ *Tanggal Islam:* %dateIslamic
 ❏︎ *Waktu:* %time
+
+❏︎ *Platform:* %platform
+❏︎ *Type:* Node.JS
+❏︎ *Uptime:* %muptime
 %readmore
 `.trimStart(),
   header: '╭─────『 %category 』',

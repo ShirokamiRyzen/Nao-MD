@@ -7,24 +7,22 @@
 ## NOTE BEFORE USING!!
 - Edit all Owner Information on config.js
 - If the feature not working, just buy your own API key
-- If you facing some issue, just open Issues on github page
 ---------
 - Ubah semua Informasi Owner di config.js
 - Jika sebagian fitur ada yang tidak berfungsi, beli API key lu sendiri
-- Jika kamu mengalami masalah, bisa buat Issues di page ini
 
 ### a little about this bot
 - ✔️ | **Simple** 
 - ✔️ | **No Button** 
 - ✔️ | **Multi Device** 
 - ✔️ | **Plugins** 
+- ✔️ | **99% Scrape Feature** 
 ---------
 ### Some of the features include
 - ✔️ | Menfess
 - ✔️ | AntiCall
 - ✔️ | Welcome & Leave
-- ✔️ | AI Feature (ChatGPT/DALL-E/MidJourney)
-- ✔️ | Jadi Anime
+- ✔️ | AI Feature (ChatGPT/DALL-E/MidJourney/To Anime)
 - ✔️ | Sticker 
 - ✔️ | Downloader 
 - ✔️ | Quotes
@@ -141,10 +139,12 @@ node .
 
 ---------
 
+### Thanks To
+[![Nurutomo](https://github.com/Nurutomo.png?size=100)](https://github.com/Nurutomo)
+[![BochilGaming](https://github.com/BochilGaming.png?size=100)](https://github.com/BochilGaming)
+[![ImYanXiao](https://github.com/ImYanXiao.png?size=100)](https://github.com/ImYanXiao)
+[![ShirokamiRyzen](https://github.com/ShirokamiRyzen.png?size=100)](https://github.com/ShirokamiRyzen)
+#### Contributor
+[![ShirokamiRyzen](https://github.com/ShirokamiRyzen.png?size=100)](https://github.com/ShirokamiRyzen)
 
-## Thanks To
-```bash
-𝐀𝐮𝐭𝐡𝐨𝐫 : Shirokami Ryzen 
-𝐖𝐚 : +6281387307198
-𝐛𝐚𝐬𝐞 : Narutomo and Elaina
-𝐌𝐲 𝐏𝐫𝐨𝐣𝐞𝐜𝐭 : 20 Nov 2022
+---------

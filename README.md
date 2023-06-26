@@ -11,7 +11,7 @@
 - Ubah semua Informasi Owner di config.js
 - Jika sebagian fitur ada yang tidak berfungsi, beli API key lu sendiri
 
-## EXTRA FOR REPLIT OR DOCKER USER
+## EXTRA FILE FOR REPLIT OR DOCKER USER
 [DOWNLOAD](https://cloud.ryzendesu.site/api/raw/?path=/Extra%20Bot%20File.zip)
 
 ### a little about this bot

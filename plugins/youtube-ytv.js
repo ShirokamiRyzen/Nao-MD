@@ -8,12 +8,6 @@ const handler = async (m, { conn, args, command }) => {
   let qu = args[1] && resolutions.includes(args[1]) ? args[1] : "360p"
   let q = qu.replace('p', '')
 
-  let thumb = {}
-  try {
-    const thumb2 = yt.thumbnails[0].url
-    thumb = { jpegThumbnail: thumb2 }
-  } catch (e) {}
-
   let yt
   try {
     yt = await youtubedl(v)
@@ -41,7 +35,7 @@ const handler = async (m, { conn, args, command }) => {
   if (dlUrl) {
     await m.reply(`Permintaan download video YouTube. Sedang diproses, mohon bersabar...`)
 
-    await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title, ...thumb } }, { quoted: m })
+    await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title } }, { quoted: m })
 
     await m.reply(`● Title: ${title}
 ● Resolution: ${selectedResolution}

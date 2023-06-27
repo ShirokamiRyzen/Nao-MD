@@ -679,44 +679,23 @@ export async function participantsUpdate({ id, participants, action }) {
     let chat = global.db.data.chats[id] || {}
     let text = ''
     switch (action) {
-        case 'add':
-            case 'remove':
-                if (chat.welcome) {
-                    let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
-                    for (let user of participants) {
-                        let pp = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9mFzSckd12spppS8gAJ2KB2ER-ccZd4pBbw&usqp=CAU'
-                        try {
-                            pp = await this.profilePictureUrl(user, 'image')
-                        } catch (e) {
-                        } finally {
-                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc ? String.fromCharCode(8206).repeat(4001) + groupMetadata.desc : '') :
-                                (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', await this.getName(user))
-                            let wel = API('alpis', '/api/maker/welcome1', {
-                                name: await this.getName(user),
-                                gpname: await this.getName(id),
-                                member: groupMetadata.participants.length, 
-                                pp: pp, 
-                                bg: 'https://i.ibb.co/8B6Q84n/LTqHsfYS.jpg',
-                                apikey: alpiskey
-                            })
-                            let lea = API('alpis', '/api/maker/goodbye1', {
-                                name: await this.getName(user),
-                                gpname: await this.getName(id),
-                                member: groupMetadata.participants.length, 
-                                pp: pp,
-                                bg: 'https://i.ibb.co/8B6Q84n/LTqHsfYS.jpg',
-                                apikey: alpiskey
-                            })
-                             /*this.sendFile(id, action === 'add' ? wel : lea, 'pp.jpg', text, null, false, { mentions: [user] })
-                        }
-                    }
-                }
-                break*/
-                
-                           this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
-                        }
-                    }
-                }
+		case 'add':
+		case 'remove':
+			if (chat.welcome) {
+				let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
+				for (let user of participants) {
+					let pp = './src/avatar_contact.png'
+					try {
+						pp = await this.profilePictureUrl(user, 'image')
+					} catch (e) {} finally {
+						text = (action === 'add' ? (this.welcome || global.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
+							(this.bye || global.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+						this.sendFile(id, pp, 'pp.jpg', text, null, false, {
+							mentions: [user]
+						})
+					}
+				}
+			}
             break
         case 'promote':
             text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')

@@ -1,9 +1,3 @@
-/* If You Copy, Don`t Delete This Credit!!! 
-  Don`t Sell This Script Or I Take Immediately 
-  Yang Jual Script Ini Report/Hangusin Aja Akunnya Atau Pukulin ae orangnya
-  Fix Doesn't Show QrCode & Multi Auth State
-  Regards from YanXiao ♡
-*/
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 import './config.js'
 
@@ -212,12 +206,12 @@ global.reloadHandler = async function (restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate)
   }
 
-  conn.welcome = '❖━━━━━━[ WELCOME ]━━━━━━❖\n\n┏––––––━━━━━━━━•\n│☘︎ @subject\n┣━━━━━━━━┅┅┅\n│( 👋 Hallo @user)\n├[ INTRO ]—\n│ Nama: \n│ Umur: \n│ Gender:\n┗––––––━━┅┅┅\n\n––––––┅┅ DESCRIPTION ┅┅––––––\n@desc'
-  conn.bye = '❖━━━━━━[ LEAVING ]━━━━━━❖\nSayonara @user 👋😃'
-  conn.spromote = '@user Sekarang jadi admin!'
-  conn.sdemote = '@user Sekarang bukan lagi admin!'
-  conn.sDesc = 'Deskripsi telah diubah menjadi \n@desc'
-  conn.sSubject = 'Judul grup telah diubah menjadi \n@subject'
+  conn.welcome = 'Hai, @user!\nSelamat datang di grup @subject\n\n@desc'
+  conn.bye = 'Selamat tinggal @user!'
+  conn.spromote = '@user sekarang admin!'
+  conn.sdemote = '@user sekarang bukan admin!'
+  conn.sDesc = 'Deskripsi telah diubah ke \n@desc'
+  conn.sSubject = 'Judul grup telah diubah ke \n@subject'
   conn.sIcon = 'Icon grup telah diubah!'
   conn.sRevoke = 'Link group telah diubah ke \n@revoke'
   conn.sAnnounceOn = 'Group telah di tutup!\nsekarang hanya admin yang dapat mengirim pesan.'

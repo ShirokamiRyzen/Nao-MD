@@ -192,11 +192,8 @@ global.rpg = {
 
 
 /*============= WEB API KEY =============*/
-global.alpiskey = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://alpis.eu.org
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
-global.deepai = 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K' // https://deepai.org
-global.ibeng = 'tamvan'
 global.lolkey = 'SGWN' //buy API at https://api.lolhuman.xyz
 global.lankey = 'YOUR_APIKEY_HERE' //buy API at https://api.lannn.me/
 global.botcahx = 'YOUR_APIKEY_HERE' //https://api.botcahx.live/
@@ -205,7 +202,6 @@ global.xzn = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://xzn.wtf/
 
 global.APIs = {
   // name: 'https://website'
-  alpis: 'https://alpis.eu.org',
   lol: 'https://api.lolhuman.xyz',
   violetics : 'https://violetics.pw',
   males : 'https://api.lolhuman.xyz' //web api terserah ganti apa aja (buat welcome sama leave gc)

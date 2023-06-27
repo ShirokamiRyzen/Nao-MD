@@ -203,8 +203,10 @@ let tags = {
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     
  let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
- let fotonya = 'https://telegra.ph/file/73b94b6531e57ce7b45db.jpg'
- conn.sendMessage(m.chat, { image: { url: fotonya  }, caption: text.trim()}, { quoted: fkon })
+ 
+ //ganti gambar di folder media
+ //let fotonya = 'link_gambar'
+ conn.sendMessage(m.chat, { image: fs.readFileSync('./media/own.jpg'), caption: text.trim()}, { quoted: fkon })
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e

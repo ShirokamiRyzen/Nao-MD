@@ -544,7 +544,7 @@ export async function handler(chatUpdate) {
                 else
                     m.exp += xp
                 if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                    this.reply(m.chat, `[❗] Limit kau abis dek, beli melalui *${usedPrefix}buy limit* atau claim limit daily kamu melalui *${usedPrefix}claimlimit*`, m)
+                    this.reply(m.chat, `[❗] Limit kau abis dek, kontak owner untuk membeli atau claim limit daily kamu melalui *${usedPrefix}claimlimit*`, m)
                     continue // Limit habis
                 }
                 if (plugin.level > _user.level) {
@@ -791,38 +791,38 @@ const fgclink = {
   let mentionedJid = [m.sender]
     let rown = {
         rowner: '*DEVELOPER ONLY* • COMMAND INI HANYA UNTUK DEVELOPER BOT'}[type]
-  if (rown) return conn.reply(m.chat, rown, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+  if (rown) return conn.reply(m.chat, rown, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 
         
 let own = {
 owner: '*OWNER ONLY* • COMMAND INI HANYA UNTUK OWNER BOT'}[type]
-  if (own) return conn.reply(m.chat, own, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+  if (own) return conn.reply(m.chat, own, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 
 let mod = {
 mods: '*MODERATOR ONLY* • COMMAND INI HANYA UNTUK MODERATOR'}[type]
-  if (mod) return conn.reply(m.chat, mod, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+  if (mod) return conn.reply(m.chat, mod, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 
 let prm = {
         premium: '*PREMIUM ONLY* • COMMAND INI HANYA UNTUK PREMIUM USER'}[type]
-  if (prm) return conn.reply(m.chat, prm, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+  if (prm) return conn.reply(m.chat, prm, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 
 let gc = {
         group: '*GROUP CHAT* • COMMAND INI HANYA BISA DIGUNAKAN DIDALAM GRUP'
         }[type]
-  if (gc) return conn.reply(m.chat, gc, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+  if (gc) return conn.reply(m.chat, gc, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 
 let msg = {
         private: '*PRIVATE CHAT* • COMMAND INI HANYA BISA DIGUNAKAN DI PRIVATE CHAT',
         admin: '*ADMIN ONLY* • COMMAND INI HANYA UNTUK ADMIN GRUP',
         botAdmin: '*BOT ADMIN ONLY* • COMMAND INI HANYA UNTUK ADMIN BOT',
         restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DI GRUP INI'}[type]
-  if (msg) return conn.reply(m.chat, msg, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+  if (msg) return conn.reply(m.chat, msg, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
   
   
     let msgg = {
     	unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar'
 }[type]
-if (msgg) return conn.reply(m.chat, msgg, m, { contextInfo: { externalAdReply: {title: global.wm, body: 'Nao Bot V2', sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+if (msgg) return conn.reply(m.chat, msgg, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 }
 function ucapan() {
   const time = moment.tz('Asia/Jakarta').format('HH')

@@ -32,7 +32,7 @@ let wibh = moment.tz('Asia/Jakarta').format('HH')
 const readMore = more.repeat(4001)
 
 /*============= MAIN INFO =============*/
-global.owner = [['6281387307198', 'Ryzn', true]]
+global.owner = [['6281387307198', 'ShirokamiRyzen', true]]
 global.mods = []
 global.prems = []
 global.nomorbot = '6285864034767'
@@ -42,14 +42,12 @@ global.nomorwa = '0'
 
 /*============= WATERMARK =============*/
 global.readMore = readMore
-global.author = 'Ryzn'
-global.namebot = '​ NaoBotz'
+global.author = 'ShirokamiRyzen'
+global.namebot = 'Nao-Botz V5'
 global.wm = '© NaoBotz By ShirokamiRyzen'
 global.watermark = wm
-global.wm2 = 'Ryzn '
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`
-global.titlebot = `NaoBotz`
 global.stickpack = `Sticker Dibuat pada ${week} ${date}\nJam: ${wktugeneral}\n\nNao-Bot\n+6285864034767`
 global.stickauth = `© NaoBotz By ShirokamiRyzen`
 global.week = `${week} ${date}`
@@ -68,7 +66,7 @@ global.sig = 'https://www.instagram.com/ryzen_vermillion'
 global.sgh = 'https://github.com/ShirokamiRyzen' //github
 global.sgc = '-' //group whatsapp
 global.sdc = '-' //discord
-global.snh = 'https://www.youtube.com/channel/UC5z1Xp6vQGU038B1RbMC3Gg'
+global.snh = 'https://www.instagram.com/ryzen_vermillion'
 
 /*============= DONASI =============*/
 global.pdana = '085174269046'

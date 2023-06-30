@@ -4,13 +4,13 @@ var handler = async (m, { conn, args }) => {
   let q = '128kbps'
   let v = args[0]
 
+  await m.reply('Permintaan download audio/mp3 youtube sedang diproses, mohon bersabar...')
+
   // Ambil info dari video
   const yt = await youtubedl(v).catch(async () => await  youtubedlv2(v))
   const dl_url = await yt.audio[q].download()
   const ttl = await yt.title
   const size = await yt.audio[q].fileSizeH
-
-  await m.reply('Permintaan download audio/mp3 youtube sedang diproses, mohon bersabar...')
 
   // Tampilkan informasi file beserta thumbnail
   const info = `

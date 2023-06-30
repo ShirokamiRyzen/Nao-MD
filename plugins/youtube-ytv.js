@@ -1,18 +1,19 @@
-import { youtubedlv2, youtubedl } from '@bochilteam/scraper'
+import { youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 
 const handler = async (m, { conn, args, command }) => {
-  if (!args[0]) throw 'Where`s Url?' // Zod
   const v = args[0]
 
   const resolutions = ["144p", "240p", "360p", "480p", "720p", "1080p"]
   let qu = args[1] && resolutions.includes(args[1]) ? args[1] : "360p"
   let q = qu.replace('p', '')
 
+  await m.reply('Permintaan download video/mp4 youtube sedang diproses, mohon bersabar...')
+
   let yt
   try {
-    yt = await youtubedl(v)
-  } catch {
     yt = await youtubedlv2(v)
+  } catch {
+    yt = await youtubedlv3(v)
   }
 
   const title = await yt.title
@@ -33,16 +34,15 @@ const handler = async (m, { conn, args, command }) => {
   }
 
   if (dlUrl) {
-    await m.reply(`Permintaan download video YouTube. Sedang diproses, mohon bersabar...`)
 
-    await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title } }, { quoted: m })
+    await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title, ...thumb } }, { quoted: m })
 
-    await m.reply(`● Title: ${title}
-● Resolution: ${selectedResolution}
-● Size: ${size}
-● Video telah berhasil diunduh!`)
+    await m.reply(`• Title: ${title}
+• Resolution: ${selectedResolution}
+• Size: ${size}
+• Video Telah Berhasil Diunduh!`)
   } else {
-    await m.reply(`Maaf, video tidak tersedia untuk diunduh.`)
+    await m.reply(`Maaf, Video Tidak Ada.`)
   }
 }
 

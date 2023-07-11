@@ -12,7 +12,7 @@
 - Jika sebagian fitur ada yang tidak berfungsi, beli API key lu sendiri
 
 ## EXTRA FILE FOR REPLIT OR DOCKER USER
-[DOWNLOAD](https://cloud.ryzendesu.site/api/raw/?path=/Extra%20Bot%20File.zip)
+[DOWNLOAD](https://cloud.ryzendesu.com/api/raw/?path=/Extra%20Bot%20File.zip)
 
 ### a little about this bot
 - ✔️ | **Simple** 

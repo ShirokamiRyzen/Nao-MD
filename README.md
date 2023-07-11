@@ -133,6 +133,26 @@ node .
 
 ---------
 
+## Optional prefix for Run 🏃
+
+```bash
+node . --autoread --autocleartmp // run bot with custom setting prefix
+
+--autoread // show chat log on terminal
+--autocleartmp // auto clear tmp dir
+--self // activate self mode (ignores other)
+--gconly // If that chat not from private bot, bot will ignore
+--swonly // If that chat not from status, bot will ignore
+--prefix <prefixes> // prefixes are seperated by each character Set prefix
+--server // Used for heroku or scan through website
+--restrict // Enables restricted plugins (which can lead your number to be banned if used too often)
+--img // Enable image inspector through terminal
+--nyimak // No bot, just print received messages and add users to database
+--test // Development Testing Mode
+```
+
+---------
+
 #
 ### 📮 S&K
 1. Jangan diperjual belikan Script ini

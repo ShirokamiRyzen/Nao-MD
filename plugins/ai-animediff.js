@@ -16,7 +16,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 }
 
 
-handler.help = ['animediff <promt>']
+handler.help = ['animediff <prompt>']
 handler.tags = ['ai']
 handler.command = /^(animediff)$/i
 handler.limit = true

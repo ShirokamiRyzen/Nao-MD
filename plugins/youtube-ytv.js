@@ -51,5 +51,6 @@ handler.tags = ['downloader']
 handler.command = /(^ytmp4)$/i
 
 handler.register = true
+handler.limit = true
 
 export default handler

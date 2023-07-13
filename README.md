@@ -51,21 +51,6 @@
 | **FFMPEG** |[here](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
 | **IMAGEMAGICK** | [here](https://github.com/DuckyTeam/heroku-buildpack-imagemagick) |
 
-## TERMUX USER
-```bash
-$ pkg upgrade && pkg update
-$ pkg install git -y
-$ pkg install nodejs -y
-$ pkg install ffmpeg -y
-$ pkg install imagemagick -y
-$ git clone https://github.com/ShirokamiRyzen/Nao-MD
-$ cd Nao-MD
-$ npm i
-```
-If error try using yarn instead of npm, see [here](https://github.com/Jikarinka/Kannabotv2#if-npm-install-failed--try--using-yarn-instead-of-npm)
-```bash
-$ node .
-```
 
 #### If npm install failed, try using yarn instead of npm
 ```bash
@@ -74,16 +59,6 @@ $ yarn install
 ```
 ---------
 
-## TERMUX WITH UBUNTU
-
-```bash
-apt update && apt full-upgrade
-apt install wget curl git proot-distro
-proot-distro install ubuntu
-echo "proot-distro login ubuntu" > $PREFIX/bin/ubuntu
-ubuntu
-```
----------
 
 [ INSTALLING REQUIRED PACKAGES ]
 

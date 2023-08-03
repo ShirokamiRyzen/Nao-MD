@@ -1,5 +1,5 @@
-import FormData from "form-data";
-import Jimp from "jimp";
+import FormData from "form-data"
+import Jimp from "jimp"
 
 let handler = async (m, { conn, usedPrefix, command }) => {
   conn.hdr = conn.hdr ? conn.hdr : {}
@@ -39,7 +39,7 @@ export default handler
 
 async function processing(urlPath, method) {
   return new Promise(async (resolve, reject) => {
-    let Methods = ["enhance", "recolor", "dehaze"]
+    let Methods = ["enhance"]
     Methods.includes(method) ? (method = method) : (method = Methods[0]);
     let buffer,
       Form = new FormData(),

@@ -245,6 +245,7 @@ global.fla = [
  "https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text="
 ]
 global.hwaifu = ['https://telegra.ph/file/a7ac2b46f82ef7ea083f9.jpg']
+global.thumblvlup = ['https://telegra.ph/file/cc444e235a6073ef29b32.jpg', 'https://telegra.ph/file/6bc4e87932d7ea57b79ef.jpg', 'https://telegra.ph/file/bc2302ee38daa46c094ea.jpg', 'https://telegra.ph/file/c552a9fb2848811247f82.jpg']
 
 global.dtu = 'INSTAGRAM'
 global.urlnya = "https://www.instagram.com/ryzen_vermillion"

@@ -12,19 +12,23 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     await conn.sendFile(m.chat, e, '', wm, m)
 }
 */
-import { instagramdl, instagramdlv2, instagramdlv3, instagramdlv4 } from '@bochilteam/scraper'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) throw `Urlnya?`
-  try {
-    await m.reply(global.wait)
-    const results = await instagramdl(args[0])
-      .catch(async _ => await instagramdlv2(args[0]))
-      .catch(async _ => await instagramdlv3(args[0]))
-      .catch(async _ => await instagramdlv4(args[0]))
-    for (const { url } of results) await conn.sendFile(m.chat, url, 'instagram.mp4', global.wm, m)
-  } catch (e) {
-    console.log(e)
-    m.reply(`Fitur error atau Otak pengguna error`)
+import { instagramdl } from '@bochilteam/scraper'
+var handler = async (m, { args }) => {
+    if (!args[0]) throw 'Input URL'
+    try { 
+    	let res = await bochil.snapsave(args[0]) 
+    let media = await res[0].url
+    if (!res) throw 'Can\'t download the post'
+    m.reply(global.wait)
+    conn.sendMessage(m.chat, { video : { url : media }}, global.wm, m) 
+    } catch {
+     try {
+     	let res2 = await instagramdl(args[0]) 
+   let media2 = res2.url
+     return conn.sendFile(m.chat, media2, 'instagram.mp4', global.wm, m)
+     } catch {
+     conn.sendFile(m.chat,  media, '','', global.wm, m) } finally {
+   }
   }
 }
 

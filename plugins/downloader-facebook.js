@@ -7,7 +7,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let p = await fetch(`https://xzn.wtf/api/download?url=${linknya}&apikey=${global.xzn}`)
     let v = await p.json()
     let o = v.url[0].url
-    await m.reply('Sedang diproses...')
+    await m.reply(global.wait)
     await conn.sendFile(m.chat, o, '', global.wm, m)
   } catch (e) {
     console.log(e)

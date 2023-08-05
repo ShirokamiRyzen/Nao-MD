@@ -1,65 +1,58 @@
-import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 import yts from 'yt-search'
-var handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Use example\n${usedPrefix}${command} seven oops orange`
-  await m.reply(wait)
-  let search = await yts(text)
-  let vid = search.videos[Math.floor(Math.random() * search.videos.length)]
-  if (!search) throw 'Video Not Found, Try Another Title'
-  let { title, thumbnail, timestamp, views, ago, url } = vid
-
-  let captvid = `╭──── 〔 Y O U T U B E 〕 ─⬣
-⬡ Judul: ${title}
-⬡ Durasi: ${timestamp}
-⬡ Views: ${views}
-⬡ Upload: ${ago}
-⬡ Link: ${url}
-╰────────⬣`
-  conn.sendButton(m.chat, `╭──── 〔 Y O U T U B E 〕 ─⬣
-⬡ Judul: ${title}
-⬡ Durasi: ${timestamp}
-⬡ Views: ${views}
-⬡ Upload: ${ago}
-⬡ Link: ${url}
-╰────────⬣`, author.trim(), await( await conn.getFile(thumbnail)).data, ['📽VIDEO', `${usedPrefix}ytv ${url}`], false, { quoted: m, 'document': { 'url':'https://wa.me/12522518391' },
-'mimetype': global.dpdf,
-'fileName': `Youtube Play`,
-'fileLength': 666666666666666,
-'pageCount': 666,contextInfo: { externalAdReply: { showAdAttribution: true,
-mediaType:  2,
-mediaUrl: `${url}`,
-title: `AUDIO SEDANG DIKIRIM...`,
-body: wm,
-sourceUrl: 'http://wa.me/12522518391', thumbnail: await ( await conn.getFile(thumbnail)).data
-  }
- } 
-})
-  
-  //let buttons = [{ buttonText: { displayText: '📽VIDEO' }, buttonId: `${usedPrefix}ytv ${url} 360` }]
- //let msg = await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: captvid, footer: author, buttons }, { quoted: m })
-
-  const yt = await await youtubedlv2(url).catch(async _ => await youtubedl(url)).catch(async _ => await youtubedlv3(url))
-const link = await yt.audio['128kbps'].download()
-  let doc = { 
-  audio: 
-  { 
-    url: link 
-}, 
-mimetype: 'audio/mp4', fileName: `${title}`, contextInfo: { externalAdReply: { showAdAttribution: true,
-mediaType:  2,
-mediaUrl: url,
-title: title,
-body: wm,
-sourceUrl: url,
-thumbnail: await(await conn.getFile(thumbnail)).data
-      }
+import fetch from 'node-fetch'
+import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper';
+let handler = async(m, { conn, usedPrefix, text, command, args }) => {
+    let user = m.sender
+    let name = conn.getName(user)
+    if (!text) throw `Harap masukkan query!\n\nContoh: ${usedPrefix + command} yanagi nagi one's hope`
+    let results = await yts(text)
+    let vid = results.all.find(video => video.seconds < 3600)
+    if (!vid) throw 'Konten Tidak ditemukan'
+    const { thumbnail, audio: _audio, title } = await youtubedl(vid.url).catch(async _ => await youtubedlv2(vid.url)).catch(async _ => await youtubedlv3(vid.url))
+    let audio, source, res, link, lastError
+    for (let i in _audio) {
+        try {
+            audio = _audio[i]
+            link = await audio.download()
+            if (link) res = await fetch(link)
+            if (res) source = await res.arrayBuffer()
+            if (source instanceof ArrayBuffer) break
+        } catch (e) {
+            audio = link = source = null
+            lastError = e
+        }
     }
-  }
+    if ((!(source instanceof ArrayBuffer) || !link || !res.ok)) throw 'Error: ' + (lastError || 'Can\'t download audio')
+    let capt = `
+${title}
+Requested by @${user.split`@`[0]}
 
-  return conn.sendMessage(m.chat, doc, { quoted: m })
-	// return conn.sendMessage(m.chat, { document: { url: link }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted: m})
-	// return await conn.sendFile(m.chat, link, title + '.mp3', '', m, false, { asDocument: true })
+Bot akan secara otomatis mengirimkan file audio.`
+    const message = {
+        image: { url: thumbnail},
+        jpegThumbnail: await(await fetch(thumbnail)).buffer(),
+        caption: capt,
+        footer: watermark,
+        mentions: [user],
+        templateButtons: [
+            {
+                urlButton: {
+                    displayText: 'Open on Youtube',
+                    url: vid.url
+                }
+            }, {
+                quickReplyButton: {
+                    displayText: 'Download mp4',
+                    id: `.ytmp4 ${vid.url}`
+                }
+            }
+        ]
+    }
+    await conn.sendMessage(m.chat, message, { quoted: m})
+    // await conn.sendFile(m.chat, thumbnail, '', `${title}\nRequested by @${user.split`@`[0]}`, m, null, { mentions: [user]})
+    await conn.sendFile(m.chat, source, title + '.mp3', null, m, null, { mimetype: 'audio/mp4' })
 }
+
 handler.help = ['play'].map(v => v + ' <pencarian>')
 handler.tags = ['downloader', 'limitmenu']
 handler.command = /^play?$/i

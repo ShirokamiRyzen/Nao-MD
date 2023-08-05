@@ -5,7 +5,7 @@ import cheerio from 'cheerio'
 var handler = async (m, { conn, args }) => {
     if (!args[0]) throw 'Uhm...url nya mana?'
     try {
-        m.reply('_In progress, please wait..._')
+        m.reply(global.wait)
         const { thumbnail, video, audio } = await tiktokdl(args[0])
         const url = video
         if (!url) throw 'Can\'t download video!'

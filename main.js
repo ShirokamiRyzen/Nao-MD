@@ -98,6 +98,7 @@ global.store = store*/
 const connectionOptions = {
   version,
     printQRInTerminal: true,
+    syncFullHistory: true,
     auth: state,
     browser: ['Nao Tomori(友利 奈緒)', 'Safari', '3.1.0'],
 getMessage: async (key) => (store.loadMessage(key.remoteJid, key.id) || store.loadMessage(key.id) || {}).message,
@@ -124,7 +125,7 @@ getMessage: async (key) => (store.loadMessage(key.remoteJid, key.id) || store.lo
 
             return message;
         }, 
-  // logger: pino({ level: 'silent' })
+  //logger: pino({ level: 'silent' })
 }
 
 global.conn = makeWASocket(connectionOptions)

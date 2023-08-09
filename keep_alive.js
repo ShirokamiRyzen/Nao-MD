@@ -1,8 +1,8 @@
 import http from 'http';
 
 const server = http.createServer((req, res) => {
-  res.write("I'm alive");
+  res.write("Shirokami Ryzen");
   res.end();
 }).listen(8080);
 
-export default handler
+export default server

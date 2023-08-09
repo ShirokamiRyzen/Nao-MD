@@ -96,33 +96,35 @@ store.readFromFile(sess)
 global.store = store*/
 
 const connectionOptions = {
-	    version,
-        printQRInTerminal: true,
-        auth: state,
-        browser: ['Nao Tomori(友利 奈緒)', 'Safari', '3.1.0'], 
-	      patchMessageBeforeSending: (message) => {
-                const requiresPatch = !!(
-                    message.buttonsMessage 
-                    || message.templateMessage
-                    || message.listMessage
-                );
-                if (requiresPatch) {
-                    message = {
-                        viewOnceMessage: {
-                            message: {
-                                messageContextInfo: {
-                                    deviceListMetadataVersion: 2,
-                                    deviceListMetadata: {},
-                                },
-                                ...message,
+  version,
+    printQRInTerminal: true,
+    auth: state,
+    browser: ['Nao Tomori(友利 奈緒)', 'Safari', '3.1.0'],
+getMessage: async (key) => (store.loadMessage(key.remoteJid, key.id) || store.loadMessage(key.id) || {}).message,
+// get message diatas untuk mengatasi pesan gagal dikirim, "menunggu pesan", dapat dicoba lagi
+    patchMessageBeforeSending: (message) => {
+            const requiresPatch = !!(
+                message.buttonsMessage 
+                || message.templateMessage
+                || message.listMessage
+            );
+            if (requiresPatch) {
+                message = {
+                    viewOnceMessage: {
+                        message: {
+                            messageContextInfo: {
+                                deviceListMetadataVersion: 2,
+                                deviceListMetadata: {},
                             },
+                            ...message,
                         },
-                    };
-                }
+                    },
+                };
+            }
 
-                return message;
-            }, 
-      // logger: pino({ level: 'silent' })
+            return message;
+        }, 
+  // logger: pino({ level: 'silent' })
 }
 
 global.conn = makeWASocket(connectionOptions)

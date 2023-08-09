@@ -35,7 +35,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "github:WhiskeySockets/Baileys#master",
+        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@6.4.0",
         "@adiwajshing/keyed-db": "^0.2.4",
         "@xct007/frieren-scraper": "npm:@xct007/frieren-scraper",
         "@arugaz/ai2d": "^1.0.1-z.8",
@@ -102,7 +102,7 @@
         "util": "^0.12.5",
         "wa-sticker-formatter": "^4.4.4",
         "xmldom": "^0.6.0",
-        "yargs": "^17.7.1",
+        "yargs": "^17.7.2",
         "yt-search": "^2.10.4",
         "zs-extract": "^1.4.2"
     }

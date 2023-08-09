@@ -70,4 +70,4 @@ function start(file) {
 
 start('main.js')
 
-require("http").createServer((_, res) => res.end("Uptime!")).listen(8080)
+require("http").createServer((_, res) => res.end("ShirokamiRyzen!")).listen(8080)

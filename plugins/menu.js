@@ -50,6 +50,7 @@ let tags = {
 //'rpg': 'RPG Games',
 'quotes': 'Quotes',
 'maker': 'Maker Text Logo',
+'nulis': 'Nulis',
 'info': 'Info',
 'owner': 'Owner',
 }

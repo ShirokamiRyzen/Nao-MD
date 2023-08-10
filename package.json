@@ -35,7 +35,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@6.4.0",
+        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@6.2.1",
         "@adiwajshing/keyed-db": "^0.2.4",
         "@xct007/frieren-scraper": "npm:@xct007/frieren-scraper",
         "@arugaz/ai2d": "^1.0.1-z.8",

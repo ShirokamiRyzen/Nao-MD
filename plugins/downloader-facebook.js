@@ -1,14 +1,18 @@
 import fetch from 'node-fetch'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+
+let handler = async (m, { conn, command, args, usedPrefix }) => {
   const linknya = args[0]
 
   if (!args[0]) throw `Input *URL*`
+  m.reply(wait)
   try {
-    let p = await fetch(`https://xzn.wtf/api/download?url=${linknya}&apikey=${global.xzn}`)
-    let v = await p.json()
-    let o = v.url[0].url
-    await m.reply(global.wait)
-    await conn.sendFile(m.chat, o, '', global.wm, m)
+    let res = await fetch(`https://api.xyroinee.xyz/api/downloader/facebook?url=${linknya}&apikey=${global.xyro}`)
+    let result = await res.json()
+    let video = result.data.video_hd
+    //let audio = result.data.audio
+    let cap = global.wm
+    conn.sendMessage(m.chat, { video: { url: video }, caption: cap }, m)
+    //conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: 'audio/mp4' }, { quoted : m })
   } catch (e) {
     console.log(e)
     m.reply(`Fitur error atau Otak pengguna error`)

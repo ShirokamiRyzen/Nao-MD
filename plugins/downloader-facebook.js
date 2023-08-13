@@ -6,9 +6,9 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
   if (!args[0]) throw `Input *URL*`
   m.reply(wait)
   try {
-    let res = await fetch(`https://api.xyroinee.xyz/api/downloader/facebook?url=${linknya}&apikey=${global.xyro}`)
+    let res = await fetch(`https://api.ryzendesu.com/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`)
     let result = await res.json()
-    let video = result.data.video_hd
+    let video = result.result.HD
     //let audio = result.data.audio
     let cap = global.wm
     conn.sendMessage(m.chat, { video: { url: video }, caption: cap }, m)

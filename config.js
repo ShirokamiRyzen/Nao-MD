@@ -193,11 +193,10 @@ global.rpg = {
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
 global.lolkey = 'SGWN' //buy API at https://api.lolhuman.xyz
-global.lankey = 'YOUR_APIKEY_HERE' //buy API at https://api.lannn.me/
-global.botcahx = 'YOUR_APIKEY_HERE' //https://api.botcahx.live/
 global.uptime = 'u1931038-1f70a77eef5964be82e7d606' // Masukin APIKEY uptimerobot kamu disini ===== https://uptimerobot.com/dashboard?ref=website-header#mySettings
 global.xzn = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://xzn.wtf/
 global.xyro = 'YOUR_APIKEY_HERE' //https://api.xyroinee.xyz/
+global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.com/
 
 global.APIs = {
   // name: 'https://website'

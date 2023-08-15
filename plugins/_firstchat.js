@@ -11,7 +11,8 @@ ${user.banned ? '📮Maaf, kamu dibanned & Tidak bisa menggunakan bot ini lagi' 
     await m.reply(`📮Note: Jangan spam botnya
 ⏩Ketik *.menu* untuk menampilkan menu
 
-📝Ads text here`)
+📝Ingin support project ini agar terus update? kirim melalui:
+https://saweria.co/shirokamiryzen`)
     user.pc = new Date * 1
 }
 

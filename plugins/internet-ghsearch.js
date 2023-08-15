@@ -21,7 +21,7 @@ ${repo.open_issues} Issue${repo.description ? `
     m.reply(str)
 }
 handler.help = ['githubsearch'].map(v => v + ' <pencarian>')
-handler.tags = ['internet','downloader']
+handler.tags = ['internet']
 
 handler.command = /^g(ithub|h)s(earch)?$/i
 

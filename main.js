@@ -7,14 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'url'
 import { createRequire } from 'module' // Bring in the ability to create the 'require' method
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 import * as ws from 'ws'
-import {
-    readdirSync,
-    statSync,
-    unlinkSync,
-    existsSync,
-    readFileSync,
-    watch
-} from 'fs'
+import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch } from 'fs'
 import yargs from 'yargs'
 import { spawn } from 'child_process'
 import lodash from 'lodash'
@@ -23,19 +16,12 @@ import chalk from 'chalk'
 import { tmpdir } from 'os'
 import { format } from 'util'
 import pino from 'pino'
-import {
-    useMultiFileAuthState,
-    DisconnectReason,
-    fetchLatestBaileysVersion 
-   } from '@adiwajshing/baileys'
-import { Low, JSONFile } from 'lowdb'
-
+import { useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } from '@adiwajshing/baileys'
+import { Low } from 'lowdb'
+import { JSONFile } from 'lowdb'
 import { makeWASocket, protoType, serialize } from './lib/simple.js'
 import storeSys from './lib/store2.js'
-import {
-    mongoDB,
-    mongoDBV2
-} from './lib/mongoDB.js'
+import { mongoDB, mongoDBV2 } from './lib/mongoDB.js'
 
 const { CONNECTING } = ws
 const { chain } = lodash

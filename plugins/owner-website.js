@@ -4,8 +4,9 @@ let handler = async (m, { conn }) => {
 *「 Owner Website 」*
 
 Main Site: ryzendesu.com
+Mod APK: app.ryzendesu.com
 KMS Activator: kms.ryzendesu.com
-Cloud: cloud.ryzendesu.site
+Rest API: api.ryzendesu.com
 
 `.trim()
   m.reply(caption)

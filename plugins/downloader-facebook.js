@@ -6,7 +6,7 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
   if (!args[0]) throw `Input *URL*`
   m.reply(wait)
   try {
-    let res = await fetch(`https://api.ryzendesu.com/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`)
+    let res = await fetch(`https://api.ryzendesu.com/api/dowloader/fbdown?url=${encodeURIComponent(linknya)}&apikey=${global.ryzen}`)
     let result = await res.json()
     let video = result.result.HD
     //let audio = result.data.audio

@@ -1,39 +1,36 @@
-import { pinterest } from '@bochilteam/scraper'
-import sharp from 'sharp'
+import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) throw `Example use ${usedPrefix + command} Nao Tomori`
+let handler = async (m, { conn, command, text, usedPrefix }) => {
 
-  const maxImages = 10; // ubah mau kirim berapa foto (pake angka)
-  for (let i = 0; i < maxImages; i++) {
-    const json = await pinterest(text);
-    const imageUrl = json.getRandom().replace(/&amp;/g, '&');
+  let api = "api.ryzendesu.com"
+  if (!text) throw `Input *Query*`;
+  conn.reply(m.chat, 'Wait a moment...', m);
 
-    const response = await fetch(imageUrl);
-    const imageBuffer = await response.buffer();
+  try {
+    let res = await fetch(`https://api.ryzendesu.com/api/search/pinterest?text=${text}&apikey=${global.ryzen}`);
+    let result = await res.json();
+    let gambarUrls = result.result.slice(0, 10); // Ambil 10 gambar pertama
 
-    const maxWhatsAppWidth = 9999; // Lebar maksimum WhatsApp
-    const metadata = await sharp(imageBuffer).metadata();
-    const imageWidth = metadata.width;
+    for (let i = 0; i < gambarUrls.length; i++) {
+      let imageUrl = gambarUrls[i];
+      let imageRes = await fetch(imageUrl);
+      let imageBuffer = await imageRes.buffer();
 
-    let resizedImage;
-    if (imageWidth > maxWhatsAppWidth) {
-      resizedImage = await sharp(imageBuffer)
-        .resize({ width: maxWhatsAppWidth, withoutEnlargement: true })
-        .toBuffer();
-    } else {
-      resizedImage = imageBuffer;
+      // Menggunakan fungsi sendImage untuk mengirim gambar ke WhatsApp
+      await conn.sendFile(m.chat, imageBuffer, 'gambar.jpg', '');
+
+      // Tambahkan jeda agar tidak mengirim gambar terlalu cepat
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
-
-    conn.sendFile(m.chat, resizedImage, 'pinterest.jpg', `
-*Hasil pencarian*
-${text}
-`.trim(), m);
+    m.reply(api)
+  } catch (e) {
+    console.log(e);
+    conn.reply(m.chat, 'Terjadi kesalahan saat mendownload gambar.', m);
   }
 }
 
 handler.help = ['pinterest <keyword>']
 handler.tags = ['internet']
-handler.command = /^(pinterest|pin)$/i
+handler.command = /^pinterest$/i
 
 export default handler

@@ -1,8 +1,8 @@
 /*
-𝐀𝐮𝐭𝐡𝐨𝐫 : Shirokami Ryzen 
-𝐖𝐚 : +6281387307198
-𝐛𝐚𝐬𝐞 : Narutomo & Elaina
-𝐌𝐲 𝐏𝐫𝐨𝐣𝐞𝐜𝐭 : 22 Nov 2022
+𝐀𝐮𝐭𝐡𝐨𝐫 : Quadhir
+𝐖𝐚 : +2347082252014
+𝐛𝐚𝐬𝐞 : dux
+𝐌𝐲 𝐏𝐫𝐨𝐣𝐞𝐜𝐭 : 24 Aug 2023
 */
 
 import { watchFile, unwatchFile } from 'fs'
@@ -13,9 +13,9 @@ import { group } from 'console'
 import PhoneNumber from 'awesome-phonenumber'
 
 /*============= WAKTU =============*/
-let wibh = moment.tz('Asia/Jakarta').format('HH')
-    let wibm = moment.tz('Asia/Jakarta').format('mm')
-    let wibs = moment.tz('Asia/Jakarta').format('ss')
+let wibh = moment.tz('Africa/Lagos').format('HH')
+    let wibm = moment.tz('Africa/Lagos').format('mm')
+    let wibs = moment.tz('Africa/Lagos').format('ss')
     let wktuwib = `${wibh} H ${wibm} M ${wibs} S`
     let wktugeneral = `${wibh}:${wibm}:${wibs}`
     
@@ -32,49 +32,49 @@ let wibh = moment.tz('Asia/Jakarta').format('HH')
 const readMore = more.repeat(4001)
 
 /*============= MAIN INFO =============*/
-global.owner = [['6285174269046', 'ShirokamiRyzen', true]]
+global.owner = [['2347082252014', 'Dux', true]]
 global.mods = []
 global.prems = []
-global.nomorbot = '6285864034767'
-global.nomorown = '6285174269046'
+global.nomorbot = '2347082252014'
+global.nomorown = '2347082252014'
 global.nomorwa = '0'
 
 
 /*============= WATERMARK =============*/
 global.readMore = readMore
-global.author = 'ShirokamiRyzen'
-global.namebot = 'Nao-Botz V5'
-global.wm = '© NaoBotz By ShirokamiRyzen'
+global.author = 'Du'
+global.namebot = 'Dux-Bot'
+global.wm = '© Duxbot By Quadhir'
 global.watermark = wm
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`
-global.stickpack = `Sticker Dibuat dengan ${namebot}\ngithub.com/ShirokamiRyzen\n\nNao-Bot\n+6285864034767`
-global.stickauth = `© NaoBotz By ShirokamiRyzen`
+global.stickpack = `Sticker by Dux ${namebot}\ngithub.com/Duxlin\n\nNao-Bot\n+2347082252014`
+global.stickauth = `© Dux-md By Quadhir`
 global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
 
 /*============= OWNER INFO =============*/
-global.nameown1= 'Ryzn'
-global.nameown2 = 'Ryzn'
+global.nameown1= 'Dux'
+global.nameown2 = 'Dux'
 /*============= MEDIA LINK =============*/
-global.Linkgc = 'Bentar'
-global.lynk = ''
+global.Linkgc = 'https://chat.whatsapp.com/CeXB13i3F2MKwXa4c7tB9o'
+global.lynk = 'https://chat.whatsapp.com/CeXB13i3F2MKwXa4c7tB9o'
 
 
 //*============= SOSMED =============*/
 global.sig = 'https://www.instagram.com/ryzen_vermillion'
-global.sgh = 'https://github.com/ShirokamiRyzen' //github
+global.sgh = 'https://github.com/Duxlin' //github
 global.sgc = '-' //group whatsapp
 global.sdc = '-' //discord
-global.snh = 'https://www.instagram.com/ryzen_vermillion'
+global.snh = 'https://www.instagram.com/official_quadhir'
 
 /*============= DONASI =============*/
-global.pdana = '085174269046'
+global.pdana = 'null'
 global.povo = '-'
-global.pgopay = '085174269046'
+global.pgopay = ''
 global.plinkaja = '-' //link aja
-global.ppulsa = '085174269046'
-global.ppulsa2 = '085174269046'
+global.ppulsa = ''
+global.ppulsa2 = ''
 global.psaweria = '-'
 
 

@@ -20,7 +20,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       await conn.sendFile(m.chat, imageBuffer, 'gambar.jpg', '');
 
       // Tambahkan jeda agar tidak mengirim gambar terlalu cepat
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
     m.reply(api)
   } catch (e) {

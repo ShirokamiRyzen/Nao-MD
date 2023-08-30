@@ -1,3 +1,9 @@
+/* If You Copy, Don`t Delete This Credit!!! 
+  Don`t Sell This Script Or I Take Immediately 
+  Yang Jual Script Ini Report/Hangusin Aja Akunnya Atau Pukulin ae orangnya
+  Fix Doesn't Show QrCode & Multi Auth State
+  Regards from YanXiao ♡
+*/
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 import './config.js'
 
@@ -7,7 +13,14 @@ import { fileURLToPath, pathToFileURL } from 'url'
 import { createRequire } from 'module' // Bring in the ability to create the 'require' method
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 import * as ws from 'ws'
-import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch } from 'fs'
+import {
+    readdirSync,
+    statSync,
+    unlinkSync,
+    existsSync,
+    readFileSync,
+    watch
+} from 'fs'
 import yargs from 'yargs'
 import { spawn } from 'child_process'
 import lodash from 'lodash'
@@ -16,11 +29,19 @@ import chalk from 'chalk'
 import { tmpdir } from 'os'
 import { format } from 'util'
 import pino from 'pino'
-import { useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } from '@adiwajshing/baileys'
+import {
+    useMultiFileAuthState,
+    DisconnectReason,
+    fetchLatestBaileysVersion 
+   } from '@adiwajshing/baileys'
 import { Low, JSONFile } from 'lowdb'
+
 import { makeWASocket, protoType, serialize } from './lib/simple.js'
-import storeSys from './lib/store2.js'
-import { mongoDB, mongoDBV2 } from './lib/mongoDB.js'
+
+import {
+    mongoDB,
+    mongoDBV2
+} from './lib/mongoDB.js'
 
 const { CONNECTING } = ws
 const { chain } = lodash
@@ -71,46 +92,42 @@ global.loadDatabase = async function loadDatabase() {
 }
 loadDatabase()
 
-global.authFolder = storeSys.fixFileName(`${opts._[0] || ''}sessions`)
     let { state, saveCreds } = await useMultiFileAuthState(path.resolve('./sessions'))
     let { version, isLatest } = await fetchLatestBaileysVersion()
     console.log(`using WA v${version.join('.')}, isLatest: ${isLatest}`)
-/*const store = storeSys.makeInMemoryStore()
-const sess = `${opts._[0] || 'elaina'}.store.json`
-store.readFromFile(sess)
-global.store = store*/
 
 const connectionOptions = {
-  version,
-    printQRInTerminal: true,
-    syncFullHistory: true,
-    auth: state,
-    browser: ['Nao Tomori(友利 奈緒)', 'Safari', '3.1.0'],
-getMessage: async (key) => (store.loadMessage(key.remoteJid, key.id) || store.loadMessage(key.id) || {}).message,
-// get message diatas untuk mengatasi pesan gagal dikirim, "menunggu pesan", dapat dicoba lagi
-    patchMessageBeforeSending: (message) => {
-            const requiresPatch = !!(
-                message.buttonsMessage 
-                || message.templateMessage
-                || message.listMessage
-            );
-            if (requiresPatch) {
-                message = {
-                    viewOnceMessage: {
-                        message: {
-                            messageContextInfo: {
-                                deviceListMetadataVersion: 2,
-                                deviceListMetadata: {},
+	    version,
+        printQRInTerminal: true,
+        auth: state,
+        browser: ['Elaina(イレイナ)', 'Safari', '3.1.0'], 
+getMessage: async key => {
+			return (await store.loadMessage(key.remoteJid, key.id))?.message || undefined
+		},
+	// get message diatas untuk mengatasi pesan gagal dikirim, "menunggu pesan", dapat dicoba lagi
+	      patchMessageBeforeSending: (message) => {
+                const requiresPatch = !!(
+                    message.buttonsMessage 
+                    || message.templateMessage
+                    || message.listMessage
+                );
+                if (requiresPatch) {
+                    message = {
+                        viewOnceMessage: {
+                            message: {
+                                messageContextInfo: {
+                                    deviceListMetadataVersion: 2,
+                                    deviceListMetadata: {},
+                                },
+                                ...message,
                             },
-                            ...message,
                         },
-                    },
-                };
-            }
+                    };
+                }
 
-            return message;
-        }, 
-  //logger: pino({ level: 'silent' })
+                return message;
+            }, 
+      // logger: pino({ level: 'silent' })
 }
 
 global.conn = makeWASocket(connectionOptions)
@@ -194,12 +211,12 @@ global.reloadHandler = async function (restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate)
   }
 
-  conn.welcome = 'Hai, @user!\nSelamat datang di grup @subject\n\n@desc'
-  conn.bye = 'Selamat tinggal @user!'
-  conn.spromote = '@user sekarang admin!'
-  conn.sdemote = '@user sekarang bukan admin!'
-  conn.sDesc = 'Deskripsi telah diubah ke \n@desc'
-  conn.sSubject = 'Judul grup telah diubah ke \n@subject'
+  conn.welcome = '❖━━━━━━[ WELCOME ]━━━━━━❖\n\n┏------━━━━━━━━•\n│☘︎ @subject\n┣━━━━━━━━┅┅┅\n│( 👋 Hallo @user)\n├[ Intro ]—\n│ Nama: \n│ Umur: \n│ Gender:\n┗------━━┅┅┅\n\n------┅┅ DESCRIPTION ┅┅––––––\n@desc'
+  conn.bye = '❖━━━━━━[ LEAVING ]━━━━━━❖\nSayonara @user 👋😃'
+  conn.spromote = '@user Sekarang jadi admin!'
+  conn.sdemote = '@user Sekarang bukan lagi admin!'
+  conn.sDesc = 'Deskripsi telah diubah menjadi \n@desc'
+  conn.sSubject = 'Judul grup telah diubah menjadi \n@subject'
   conn.sIcon = 'Icon grup telah diubah!'
   conn.sRevoke = 'Link group telah diubah ke \n@revoke'
   conn.sAnnounceOn = 'Group telah di tutup!\nsekarang hanya admin yang dapat mengirim pesan.'

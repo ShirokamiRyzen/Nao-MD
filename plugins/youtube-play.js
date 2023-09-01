@@ -1,61 +1,64 @@
-import yts from 'yt-search'
-import fetch from 'node-fetch'
-import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper';
-let handler = async(m, { conn, usedPrefix, text, command, args }) => {
-    let user = m.sender
-    let name = conn.getName(user)
-    if (!text) throw `Harap masukkan query!\n\nContoh: ${usedPrefix + command} yanagi nagi one's hope`
-    let results = await yts(text)
-    let vid = results.all.find(video => video.seconds < 3600)
-    if (!vid) throw 'Konten Tidak ditemukan'
-    const { thumbnail, audio: _audio, title } = await youtubedl(vid.url).catch(async _ => await youtubedlv2(vid.url)).catch(async _ => await youtubedlv3(vid.url))
-    let audio, source, res, link, lastError
-    for (let i in _audio) {
-        try {
-            audio = _audio[i]
-            link = await audio.download()
-            if (link) res = await fetch(link)
-            if (res) source = await res.arrayBuffer()
-            if (source instanceof ArrayBuffer) break
-        } catch (e) {
-            audio = link = source = null
-            lastError = e
-        }
-    }
-    if ((!(source instanceof ArrayBuffer) || !link || !res.ok)) throw 'Error: ' + (lastError || 'Can\'t download audio')
-    let capt = `
-${title}
-Requested by @${user.split`@`[0]}
+import { youtubedl, youtubedlv2, youtubeSearch } from '@bochilteam/scraper'
 
-Bot akan secara otomatis mengirimkan file audio.`
-    const message = {
-        image: { url: thumbnail},
-        jpegThumbnail: await(await fetch(thumbnail)).buffer(),
-        caption: capt,
-        footer: watermark,
-        mentions: [user],
-        templateButtons: [
-            {
-                urlButton: {
-                    displayText: 'Open on Youtube',
-                    url: vid.url
-                }
-            }, {
-                quickReplyButton: {
-                    displayText: 'Download mp4',
-                    id: `.ytmp4 ${vid.url}`
-                }
-            }
-        ]
+var handler = async (m, { conn, command, text, usedPrefix }) => {
+  try {
+    if (!text) {
+      return conn.reply(m.chat, `Gunakan contoh ${usedPrefix}${command} 7!! Orange`, m);
     }
-    await conn.sendMessage(m.chat, message, { quoted: m})
-    // await conn.sendFile(m.chat, thumbnail, '', `${title}\nRequested by @${user.split`@`[0]}`, m, null, { mentions: [user]})
-    await conn.sendFile(m.chat, source, title + '.mp3', null, m, null, { mimetype: 'audio/mp4' })
-}
 
-handler.help = ['play'].map(v => v + ' <pencarian>')
-handler.tags = ['downloader', 'limitmenu']
-handler.command = /^play?$/i
+    conn.reply(m.chat, 'Tunggu sebentar, sedang dicari dan diunduh...', m);
+
+    let search = await youtubeSearch(text);
+
+    if (!search || !search.video || !search.video[0]) {
+      throw 'Video Tidak Ditemukan, Coba Judul Lain';
+    }
+
+    let vid = search.video[0];
+    let { authorName, title, thumbnail, duration, viewH, publishedTime, url } = vid;
+
+    let caption = `╭──── 〔 Y O U T U B E 〕 ─⬣
+⬡ Judul: ${title}
+⬡ Author: ${authorName}
+⬡ Durasi: ${duration}
+⬡ Views: ${viewH}
+⬡ Upload: ${publishedTime}
+⬡ Link: ${url}
+╰────────⬣`;
+
+    conn.reply(m.chat, caption, m, {
+      contextInfo: {
+        externalAdReply: {
+          showAdAttribution: true,
+          mediaType: 2,
+          mediaUrl: thumbnail,
+          body: wm,
+          thumbnail: await (await conn.getFile(thumbnail)).data,
+          sourceUrl: url,
+        },
+      },
+    });
+
+    const yt = await youtubedl(url).catch(async (_) => await youtubedlv2(url));
+    const link = await yt.audio['128kbps'].download();
+    let doc = {
+      audio: {
+        url: link,
+      },
+      mimetype: 'audio/mp4',
+      fileName: `${title}`,
+    };
+
+    return conn.sendMessage(m.chat, doc, { quoted: m });
+  } catch (error) {
+    console.error(error);
+    conn.reply(m.chat, 'Terjadi kesalahan. Silakan coba lagi nanti.\nNyari yang bener lah...', m);
+  }
+};
+
+handler.help = ['play'].map((v) => v + ' <pencarian>')
+handler.tags = ['downloader']
+handler.command = /^play$/i
 
 handler.exp = 0
 handler.register = true

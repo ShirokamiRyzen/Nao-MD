@@ -12,12 +12,12 @@
 ## NOTE BEFORE USING!!
 - Edit all Owner Information on config.js
 - If the feature not working, just buy your own API key
+- OpenAI require API key, so you need provide it
 ---------
 - Ubah semua Informasi Owner di config.js
 - Jika sebagian fitur ada yang tidak berfungsi, beli API key lu sendiri
+- OpenAI perlu Api key jadi lu harus sediain sendiri
 
-## EXTRA FILE FOR REPLIT OR DOCKER USER
-[DOWNLOAD](https://cloud.ryzendesu.com/api/raw/?path=/Extra%20Bot%20File.zip)
 
 ### a little about this bot
 - ✔️ | **Simple** 

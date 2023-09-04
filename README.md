@@ -7,6 +7,10 @@
 <p align="center">
 <a href="https://github.com/ShirokamiRyzen"><img title="Author" src="https://img.shields.io/badge/AUTHOR-ShirokamiRyzen-green.svg?style=for-the-badge&logo=github"></a>
 
+##
+[![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send/?phone=6285864034767&text=.menu) 
+[![ONWER](https://img.shields.io/badge/Owner%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285174269046) 
+
 
 
 ## NOTE BEFORE USING!!
@@ -38,10 +42,6 @@
 - ✔️ | Premium 
 - ✔️ | Tools 
 ---------
-
-##
-[![BOT WHATSAPP](https://img.shields.io/badge/WhatsApp%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send/?phone=6285864034767&text=.menu) 
-[![ONWER](https://img.shields.io/badge/Owner%20BOT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285174269046) 
 
 ##
 [![Uptime Status](https://api.netlify.com/api/v1/badges/074dc5c6-dc02-47eb-afdb-f504d226ba3b/deploy-status)](https://app.netlify.com/sites/nao-md/deploys)

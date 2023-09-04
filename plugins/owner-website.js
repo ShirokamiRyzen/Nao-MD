@@ -7,6 +7,8 @@ Main Site: ryzendesu.com
 Mod APK: app.ryzendesu.com
 KMS Activator: kms.ryzendesu.com
 Rest API: api.ryzendesu.com
+public API: backend.ryzendesu.com
+YTDL: ytdl.ryzendesu.com
 
 `.trim()
   m.reply(caption)

@@ -24,9 +24,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 }
 handler.help = ['addprem [@user] <days>']
 handler.tags = ['owner']
-handler.command = /^(add|tambah|\+)p(rem)?$/i
+handler.command = /^addprem?$/i
 
-handler.group = false
+handler.group = true
 handler.rowner = true
 
 export default handler

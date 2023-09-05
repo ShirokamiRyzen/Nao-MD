@@ -5,13 +5,18 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let user = db.data.users[who]
     if (!who) throw `tag or mention someone!`
     let txt = text.replace('@' + who.split`@`[0], '').trim()
+
     if (!txt) throw `where the number of days?`
     if (isNaN(txt)) return m.reply(`only number!\n\nexample:\n${usedPrefix + command} @${m.sender.split`@`[0]} 7`)
+
     var jumlahHari = 86400000 * txt
     var now = new Date() * 1
+
+    if (user.role === 'Free user') user.role = 'Premium user'
     if (now < user.premiumTime) user.premiumTime += jumlahHari
     else user.premiumTime = now + jumlahHari
-user.premium = true
+    user.premium = true
+
     m.reply(`✔️ Success
 📛 *Name:* ${user.name}
 📆 *Days:* ${txt} days

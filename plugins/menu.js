@@ -12,7 +12,6 @@ const defaultMenu = {
 ❏ *Nomor:* %tag
 ❏︎ *Premium:* %prems
 ❏︎ *Limit:* %limit
-❏︎ *Money:* %money
 ❏ *Role:* %role
 ❏︎ *Level:* %level
 ❏︎ *Xp:* %exp / %maxexp

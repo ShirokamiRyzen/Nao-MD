@@ -37,7 +37,7 @@ var handler = async (m, { args }) => {
         };
 
         const reqOptions = {
-            url: `https://backend.ryzendesu.com/fb?u=${url}`,
+            url: `https://backend.shirokamiryzen.repl.co/fb?u=${url}`,
             method: "GET",
             headers: headersList,
         };
@@ -47,8 +47,6 @@ var handler = async (m, { args }) => {
 
         const hdMedia = firstUrls[0][0];
         const sdMedia = firstUrls[1][0];
-
-        m.reply(`api.ryzendesu.com`);
         
         const hdCaption = `Video Kualitas HD\nLink HD: ${hdMedia}`;
         const sdCaption = `Video Kualitas SD\nLink SD: ${sdMedia}`;

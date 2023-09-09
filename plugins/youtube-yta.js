@@ -1,4 +1,4 @@
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
+import { youtubedl, youtubedlv2 } from '@bochilteam/scraper-sosmed'
 
 var handler = async (m, { conn, args }) => {
 if (!args[0]) throw 'Urlnya Mana Bang? >:('

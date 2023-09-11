@@ -13,7 +13,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
         
         const data = await file.downloadBuffer();
         
-        // Menambahkan ekstensi yang didukung (zip, rar, 7z) ke dalam daftar
+        // Menambahkan ekstensi yang didukung (zip, rar, 7z, jpg, png) ke dalam daftar
         if (/mp4/.test(file.name)) {
             await conn.sendMessage(m.chat, { document: data, mimetype: "video/mp4", filename: `${file.name}.mp4` }, { quoted: m });
         } else if (/pdf/.test(file.name)) {
@@ -24,6 +24,10 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
             await conn.sendMessage(m.chat, { document: data, mimetype: "application/x-rar-compressed", filename: `${file.name}.rar` }, { quoted: m });
         } else if (/7z/.test(file.name)) {
             await conn.sendMessage(m.chat, { document: data, mimetype: "application/x-7z-compressed", filename: `${file.name}.7z` }, { quoted: m });
+        } else if (/jpg|jpeg/.test(file.name)) {
+            await conn.sendMessage(m.chat, { document: data, mimetype: "image/jpeg", filename: `${file.name}.jpg` }, { quoted: m });
+        } else if (/png/.test(file.name)) {
+            await conn.sendMessage(m.chat, { document: data, mimetype: "image/png", filename: `${file.name}.png` }, { quoted: m });
         } else {
             return m.reply('Error: Format file tidak didukung');
         }

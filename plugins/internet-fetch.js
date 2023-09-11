@@ -4,22 +4,7 @@ import path from 'path'
 
 let handler = async (m, { text, conn, usedPrefix, command }) => {
     if (!text) {
-        return m.reply(`NOTE: bisa gunakan https:// bisa juga http:// dan bisa juga tanpa keduanya (https:// dan http://)
-*Bisa mendownload dan melihat file yang di short seperti shorturl.at/GHY58 atau short url lainnya (tinyurl, s.id, shorturl, dll)* \n
-bisa mendownload dan menampilkan json, html, txt, image, pdf, dll. contoh: ${usedPrefix + command} Link/Url\n
-|====================================|
-${usedPrefix + command} shorturl.at/GHY58
-${usedPrefix + command} si.ft.unmul.ac.id/modul_praktikum/8as0x4aConbSoi4lPy0D05PHemnX6x.pdf
-${usedPrefix + command} cdn.i-joox.com/_next/static/chunks/130.9700ec051eee3adc4f5d.js
-${usedPrefix + command} data.bmkg.go.id/DataMKG/TEWS/autogempa.json
-${usedPrefix + command} tr.deployers.repl.co/robots.txt
-${usedPrefix + command} tr.deployers.repl.co/sitemap.xml
-${usedPrefix + command} api.duniagames.co.id/api/content/upload/file/7081780811647600895.png
-${usedPrefix + command} medlineplus.gov/musclecramps.html
-|====================================|\n
-NOTE: Pokoknya masih banyak lagi, kalo error, hubungi +${global.nomorown}
-coded by https://github.com/Xnuvers007 [Xnuvers007]
-`)
+        return m.reply(`Url?`)
     }
 
     // ngecek dulu nih si user make https:// atau http:// atau gada keduanya
@@ -56,7 +41,7 @@ coded by https://github.com/Xnuvers007 [Xnuvers007]
 
         // ngendaliin konten tipe yang bisa aja berbeda
         if (/^image\//.test(contentType)) {
-            conn.sendFile(m.chat, redirectUrl, filename, text, m)          // m.reply(`Result for ${text}`)
+            conn.sendFile(m.chat, redirectUrl, filename, text, m)
         } else if (/^text\//.test(contentType)) {
             let txt = await res.text()
             m.reply(txt.slice(0, 65536) + '')

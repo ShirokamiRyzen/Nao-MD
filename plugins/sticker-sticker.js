@@ -24,7 +24,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		} else throw `Reply an image/video/sticker with command ${usedPrefix + command}`
 	} catch (e) {
 		console.log(e)
-		stiker = e
+		conn.reply(`Gunakan *.stickergif* untuk membuat sticker dengan video`)
 	} finally {
 		m.reply(stiker)
 	}

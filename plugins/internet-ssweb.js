@@ -4,7 +4,7 @@ let handler = async (m, {
 conn, text, command, usedPrefix
 }) => {
 if (!text) return m.reply(`Gunakan format ${usedPrefix + command} <url>\n\n*Contoh :* ${usedPrefix + command} https://github.com/ShirokamiRyzen`)
-m.reply("_Loading. . ._")
+m.reply(wait)
 var phone = await ssweb(text, 'phone')
 var desktop = await ssweb(text, 'desktop')
 var tablet = await ssweb(text, 'tablet')

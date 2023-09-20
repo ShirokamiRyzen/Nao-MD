@@ -1,45 +1,44 @@
-let handler = async (m, { conn, args: [event], text }) => {
-    if (!event) throw `List Event: welcome, bye, delete, promote, demote`;
-    let mentions = text.replace(event, "").trimStart();
-    let who = mentions ? conn.parseMention(mentions) : [];
-    let participants = who.length ? who : [m.sender];
-    let action = false;
-    m.reply(`Simulating ${event}...`)
+let handler = async (m, { conn, usedPrefix, command, args: [event], text }) => {
+    if (!event) return await conn.reply(m.chat, `contoh:
+${usedPrefix + command} welcome @user
+${usedPrefix + command} bye @user
+${usedPrefix + command} promote @user
+${usedPrefix + command} demote @user`.trim(), m, null, [['Welcome', '#simulate welcome'], ['Bye', '#simulate bye']])
+    let mentions = text.replace(event, '').trimStart()
+    let who = mentions ? conn.parseMention(mentions) : []
+    let part = who.length ? who : [m.sender]
+    let act = false
+    m.reply(`*${htjava} Simulating ${event}...*`)
     switch (event.toLowerCase()) {
-        case "add":
-        case "invite":
-        case "welcome":
-            action = "add";
-            break;
-        case "bye":
-        case "kick":
-        case "leave":
-        case "remove":
-            action = "remove";
-            break;
-        case "promote":
-            action = "promote";
-            break;
-        case "demote":
-            action = "demote";
-            break;
-        case "delete":
-            deleted = m;
-            break;
+        case 'add':
+        case 'invite':
+        case 'welcome':
+            act = 'add'
+            break
+        case 'bye':
+        case 'kick':
+        case 'leave':
+        case 'remove':
+            act = 'remove'
+            break
+        case 'promote':
+            act = 'promote'
+            break
+        case 'demote':
+            act = 'demote'
+            break
         default:
-            throw `List Event: welcome, bye, delete, promote, demote`;
+            throw eror
     }
-    if (action)
-        return conn.participantsUpdate({
-            id: m.chat,
-            participants,
-            action,
-        })
-    return conn.onDelete(m)
+    if (act) return conn.participantsUpdate({
+        id: m.chat,
+        participants: part,
+        action: act
+    })
 }
-
 handler.help = ['simulate <event> [@mention]']
 handler.tags = ['owner']
+handler.rowner = true
 
-handler.command = /^simulate$/i
+handler.command = /^(simulate|simulasi)$/i
 export default handler

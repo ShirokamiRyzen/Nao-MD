@@ -22,16 +22,16 @@ const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function (
  * Handle messages upsert
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['messages.upsert']} groupsUpdate 
  */
- 
+
 export async function handler(chatUpdate) {
     this.msgqueque = this.msgqueque || []
     if (!chatUpdate)
         return
     this.pushMessage(chatUpdate.messages).catch(console.error)
     let m = chatUpdate.messages[chatUpdate.messages.length - 1]
-    
-    global.img = 'https://telegra.ph/file/e4a2f4339da8a32ad20a1.jpg' 
-    
+
+    global.img = 'https://telegra.ph/file/e4a2f4339da8a32ad20a1.jpg'
+
     if (!m)
         return
     if (global.db.data == null)
@@ -72,6 +72,8 @@ export async function handler(chatUpdate) {
                     user.afkReason = ''
                 if (!('banned' in user))
                     user.banned = false
+                if (!('banReason' in user))
+                    user.banReason = ''
                 if (!isNumber(user.warning))
                     user.warning = 0
                 if (!isNumber(user.warn))
@@ -93,7 +95,7 @@ export async function handler(chatUpdate) {
                     user.lastbunga = 0
                 if (!isNumber(user.note))
                     user.note = 0
-                    
+
                 if (!isNumber(user.premium))
                     user.premium = false
                 if (!isNumber(user.premiumTime))
@@ -113,6 +115,7 @@ export async function handler(chatUpdate) {
                     afk: -1,
                     afkReason: '',
                     banned: false,
+                    banReason: '',
                     warn: 0,
                     level: 0,
                     role: 'Free user',
@@ -123,7 +126,7 @@ export async function handler(chatUpdate) {
                     lastmonthly: 0,
                     lastbunga: 0,
                     note: 0,
-                    
+
                     premium: false,
                     premiumTime: 0,
                     limitjoin: 0,
@@ -152,7 +155,7 @@ export async function handler(chatUpdate) {
                     chat.antiLink = true
                 if (!('viewonce' in chat))
                     chat.viewonce = false
-                if (!('antiBadword' in chat)) 
+                if (!('antiBadword' in chat))
                     chat.antiBadword = false
                 if (!('simi' in chat))
                     chat.simi = false
@@ -316,7 +319,7 @@ export async function handler(chatUpdate) {
                 args = args || []
                 let _args = noPrefix.trim().split` `.slice(1)
                 let text = _args.join` `
-                
+
                 command = (command || '').toLowerCase()
                 let fail = plugin.fail || global.dfail // When failed
                 let isAccept = plugin.command instanceof RegExp ? // RegExp Mode?
@@ -521,23 +524,23 @@ export async function participantsUpdate({ id, participants, action }) {
     let chat = global.db.data.chats[id] || {}
     let text = ''
     switch (action) {
-		case 'add':
-		case 'remove':
-			if (chat.welcome) {
-				let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
-				for (let user of participants) {
-					let pp = './src/avatar_contact.png'
-					try {
-						pp = await this.profilePictureUrl(user, 'image')
-					} catch (e) {} finally {
-						text = (action === 'add' ? (this.welcome || global.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-							(this.bye || global.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-						this.sendFile(id, pp, 'pp.jpg', text, null, false, {
-							mentions: [user]
-						})
-					}
-				}
-			}
+        case 'add':
+        case 'remove':
+            if (chat.welcome) {
+                let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
+                for (let user of participants) {
+                    let pp = './src/avatar_contact.png'
+                    try {
+                        pp = await this.profilePictureUrl(user, 'image')
+                    } catch (e) { } finally {
+                        text = (action === 'add' ? (this.welcome || global.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
+                            (this.bye || global.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+                        this.sendFile(id, pp, 'pp.jpg', text, null, false, {
+                            mentions: [user]
+                        })
+                    }
+                }
+            }
             break
         case 'promote':
             text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
@@ -547,22 +550,22 @@ export async function participantsUpdate({ id, participants, action }) {
             text = text.replace('@user', '@' + participants[0].split('@')[0])
             if (chat.detect)
                 this.sendMessage(id, { text, mentions: this.parseMention(text) })
-/*let flaaa2 = [
-'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=water-logo&script=water-logo&fontsize=90&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextColor=%23000&shadowGlowColor=%23000&backgroundColor=%23000&text=',
-'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=crafts-logo&fontsize=90&doScale=true&scaleWidth=800&scaleHeight=500&text=',
-'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=amped-logo&doScale=true&scaleWidth=800&scaleHeight=500&text=',
-'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text=',
-'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text=']
-conn.sendButtonImg(id, `${pickRandom(flaaa2)}` + `Congratulation ` + '@user', 'Sᴇʟᴀᴍᴀᴛ Nᴀɪᴋ Jᴀʙᴀᴛᴀɴ', text, mentions: this.parseMention(text), { contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: 'https://facebook.com/sadtime098',
-    mediaType: 2, 
-    description: sgc,
-    title: "Jᴀɴɢᴀɴ Lᴜᴘᴀ Mᴀɴᴅɪ!!",
-    body: wm,
-    thumbnail: fs.readFileSync('./thumbnail.jpg'),
-    sourceUrl: sgc
-     }}
-  })*/
+            /*let flaaa2 = [
+            'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=water-logo&script=water-logo&fontsize=90&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextColor=%23000&shadowGlowColor=%23000&backgroundColor=%23000&text=',
+            'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=crafts-logo&fontsize=90&doScale=true&scaleWidth=800&scaleHeight=500&text=',
+            'https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=amped-logo&doScale=true&scaleWidth=800&scaleHeight=500&text=',
+            'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text=',
+            'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text=']
+            conn.sendButtonImg(id, `${pickRandom(flaaa2)}` + `Congratulation ` + '@user', 'Sᴇʟᴀᴍᴀᴛ Nᴀɪᴋ Jᴀʙᴀᴛᴀɴ', text, mentions: this.parseMention(text), { contextInfo: { externalAdReply: { showAdAttribution: true,
+                mediaUrl: 'https://facebook.com/sadtime098',
+                mediaType: 2, 
+                description: sgc,
+                title: "Jᴀɴɢᴀɴ Lᴜᴘᴀ Mᴀɴᴅɪ!!",
+                body: wm,
+                thumbnail: fs.readFileSync('./thumbnail.jpg'),
+                sourceUrl: sgc
+                 }}
+              })*/
             break
     }
 }
@@ -613,79 +616,84 @@ Untuk mematikan fitur ini, ketik
 }
 
 global.dfail = (type, m, conn) => {
-const fgclink = {
-           "key": {
-               "fromMe": false,
-               "participant": "0@s.whatsapp.net",
-               "remoteJid": "0@s.whatsapp.net"
-           },
-           "message": {
-               "groupInviteMessage": {
-                   "groupJid": "6282127487538-1625305606@g.us",
-                   "inviteCode": "null",
-                   "groupName": "Halo", 
-                   "caption": wm, 
-                   'jpegThumbnail': fs.readFileSync('./media/ok.jpg')
-               }
-           }
-       }
-       let tag = `@${m.sender.replace(/@.+/, '')}`
-  let mentionedJid = [m.sender]
+    const fgclink = {
+        "key": {
+            "fromMe": false,
+            "participant": "0@s.whatsapp.net",
+            "remoteJid": "0@s.whatsapp.net"
+        },
+        "message": {
+            "groupInviteMessage": {
+                "groupJid": "6282127487538-1625305606@g.us",
+                "inviteCode": "null",
+                "groupName": "Halo",
+                "caption": wm,
+                'jpegThumbnail': fs.readFileSync('./media/ok.jpg')
+            }
+        }
+    }
+    let tag = `@${m.sender.replace(/@.+/, '')}`
+    let mentionedJid = [m.sender]
     let rown = {
-        rowner: '*DEVELOPER ONLY* • COMMAND INI HANYA UNTUK DEVELOPER BOT'}[type]
-  if (rown) return conn.reply(m.chat, rown, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+        rowner: '*DEVELOPER ONLY* • COMMAND INI HANYA UNTUK DEVELOPER BOT'
+    }[type]
+    if (rown) return conn.reply(m.chat, rown, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 
-        
-let own = {
-owner: '*OWNER ONLY* • COMMAND INI HANYA UNTUK OWNER BOT'}[type]
-  if (own) return conn.reply(m.chat, own, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
 
-let mod = {
-mods: '*MODERATOR ONLY* • COMMAND INI HANYA UNTUK MODERATOR'}[type]
-  if (mod) return conn.reply(m.chat, mod, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+    let own = {
+        owner: '*OWNER ONLY* • COMMAND INI HANYA UNTUK OWNER BOT'
+    }[type]
+    if (own) return conn.reply(m.chat, own, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 
-let prm = {
-        premium: '*PREMIUM ONLY* • COMMAND INI HANYA UNTUK PREMIUM USER'}[type]
-  if (prm) return conn.reply(m.chat, prm, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+    let mod = {
+        mods: '*MODERATOR ONLY* • COMMAND INI HANYA UNTUK MODERATOR'
+    }[type]
+    if (mod) return conn.reply(m.chat, mod, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 
-let gc = {
+    let prm = {
+        premium: '*PREMIUM ONLY* • COMMAND INI HANYA UNTUK PREMIUM USER'
+    }[type]
+    if (prm) return conn.reply(m.chat, prm, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
+
+    let gc = {
         group: '*GROUP CHAT* • COMMAND INI HANYA BISA DIGUNAKAN DIDALAM GRUP'
-        }[type]
-  if (gc) return conn.reply(m.chat, gc, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+    }[type]
+    if (gc) return conn.reply(m.chat, gc, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 
-let msg = {
+    let msg = {
         private: '*PRIVATE CHAT* • COMMAND INI HANYA BISA DIGUNAKAN DI PRIVATE CHAT',
         admin: '*ADMIN ONLY* • COMMAND INI HANYA UNTUK ADMIN GRUP',
         botAdmin: '*BOT ADMIN ONLY* • COMMAND INI HANYA UNTUK ADMIN BOT',
-        restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DI GRUP INI'}[type]
-  if (msg) return conn.reply(m.chat, msg, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
-  
-  
+        restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DI GRUP INI'
+    }[type]
+    if (msg) return conn.reply(m.chat, msg, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
+
+
     let msgg = {
-    	unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar'
-}[type]
-if (msgg) return conn.reply(m.chat, msgg, m, { contextInfo: { externalAdReply: {title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
+        unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar'
+    }[type]
+    if (msgg) return conn.reply(m.chat, msgg, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 }
 function ucapan() {
-  const time = moment.tz('Asia/Jakarta').format('HH')
-  let res = "Sudah Dini Hari Kok Belum Tidur Kak? 🥱"
-  if (time >= 4) {
-    res = "Pagi Kak 🌄"
-  }
-  if (time >= 10) {
-    res = "Selamat Siang Kak ☀️"
-  }
-  if (time >= 15) {
-    res = "Selamat Sore Kak 🌇"
-  }
-  if (time >= 18) {
-    res = "Malam Kak 🌙"
-  }
-  return res
+    const time = moment.tz('Asia/Jakarta').format('HH')
+    let res = "Sudah Dini Hari Kok Belum Tidur Kak? 🥱"
+    if (time >= 4) {
+        res = "Pagi Kak 🌄"
+    }
+    if (time >= 10) {
+        res = "Selamat Siang Kak ☀️"
+    }
+    if (time >= 15) {
+        res = "Selamat Sore Kak 🌇"
+    }
+    if (time >= 18) {
+        res = "Malam Kak 🌙"
+    }
+    return res
 }
 function pickRandom(list) {
-     return list[Math.floor(Math.random() * list.length)]
-     }
+    return list[Math.floor(Math.random() * list.length)]
+}
 let file = global.__filename(import.meta.url, true)
 watchFile(file, async () => {
     unwatchFile(file)

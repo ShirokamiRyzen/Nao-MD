@@ -12,6 +12,7 @@ let handler = async (m, { conn, text }) => {
     let users = global.db.data.users
     if (users[who]) {
         users[who].banned = false
+        users[who].banReason = ''
         conn.reply(m.chat, 'Done!', m)
     } else {
         throw 'User not found.'

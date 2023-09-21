@@ -1,6 +1,6 @@
 {
     "name": "ShirokamiRyzen",
-    "version": "5.0.2",
+    "version": "5.5.0",
     "description": "Nao-MD By Ryzen",
     "main": "index.js",
     "type": "module",
@@ -35,9 +35,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@6.2.1",
-        "@adiwajshing/keyed-db": "^0.2.4",
-        "@xct007/frieren-scraper": "npm:@xct007/frieren-scraper",
+        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys",
         "@arugaz/ai2d": "^1.0.1-z.8",
         "@bochilteam/scraper": "^4.2.4",
         "@ibaraki-douji/pixivts": "*",

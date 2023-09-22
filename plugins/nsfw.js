@@ -12,7 +12,7 @@ waifu`
   if (!json.url) throw 'Error!'
   conn.sendFile(m.chat, json.url, '', global.wm, m)
 }
-handler.command = /^(lewd)$/i
+handler.command = /^(nsfw)$/i
 handler.premium = true
 handler.limit = true
 

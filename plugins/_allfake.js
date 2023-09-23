@@ -1,5 +1,3 @@
-//By Papah-Chan
-
 import fs from 'fs'
 import fetch from 'node-fetch'
 import moment from 'moment-timezone'
@@ -21,11 +19,7 @@ handler.all = async function (m) {
 		global.bochil = await import('@bochilteam/scraper')
 		
 		const _uptime = process.uptime() * 1000
-        
-		// Ini untuk command crator/owner
-		global.kontak2 = [
-         [owner[0], await conn.getName(owner[0] + '6281361281833@s.whatsapp.net'), 'ᴅᴇᴠᴇʟᴏᴩᴇʀ ʙᴏᴛ', 'dedsec.ext4@gmail.com', true], // Kalo mau di tambah tinggal copy 1baris ini di tempel di bawahnya trs di edit dikit!
-        ]
+    
         
 		// ucapan ini mah
 		global.ucapan = ucapan()
@@ -41,11 +35,12 @@ handler.all = async function (m) {
 				externalAdReply: { // Bagian ini sesuka kalian berkreasi :'v
                     showAdAttribution: true,
 					title: global.ucapan,
-					body: "Hallo " + name,
+					body: `${global.wm}`,
 					mediaUrl: sgc,
 					description: 'Nao-Botz',
 					previewType: "PHOTO",
-					thumbnail: await (await fetch(pp)).buffer(),
+                    thumbnail: fs.readFileSync('./thumbnail.jpg'),
+					//thumbnail: await (await fetch(pp)).buffer(),
 					sourceUrl: "https://github.com/ShirokamiRyzen",					
 				}
 			}

@@ -31,7 +31,6 @@ var handler = async (m, { conn, args }) => {
             setTimeout(async () => {
                 //await conn.sendFile(m.chat, videoURLWatermark, 'tiktokwm.mp4', `*Ini Versi Watermark*\n\n${infonya_gan}`, m);
                 //await conn.sendFile(m.chat, `${tiktokData.music.play_url}`,'lagutt.mp3', 'ini lagunya',m);
-                conn.reply(m.chat, "tiktok.ryzendesu.com", m);
             }, 5000);
         } else {
             throw 'Tidak ada tautan video yang tersedia.';

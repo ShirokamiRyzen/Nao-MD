@@ -20,10 +20,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Dari: *Owner*\nPesan: \n${pesan}`.trim();
         await conn.reply(data.jid, txt, m, { contextInfo: { externalAdReply: {title: global.wm, body: global.author, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
         .then(() => {
+            m.reply('Berhasil mengirim pesan memfess.')
             conn.ownreply[id] = {
                 id,
                 dari: m.sender,
-                nama: name,
                 penerima: data.jid,
                 pesan: pesan,
                 status: false
@@ -32,7 +32,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         })
     } catch (e) {
         console.log(e)
-        m.reply('Berhasil mengirim pesan owner.');
+        return m.reply('Error');
     }
 }
 handler.help = ['balas'].map(v => v + ' <nomor|pesan>')

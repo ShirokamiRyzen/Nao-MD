@@ -36,15 +36,15 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         conn.ownreply[id] = {
             id,
             dari: m.sender,
-            nama: name,
             penerima: data.jid,
             pesan: pesan,
             status: false
         }
+        await m.reply('Berhasil mengirim pesan.')
         return !0;
     } catch (e) {
         console.log(e)
-        m.reply('Berhasil mengirim pesan');
+        return m.reply('Mana gambarnya?');
     }
 }
 handler.help = ['balas-img'].map(v => v + ' <nomor|pesan>')

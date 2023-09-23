@@ -32,7 +32,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                     thumbnail: fs.readFileSync('./thumbnail.jpg')
                 }
             }
-        });
+        })
         conn.menfess[id] = {
             id,
             dari: m.sender,
@@ -40,10 +40,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             pesan: pesan,
             status: false
         }
+        await m.reply('Berhasil mengirim pesan memfess.')
         return !0;
     } catch (e) {
         console.log(e)
-        m.reply('Berhasil mengirim pesan\nNote: Jika tidak ada gambar, maka pesan tidak akan terkirim');
+        return m.reply('Mana gambarnya?');
     }
 }
 handler.tags = ['memfess']

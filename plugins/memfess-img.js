@@ -1,6 +1,7 @@
 import fs from 'fs'
 import fetch from 'node-fetch'
 import moment from 'moment-timezone'
+import uploadImage from '../lib/uploadImage.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     conn.menfess = conn.menfess ? conn.menfess : {}
@@ -10,35 +11,44 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     jid = jid.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
     let data = (await conn.onWhatsApp(jid))[0] || {};
     if (!data.exists) throw 'Nomer tidak terdaftar di whatsapp.';
-    
-   if (jid == m.sender) throw 'tidak bisa mengirim pesan memfess ke diri sendiri.'
-    
+
+    if (jid == m.sender) throw 'tidak bisa mengirim pesan memfess ke diri sendiri.'
+
     let mf = Object.values(conn.menfess).find(mf => mf.status === true)
     if (mf) return !0
     try {
-    	let id = + new Date
+        let q = m.quoted ? m.quoted : m
+        let media = await q.download()
+        let gambar = await uploadImage(media)
+        let id = + new Date
+        let imagePath = `${gambar}`;
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Memfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}\n\nMau balas pesan ini kak? bisa kak. kakak tinggal ketik pesan kakak nanti saya sampaikan ke *${name}*.`.trim();
-        await conn.reply(data.jid, txt, m, { contextInfo: { externalAdReply: {title: global.wm, body: global.author, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
-        .then(() => {
-            m.reply('Berhasil mengirim pesan memfess.')
-            conn.menfess[id] = {
-                id,
-                dari: m.sender,
-                nama: name,
-                penerima: data.jid,
-                pesan: pesan,
-                status: false
+        await conn.sendFile(data.jid, imagePath, 'gambar.jpg', txt, m, {
+            contextInfo: {
+                externalAdReply: {
+                    title: global.wm,
+                    body: global.author,
+                    sourceUrl: global.snh,
+                    thumbnail: fs.readFileSync('./thumbnail.jpg')
+                }
             }
-            return !0
-        })
+        });
+        conn.menfess[id] = {
+            id,
+            dari: m.sender,
+            penerima: data.jid,
+            pesan: pesan,
+            status: false
+        }
+        return !0;
     } catch (e) {
         console.log(e)
-        m.reply('error');
+        m.reply('Berhasil mengirim pesan\nNote: Jika tidak ada gambar, maka pesan tidak akan terkirim');
     }
 }
 handler.tags = ['memfess']
-handler.help = ['mfs'].map(v => v + ' <nomor|nama pengirim|pesan>')
-handler.command = /^(mfs|memfess|memfes|confes)$/i
+handler.help = ['mfs-img'].map(v => v + ' <nomor|nama pengirim|pesan>')
+handler.command = /^(mfs-img|memfess-img|memfes-img|confes-img)$/i
 handler.register = true
 handler.private = true
 

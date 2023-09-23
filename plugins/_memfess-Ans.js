@@ -7,7 +7,7 @@ export async function before(m) {
 	if (m.text === 'Balas' && m.quoted.mtype == 'buttonsMessage') return m.reply("Silahkan kirim pesan balasan kamu.");
 	let txt = `Hai kak @${mf.dari.split('@')[0]}, kamu menerima balasan nih.\n\nPesan balasannya:\n${m.text}\n`.trim();
 	await this.reply(mf.dari, txt, null).then(() => {
-		m.reply('Balasan Menfess terkirim.')
+		m.reply('Balasan Memfess terkirim.')
 		this.delay(1000)
 		delete this.menfess[mf.id]
 		return !0

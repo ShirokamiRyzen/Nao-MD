@@ -36,6 +36,7 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command}) => {
 let tags = {
 'main': 'Main',
+'memfess': 'Memfess',
 'ai': 'Ai feature',
 'anime': 'Anime',
 'internet': 'Internet',

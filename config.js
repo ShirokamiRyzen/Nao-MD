@@ -105,89 +105,8 @@ global.htjava = '⫹⫺'    //hiasan Doang :v
 global.hsquere = ['⛶','❏','⫹⫺']
 
 /*============= RESPON =============*/
-global.stiker_wait = 'Please Wait...'
 global.wait = 'Please Wait...'
 global.eror = 'Error!'
-
-/*============= RESPON GAME =============*/
-global.benar = 'Good Job! ◕◡◕'
-global.salah = 'Not Bad! ◕◠◕'
-global.dikit = "Dikit Lagi, Semangat!!"
-
-
-/*============= RPG GAME =============*/
-global.multiplier = 69 // The higher, The harder levelup
-global.rpg = {
-  emoticon(string) {
-    string = string.toLowerCase()
-    let emot = {
-      agility: '🤸‍♂️',
-      arc: '🏹',
-      armor: '🥼',
-      bank: '🏦',
-      bibitanggur: '🍇',
-      bibitapel: '🍎',
-      bibitjeruk: '🍊',
-      bibitmangga: '🥭',
-      bibitpisang: '🍌',
-      bow: '🏹',
-      bull: '🐃',
-      cat: '🐈',
-      chicken: '🐓',
-      common: '📦',
-      cow: '🐄',
-      crystal: '🔮',
-      darkcrystal: '♠️',
-      diamond: '💎',
-      dog: '🐕',
-      dragon: '🐉',
-      elephant: '🐘',
-      emerald: '💚',
-      exp: '✉️',
-      fishingrod: '🎣',
-      fox: '🦊',
-      gems: '🍀',
-      giraffe: '🦒',
-      gold: '👑',
-      health: '❤️',
-      horse: '🐎',
-      intelligence: '🧠',
-      iron: '⛓️',
-      keygold: '🔑',
-      keyiron: '🗝️',
-      knife: '🔪',
-      legendary: '🗃️',
-      level: '🧬',
-      limit: '🌌',
-      lion: '🦁',
-      magicwand: '⚕️',
-      mana: '🪄',
-      money: '💵',
-      mythic: '🗳️',
-      pet: '🎁',
-      petFood: '🍖',
-      pickaxe: '⛏️',
-      pointxp: '📧',
-      potion: '🥤',
-      rock: '🪨',
-      snake: '🐍',
-      stamina: '⚡',
-      strength: '🦹‍♀️',
-      string: '🕸️',
-      superior: '💼',
-      sword: '⚔️',
-      tiger: '🐅',
-      trash: '🗑',
-      uncommon: '🎁',
-      upgrader: '🧰',
-      wood: '🪵'
-    }
-    let results = Object.keys(emot).map(v => [v, new RegExp(v, 'gi')]).filter(v => v[1].test(string))
-    if (!results.length) return ''
-    else return emot[results[0][0]]
-  }
-}
-
 
 /*============= WEB API KEY =============*/
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
@@ -268,3 +187,82 @@ watchFile(file, () => {
   console.log(chalk.redBright("Update 'config.js'"))
   import(`${file}?update=${Date.now()}`)
 })
+
+/*============= RESPON GAME =============*/
+global.benar = 'Good Job! ◕◡◕'
+global.salah = 'Not Bad! ◕◠◕'
+global.dikit = "Dikit Lagi, Semangat!!"
+
+
+/*============= RPG GAME =============*/
+global.multiplier = 69 // The higher, The harder levelup
+global.rpg = {
+  emoticon(string) {
+    string = string.toLowerCase()
+    let emot = {
+      agility: '🤸‍♂️',
+      arc: '🏹',
+      armor: '🥼',
+      bank: '🏦',
+      bibitanggur: '🍇',
+      bibitapel: '🍎',
+      bibitjeruk: '🍊',
+      bibitmangga: '🥭',
+      bibitpisang: '🍌',
+      bow: '🏹',
+      bull: '🐃',
+      cat: '🐈',
+      chicken: '🐓',
+      common: '📦',
+      cow: '🐄',
+      crystal: '🔮',
+      darkcrystal: '♠️',
+      diamond: '💎',
+      dog: '🐕',
+      dragon: '🐉',
+      elephant: '🐘',
+      emerald: '💚',
+      exp: '✉️',
+      fishingrod: '🎣',
+      fox: '🦊',
+      gems: '🍀',
+      giraffe: '🦒',
+      gold: '👑',
+      health: '❤️',
+      horse: '🐎',
+      intelligence: '🧠',
+      iron: '⛓️',
+      keygold: '🔑',
+      keyiron: '🗝️',
+      knife: '🔪',
+      legendary: '🗃️',
+      level: '🧬',
+      limit: '🌌',
+      lion: '🦁',
+      magicwand: '⚕️',
+      mana: '🪄',
+      money: '💵',
+      mythic: '🗳️',
+      pet: '🎁',
+      petFood: '🍖',
+      pickaxe: '⛏️',
+      pointxp: '📧',
+      potion: '🥤',
+      rock: '🪨',
+      snake: '🐍',
+      stamina: '⚡',
+      strength: '🦹‍♀️',
+      string: '🕸️',
+      superior: '💼',
+      sword: '⚔️',
+      tiger: '🐅',
+      trash: '🗑',
+      uncommon: '🎁',
+      upgrader: '🧰',
+      wood: '🪵'
+    }
+    let results = Object.keys(emot).map(v => [v, new RegExp(v, 'gi')]).filter(v => v[1].test(string))
+    if (!results.length) return ''
+    else return emot[results[0][0]]
+  }
+}

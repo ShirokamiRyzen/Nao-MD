@@ -2,7 +2,7 @@
 	deps = [
 		pkgs.neofetch
 		pkgs.imagemagick
-		pkgs.nodejs-19_x
+		pkgs.nodejs-18_x
         pkgs.nodePackages.typescript
 		pkgs.speedtest-cli
 		pkgs.jellyfin-ffmpeg

@@ -121,13 +121,15 @@ global.APIs = {
   // name: 'https://website'
   lol: 'https://api.lolhuman.xyz',
   violetics : 'https://violetics.pw',
-  males : 'https://api.lolhuman.xyz' //web api terserah ganti apa aja (buat welcome sama leave gc)
+  males : 'https://api.lolhuman.xyz',
+  xzn : 'https://xzn.wtf' //web api terserah ganti apa aja (buat welcome sama leave gc)
 }
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
   'https://api.lolhuman.xyz': 'SGWN',
   'https://violetics.pw': 'beta',
+  'https://xzn.wtf' : '',
 }
 
 /*============= OTHER =============*/

@@ -40,7 +40,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             pesan: pesan,
             status: false
         }
-        await m.reply('Berhasil mengirim pesan.')
+        await m.reply('Berhasil mengirim pesan dengan media.')
         return !0;
     } catch (e) {
         console.log(e)

@@ -20,7 +20,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Dari: *Owner*\nPesan: \n${pesan}`.trim();
         await conn.reply(data.jid, txt, m, { contextInfo: { externalAdReply: {title: global.wm, body: global.author, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') }}})
         .then(() => {
-            m.reply('Berhasil mengirim pesan memfess.')
+            m.reply('Berhasil mengirim pesan dengan media.')
             conn.ownreply[id] = {
                 id,
                 dari: m.sender,

@@ -13,4 +13,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 handler.help = ['report', 'request'].map(v => v + ' <teks>')
 handler.tags = ['info']
 handler.command = /^(report|request)$/i
+handler.inactive = true
+
 export default handler

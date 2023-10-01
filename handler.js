@@ -218,6 +218,7 @@ export async function handler(chatUpdate) {
 
         const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isOwner = isROwner || m.fromMe
+        const isInactive = isROwner || m.fromMe
         const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isPrems = isROwner || db.data.users[m.sender].premiumTime > 0
 
@@ -301,6 +302,7 @@ export async function handler(chatUpdate) {
                     bot,
                     isROwner,
                     isOwner,
+                    isInactive,
                     isRAdmin,
                     isAdmin,
                     isBotAdmin,
@@ -354,6 +356,10 @@ export async function handler(chatUpdate) {
                 }
                 if (plugin.owner && !isOwner) { // Number Owner
                     fail('owner', m, this)
+                    continue
+                }
+                if (plugin.inactive && !isInactive) { // isInactive
+                    fail('inactive', m, this)
                     continue
                 }
                 if (plugin.mods && !isMods) { // Moderator
@@ -411,6 +417,7 @@ export async function handler(chatUpdate) {
                     bot,
                     isROwner,
                     isOwner,
+                    isInactive,
                     isRAdmin,
                     isAdmin,
                     isBotAdmin,
@@ -639,6 +646,10 @@ global.dfail = (type, m, conn) => {
     }[type]
     if (rown) return conn.reply(m.chat, rown, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 
+    let inv = {
+        inactive: '*DISABLED* • COMMAND INI TELAH DIMATIKAN OLEH OWNER'
+    }[type]
+    if (inv) return conn.reply(m.chat, inv, m, { contextInfo: { externalAdReply: { title: global.author, body: global.namebot, sourceUrl: global.snh, thumbnail: fs.readFileSync('./thumbnail.jpg') } } })
 
     let own = {
         owner: '*OWNER ONLY* • COMMAND INI HANYA UNTUK OWNER BOT'

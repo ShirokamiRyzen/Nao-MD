@@ -1,5 +1,5 @@
-import FormData from "form-data";
-import Jimp from "jimp";
+import FormData from "form-data"
+import Jimp from "jimp"
 
 let handler = async (m, { conn, usedPrefix, command }) => {
 	switch (command) {
@@ -82,11 +82,15 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			}
 			break;
 	}
-};
-handler.help = ["dehaze","recolor","hd"];
-handler.tags = ["ai"];
-handler.command = ["dehaze","recolor","hd"];
-export default handler;
+}
+
+handler.help = ["dehaze","recolor","hd"]
+handler.tags = ["ai"]
+handler.command = ["dehaze","recolor","hd"]
+handler.limit = true
+handler.register = true
+
+export default handler
 
 async function processing(urlPath, method) {
 	return new Promise(async (resolve, reject) => {

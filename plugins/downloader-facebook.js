@@ -1,64 +1,37 @@
 import axios from 'axios'
 import fetch from 'node-fetch'
 
+const getBuffer = async (url) => {
+    const response = await fetch(url);
+    const buffer = await response.buffer();
+    return buffer;
+};
+
 var handler = async (m, { args }) => {
     if (!args[0]) {
         throw 'Input URL\nEx: .fb https://www.facebook.com/groups/175204112986693/permalink/1621191825054574/?mibextid=Nif5oz';
     }
     
     try {
-        const url = args[0];
-        const headersList = {
-            "Accept": "*/*",
-            "User-Agent": "Thunder Client (https://www.thunderclient.com)"
-        };
-
-        const reqOptions = {
-            url: `https://backend.shirokamiryzen.repl.co/fb?u=${url}`,
-            method: "GET",
-            headers: headersList,
-        };
-
-        const response = await axios.request(reqOptions);
-        const firstUrls = response.data.map(item => item.split(','));
-
-        const hdMedia = firstUrls[0][0];
-        const sdMedia = firstUrls[1][0];
+        const response = await axios.get(`https://backend.shirokamiryzen.repl.co/fb?u=${args[0]}`);
         
-        const hdCaption = `Video Kualitas HD\nLink HD: ${hdMedia}`;
-        const sdCaption = `Video Kualitas SD\nLink SD: ${sdMedia}`;
-        
-        m.reply(wait);
-
-        try {
-            // Send HD video
-            const hdFile = await fetch(hdMedia);
-            conn.sendFile(m.chat, await hdFile.buffer(), 'video_hd.mp4', hdCaption, m);
-
-            try {
-                // Send SD video
-                const sdFile = await fetch(sdMedia);
-                conn.sendFile(m.chat, await sdFile.buffer(), 'video_sd.mp4', sdCaption, m);
-            } catch {
-                // If SD video sending fails, no further action needed
-            }
-        } catch {
-            try {
-                // Send SD video
-                const sdFile = await fetch(sdMedia);
-                conn.sendFile(m.chat, await sdFile.buffer(), 'video_sd.mp4', sdCaption, m);
-            } catch {
-                // If both HD and SD videos don't exist, send an error message
-                const cap = 'Gagal mengunduh video FB';
-                conn.sendFile(m.chat, 'facebook.mp4', 'facebook.mp4', cap, m);
-            }
+        // Check if the response data is an array with at least one URL
+        if (Array.isArray(response.data) && response.data.length > 0) {
+            const videoUrl = response.data[0];
+            
+            // Fetch and send the video
+            const videoBuffer = await getBuffer(videoUrl);
+            conn.sendFile(m.chat, videoBuffer, 'video.mp4', 'Video Kualitas HD', m);
+        } else {
+            // Handle the case where the response data structure is different
+            throw 'Invalid response format from the server';
         }
-    } catch {
-        // Jika terjadi kesalahan pada tahap lainnya, kirim pesan kesalahan
+    } catch (error) {
+        console.error(error);
         const cap = 'Gagal mengunduh video FB';
         conn.sendFile(m.chat, 'facebook.mp4', 'facebook.mp4', cap, m);
     }
-};
+}
 
 handler.help = ['fb <url>']
 handler.tags = ['downloader']

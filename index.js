@@ -8,7 +8,6 @@ import { createRequire } from 'module'
 import { createInterface } from 'readline'
 import { setupMaster, fork } from 'cluster'
 import { watchFile, unwatchFile } from 'fs'
-import server from './keep_alive.js'
 
 // https://stackoverflow.com/a/50052194
 const { say } = cfonts

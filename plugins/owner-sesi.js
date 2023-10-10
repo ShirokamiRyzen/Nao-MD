@@ -1,8 +1,8 @@
 import fs from 'fs'
 let handler = async (m, { conn, text }) => {
     m.reply('Tunggu Sebentar, Sedang mengambil file sesi mu')
-    let sesi = await fs.readFileSync('./ryzen.session.json')
-    return await conn.sendMessage(m.chat, { document: sesi, mimetype: 'application/json', fileName: 'ryzen.session.json' }, { quoted: m })
+    let sesi = await fs.readFileSync('./sessions/creds.json')
+    return await conn.sendMessage(m.chat, { document: sesi, mimetype: 'application/json', fileName: 'creds.json' }, { quoted: m })
 }
 handler.help = ['getsession']
 handler.tags = ['owner']

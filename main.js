@@ -1,3 +1,13 @@
+/* If You Copy, Don`t Delete This Credit!!! 
+  Don`t Sell This Script Or I Take Immediately 
+  Yang Jual Script Ini Report/Hangusin Aja Akunnya Atau Pukulin ae orangnya
+  Move To Pairing Code
+  Buat Yg Nggk muncul Codenya Itu Disebabkan Oleh Banyaknya Plugins
+  Jika Ingin Mengambil Sesi, Backup Semua File Plugins & Hapus Semua File Plugins
+  Setelah Sudah Kalian Bisa Mengembalikan Semua File Pluginsnya Agar Bisa Dipakai
+  Regards from YanXiao ♡
+*/
+
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 import './config.js'
 

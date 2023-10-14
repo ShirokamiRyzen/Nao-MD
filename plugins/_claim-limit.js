@@ -5,8 +5,8 @@ const cooldown = 86400000
 let handler = async (m,{ conn} ) => {
   let user = global.db.data.users[m.sender]
 
-  if (user.role === 'Free user' && user.limit <= 100) {
-    conn.reply(m.chat, 'Free user only have 100 Limit max', m)
+  if (user.role === 'Free user' && user.limit >= 100) {
+    conn.reply(m.chat, 'Free user only have 100 daily Limit max', m)
     return
   }
 
@@ -20,7 +20,6 @@ let handler = async (m,{ conn} ) => {
   conn.reply(m.chat, text.trim(), m)
   user.lastclaim = new Date * 1
 }
-
 handler.help = ['claimlimit']
 handler.tags = ['main']
 handler.command = /^(claimlimit)$/i

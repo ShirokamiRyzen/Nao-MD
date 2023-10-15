@@ -215,7 +215,7 @@ let tags = {
 }
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(menu|help|\?)$/i
+handler.command = /^(allmenu|menu|help|\?)$/i
 
 handler.register = false
 handler.exp = 3

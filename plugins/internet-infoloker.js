@@ -6,8 +6,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
     await m.reply(wait)
     try {
         let res = await infoloker(text);
-        // Limit the results to the first 5 items
-        res = res.slice(0, 5);
+        res = res.slice(0, 11);
         let teks = res.map((item, index) => {
             return `
 🔍 *[ RESULT ${index + 1} ]*

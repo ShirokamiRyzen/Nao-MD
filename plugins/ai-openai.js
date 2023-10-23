@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [{ role: "system", content: 'Kamu adalah asisten, dan nama kamu adalah Nao Tomori, nama ownermu adalah Shirokami Ryzen' },
+      messages: [{ role: "system", content: 'Kamu adalah asisten, dan nama kamu adalah Nao Tomori dan kamu senang membantu orang' },
     { role: "assistant", content: text }],
     });
 

@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) throw `This command generates image from texts\n\n Example usage\n${usedPrefix + command} girl big oppai, hair cut collor red, full body, bokeh`
     await m.reply(wait)
 
-    await conn.relayMessage(m.chat, { reactionMessage: { key: m.key, text: '⌛' } }, { messageId: m.key.id })
+    await conn.relayMessage(m.chat, { reactionMessage: { key: m.key, text: '👌' } }, { messageId: m.key.id })
     try {
         let url = `https://xzn.wtf/api/txt2img?text=${text}&apikey=${global.xzn}`
 

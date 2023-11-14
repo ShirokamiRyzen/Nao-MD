@@ -32,18 +32,18 @@ let wibh = moment.tz('Asia/Jakarta').format('HH')
 const readMore = more.repeat(4001)
 
 /*============= MAIN INFO =============*/
-global.owner = [['6285174269046', 'ShirokamiRyzen', true]]
+global.owner = [['6285655703986', 'ShirokamiRyzen', true]]
 global.mods = []
 global.prems = []
-global.nomorbot = '6285864034767'
-global.nomorown = '6285174269046'
+global.nomorbot = '6285655703986'
+global.nomorown = '6285655703986'
 global.nomorwa = '0'
 
 
 /*============= WATERMARK =============*/
 global.readMore = readMore
 global.author = 'ShirokamiRyzen'
-global.namebot = 'Nao-Botz V5'
+global.namebot = 'Cengz-Md V5'
 global.wm = '© NaoBotz By ShirokamiRyzen'
 global.watermark = wm
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
@@ -109,7 +109,7 @@ global.wait = 'Please Wait...'
 global.eror = 'Error!'
 
 /*============= WEB API KEY =============*/
-global.deepai = 'YOUR_APIKEY_HERE'
+global.deepai = 'YOUR_APIKEY_HERE'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
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
 global.lolkey = 'SGWN' //buy API at https://api.lolhuman.xyz

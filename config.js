@@ -37,14 +37,14 @@ global.mods = []
 global.prems = []
 global.nomorbot = '6285655703986'
 global.nomorown = '6285655703986'
-global.nomorwa = '0'
+global.nomorwa = '6285655703986'
 
 
 /*============= WATERMARK =============*/
 global.readMore = readMore
 global.author = 'ShirokamiRyzen'
 global.namebot = 'Cengz-Md V5'
-global.wm = '© NaoBotz By ShirokamiRyzen'
+global.wm = '© CENGzMD By ShirokamiRyzen'
 global.watermark = wm
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`

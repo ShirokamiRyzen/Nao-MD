@@ -1,61 +1,79 @@
-import { youtubedlv2, youtubedl } from '@bochilteam/scraper'
+import ytdl from 'ytdl-core'
+import fs from 'fs'
+import { pipeline } from 'stream'
+import { promisify } from 'util'
+import os from 'os'
 
-const handler = async (m, { conn, args, command }) => {
-  if (!args[0]) throw 'Where`s Url?' // Zod
-  const v = args[0]
+const streamPipeline = promisify(pipeline);
 
-  const resolutions = ["144p", "240p", "360p", "480p", "720p", "1080p"]
-  let qu = args[1] && resolutions.includes(args[1]) ? args[1] : "360p"
-  let q = qu.replace('p', '')
+var handler = async (m, { conn, command, text, usedPrefix }) => {
 
-  let thumb = {}
-  try {
-    const thumb2 = yt.thumbnails[0].url
-    thumb = { jpegThumbnail: thumb2 }
-  } catch (e) {}
 
-  let yt
-  try {
-    yt = await youtubedl(v)
-  } catch {
-    yt = await youtubedlv2(v)
-  }
+await conn.sendMessage(m.chat, {
+        react: {
+            text: "⏳",
+            key: m.key,
+        }
+    })
+  if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
 
-  const title = await yt.title
+  const videoUrl = text; // Gunakan URL video YouTube yang diberikan sebagai input
 
-  let size = ''
-  let dlUrl = ''
-  let selectedResolution = ''
-  let selectedQuality = ''
-  for (let i = resolutions.length - 1; i >= 0; i--) {
-    const res = resolutions[i]
-    if (yt.video[res]) {
-      selectedResolution = res
-      selectedQuality = res.replace('p', '')
-      size = await yt.video[res].fileSizeH
-      dlUrl = await yt.video[res].download()
-      break
+  // Dapatkan informasi video dari URL
+  const videoInfo = await ytdl.getInfo(videoUrl);
+
+  // Ekstrak informasi yang diperlukan
+  const { videoDetails } = videoInfo;
+  const { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
+  const thumbnail = thumbnails[0].url; // Gunakan thumbnail pertama
+
+
+  // Dapatkan aliran video dengan kualitas tertinggi
+  const videoStream = ytdl(videoUrl, {
+    quality: 'highestvideo',
+  });
+
+  // Dapatkan path ke direktori sementara sistem
+
+  // Buat writable stream dalam direktori sementara
+  const writableStream = fs.createWriteStream(`tmp/${title}.mp4`);
+
+  // Mulai mengunduh video
+  await streamPipeline(videoStream, writableStream);
+
+  let doc = {
+    video: {
+      url: `tmp/${title}.mp4`
+    },
+    mimetype: 'video/mp4',
+    fileName: `${title}`,
+    contextInfo: {
+      externalAdReply: {
+        showAdAttribution: true,
+        mediaType: 2,
+        mediaUrl: videoUrl,
+        title: title,
+        sourceUrl: videoUrl,
+        thumbnail: await (await conn.getFile(thumbnail)).data
+      }
     }
-  }
+  };
 
-  if (dlUrl) {
-    await m.reply(`Permintaan download video YouTube. Sedang diproses, mohon bersabar...`)
+  await conn.sendMessage(m.chat, doc, { quoted: m });
 
-    await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title, ...thumb } }, { quoted: m })
+  // Hapus file video
+  fs.unlink(`tmp/${title}.mp4`, (err) => {
+    if (err) {
+      console.error(`Failed to delete video file: ${err}`);
+    } else {
+      console.log(`Deleted video file: tmp/${title}.mp4`);
+    }
+  });
+};
 
-    await m.reply(`▢ Title: ${title}
-▢ Resolution: ${selectedResolution}
-▢ Size: ${size}
-▢ Video telah berhasil diunduh!`)
-  } else {
-    await m.reply(`Maaf, video tidak tersedia untuk diunduh.`)
-  }
-}
-
-handler.command = /^ytmp4$/i
-handler.help = ["ytmp4 <link>"]
+handler.help = ['ytmp4'].map((v) => v + ' <URL>')
 handler.tags = ['downloader']
-
+handler.command = /^(ytmp4)$/i
 handler.register = true
 
 export default handler

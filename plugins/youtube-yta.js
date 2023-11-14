@@ -1,35 +1,57 @@
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper-sosmed'
+import ytdl from 'ytdl-core'
+import fs from 'fs'
+import { pipeline } from 'stream'
+import { promisify } from 'util'
+import os from 'os'
 
-var handler = async (m, { conn, args }) => {
-if (!args[0]) throw 'Urlnya Mana Bang? >:('
-let q = '128kbps'
-let v = args[0]
+let streamPipeline = promisify(pipeline);
+let handler = async (m, { conn, command, text, usedPrefix }) => {
+  await conn.sendMessage(m.chat, {
+    react: {
+      text: '⏳',
+      key: m.key,
+    },
+  });
 
-// Ambil info dari video
-const yt = await youtubedl(v).catch(async () => await  youtubedlv2(v))
-const dl_url = await yt.audio[q].download()
-const ttl = await yt.title
-const size = await yt.audio[q].fileSizeH
+  if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
+  let videoUrl = text;
+  let videoInfo = await ytdl.getInfo(videoUrl);
+  let { videoDetails } = videoInfo;
+  let { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
+  let thumbnail = thumbnails[0].url;
+  let audioStream = ytdl(videoUrl, {
+    filter: 'audioonly',
+    quality: 'highestaudio',
+  });
+  let tmpDir = os.tmpdir();
+  let writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
+  await streamPipeline(audioStream, writableStream);
 
-await m.reply('Permintaan download audio/mp3 youtube sedang diproses, mohon bersabar...')
+  let dl_url = `${tmpDir}/${title}.mp3`;
+  let info = `Title: ${title}\nLength: ${lengthSeconds}s\nViews: ${viewCount}\nUploaded: ${uploadDate}`;
 
-// Tampilkan informasi file beserta thumbnail
-const info = `
-▢ Judul: ${ttl}
-▢ Ukuran: ${size}
-▢ Link YouTube: ${v}`
+  await conn.sendMessage(m.chat, {
+    document: {
+      url: dl_url,
+    },
+    mimetype: 'audio/mpeg',
+    fileName: `${title}.mp3`,
+    caption: info,
+  }, { quoted: m });
 
-// Kirim pesan dan file audio ke user
-await conn.sendMessage(m.chat, { 
-  document: { url: dl_url }, 
-  mimetype: 'audio/mpeg', 
-  fileName: `${ttl}.mp3`,
-  caption: info
-}, {quoted: m})
-}
+  fs.unlink(`${tmpDir}/${title}.mp3`, (err) => {
+    if (err) {
+      console.error(`Failed to delete audio file: ${err}`);
+    } else {
+      console.log(`Deleted audio file: ${tmpDir}/${title}.mp3`);
+    }
+  });
+};
 
-// Jika ingin menambahkan tag, ubah code berikut:
+handler.help = ['ytmp3'].map((v) => v + ' <URL>')
 handler.tags = ['downloader']
-handler.command = /^ytmp3$/i
+handler.command = /^(ytmp3)$/i
 handler.register = true
+handler.exp = 0
+
 export default handler

@@ -104,7 +104,7 @@
         "xmldom": "^0.6.0",
         "yargs": "^17.7.2",
         "yt-search": "^2.10.4",
-        "ytdl-core": "^4.11.4",
+        "ytdl-core": "git+ssh://git@github.com:khlevon/node-ytdl-core.git#v4.11.4-patch.2",
         "zs-extract": "^1.4.2"
     }
 }

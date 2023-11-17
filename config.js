@@ -42,14 +42,14 @@ global.nomorwa = '0'
 
 /*============= WATERMARK =============*/
 global.readMore = readMore
-global.author = 'ShirokamiRyzen'
-global.namebot = 'Nao-Botz V5'
-global.wm = '© NaoBotz By ShirokamiRyzen'
+global.author = 'Shirokami Ryzen'
+global.namebot = 'Nao-MD ESM'
+global.wm = '© Nao-MD By Shirokami Ryzen'
 global.watermark = wm
 global.botdate = `⫹⫺ DATE: ${week} ${date}\n⫹⫺ 𝗧𝗶𝗺𝗲: ${wktuwib}`
 global.bottime = `T I M E : ${wktuwib}`
-global.stickpack = `Sticker Dibuat dengan ${namebot}\ngithub.com/ShirokamiRyzen\n\nNao-Bot\n+6285864034767`
-global.stickauth = `© NaoBotz By ShirokamiRyzen`
+global.stickpack = `Sticker Dibuat dengan ${namebot}\ngithub.com/ShirokamiRyzen\n\nNao-MD ESM\n+6285864034767`
+global.stickauth = `© Nao-MD By Shirokami Ryzen`
 global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
 

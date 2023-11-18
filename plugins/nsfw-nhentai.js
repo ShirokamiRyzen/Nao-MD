@@ -1,11 +1,17 @@
-//Made By Johannes
-//Source https://github.com/FahriAdison/Sad-Multi-Device
-
 import axios from "axios"
 import PDFDocument from "pdfkit"
 import { extractImageThumb } from "@adiwajshing/baileys"
 import fetch from "node-fetch"
-let handler = async(m, { conn, args }) => {
+let handler = async(m, { conn, args, usedPrefix }) => {
+
+// Check if it's a group chat
+if (m.isGroup && !global.db.data.chats[m.chat].nsfw) {
+    throw `🚫 Group ini tidak dihidupkan nsfw \n\n ketik \n*${usedPrefix}enable* nsfw untuk menghidupkan fitur ini`;
+  }
+
+  // Check user age
+  let user = global.db.data.users[m.sender].age;
+  if (user < 17) throw m.reply(`*sepertinya umur kamu di bawah 18thn!*`);
 
 let code = (args[0] || '').replace(/\D/g, '')
 if (!code) throw 'Input code' 

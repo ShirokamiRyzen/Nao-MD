@@ -33,48 +33,48 @@ const defaultMenu = {
   footer: '╰–––––––––––––––༓',
   after: ``,
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command}) => {
-let tags = {
-'main': 'Main',
-'memfess': 'Memfess',
-'ai': 'Ai feature',
-'anime': 'Anime',
-'internet': 'Internet',
-'downloader': 'Downloader',
-'sticker': 'Sticker',
-'tools': 'Tools',
-//'islamic': 'Islamic',
-'group': 'Group',
-//'game': 'Game',
-//'fun': 'Fun',
-//'rpg': 'RPG Games',
-'quotes': 'Quotes',
-'maker': 'Maker Text Logo',
-'nulis': 'Nulis',
-'info': 'Info',
-'owner': 'Owner',
-}
- 
+let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
+  let tags = {
+    'main': 'Main',
+    'memfess': 'Memfess',
+    'ai': 'Ai feature',
+    'anime': 'Anime',
+    'internet': 'Internet',
+    'downloader': 'Downloader',
+    'sticker': 'Sticker',
+    'tools': 'Tools',
+    //'islamic': 'Islamic',
+    'group': 'Group',
+    //'game': 'Game',
+    //'fun': 'Fun',
+    //'rpg': 'RPG Games',
+    'quotes': 'Quotes',
+    'maker': 'Maker Text Logo',
+    'nulis': 'Nulis',
+    'info': 'Info',
+    'owner': 'Owner',
+  }
+
   try {
-  	// DEFAULT MENU
-      let dash = global.dashmenu
-  	let m1 = global.dmenut
-      let m2 = global.dmenub
-      let m3 = global.dmenuf
-      let m4 = global.dmenub2
-      
-      // COMMAND MENU
-      let cc = global.cmenut
-      let c1 = global.cmenuh
-      let c2 = global.cmenub
-      let c3 = global.cmenuf
-      let c4 = global.cmenua
-      
-      // LOGO L P
-      let lprem = global.lopr
-      let llim = global.lolm
-      let tag = `@${m.sender.split('@')[0]}`
-    
+    // DEFAULT MENU
+    let dash = global.dashmenu
+    let m1 = global.dmenut
+    let m2 = global.dmenub
+    let m3 = global.dmenuf
+    let m4 = global.dmenub2
+
+    // COMMAND MENU
+    let cc = global.cmenut
+    let c1 = global.cmenuh
+    let c2 = global.cmenub
+    let c3 = global.cmenuf
+    let c4 = global.cmenua
+
+    // LOGO L P
+    let lprem = global.lopr
+    let llim = global.lolm
+    let tag = `@${m.sender.split('@')[0]}`
+
     //-----------TIME---------
     let ucpn = `${ucapan()}`
     let d = new Date(new Date + 3600000)
@@ -122,7 +122,7 @@ let tags = {
     }
     let mpt = clockString(_mpt)
     let usrs = db.data.users[m.sender]
-      
+
     let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
     let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
@@ -130,18 +130,18 @@ let tags = {
     let wit = moment.tz('Asia/Jayapura').format('HH:mm:ss')
     let wita = moment.tz('Asia/Makassar').format('HH:mm:ss')
     let wktuwib = `${wibh} H ${wibm} M ${wibs} S`
- 
+
     let mode = global.opts['self'] ? 'Private' : 'Publik'
     let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
-    let { age, exp, limit, level, role, registered, money} = global.db.data.users[m.sender]
+    let { age, exp, limit, level, role, registered, money } = global.db.data.users[m.sender]
     let { min, xp, max } = xpRange(level, global.multiplier)
     let name = await conn.getName(m.sender)
     let premium = global.db.data.users[m.sender].premiumTime
-    let prems = `${premium > 0 ? 'Premium': 'Free'}`
+    let prems = `${premium > 0 ? 'Premium' : 'Free'}`
     let platform = os.platform()
-    
+
     //---------------------
-    
+
     let totalreg = Object.keys(global.db.data.users).length
     let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
     let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
@@ -160,7 +160,7 @@ let tags = {
       for (let plugin of help)
         if (plugin.tags && plugin.tags.includes(tag))
           if (plugin.help) groups[tag].push(plugin)
-          }
+    }
     conn.menu = conn.menu ? conn.menu : {}
     let before = conn.menu.before || defaultMenu.before
     let header = conn.menu.header || defaultMenu.header
@@ -197,17 +197,17 @@ let tags = {
       totalexp: exp,
       xp4levelup: max - exp,
       github: _package.homepage ? _package.homepage.url || _package.homepage : '[unknown github url]',
-      tag, dash,m1,m2,m3,m4,cc, c1, c2, c3, c4,lprem,llim,
-      ucpn,platform, wib, mode, _p, money, age, tag, name, prems, level, limit, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
+      tag, dash, m1, m2, m3, m4, cc, c1, c2, c3, c4, lprem, llim,
+      ucpn, platform, wib, mode, _p, money, age, tag, name, prems, level, limit, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    
- let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
- 
- //ganti gambar di folder media
- //let fotonya = 'link_gambar'
- conn.sendMessage(m.chat, { image: fs.readFileSync('./media/own.jpg'), caption: text.trim()}, { quoted: fkon })
+
+    let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } } }
+
+    //ganti gambar di folder media
+    //let fotonya = 'link_gambar'
+    conn.sendMessage(m.chat, { image: fs.readFileSync('./media/own.jpg'), caption: text.trim() }, { quoted: fkon })
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
@@ -244,7 +244,7 @@ function clockStringP(ms) {
   let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
   let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [ye, ' *Years 🗓️*\n',  mo, ' *Month 🌙*\n', d, ' *Days ☀️*\n', h, ' *Hours 🕐*\n', m, ' *Minute ⏰*\n', s, ' *Second ⏱️*'].map(v => v.toString().padStart(2, 0)).join('')
+  return [ye, ' *Years 🗓️*\n', mo, ' *Month 🌙*\n', d, ' *Days ☀️*\n', h, ' *Hours 🕐*\n', m, ' *Minute ⏰*\n', s, ' *Second ⏱️*'].map(v => v.toString().padStart(2, 0)).join('')
 }
 function ucapan() {
   const time = moment.tz('Asia/Jakarta').format('HH')

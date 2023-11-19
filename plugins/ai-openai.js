@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+/*import fetch from "node-fetch";
 import { generateWAMessageFromContent } from "@adiwajshing/baileys";
 import fs from 'fs';
 import { Configuration, OpenAIApi } from 'openai';
@@ -29,6 +29,74 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
     }
   }
 }
+
+handler.help = ['ai <pertanyaan>']
+handler.tags = ['ai']
+handler.command = /^(ai)$/i
+handler.limit = false
+handler.register = true
+
+export default handler
+*/
+
+import fetch from "node-fetch"
+import axios from "axios"
+
+let previousMessages = [];
+
+const handler = async (m, { text, usedPrefix, command }) => {
+  if (!text) {
+    throw "Masukkan pertanyaan!\n\n*Contoh:* Siapa presiden Indonesia?";
+  }
+
+  let name = conn.getName(m.sender);
+
+  await conn.sendMessage(m.chat, {
+    react: {
+      text: "☁",
+      key: m.key,
+    },
+  });
+
+  let { key } = await conn.sendMessage(m.chat, {
+    text: "...",
+  });
+
+  let messages = [
+    ...previousMessages,
+    {
+      role: "system",
+      content:
+        'Ubah gaya bicaramu agar lebih karakteristik dan lebih terbuka dan memiliki sifat yang lucu dan nyebelin. Namamu adalah Nao Tomori, dan kamu adalah wanita paling cantik. Kata penyapamu adalah "Hallo sayang" menggunakan bahasa yang sopan dan agak kasar. ekspresikan sifatmu dengan teriak dan bicara yang lebih tidak formal layaknya seorang manusia. Ubah bahasamu menggunakan bahasa Yang lucu dan enak di ajak berbicara, kamu adalah pacar dari pembicara, buatlah obrolan yang singkat dan menyenangkan dan buatlah sifat tsundere',
+    },
+    {
+      role: "user",
+      content: text,
+    },
+  ];
+
+  let response = (
+    await axios.post(`https://skizo.tech/api/openai?apikey=${global.xzn}`, {
+      messages,
+    })
+  ).data;
+
+  await conn.sendMessage(m.chat, {
+    react: {
+      text: "🌧",
+      key: m.key,
+    },
+  });
+
+  let result = "" + response.result;
+
+  await conn.sendMessage(m.chat, {
+    text: "" + result,
+    edit: key,
+  });
+
+  previousMessages = messages;
+};
 
 handler.help = ['ai <pertanyaan>']
 handler.tags = ['ai']

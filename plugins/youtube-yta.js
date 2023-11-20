@@ -1,8 +1,10 @@
-import ytdl from 'ytdl-core'
+import ytdl from '@distube/ytdl-core'
 import fs from 'fs'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 import os from 'os'
+
+const proxyAgent = ytdl.createProxyAgent({ uri: "http://167.71.41.76:8080" });
 
 let streamPipeline = promisify(pipeline);
 let handler = async (m, { conn, command, text, usedPrefix }) => {
@@ -15,7 +17,10 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
   if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
   let videoUrl = text;
+
   let videoInfo = await ytdl.getInfo(videoUrl);
+  //let videoInfo = await ytdl.getInfo(videoUrl, { agent: proxyAgent });
+
   let { videoDetails } = videoInfo;
   let { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
   let thumbnail = thumbnails[0].url;

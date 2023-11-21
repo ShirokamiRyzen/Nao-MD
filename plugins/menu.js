@@ -5,6 +5,9 @@ import moment from 'moment-timezone'
 import os from 'os'
 import fs from 'fs'
 import fetch from 'node-fetch'
+import jimp from 'jimp'
+import PhoneNumber from 'awesome-phonenumber'
+
 const { generateWAMessageFromContent, proto } = (await import('@adiwajshing/baileys')).default
 
 const defaultMenu = {
@@ -205,9 +208,22 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
     let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } } }
 
-    //ganti gambar di folder media
-    //let fotonya = 'link_gambar'
-    conn.sendMessage(m.chat, { image: fs.readFileSync('./media/own.jpg'), caption: text.trim() }, { quoted: fkon })
+    await conn.sendMessage(m.chat, {
+      image: await genProfile(conn, m),
+      caption: text.trim(),
+      contextInfo: {
+        externalAdReply: {
+          showAdAttribution: true,
+          forwardingScore: 2023,
+          title: wm,
+          thumbnailUrl: 'https://telegra.ph/file/4cf54066ce9e824f9ae1a.jpg',
+          sourceUrl: 'https://www.instagram.com/ryzen_vermillion',
+          mediaType: 1,
+          renderLargerThumbnail: true,
+          mentionedJid: [m.sender]
+        }
+      }
+    }, { quoted: fkon });
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
@@ -262,4 +278,43 @@ function ucapan() {
     res = "Malam Kak 🌙"
   }
   return res
+}
+
+async function genProfile(conn, m) {
+  let font = await jimp.loadFont('./names.fnt'),
+    mask = await jimp.read('https://i.imgur.com/552kzaW.png'),
+    border = await jimp.read('https://telegra.ph/file/a81aa1b95381c68bc9932.png'),
+    welcome = await jimp.read(thumbnailUrl.getRandom()),
+    avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')),
+    status = (await conn.fetchStatus(m.sender).catch(console.log) || {}).status?.slice(0, 30) || 'Not Detected',
+    premiumUnixTime = global.db.data.users[m.sender].premiumTime,
+    prems = `${premiumUnixTime > 0 ? 'Premium User' : 'Free User'}`;
+
+  const gmtPlus7Time = premiumUnixTime * 1000 + 7 * 60 * 60 * 1000;
+
+  
+  await avatar.resize(460, 460)
+  await mask.resize(460, 460)
+  await avatar.mask(mask)
+  
+  await welcome.resize(welcome.getWidth(), welcome.getHeight())
+
+  await welcome.print(font, 550, 150, 'Name:')
+  await welcome.print(font, 800, 150, m.pushName.slice(0, 25))
+  await welcome.print(font, 550, 215, 'About:')
+  await welcome.print(font, 800, 215, status)
+  await welcome.print(font, 550, 280, 'Number:')
+  await welcome.print(font, 800, 280, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'))
+  await welcome.print(font, 550, 400, 'Status:')
+  await welcome.print(font, 800, 400, prems)
+
+  if (premiumUnixTime > 0) {
+    const gmtPlus7DateString = new Date(gmtPlus7Time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+    await border.resize(460, 460)
+    await welcome.print(font, 550, 460, 'Until:');
+    await welcome.print(font, 800, 460, gmtPlus7DateString);
+    await welcome.composite(border, 50, 170);
+  }
+  
+  return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
 }

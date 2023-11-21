@@ -66,6 +66,7 @@ global.sig = 'https://www.instagram.com/ryzen_vermillion'
 global.sgh = 'https://github.com/ShirokamiRyzen' //github
 global.sgc = '-' //group whatsapp
 global.sdc = '-' //discord
+global.sfb = 'https://www.facebook.com/Nao.Tomori.UwU'
 global.snh = 'https://www.instagram.com/ryzen_vermillion'
 
 /*============= DONASI =============*/
@@ -75,7 +76,9 @@ global.pgopay = '085174269046'
 global.plinkaja = '-' //link aja
 global.ppulsa = '085174269046'
 global.ppulsa2 = '085174269046'
-global.psaweria = '-'
+global.psaweria = 'https://saweria.co/shirokamiryzen'
+global.bank1 = '109901209640'
+global.bank2 = '-'
 
 
 /*============= TAMPILAN =============*/

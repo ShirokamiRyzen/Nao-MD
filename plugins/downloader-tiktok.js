@@ -62,11 +62,13 @@ var handler = async (m, { conn, args }) => {
     }
 };
 
-handler.help = ['tiktok'].map((v) => v + ' <url>');
-handler.tags = ['downloader'];
-handler.command = /^t(t|iktok(d(own(load(er)?)?|l))?|td(own(load(er)?)?|l))$/i;
+handler.help = ['tiktok'].map((v) => v + ' <url>')
+handler.tags = ['downloader']
+handler.command = /^t(t|iktok(d(own(load(er)?)?|l))?|td(own(load(er)?)?|l))$/i
+handler.register = true
+handler.limit = true
 
-export default handler;
+export default handler
 
 async function tryServer1(url) {
     // server 1 tiklydown.eu.org

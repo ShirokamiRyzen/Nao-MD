@@ -3,24 +3,31 @@ import fs from 'fs'
 let handler = async (m, { conn }) => {
 let teks = 'donasi'
 let dana = global.pdana
-let pulsa = global.ppulsa
+let saweria = global.psaweria
+let bank1 = global.bank1
 let gopay = global.pgopay
 let numberowner = global.nomorown
 let anu = `Hai 👋
 Kalian bisa mendukung saya agar bot ini tetap up to date dengan:
 ┌〔 Donasi • Emoney 〕
+├ Saweria : ${saweria}
+├ Jago : ${bank1}
 ├ Dana : ${dana}
 ├ Gopay : ${gopay}
-├ Pulsa : ${pulsa}
 └────
+Kamu akan mendapat akses *Premium* jika berdonasi:
+5k = Premium 15 Hari
+10k = Premium 60 Hari
+25k = Premium 120 Hari
+50k = Premium 365 Hari
+
 Berapapun donasi kalian akan sangat berarti 👍
 
 Terimakasih :D
 
 Contact Owner:
 wa.me/${numberowner} (Owner)
-
-*donasi via follow ig juga boleh*`
+`
   m.reply(anu)
 }
 

@@ -12,7 +12,6 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
    const who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
    const mentionRegex = new RegExp(`@${who.split('@')[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*`, 'g');
    const orang = text.replace(mentionRegex, '');
-   if (orang.length > 30) return m.reply('Teks tidak boleh lebih dari 30 character');
    const pp = await conn.profilePictureUrl(who).catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')
    const number = await conn.getName(who)
    const obj = { "type": "quote", "format": "png", "backgroundColor": "#000000", "width": 512, "height": 768, "scale": 2, "messages": [{ "entities": [], "avatar": true, "from": { "id": 1, "name": `${who?.name || number}`, "photo": { url: `${pp}` } }, "text": orang, "replyMessage": {} }] };

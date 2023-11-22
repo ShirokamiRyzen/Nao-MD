@@ -17,7 +17,7 @@ let handler = async (m, { conn, generateWAMessageFromContent, }) => {
                    "inviteCode": "null",
                    "groupName": "Halo", 
                    "caption": wm, 
-                   'jpegThumbnail': fs.readFileSync('./media/ok.jpg')
+                   'jpegThumbnail': FileSync('./media/ok.jpg')
                }
            }
        }

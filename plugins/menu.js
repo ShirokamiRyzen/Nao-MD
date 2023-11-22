@@ -5,7 +5,7 @@ import moment from 'moment-timezone'
 import os from 'os'
 import fs from 'fs'
 import fetch from 'node-fetch'
-import jimp from 'jimp'
+//import jimp from 'jimp'
 import PhoneNumber from 'awesome-phonenumber'
 
 const { generateWAMessageFromContent, proto } = (await import('@adiwajshing/baileys')).default
@@ -209,7 +209,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } } }
 
     await conn.sendMessage(m.chat, {
-      image: await genProfile(conn, m),
+      image: fs.readFileSync('./media/own.jpg'),
+      //image: await genProfile(conn, m),
       caption: text.trim(),
       contextInfo: {
         externalAdReply: {

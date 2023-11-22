@@ -169,10 +169,10 @@ global.fla = [
 ]
 global.hwaifu = ['https://telegra.ph/file/a7ac2b46f82ef7ea083f9.jpg']
 global.thumblvlup = [
-  'https://telegra.ph/file/cc444e235a6073ef29b32.jpg',
-  'https://telegra.ph/file/6bc4e87932d7ea57b79ef.jpg',
-  'https://telegra.ph/file/bc2302ee38daa46c094ea.jpg',
-  'https://telegra.ph/file/c552a9fb2848811247f82.jpg'
+  'https://external-content.duckduckgo.com/iu/?u=https://i.pinimg.com/originals/a0/34/8a/a0348ae908d8ac4ced76df289eb41e1a.jpg',
+  'https://external-content.duckduckgo.com/iu/?u=https://i.pinimg.com/originals/be/3b/47/be3b477371cc249e49fd0bb3284de7d7.jpg',
+  'https://external-content.duckduckgo.com/iu/?u=https://i.pinimg.com/originals/63/c3/37/63c337596b3391df0e72a9729ceca7b6.jpg',
+  'https://external-content.duckduckgo.com/iu/?u=https://i.pinimg.com/originals/db/ed/5a/dbed5afac55d266602d0ca0c67622bb9.jpg'
 ]
 
 global.dtu = 'INSTAGRAM'

@@ -28,7 +28,6 @@ handler.all = async function (m) {
                 while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
                 if (before !== user.level) {
                 	user.role = global.db.data.users[m.sender].role
-                        let rank = `https://telegra.ph/file/37a8c015e80019878f03d.jpg`
                         {
                         	let tag = `@${m.sender.replace(/@.+/, '')}`
                                         conn.sendFile(m.chat, logo, 'Thumb.jpg' , `◪ *Name:* ${tag}\n├◆ *Role:* ${user.role}\n├◆ *Exp:* ${exp} xp\n╰◆ *Level:* ${before} ➠ ${user.level}\n`.trim(), m)

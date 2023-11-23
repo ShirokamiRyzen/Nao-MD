@@ -14,7 +14,7 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
    const orang = text.replace(mentionRegex, '');
    const pp = await conn.profilePictureUrl(who).catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')
    const number = await conn.getName(who)
-   const obj = { "type": "quote", "format": "png", "backgroundColor": "#000000", "width": 512, "height": 768, "scale": 2, "messages": [{ "entities": [], "avatar": true, "from": { "id": 1, "name": `${who?.name || number}`, "photo": { url: `${pp}` } }, "text": orang, "replyMessage": {} }] };
+   const obj = { "type": "quote", "format": "png", "backgroundColor": "#000000", "width": 1024, "height": 1024, "scale": 2, "messages": [{ "entities": [], "avatar": true, "from": { "id": 1, "name": `${who?.name || number}`, "photo": { url: `${pp}` } }, "text": orang, "replyMessage": {} }] };
    const json = await axios.post('https://bot.lyo.su/quote/generate', obj, { headers: { 'Content-Type': 'application/json' } });
    const buffer = Buffer.from(json.data.result.image, 'base64');
    let stiker = await sticker(buffer, false, global.stickpack, global.stickauth);

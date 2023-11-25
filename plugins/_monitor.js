@@ -14,26 +14,26 @@ let handler = async (m, { conn }) => {
 
         let responseMessage = '';
 
-        if (jsonbedrock.online) {
-            // Bedrock server is online
-            let bedrockHost = `Host: ${jsonbedrock.host}`;
-            let bedrockPlayersInfo = `Bedrock Players: ${jsonbedrock.players.online}/${jsonbedrock.players.max}`;
-            let bedrockMotd = `Bedrock MOTD: ${jsonbedrock.motd.clean}`;
-            let bedrockVersion = `Bedrock Version: ${jsonbedrock.version.name}`;
-
-            responseMessage += `*Bedrock Server Info:*\n${bedrockHost}\n${bedrockPlayersInfo}\n${bedrockMotd}\n${bedrockVersion}\n\n`;
-        }
-
         if (jsonjava.online) {
             // Java server is online
             let javaHost = `Host: ${jsonjava.host}`;
-            let javaPlayersInfo = `Java Players: ${jsonjava.players.online}/${jsonjava.players.max}`;
-            let javaMotd = `Java MOTD: ${jsonjava.motd.clean}`;
+            let javaPlayersInfo = `Players: ${jsonjava.players.online}/${jsonjava.players.max}`;
+            let javaMotd = `MOTD: ${jsonjava.motd.clean}`;
             let javaVersion = `Java Version: ${jsonjava.version.name_raw}`;
 
-            responseMessage += `*Java Server Info:*\n${javaHost}\n${javaPlayersInfo}\n${javaMotd}\n${javaVersion}`;
+            responseMessage += `*Java Server Info:*\n${javaHost}\n${javaPlayersInfo}\n${javaMotd}\n${javaVersion}\n\n`;
         }
 
+        if (jsonbedrock.online) {
+            // Bedrock server is online
+            let bedrockHost = `Host: ${jsonbedrock.host}`;
+            let bedrockPlayersInfo = `Players: ${jsonbedrock.players.online}/${jsonbedrock.players.max}`;
+            let bedrockMotd = `MOTD: ${jsonbedrock.motd.clean}`;
+            let bedrockVersion = `Bedrock Version: ${jsonbedrock.version.name}`;
+            let gamemode = `${jsonbedrock.gamemode}`;
+
+            responseMessage += `*Bedrock Server Info:*\n${bedrockHost}\n${bedrockPlayersInfo}\n${bedrockMotd}\n${bedrockVersion}\n\n*Gamemode:* ${gamemode}`;
+        }
         // Check if both Bedrock and Java servers are offline
         if (!jsonbedrock.online && !jsonjava.online) {
             m.reply('Both Bedrock and Java servers are currently offline');

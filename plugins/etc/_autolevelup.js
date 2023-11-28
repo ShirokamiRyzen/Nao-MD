@@ -1,4 +1,4 @@
-import { xpRange, canLevelUp, findLevel } from '../lib/levelling.js'
+import { xpRange, canLevelUp, findLevel } from '../../lib/levelling.js'
 import fetch from 'node-fetch'
 
 let handler = m => m

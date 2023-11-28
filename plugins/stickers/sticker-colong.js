@@ -1,6 +1,6 @@
 //
 let { MessageType } = (await import('@adiwajshing/baileys')).default
-import { sticker } from '../lib/sticker.js'
+import { sticker } from '../../lib/sticker.js'
 let handler  = async (m, { conn, args }) => {
   let stiker = false
 try {

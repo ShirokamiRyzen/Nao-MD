@@ -1,5 +1,5 @@
-import { webp2mp4 } from '../lib/webp2mp4.js'
-import { ffmpeg } from '../lib/converter.js'
+import { webp2mp4 } from '../../lib/webp2mp4.js'
+import { ffmpeg } from '../../lib/converter.js'
 let handler = async (m, { conn, usedPrefix, command }) => {
     if (!m.quoted) throw `Balas stiker/audio yang ingin diubah menjadi video dengan perintah ${usedPrefix + command}`
     let mime = m.quoted.mimetype || ''

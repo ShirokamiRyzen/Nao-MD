@@ -1,7 +1,7 @@
 import fs from 'fs'
 import fetch from 'node-fetch'
 import moment from 'moment-timezone'
-import uploadImage from '../lib/uploadImage.js'
+import uploadImage from '../../lib/uploadImage.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     conn.ownreply = conn.ownreply ? conn.ownreply : {}

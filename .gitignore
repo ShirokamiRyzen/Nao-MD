@@ -4,3 +4,5 @@ sessions
 tmp/*
 enc/*
 *.bak
+main.js.bak
+plugins_bak/

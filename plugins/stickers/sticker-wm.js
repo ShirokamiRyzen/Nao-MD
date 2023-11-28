@@ -1,4 +1,4 @@
-import { addExif } from '../lib/sticker.js'
+import { addExif } from '../../lib/sticker.js'
 
 
 let handler = async (m, { conn, text }) => {

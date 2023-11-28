@@ -286,22 +286,42 @@ global.reloadHandler = async function (restatConn) {
 
 }
 
-const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
-const pluginFilter = filename => /\.js$/.test(filename)
-global.plugins = {}
-async function filesInit() {
-  for (let filename of readdirSync(pluginFolder).filter(pluginFilter)) {
-    try {
-      let file = global.__filename(join(pluginFolder, filename))
-      const module = await import(file)
-      global.plugins[filename] = module.default || module
-    } catch (e) {
-      conn.logger.error(e)
-      delete global.plugins[filename]
+const pluginFolder = join(__dirname, './plugins');
+const pluginFilter = filename => /\.js$/.test(filename);
+
+global.plugins = {};
+
+async function loadPlugins(folder) {
+  const files = readdirSync(folder);
+
+  for (const file of files) {
+    const filePath = join(folder, file);
+    const stats = statSync(filePath);
+
+    if (stats.isDirectory()) {
+      // If it's a directory, recursively load plugins from that directory
+      await loadPlugins(filePath);
+    } else if (pluginFilter(file)) {
+      // If it's a JavaScript file, load the module
+      try {
+        const module = await import(filePath);
+        global.plugins[file] = module.default || module;
+      } catch (e) {
+        console.error(`Error loading plugin ${file}:`, e);
+        delete global.plugins[file];
+      }
     }
   }
 }
-filesInit().then(_ => console.log(Object.keys(global.plugins))).catch(console.error)
+
+async function initializePlugins() {
+  await loadPlugins(pluginFolder);
+}
+
+// Call the initialization function
+initializePlugins().then(() => {
+  console.log(Object.keys(global.plugins));
+}).catch(console.error);
 
 global.reload = async (_ev, filename) => {
   if (pluginFilter(filename)) {

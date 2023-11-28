@@ -47,8 +47,6 @@ let handler = async (m, { conn }) => {
     }
 };
 
-handler.help = ['minecraft']
-handler.tags = ['main']
 handler.command = /^(minecraft|mc)$/i
 handler.register = true
 

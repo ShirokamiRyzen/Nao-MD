@@ -1,7 +1,7 @@
 import PhoneNumber from 'awesome-phonenumber'
-import { xpRange } from '../../lib/levelling.js'
+import { xpRange } from '../lib/levelling.js'
 let handler = async (m, { conn, usedPrefix }) => {
-  let pp = '../../src/avatar_contact.png'
+  let pp = './src/avatar_contact.png'
   let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
   try {
     pp = await conn.profilePictureUrl(who)

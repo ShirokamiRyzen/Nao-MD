@@ -1,4 +1,4 @@
-import { sticker } from '../../lib/sticker.js'
+import { sticker } from '../lib/sticker.js'
 import axios from 'axios'
 
 const handler = async (m, { conn, args, usedPrefix, command }) => {

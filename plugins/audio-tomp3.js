@@ -1,4 +1,4 @@
-import { toAudio } from '../../lib/converter.js'
+import { toAudio } from '../lib/converter.js'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
     let chat = global.db.data.chats[m.chat]

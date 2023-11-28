@@ -1,4 +1,4 @@
-import { webp2png } from '../../lib/webp2mp4.js'
+import { webp2png } from '../lib/webp2mp4.js'
 let handler = async (m, { conn, usedPrefix, command }) => {
     const notStickerMessage = `Reply sticker with command *${usedPrefix + command}*`
     if (!m.quoted) throw notStickerMessage

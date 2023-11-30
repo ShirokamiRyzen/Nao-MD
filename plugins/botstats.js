@@ -5,22 +5,6 @@ let handler = async (m, { conn, generateWAMessageFromContent, }) => {
     const chats = Object.keys(await conn.chats)
     const groups = Object.keys(await conn.groupFetchAllParticipating())
     const block = await conn.fetchBlocklist()
-    const fgclink = {
-           "key": {
-               "fromMe": false,
-               "participant": "0@s.whatsapp.net",
-               "remoteJid": "0@s.whatsapp.net"
-           },
-           "message": {
-               "groupInviteMessage": {
-                   "groupJid": "6282127487538-1625305606@g.us",
-                   "inviteCode": "null",
-                   "groupName": "Halo", 
-                   "caption": wm, 
-                   'jpegThumbnail': FileSync('./media/ok.jpg')
-               }
-           }
-       }
        let tag = `@${m.sender.replace(/@.+/, '')}`
   let mentionedJid = [m.sender]
     let _uptime = process.uptime() * 1000

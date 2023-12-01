@@ -22,7 +22,7 @@ let handler = async (m, { conn, usedPrefix, command, text, args }) => {
 };
 
 handler.command = /^(nsfw)$/i
-handler.premium = false
-handler.limit = true
+handler.premium = true
+handler.limit = false
 
 export default handler

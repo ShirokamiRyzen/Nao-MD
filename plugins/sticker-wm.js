@@ -23,5 +23,6 @@ let handler = async (m, { conn, text }) => {
 handler.help = ['wm <packname>|<author>']
 handler.tags = ['sticker']
 handler.command = /^wm$/i
+handler.premium = true
 
 export default handler

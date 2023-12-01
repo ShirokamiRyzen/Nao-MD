@@ -210,14 +210,14 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
     await conn.sendMessage(m.chat, {
       image: fs.readFileSync('./media/own.jpg'),
-      //image: await genProfile(conn, m),
+      //image: 'await genProfile(conn, m)',
       caption: text.trim(),
       contextInfo: {
         externalAdReply: {
           showAdAttribution: true,
           forwardingScore: 2023,
           title: wm,
-          thumbnailUrl: 'https://telegra.ph/file/4cf54066ce9e824f9ae1a.jpg',
+          thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
           sourceUrl: 'https://www.instagram.com/ryzen_vermillion',
           mediaType: 1,
           renderLargerThumbnail: true,

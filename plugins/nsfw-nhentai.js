@@ -31,7 +31,7 @@ await conn.sendMessage(m.chat, { document: imagepdf, jpegThumbnail, fileName: da
 handler.command = /^nhentaidl$/i
 handler.tags = ['nsfw']
 handler.help = ['nhentaidl <code>']
-handler.limit = true
+handler.premium = false
 
 export default handler 
 

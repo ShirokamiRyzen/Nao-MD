@@ -34,5 +34,5 @@ let handler = async (m, { conn, usedPrefix }) => {
 
 handler.help = ['profile [@user]']
 handler.tags = ['exp']
-handler.command = /^profile|pp$/i
+handler.command = /^profile$/i
 export default handler

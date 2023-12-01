@@ -34,7 +34,7 @@ handler.command = /^(hd)$/i
 
 handler.register = true
 handler.limit = true
-handler.inactive = false
+handler.disable = false
 
 export default handler
 

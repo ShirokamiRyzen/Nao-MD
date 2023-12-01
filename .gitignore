@@ -6,3 +6,5 @@ enc/*
 *.bak
 main.js.bak
 plugins_bak/
+handlerr.js
+plugins/_monitor.js

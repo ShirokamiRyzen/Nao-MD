@@ -25,6 +25,6 @@ handler.tags = ['main']
 handler.command = /^(claimlimit)$/i
 
 handler.cooldown = cooldown
-handler.inactive = false
+handler.disable = false
 
 export default handler

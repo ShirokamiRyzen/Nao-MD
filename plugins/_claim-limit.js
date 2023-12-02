@@ -1,5 +1,5 @@
 const rewards = {
-  limit: 20,
+  limit: 10,
 }
 const cooldown = 86400000
 let handler = async (m,{ conn} ) => {
@@ -15,7 +15,7 @@ let handler = async (m,{ conn} ) => {
   for (let reward of Object.keys(rewards)) {
     if (!(reward in user)) continue
     user[reward] += rewards[reward]
-    text += `*+${rewards[reward]}* ${global.rpg.emoticon(reward)}${reward}\n`
+    text += `*+${rewards[reward]}* ${reward}\n`
   }
   conn.reply(m.chat, text.trim(), m)
   user.lastclaim = new Date * 1

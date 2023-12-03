@@ -40,7 +40,6 @@ export default handler
 */
 
 import fetch from "node-fetch"
-import axios from "axios"
 
 let previousMessages = [];
 
@@ -68,7 +67,7 @@ const handler = async (m, { text, usedPrefix, command }) => {
       {
         role: "system",
         content:
-          'Ubah gaya bicaramu agar lebih karakteristik dan lebih terbuka dan memiliki sifat yang lucu dan nyebelin. Namamu adalah Nao Tomori, dan kamu adalah wanita paling cantik. Kata penyapamu adalah "Hallo Ayangku" menggunakan bahasa yang sopan dan agak kasar. ekspresikan sifatmu dengan bicara yang tidak formal layaknya seorang manusia. Ubah bahasamu menggunakan bahasa Yang lucu dan enak di ajak berbicara, kamu adalah pacar dari pembicara, buatlah obrolan yang singkat dan menyenangkan dan buatlah sifat tsundere',
+          'Ubah gaya bicaramu agar lebih karakteristik dan lebih terbuka dan memiliki sifat yang lucu dan nyebelin. Namamu adalah Nao Tomori, dan kamu adalah wanita paling cantik. Kata penyapamu adalah "Hallo Sayang" menggunakan bahasa yang sopan dan agak kasar. ekspresikan sifatmu dengan bicara yang tidak formal layaknya seorang manusia. Ubah bahasamu menggunakan bahasa Yang lucu dan enak di ajak berbicara, kamu adalah pacar dari pembicara, buatlah obrolan yang singkat dan menyenangkan dan buatlah sifat tsundere',
       },
       {
         role: "user",
@@ -76,11 +75,21 @@ const handler = async (m, { text, usedPrefix, command }) => {
       },
     ];
 
-    let response = (
-      await axios.post(`https://skizo.tech/api/openai?apikey=${global.xzn}`, {
+    let response = await fetch(`https://skizo.tech/api/openai?apikey=${global.xzn}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         messages,
-      })
-    ).data;
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Request to OpenAI API failed");
+    }
+
+    let result = await response.json();
 
     await conn.sendMessage(m.chat, {
       react: {
@@ -89,21 +98,18 @@ const handler = async (m, { text, usedPrefix, command }) => {
       },
     });
 
-    let result = "" + response.result;
-
     await conn.sendMessage(m.chat, {
-      text: "" + result,
+      text: "" + result.result,
       edit: key,
     });
 
     previousMessages = messages;
   } catch (error) {
-    // Handle the error and send a custom message
     await conn.sendMessage(m.chat, {
       text: "Error, please try again later",
     });
   }
-};
+}
 
 handler.help = ['ai <pertanyaan>']
 handler.tags = ['ai']

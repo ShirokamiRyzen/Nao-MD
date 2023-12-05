@@ -26,11 +26,10 @@ var handler = async (m, { args }) => {
             // Handle the case where the response data structure is different
             throw 'Invalid response format from the server';
         }
-    } catch (error) {
-        console.error(error);
-        const cap = 'Gagal mengunduh video FB';
-        conn.sendFile(m.chat, 'facebook.mp4', 'facebook.mp4', cap, m);
-    }
+    } catch (e) {
+        console.log(e)
+        conn.reply(m.chat, 'Invalid response format from the server', m)
+      }
 }
 
 handler.help = ['fb <url>']

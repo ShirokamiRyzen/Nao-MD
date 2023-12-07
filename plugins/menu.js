@@ -39,18 +39,15 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
   let tags = {
     'main': 'Main',
-    'memfess': 'Memfess',
+    'stress': 'Stress',
     'ai': 'Ai feature',
-    'anime': 'Anime',
-    'internet': 'Internet',
+    'memfess': 'Memfess',
     'downloader': 'Downloader',
+    'internet': 'Internet',
+    'anime': 'Anime',
     'sticker': 'Sticker',
     'tools': 'Tools',
-    //'islamic': 'Islamic',
     'group': 'Group',
-    //'game': 'Game',
-    //'fun': 'Fun',
-    //'rpg': 'RPG Games',
     'quotes': 'Quotes',
     'maker': 'Maker Text Logo',
     'nulis': 'Nulis',
@@ -293,11 +290,11 @@ async function genProfile(conn, m) {
 
   const gmtPlus7Time = premiumUnixTime * 1000 + 7 * 60 * 60 * 1000;
 
-  
+
   await avatar.resize(460, 460)
   await mask.resize(460, 460)
   await avatar.mask(mask)
-  
+
   await welcome.resize(welcome.getWidth(), welcome.getHeight())
 
   await welcome.print(font, 550, 150, 'Name:')
@@ -316,6 +313,6 @@ async function genProfile(conn, m) {
     await welcome.print(font, 800, 460, gmtPlus7DateString);
     await welcome.composite(border, 50, 170);
   }
-  
+
   return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
 }

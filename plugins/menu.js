@@ -11,28 +11,28 @@ import PhoneNumber from 'awesome-phonenumber'
 const { generateWAMessageFromContent, proto } = (await import('@adiwajshing/baileys')).default
 
 const defaultMenu = {
-  before: `❏ *Nama:*  %name 
-❏ *Nomor:* %tag
-❏︎ *Premium:* %prems
-❏︎ *Limit:* %limit
-❏ *Role:* %role
-❏︎ *Level:* %level
-❏︎ *Xp:* %exp / %maxexp
-❏︎ *Total Xp:* %totalexp
+  before: `● *Nama:*  %name 
+● *Nomor:* %tag
+● *Premium:* %prems
+● *Limit:* %limit
+● *Role:* %role
+● *Level:* %level
+● *Xp:* %exp / %maxexp
+● *Total Xp:* %totalexp
 
 *${ucapan()} %name!*
-❏ *Tanggal:* %week %weton
-❏︎ *Date:* %date
-❏︎ *Tanggal Islam:* %dateIslamic
-❏︎ *Waktu:* %time
+● *Tanggal:* %week %weton
+● *Date:* %date
+● *Tanggal Islam:* %dateIslamic
+● *Waktu:* %time
 
-❏︎ *Platform:* %platform
-❏︎ *Type:* Node.JS
-❏︎ *Uptime:* %muptime
+● *Platform:* %platform
+● *Type:* Node.JS
+● *Uptime:* %muptime
 %readmore
 `.trimStart(),
   header: '╭─────『 %category 』',
-  body: '❏︎ %cmd %isPremium %islimit',
+  body: '  ⫸ %cmd %isPremium %islimit',
   footer: '╰–––––––––––––––༓',
   after: ``,
 }
@@ -205,21 +205,20 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
     let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } } }
 
-    await conn.sendMessage(m.chat, {
-      image: fs.readFileSync('./media/own.jpg'),
-      //image: 'await genProfile(conn, m)',
-      caption: text.trim(),
-      contextInfo: {
-        externalAdReply: {
-          showAdAttribution: true,
-          forwardingScore: 2023,
-          title: wm,
-          thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
-          sourceUrl: 'https://www.instagram.com/ryzen_vermillion',
-          mediaType: 1,
-          renderLargerThumbnail: true,
-          mentionedJid: [m.sender]
-        }
+    conn.relayMessage(m.chat, {
+      extendedTextMessage: {
+        text: text,
+        contextInfo: {
+          mentionedJid: [m.sender],
+          externalAdReply: {
+            title: wm,
+            mediaType: 1,
+            previewType: 0,
+            renderLargerThumbnail: true,
+            thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
+            sourceUrl: 'https://www.instagram.com/ryzen_vermillion',
+          }
+        }, mentions: [m.sender]
       }
     }, { quoted: fkon });
   } catch (e) {
@@ -278,7 +277,7 @@ function ucapan() {
   return res
 }
 
-async function genProfile(conn, m) {
+/*async function genProfile(conn, m) {
   let font = await jimp.loadFont('./names.fnt'),
     mask = await jimp.read('https://i.imgur.com/552kzaW.png'),
     border = await jimp.read('https://telegra.ph/file/a81aa1b95381c68bc9932.png'),
@@ -316,3 +315,4 @@ async function genProfile(conn, m) {
 
   return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
 }
+*/

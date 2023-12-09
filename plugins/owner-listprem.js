@@ -1,56 +1,40 @@
-let handler = async (m, { conn, command, args }) => {
-  if (command == "listpremium") {
-    let prem = global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').filter(v => v != conn.user.jid)
-    let teks = `▢ *PREMIUM USERS*\n─────────────\n` + prem.map(v => '- @' + v.replace(/@.+/, '')).join`\n`
-    await m.reply(teks, null, { mentions: conn.parseMention(teks) })
-  } else {
-    let user = Object.entries(global.db.data.users).filter(user => user[1].premiumTime).map(([key, value]) => {
-      return { ...value, jid: key }
-    })
-    let name = '🌟 Premium'
-    let premTime = global.db.data.users[m.sender].premiumTime
-    let prem = global.db.data.users[m.sender].premium
-    let waktu = clockString(`${premTime - new Date() * 1} `)
-    let sortedP = user.map(toNumber('premiumTime')).sort(sort('premiumTime'))
-    let len = args[0] && args[0].length > 0 ? Math.min(100, Math.max(parseInt(args[0]), 10)) : Math.min(10, sortedP.length)
+let handler = async (m, { conn }) => {
+  try {
+    // Ambil data user dengan premium: true dari database
+    const premiumUsers = Object.keys(db.data.users).filter(jid => db.data.users[jid].premium);
 
-    let capt = `${htki} *PREMIUM* ${htka}
-  ┌✦ *My Premium Time:*
-  ┊• *Name:* ${conn.getName(m.sender)}
-  ${prem ? `${clockString(premiumTime - new Date() * 1)}` : '┊• *PremiumTime:* Expired 🚫'}
-  ┗━═┅═━––––––๑
-  
-  •·–––––––––––––––––––––·•
-  ${sortedP.slice(0, len).map(({ jid, name, premiumTime, registered }, i) => `\n\n┌✦ ${registered ? name : conn.getName(jid)}\n┊• wa.me/${jid.split`@`[0]}\n${premiumTime > 0 ? `${clockString(premiumTime - new Date() * 1)}` : '┊ *EXPIRED 🚫*'}`).join`\n┗━═┅═━––––––๑`}
-  ┗━═┅═━––––––๑`.trim()
-    await m.reply(capt, null, { mentions: conn.parseMention(capt) })
+    // Konversi waktu premium ke GMT+7 dan kirim daftar premium ke grup/chat
+    const premList = premiumUsers.map(jid => {
+      const user = db.data.users[jid];
+      const premiumTime = user.premiumTime;
+      
+      // Konversi waktu premium ke GMT+7
+      const premiumTimeGMT7 = new Date(premiumTime + 7 * 60 * 60 * 1000);
+
+      // Format waktu menjadi HH-MM-YYYY jam dan menit
+      const formattedTime = new Intl.DateTimeFormat('en-GB', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Jakarta' // Sesuaikan dengan zona waktu yang diinginkan
+      }).format(premiumTimeGMT7);
+
+      return `- @${jid.replace(/@.+/, '')} (Until ${formattedTime})`;
+    });
+
+    conn.reply(m.chat, `「 List Premium 」\n${premList.join('\n')}`, m, { contextInfo: { mentionedJid: premiumUsers } });
+  } catch (error) {
+    console.error('Error:', error);
+    conn.reply(m.chat, 'Terjadi kesalahan saat mengambil data premium.', m);
   }
-}
+};
 
-handler.help = ['premlist [angka]']
-handler.tags = ['info']
+handler.help = ['premlist']
+handler.tags = ['owner']
 handler.command = /^(listprem|premlist)$/i
+handler.owner = false
 
 export default handler
-
-function clockString(ms) {
-  let ye = isNaN(ms) ? '--' : Math.floor(ms / 31104000000) % 10
-  let mo = isNaN(ms) ? '--' : Math.floor(ms / 2592000000) % 12
-  let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000) % 30
-  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
-  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return ['┊ ', ye, ' *Years 🗓️*\n', '┊ ', mo, ' *Month 🌙*\n', '┊ ', d, ' *Days ☀️*\n', '┊ ', h, ' *Hours 🕐*\n', '┊ ', m, ' *Minute ⏰*\n', '┊ ', s, ' *Second ⏱️*'].map(v => v.toString().padStart(2, 0)).join('')
-}
-
-function sort(property, ascending = true) {
-  if (property) return (...args) => args[ascending & 1][property] - args[!ascending & 1][property]
-  else return (...args) => args[ascending & 1] - args[!ascending & 1]
-}
-
-function toNumber(property, _default = 0) {
-  if (property) return (a, i, b) => {
-    return { ...b[i], [property]: a[property] === undefined ? _default : a[property] }
-  }
-  else return a => a === undefined ? _default : a
-}

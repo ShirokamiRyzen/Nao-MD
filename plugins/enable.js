@@ -251,9 +251,19 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       chat.simi = isEnable
       break
+    case 'autogpt':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.autogpt = isEnable
+      break
     default:
       if (!/[01]/.test(command)) return m.reply(`
 List option:
+| autogpt
 | welcome
 | delete
 | public

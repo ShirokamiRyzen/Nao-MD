@@ -33,7 +33,10 @@ handler.help = ['bing']
 handler.tags = ['ai']
 handler.command = /^(bingc|bing|bingp)$/i
 
-export default handler;
+handler.premium = false
+handler.disable = true
+
+export default handler
 
 async function fetchData(teks, varian) {
   try {

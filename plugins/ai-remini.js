@@ -7,11 +7,11 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         let name = await conn.getName(who)
         let q = m.quoted ? m.quoted : m
         let mime = (q.msg || q).mimetype || ''
-        if (!mime) throw 'Kirim/Reply Gambar dengan caption .toanime'
+        if (!mime) throw 'Kirim/Reply Gambar dengan caption .remini'
         m.reply('Tunggu Sebentar...')
         let media = await q.download()
         let url = await uploadImage(media)
-        let hasil = await (await fetch(`https://skizo.tech/api/toanime?url=${url}&apikey=${global.xzn}`)).buffer()
+        let hasil = await (await fetch(`https://skizo.tech/api/remini?url=${url}=&apikey=${global.xzn}`)).buffer()
         await conn.sendFile(m.chat, hasil, '', global.wm, m)
     } catch (error) {
         console.error(error)
@@ -19,11 +19,12 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
     }
 }
 
-handler.help = ['toanime']
-handler.tags = ['anime', 'ai']
-handler.command = /^(toanime)$/i
+handler.help = ['remini']
+handler.tags = ['ai']
+handler.command = /^(remini)$/i
 
 handler.register = true
-handler.limit = 3
+handler.limit = 6
+handler.premium = true
 
 export default handler

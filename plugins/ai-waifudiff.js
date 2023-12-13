@@ -33,7 +33,7 @@ handler.tags = ['ai']
 handler.command = /^(waifudiff)$/i
 
 handler.premium = false
-handler.limit = true
+handler.limit = 2
 handler.register = true
 
 export default handler

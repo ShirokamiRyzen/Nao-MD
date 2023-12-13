@@ -115,7 +115,7 @@ global.eror = 'Error!'
 global.deepai = 'YOUR_APIKEY_HERE'
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
-global.lolkey = 'SGWN' //buy API at https://api.lolhuman.xyz
+global.rose = 'Rs-Zeltoria'
 global.xzn = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://skizo.tech/
 global.xyro = 'YOUR_APIKEY_HERE' //https://api.xyroinee.xyz/
 global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.com/
@@ -123,14 +123,15 @@ global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.com/
 global.APIs = {
   // name: 'https://website'
   lol: 'https://api.lolhuman.xyz',
-  males : 'https://api.lolhuman.xyz',
+  rose: 'https://api.itsrose.site',
   xzn : 'https://skizo.tech' //web api terserah ganti apa aja (buat welcome sama leave gc)
 }
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-  'https://api.lolhuman.xyz': 'SGWN',
+
   'https://skizo.tech' : '',
+  'https://api.itsrose.site': 'Rs-Zeltoria'
 }
 
 /*============= OTHER =============*/

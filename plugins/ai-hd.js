@@ -28,12 +28,12 @@ let handler = async (m, { conn, usedPrefix, command }) => {
   }
 }
 
-handler.help = ['hd']
+handler.help = ['hd', 'remini']
 handler.tags = ['tools', 'ai']
-handler.command = /^(hd)$/i
+handler.command = /^(hd|remini)$/i
 
 handler.register = true
-handler.limit = 3
+handler.limit = 5
 handler.disable = false
 
 export default handler

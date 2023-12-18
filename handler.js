@@ -298,7 +298,7 @@ export async function handler(chatUpdate) {
                     fail('owner', m, this)
                     continue
                 }
-                if (plugin.disable && !(isBotAdmin)) { // Bot number
+                if (plugin.disable && !(isROwner || isOwner)) { // Bot number
                     fail('disable', m, this)
                     continue
                 }

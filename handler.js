@@ -484,13 +484,20 @@ export async function participantsUpdate({ id, participants, action }) {
                     let nickgc = await conn.getName(id)
                     let pp = 'https://telegra.ph/file/24fa902ead26340f3df2c.png'
                     let ppgc = 'https://telegra.ph/file/24fa902ead26340f3df2c.png'
+                    let userName = user.split('@')[0];
                     try {
                         pp = await this.profilePictureUrl(user, 'image')
                         ppgc = await this.profilePictureUrl(id, 'image')
+                        const userData = global.db.data.users[user.split('@')[0]];
+                        if (userData && userData.name) {
+                            userName = userData.name;
+                        }
+
                     } catch (e) {
                     } finally {
-                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-                            (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', `${this.getName(user)}`)
+                        text = (action === 'add' ?
+                            (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknown') :
+                            (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', `@${userName}`);
                         let wel = await new knights.Welcome2()
                             .setAvatar(pp)
                             .setUsername(this.getName(user))

@@ -5,6 +5,7 @@ import path, { join } from 'path'
 import { unwatchFile, watchFile, readFileSync } from 'fs'
 import chalk from 'chalk'
 import fetch from 'node-fetch'
+import knights from 'knights-canvas'
 
 /**
  * @type {import('@adiwajshing/baileys')}
@@ -480,15 +481,38 @@ export async function participantsUpdate({ id, participants, action }) {
             if (chat.welcome) {
                 let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                 for (let user of participants) {
-                    let pp = './src/avatar_contact.png'
+                    let nickgc = await conn.getName(id)
+                    let pp = 'https://telegra.ph/file/24fa902ead26340f3df2c.png'
+                    let ppgc = 'https://telegra.ph/file/24fa902ead26340f3df2c.png'
                     try {
                         pp = await this.profilePictureUrl(user, 'image')
-                    } catch (e) { } finally {
-                        text = (action === 'add' ? (this.welcome || global.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknown') :
-                            (this.bye || global.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-                        this.sendFile(id, pp, 'pp.jpg', text, null, false, {
-                            mentions: [user]
-                        })
+                        ppgc = await this.profilePictureUrl(id, 'image')
+                    } catch (e) {
+                    } finally {
+                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
+                            (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', `${this.getName(user)}`)
+                        let wel = await new knights.Welcome2()
+                            .setAvatar(pp)
+                            .setUsername(this.getName(user))
+                            .setBg("https://telegra.ph/file/666ccbfc3201704454ba5.jpg")
+                            .setGroupname(groupMetadata.subject)
+                            .setMember(groupMetadata.participants.length)
+                            .toAttachment()
+
+                        let lea = await new knights.Goodbye()
+                            .setUsername(this.getName(user))
+                            .setGuildName(groupMetadata.subject)
+                            .setGuildIcon(ppgc)
+                            .setMemberCount(groupMetadata.participants.length)
+                            .setAvatar(pp)
+                            .setBackground("https://telegra.ph/file/0db212539fe8a014017e3.jpg")
+                            .toAttachment()
+
+                        //this.sendFile(id, action === 'add' ? wel : lea, pp, 'pp.jpg', text, null, false, { mentions: [user] })
+                        /*await this.sendHydrated(id, global.ucapan, text, action === 'add' ? wel.toBuffer() : lea.toBuffer(), sgc, (action == 'add' ? '💌 WELCOME' : '🐾 BYE'), user.split`@`[0], 'ɴᴜᴍʙᴇʀ ᴘᴀʀᴛɪᴄɪᴘᴀɴᴛ', [
+       [action == 'add' ? 'ᴡᴇʟᴄᴏᴍᴇ' : 'sᴀʏᴏɴᴀʀᴀᴀ', action === 'add' ? '.intro' : 'bilek']], null, fkontak, { mentions: [user] })*/
+
+                        this.sendFile(id, action === 'add' ? wel.toBuffer() : lea.toBuffer(), 'pp.jpg', text, null, false, { mentions: [user] })
                     }
                 }
             }

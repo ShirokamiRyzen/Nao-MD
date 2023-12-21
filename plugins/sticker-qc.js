@@ -1,71 +1,59 @@
 import { sticker } from '../lib/sticker.js'
-import uploadFile from '../lib/uploadFile.js'
 import axios from 'axios'
 
-const handler = async (m, { conn, text, args }) => {
-   const pp = 'https://telegra.ph/file/ab2d8562be18ad26b1668.jpg';
+const handler = async (m, { conn, args }) => {
+    let text;
+    if (args.length >= 1) {
+        text = args.slice(0).join(" ");
+    } else if (m.quoted && m.quoted.text) {
+        text = m.quoted.text;
+    } else throw "Input teks atau reply teks yang ingin dijadikan quote!";
+    if (!text) return m.reply('masukan text');
+    if (text.length > 100) return m.reply('Maksimal 100 Teks!');
 
-   if (!args[0] && !m.quoted) {
-       return m.reply(`Please provide a text (Type or mention a message) !`);
-   }
+    const randomColor = ['#000000'];
 
-   let userPfp;
-   if (m.quoted && !text) {
-       try {
-           userPfp = await conn.profilePictureUrl(m.sender, "image");
-       } catch (e) {
-           userPfp = pp;
-       }
-   } else {
-       try {
-           userPfp = await conn.profilePictureUrl(m.sender, "image");
-       } catch (e) {
-           userPfp = pp;
-       }
-   }
+    const apiColor = randomColor[Math.floor(Math.random() * randomColor.length)];
 
-   const trimtext = text.length > 50 ? text.substring(0, 50 - 3) + "..." : text;
-   let trimqtext;
+    const pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://telegra.ph/file/320b066dc81928b782c7b.png');
 
-   if (m.quoted && m.quoted.text) {
-       trimqtext = m.quoted.text.length > 50 ? m.quoted.text.substring(0, 50 - 3) + "..." : m.quoted.text;
-   }
+    const obj = {
+        "type": "quote",
+        "format": "png",
+        "backgroundColor": apiColor,
+        "width": 512,
+        "height": 768,
+        "scale": 2,
+        "messages": [{
+            "entities": [],
+            "avatar": true,
+            "from": {
+                "id": 1,
+                "name": m.name,
+                "photo": {
+                    "url": pp
+                }
+            },
+            "text": text,
+            "replyMessage": {}
+        }]
+    };
 
-   const q = m.quoted ? m.quoted : m;
-   const mime = (q.msg || q).mimetype || q.mediaType || '';
-   let media, img;
+    const json = await axios.post('https://quote.btch.bz/generate', obj, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 
-   if (/image/.test(mime)) {
-       img = await q.download?.();
-       if (img) media = await uploadFile(img);
-   }
-
-   const tkw = !trimtext && m.quoted && m.quoted.text ? trimqtext : trimtext;
-   const qwe = trimtext && m.quoted && m.quoted.text ? {
-       qname: m.quoted.name,
-       qtext: trimqtext
-   } : {};
-
-   try {
-       const json = await axios.get(API('xzn', 'api/qc', {
-           text: tkw,
-           username: !trimtext && m.quoted ? m.quoted.name : m.name,
-           avatar: await uploadFile(await getbuffer(userPfp)),
-           ...(media ? { "media": media } : {}),
-           ...qwe
-       }, 'apikey'), { responseType: "arraybuffer" });
-
-       const stiker = await sticker(json.data, global.packname, global.author);
-
-       if (stiker) return conn.sendFile(m.chat, stiker, 'Quotly.webp', '', m);
-   } catch (e) {
-       console.log({ e });
-       return e.toString();
-   }
+    const buffer = Buffer.from(json.data.result.image, 'base64');
+    const stiker = await sticker(buffer, false, global.stickpack, global.stickauth);
+    if (stiker) return conn.sendFile(m.chat, stiker, 'Quotely.webp', '', m);
 }
 
 handler.help = ['qc']
 handler.tags = ['sticker']
 handler.command = /^(qc)$/i
+
+handler.register = true
 
 export default handler

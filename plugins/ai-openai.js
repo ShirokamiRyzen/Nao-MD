@@ -108,7 +108,8 @@ const handler = async (m, { text, usedPrefix, command }) => {
 handler.help = ['ai <pertanyaan>']
 handler.tags = ['ai']
 handler.command = /^(ai)$/i
-handler.limit = false
+handler.limit = 5
+handler.premium = false
 handler.register = true
 
 export default handler

@@ -122,16 +122,16 @@ global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.com/
 
 global.APIs = {
   // name: 'https://website'
-  lol: 'https://api.lolhuman.xyz',
-  rose: 'https://api.itsrose.site',
-  xzn : 'https://skizo.tech' //web api terserah ganti apa aja (buat welcome sama leave gc)
+  lol: 'https://api.lolhuman.xyz/',
+  rose: 'https://api.itsrose.site/',
+  xzn : 'https://skizo.tech/' //web api terserah ganti apa aja (buat welcome sama leave gc)
 }
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
 
-  'https://skizo.tech' : '',
-  'https://api.itsrose.site': 'Rs-Zeltoria'
+  'https://skizo.tech/' : '',
+  'https://api.itsrose.site/': 'Rs-Zeltoria'
 }
 
 /*============= OTHER =============*/

@@ -1,39 +1,33 @@
-/*import fetch from "node-fetch";
-import { generateWAMessageFromContent } from "@adiwajshing/baileys";
-import fs from 'fs';
-import { Configuration, OpenAIApi } from 'openai';
-
-const configuration = new Configuration({ organization: `${global.org}`, apiKey: `${global.openai}` }); //KEY-OPENAI-APIKEY-KAMU = https://platform.openai.com/account/api-keys , KEY-ORG-KAMU = https://platform.openai.com/account/org-settings
-const openai = new OpenAIApi(configuration);
-
-let handler = async (m, { conn, usedPrefix, command, text }) => {
-  try {
-    if (!text) throw new Error(`Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Halo?`);
-
-    const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "system", content: 'Kamu adalah asisten, dan nama kamu adalah Nao Tomori dan kamu senang membantu orang' },
-    { role: "assistant", content: text }],
-    });
-
-    conn.reply(m.chat, `${response.data.choices[0].message.content}`, m);
-
-  } catch (error) {
-    console.log(error);
-    if (error.response) {
-      console.log(error.response.status);
-      console.log(error.response.data);
-      conn.reply(m.chat, `${error.response.status}\n\n${error.response.data}`, m);
-    } else {
-      conn.reply(m.chat, `${error.message}`, m);
-    }
-  }
+/*import OpenAI from "openai";
+var handler = async (m, { conn, usedPrefix, command, text }) => {
+try {
+            if (!text) return reply(`Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Apa itu resesi`);
+            const openai = new OpenAI({
+              apiKey: `${global.openai}`, //KEY-OPENAI-APIKEY-KAMU = https://platform.openai.com/account/api-keys 
+            });
+            const response = await openai.chat.completions.create({
+          model: "gpt-3.5-turbo",
+          messages: [{role: "user", content: text}],
+          });
+          m.reply(`${response.choices[0].message.content}`) 
+          } catch (error) {
+          if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+            console.log(`${error.response.status}\n\n${error.response.data}`);
+          } else {
+            console.log(error);
+            m.reply("Maaf, sepertinya ada yang error :"+ error.message);
+          }
+        }
 }
+handler.command = /^(ai)$/i;
+handler.help = ["ai"].map(v => v + " <teks>");
+handler.tags = ["ai"]
+handler.fail = null
 
-handler.help = ['ai <pertanyaan>']
-handler.tags = ['ai']
-handler.command = /^(ai)$/i
-handler.limit = false
+handler.limit = true
+handler.exp = 0
 handler.register = true
 
 export default handler

@@ -55,13 +55,15 @@ function connect(PORT) {
         </style>
     </head>
     <body>
-        <div id="clock-container">
-            <div id="clock-wib"></div>
-            <div id="clock-wita"></div>
-            <div id="clock-wit"></div>
-            <br />
-            <div id="name">Shirokami Ryzen</div>
-        </div>
+    <div id="clock-container">
+    <div id="name">Shirokami Ryzen</div>
+    <div id="clock-wib"></div>
+    <div id="clock-wita"></div>
+    <div id="clock-wit"></div>
+    <br />
+    <div id="name">Server Status</div>
+    <div>Bot: Online</div>
+    </div>
         
         <div class="container text-center">
             <a href="https://wa.me/6285864034767" class="btn btn-custom btn-primary" target="_blank">Use Bot</a>

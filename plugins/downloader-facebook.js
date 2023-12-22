@@ -35,31 +35,31 @@ var handler = async (m, { args }) => {
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-  const linknya = args[0];
+    const linknya = args[0];
 
-  if (!args[0]) throw `Input *URL*`;
+    if (!args[0]) throw `Input *URL*\n\n*Dont use m.facebook link!!!!!*`;
 
-  try {
-    let response = await fetch(`https://api.ryzendesu.com/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`);
-    let data = await response.json();
+    try {
+        let response = await fetch(`https://api.ryzendesu.com/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`);
+        let data = await response.json();
 
-    // Check if the status is true before proceeding
-    if (data.status) {
-      let videoUrl = data.result.HD || data.result.Normal_video;
+        // Check if the status is true before proceeding
+        if (data.status) {
+            let videoUrl = data.result.HD || data.result.Normal_video;
 
-      if (videoUrl) {
-        await m.reply(wait);
-        await conn.sendFile(m.chat, videoUrl, '', global.wm, m);
-      } else {
-        throw 'HD and Normal video links not found in the API response.';
-      }
-    } else {
-      throw 'API returned false status';
+            if (videoUrl) {
+                await m.reply(wait);
+                await conn.sendFile(m.chat, videoUrl, '', global.wm, m);
+            } else {
+                throw 'HD and Normal video links not found in the API response.';
+            }
+        } else {
+            throw 'API returned false status';
+        }
+    } catch (e) {
+        console.error(e);
+        m.reply(`Error: ${e}`);
     }
-  } catch (e) {
-    console.error(e);
-    m.reply(`Error: ${e}`);
-  }
 }
 
 handler.help = ['fb <url>']

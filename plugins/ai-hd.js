@@ -29,7 +29,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 }
 
 handler.help = ['hd', 'remini']
-handler.tags = ['tools', 'ai']
+handler.tags = ['ai']
 handler.command = /^(hd|remini)$/i
 
 handler.register = true

@@ -37,6 +37,11 @@ const defaultMenu = {
   after: ``,
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
+
+  if (m.isGroup && !global.db.data.chats[m.chat].menu) {
+    throw `Admin telah mematikan menu`;
+  }
+
   let tags = {
     'main': 'Main',
     'stress': 'Stress',
@@ -216,7 +221,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
           verified: true
         }
       }
-    };    
+    };
 
     conn.relayMessage(m.chat, {
       extendedTextMessage: {

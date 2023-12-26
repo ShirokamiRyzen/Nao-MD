@@ -242,6 +242,15 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       chat.nsfw = isEnable
       break
+    case 'menu':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.menu = isEnable
+      break
     case 'simi':
       if (m.isGroup) {
         if (!(isAdmin || isOwner)) {
@@ -286,6 +295,7 @@ List option:
 | self
 | nsfw
 | simi
+| menu
 Contoh:
 ${usedPrefix}enable welcome
 ${usedPrefix}disable welcome

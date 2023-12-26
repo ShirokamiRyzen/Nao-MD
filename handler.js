@@ -116,6 +116,8 @@ export async function handler(chatUpdate) {
                     chat.premiumTime = false
                 if (!('nsfw' in chat))
                     chat.nsfw = false
+                if (!('menu' in chat))
+                    chat.menu = false
                 if (!isNumber(chat.expired))
                     chat.expired = 0
             } else
@@ -137,6 +139,7 @@ export async function handler(chatUpdate) {
                     premium: false,
                     premiumTime: false,
                     nsfw: false,
+                    menu: true,
                 }
             let settings = global.db.data.settings[this.user.jid]
             if (typeof settings !== 'object') global.db.data.settings[this.user.jid] = {}

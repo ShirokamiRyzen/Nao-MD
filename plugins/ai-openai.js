@@ -1,9 +1,9 @@
 /*import OpenAI from "openai";
 var handler = async (m, { conn, usedPrefix, command, text }) => {
 try {
-            if (!text) return reply(`Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Apa itu resesi`);
+            if (!text) throw `Chat dengan AI.\n\nContoh:\n${usedPrefix}${command} Apa itu resesi`;
             const openai = new OpenAI({
-              apiKey: `${global.openai}`, //KEY-OPENAI-APIKEY-KAMU = https://platform.openai.com/account/api-keys 
+              apiKey: "KEY-OPENAI-APIKEY-KAMU", //KEY-OPENAI-APIKEY-KAMU = https://platform.openai.com/account/api-keys 
             });
             const response = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
@@ -21,6 +21,7 @@ try {
           }
         }
 }
+
 handler.command = /^(ai)$/i;
 handler.help = ["ai"].map(v => v + " <teks>");
 handler.tags = ["ai"]

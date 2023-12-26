@@ -1,5 +1,5 @@
 import { createHash } from 'crypto'
-import fetch from 'node-fetch'
+
 let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
 let handler = async function (m, { text, usedPrefix }) {
   let user = global.db.data.users[m.sender]
@@ -25,11 +25,14 @@ Daftar berhasil!
 ╰────
 Serial Number: 
 ${sn}
+
+Ketik *.rules* untuk melihat ketentuan penggunaan
+
+Mendaftar berarti setuju dengan ketentuan
 `.trim())
 }
 
 handler.help = ['daftar', 'register'].map(v => v + ' <nama>.<umur>')
-handler.tags = ['xp']
 
 handler.command = /^(daftar|reg(ister)?)$/i
 

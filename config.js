@@ -118,7 +118,7 @@ global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
 global.rose = 'Rs-Zeltoria'
 global.xzn = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://skizo.tech/
 global.xyro = 'YOUR_APIKEY_HERE' //https://api.xyroinee.xyz/
-global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.com/
+global.ryzen = 'YOUR_APIKEY_HERE' //daftar di apis.ryzendesu.com/
 
 global.APIs = {
   // name: 'https://website'

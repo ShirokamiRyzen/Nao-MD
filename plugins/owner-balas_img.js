@@ -23,16 +23,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let id = + new Date
         let imagePath = `${gambar}`;
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Dari: *Owner*\nPesan: \n${pesan}`.trim();
-        await conn.sendFile(data.jid, imagePath, 'gambar.jpg', txt, m, {
-            contextInfo: {
-                externalAdReply: {
-                    title: global.wm,
-                    body: global.author,
-                    sourceUrl: global.snh,
-                    thumbnail: fs.readFileSync('./thumbnail.jpg')
-                }
-            }
-        });
+        await conn.sendFile(data.jid, imagePath, 'gambar.jpg', txt, m);
         conn.ownreply[id] = {
             id,
             dari: m.sender,

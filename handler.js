@@ -108,6 +108,8 @@ export async function handler(chatUpdate) {
                     chat.simi = false
                 if (!('autogpt' in chat))
                     chat.chatgpt = false
+                if (!('gempa' in chat))
+                    chat.gempa = false
                 if (!('autoSticker' in chat))
                     chat.autoSticker = false
                 if (!('premium' in chat))
@@ -134,6 +136,7 @@ export async function handler(chatUpdate) {
                     viewonce: false,
                     simi: false,
                     autogpt: false,
+                    gempa: false,
                     expired: 0,
                     autoSticker: false,
                     premium: false,

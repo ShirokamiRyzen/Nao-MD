@@ -40,7 +40,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     if (!args[0]) throw `Input *URL*\n\n*Dont use m.facebook link!!!!!*`;
 
     try {
-        let response = await fetch(`https://apis.ryzendesu.com/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`);
+        let response = await fetch(`https://api.ryzendesu.vip/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`);
         let data = await response.json();
 
         // Check if the status is true before proceeding

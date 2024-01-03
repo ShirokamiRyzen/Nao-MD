@@ -4,11 +4,11 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Input *URL*`;
   m.reply(wait);
   try {
-    let res = await fetch(`https://apis.ryzendesu.com/api/search/wallpaper?text=${text}&apikey=${global.ryzen}`);
+    let res = await fetch(`https://api.ryzendesu.vip/api/search/wallpaper?text=${text}&apikey=${global.ryzen}`);
     let result = await res.json();
     let wallpapers = result.result; // Array of wallpaper objects
     let randomWallpaper = wallpapers[Math.floor(Math.random() * wallpapers.length)]; // Select a random wallpaper
-    let cap = "apis.ryzendesu.com";
+    let cap = "api.ryzendesu.vip";
     conn.sendMessage(m.chat, { image: { url: randomWallpaper.image }, caption: cap }, m);
   } catch (e) {
     console.log(e);

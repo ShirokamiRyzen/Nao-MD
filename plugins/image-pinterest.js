@@ -3,12 +3,12 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-  let api = "apis.ryzendesu.com"
+  let api = "api.ryzendesu.vip"
   if (!text) throw `Input *Query*`
   conn.reply(m.chat, 'Wait a moment...', m)
 
   try {
-    let res = await fetch(`https://apis.ryzendesu.com/api/search/pinterest?text=${text}&apikey=${global.ryzen}`);
+    let res = await fetch(`https://api.ryzendesu.vip/api/search/pinterest?text=${text}&apikey=${global.ryzen}`);
     let result = await res.json();
     let gambarUrls = result.result.slice(0, 20); // Ambil 20 gambar pertama
 

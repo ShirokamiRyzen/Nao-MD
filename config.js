@@ -118,20 +118,22 @@ global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
 global.rose = 'Rs-Zeltoria'
 global.xzn = 'YOUR_APIKEY_HERE' //daftar sendiri jika key habis https://skizo.tech/
 global.xyro = 'YOUR_APIKEY_HERE' //https://api.xyroinee.xyz/
-global.ryzen = 'YOUR_APIKEY_HERE' //daftar di apis.ryzendesu.com/
+global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.vip/
 
 global.APIs = {
   // name: 'https://website'
   lol: 'https://api.lolhuman.xyz/',
   rose: 'https://api.itsrose.site/',
-  xzn : 'https://skizo.tech/' //web api terserah ganti apa aja (buat welcome sama leave gc)
+  xzn : 'https://skizo.tech/',
+  ryzen : 'https://api.ryzendesu.vip/'
 }
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
 
   'https://skizo.tech/' : '',
-  'https://api.itsrose.site/': 'Rs-Zeltoria'
+  'https://api.itsrose.site/': 'Rs-Zeltoria',
+  'https://api.ryzendesu.vip/': ''
 }
 
 /*============= OTHER =============*/

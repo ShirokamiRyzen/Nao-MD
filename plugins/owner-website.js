@@ -12,7 +12,7 @@ let handler = async (m, { conn, text }) => {
     // Check if the sitemap is already in the cache
     if (!cache.sitemap) {
       // Fetch the sitemap
-      const response = await axios.get('https://app.ryzendesu.com/sitemap.xml');
+      const response = await axios.get('https://apk.ryzendesu.vip/sitemap.xml');
       if (response.status !== 200) {
         throw new Error(`Failed to fetch sitemap. Status: ${response.status}`);
       }
@@ -59,9 +59,12 @@ let handler = async (m, { conn, text }) => {
         replyMessage = `
 *「 Owner Website 」*
 
-Main Site: ryzendesu.com
-Mod APK: app.ryzendesu.com
-KMS Activator: kms.ryzendesu.com
+Nonton Anime: ryzendesu.vip
+Mod APK: apk.ryzendesu.vip
+KMS Activator: kms.ryzendesu.vip
+
+Nonton Anime versi APK:
+github.com/ShirokamiRyzen/wibu-verse/releases/tag/RyzendesuAPK
 
 Option: revanced / spotify
         `;

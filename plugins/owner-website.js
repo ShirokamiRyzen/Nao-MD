@@ -64,7 +64,7 @@ Mod APK: apk.ryzendesu.vip
 KMS Activator: kms.ryzendesu.vip
 
 Nonton Anime versi APK:
-github.com/ShirokamiRyzen/wibu-verse/releases/tag/RyzendesuAPK
+https://s.id/RyzendesuAPK
 
 Option: revanced / spotify
         `;

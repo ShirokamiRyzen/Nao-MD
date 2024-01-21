@@ -35,7 +35,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@6.4.0",
+        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@6.6.0",
         "@arugaz/ai2d": "^1.0.1-z.8",
         "@bochilteam/scraper": "^4.2.4",
         "@distube/ytdl-core": "4.13.3",

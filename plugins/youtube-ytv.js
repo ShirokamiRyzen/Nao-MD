@@ -1,70 +1,31 @@
-import ytdl from '@distube/ytdl-core'
-import fs from 'fs'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
-import os from 'os'
+//import ytdl from '@distube/ytdl-core';
+import ytdl from 'ytdl-core';
 
-const streamPipeline = promisify(pipeline);
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+  if (!args[0]) {
+    return m.reply(`Masukkan Link:\n${usedPrefix + command} https://youtu.be/iik25wqIuFo`);
+  }
 
-const proxyAgent = ytdl.createProxyAgent({ uri: "http://167.71.41.76:8080" });
+  const videoURL = args[0];
 
-var handler = async (m, { conn, command, text, usedPrefix }) => {
-  await conn.sendMessage(m.chat, {
-    react: {
-      text: '⏳',
-      key: m.key,
-    },
-  });
+  try {
+    const loadingMessage = await conn.reply(m.chat, `Sedang mengambil informasi video...\n${global.wait}`, m);
 
-  if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
+    const info = await ytdl.getInfo(videoURL);
 
-  const videoUrl = text;
-
-  // Pass the proxy agent to ytdl.getInfo
-  const videoInfo = await ytdl.getInfo(videoUrl);
-  //const videoInfo = await ytdl.getInfo(videoUrl, { agent: proxyAgent });
-
-  const { videoDetails } = videoInfo;
-  const { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
-  const thumbnail = thumbnails[0].url;
-
-  // Pass the proxy agent to ytdl
-  const videoStream = ytdl(videoUrl, {
-    filter: 'audioandvideo',
-    quality: 'highest',
-  });
-
-  const writableStream = fs.createWriteStream(`tmp/${title}.mp4`);
-
-  await streamPipeline(videoStream, writableStream);
-
-  let doc = {
-    video: {
-      url: `tmp/${title}.mp4`,
-    },
-    mimetype: 'video/mp4',
-    fileName: `${title}`,
-    contextInfo: {
-      externalAdReply: {
-        showAdAttribution: true,
-        mediaType: 2,
-        mediaUrl: videoUrl,
-        title: title,
-        sourceUrl: videoUrl,
-        thumbnail: await (await conn.getFile(thumbnail)).data,
-      },
-    },
-  };
-
-  await conn.sendMessage(m.chat, doc, { quoted: m });
-
-  fs.unlink(`tmp/${title}.mp4`, (err) => {
-    if (err) {
-      console.error(`Failed to delete video file: ${err}`);
-    } else {
-      console.log(`Deleted video file: tmp/${title}.mp4`);
+    for (const format of info.formats) {
+      await conn.sendFile(m.chat, format.url, 'video.mp4', `Resolusi Video ${format.qualityLabel}`, m, null, true);
     }
-  });
+
+    // const allUrls = info.formats.map(format => `${format.qualityLabel}: ${format.url}`).join('\n');
+    // await m.reply(`Resolusi Video:\n${allUrls}`);
+
+    await m.reply("Done\nAll video has been sent");
+      
+  } catch (error) {
+    console.error('Error fetching video info:', error);
+    await m.reply(`Error fetching video info: error ${error}`);
+  }
 }
 
 handler.help = ['ytmp4'].map((v) => v + ' <URL>')

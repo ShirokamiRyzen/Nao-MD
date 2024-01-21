@@ -18,10 +18,10 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         })
 
         // Mengambil hasil dalam bentuk buffer
-        let hasil = await response.buffer()
+        let hasil = await response.arrayBuffer()
 
         // Mengirim hasil ke pengguna
-        await conn.sendFile(m.chat, hasil, '', global.wm, m)
+        await conn.sendFile(m.chat, Buffer.from(hasil), '', global.wm, m)
     } catch (error) {
         console.error(error)
         m.reply('Internal server error')

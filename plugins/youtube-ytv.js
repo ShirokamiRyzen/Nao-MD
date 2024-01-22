@@ -1,5 +1,4 @@
-//import ytdl from '@distube/ytdl-core';
-import ytdl from 'ytdl-core';
+import ytdl from 'ytdl-core'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) {
@@ -11,17 +10,19 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   try {
     const loadingMessage = await conn.reply(m.chat, `Sedang mengambil informasi video...\n${global.wait}`, m);
 
-    const info = await ytdl.getInfo(videoURL);
+    const info = await ytdl.getInfo(videoURL, { quality: 'highest' });
 
-    for (const format of info.formats) {
-      await conn.sendFile(m.chat, format.url, 'video.mp4', `Resolusi Video ${format.qualityLabel}`, m, null, true);
-    }
+    // Mengurutkan format berdasarkan resolusi dari yang tertinggi
+    const sortedFormats = info.formats.sort((a, b) => b.height - a.height);
 
-    // const allUrls = info.formats.map(format => `${format.qualityLabel}: ${format.url}`).join('\n');
-    // await m.reply(`Resolusi Video:\n${allUrls}`);
+    // Memilih format dengan kualitas tertinggi
+    const highestQualityFormat = sortedFormats[0];
 
-    await m.reply("Done\nAll video has been sent");
-      
+    // Mengirim video dengan kualitas tertinggi
+    await conn.sendFile(m.chat, highestQualityFormat.url, 'video.mp4', `Resolusi Video ${highestQualityFormat.qualityLabel}`, m, null, true);
+
+    await m.reply("Done\nThe highest quality video has been sent");
+
   } catch (error) {
     console.error('Error fetching video info:', error);
     await m.reply(`Error fetching video info: error ${error}`);

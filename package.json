@@ -11,8 +11,7 @@
     },
     "scripts": {
         "start": "node index.js --autocleartmp --autoread",
-        "test": "node test.js",
-        "test2": "nodemon index.js --server --autocleartmp --autoread"
+        "test": "nodemon index.js --server --autocleartmp --autoread"
     },
     "keywords": [
         "termux-whatsapp-bot",

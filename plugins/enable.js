@@ -260,20 +260,10 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       chat.autogpt = isEnable
       break
-    case 'gempa':
-      if (m.isGroup) {
-        if (!(isAdmin || isOwner)) {
-          global.dfail('admin', m, conn)
-          throw false
-        }
-      }
-      chat.gempa = isEnable
-      break
     default:
       if (!/[01]/.test(command)) return m.reply(`
 List option:
 | autogpt
-| gempa
 | welcome
 | delete
 | public

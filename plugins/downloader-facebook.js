@@ -59,4 +59,7 @@ handler.help = ['fbdownload <url>']
 handler.tags = ['downloader']
 handler.command = /^(fbdownload|fb(dl)?)$/i
 
+handler.register = true
+handler.limit = true
+
 export default handler

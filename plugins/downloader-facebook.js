@@ -1,71 +1,62 @@
-/*import axios from 'axios'
 import fetch from 'node-fetch'
 
-const getBuffer = async (url) => {
-    const response = await fetch(url);
-    const buffer = await response.buffer();
-    return buffer;
-};
-
-var handler = async (m, { args }) => {
-    if (!args[0]) {
-        throw 'Input URL\nEx: .fb https://www.facebook.com/groups/175204112986693/permalink/1621191825054574/?mibextid=Nif5oz';
+async function getFinalUrl(url) {
+    const response = await fetch(url, { method: 'GET', redirect: 'follow' });
+    if (response.headers.get('location')) {
+        return await getFinalUrl(response.headers.get('location'));
     }
-    
-    try {
-        const response = await axios.get(`https://tr.deployers.repl.co/fb?u=${url}`);
-        
-        // Check if the response data is an array with at least one URL
-        if (Array.isArray(response.data) && response.data.length > 0) {
-            const videoUrl = response.data[0];
-            
-            // Fetch and send the video
-            const videoBuffer = await getBuffer(videoUrl);
-            conn.sendFile(m.chat, videoBuffer, 'video.mp4', 'Video Kualitas HD', m);
-        } else {
-            // Handle the case where the response data structure is different
-            throw 'Invalid response format from the server';
-        }
-    } catch (e) {
-        console.log(e)
-        conn.reply(m.chat, 'Invalid response format from the server', m)
-      }
-}*/
-
-import fetch from 'node-fetch'
-
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-    const linknya = args[0];
-
-    if (!args[0]) throw `Input *URL*\n\n*Dont use m.facebook link!!!!!*`;
-
-    try {
-        let response = await fetch(`https://api.ryzendesu.vip/api/dowloader/fbdown?url=${linknya}&apikey=${global.ryzen}`);
-        let data = await response.json();
-
-        // Check if the status is true before proceeding
-        if (data.status) {
-            let videoUrl = data.result.HD || data.result.Normal_video;
-
-            if (videoUrl) {
-                await m.reply(wait);
-                await conn.sendFile(m.chat, videoUrl, '', global.wm, m);
-            } else {
-                throw 'HD and Normal video links not found in the API response.';
-            }
-        } else {
-            throw 'API returned false status';
-        }
-    } catch (e) {
-        console.error(e);
-        m.reply(`Error: ${e}`);
-    }
+    return url || response.url;
 }
 
-handler.help = ['fb <url>']
+var handler = async (m, { args, conn, usedPrefix, command }) => {
+    if (!args[0]) {
+        throw `Input URL\nEx: ${usedPrefix + command} https://www.facebook.com/groups/175204112986693/permalink/1621191825054574/?mibextid=Nif5oz\n\n*Peringatan:* Dilarang menggunakan link fb.watch, karena tidak dapat diakses langsung. Harap salin link tersebut, buka browser, dan tempelkan di sana. Salin link yang diakses dan gunakan di sini.`;
+    }
+
+    try {
+        if (args[0].includes('fb.watch')) {
+            throw '*Dilarang menggunakan link fb.watch. Harap salin link tersebut, buka browser, dan tempelkan di sana. Salin link yang diakses dan gunakan di sini.*';
+        }
+
+        const res = await fetch(args[0]);
+        const finalUrl = (await getFinalUrl(args[0])) || res.url;
+
+        await conn.reply(m.chat, `Redirected URL: ${finalUrl}\n\n${global.wait}`, m);
+
+        const server = `https://vihangayt.me/download/alldownload?url=${finalUrl}`;
+
+        const hasil = await fetch(server);
+        const data = await hasil.json();
+
+        if (data.status) {
+            await conn.sendFile(m.chat, data.data.thumbnail, 'thumbnail.jpg', `Title: ${data.data.title}\nURL: ${data.data.url}`);
+
+            if (Array.isArray(data.data.medias)) {
+                for (const media of data.data.medias) {
+                    const { url, quality, formattedSize, videoAvailable, audioAvailable, chunked, cached } = media;
+
+                    const sizeInfo = formattedSize ? `\nSize: ${formattedSize}` : '';
+                    const videoInfo = videoAvailable !== undefined ? `\nAda Video: ${videoAvailable}` : '';
+                    const audioInfo = audioAvailable !== undefined ? `\nAda Audio: ${audioAvailable}` : '';
+                    const chunkedInfo = chunked !== undefined ? `\nTerpotong-potong: ${chunked}` : '';
+                    const cachedInfo = cached !== undefined ? `\nCache: ${cached}` : '';
+
+                    await conn.sendFile(m.chat, url, `${quality}.mp4`, `Quality: ${quality}${sizeInfo}${videoInfo}${audioInfo}${chunkedInfo}${cachedInfo}\n\n${global.wm}\nDonasi: ${global.nomorown}`);
+                }
+            } else {
+                console.warn('Warning: Media data is not iterable or is undefined.');
+            }
+        } else {
+            throw 'Error fetching Facebook media. Please try again later.';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        conn.reply(m.chat, `An error occurred while processing the request. \n\n${error}`, m);
+    }
+};
+
+handler.help = ['fbdownload <url>']
 handler.tags = ['downloader']
 handler.command = /^(fbdownload|fb(dl)?)$/i
-handler.limit = true
-handler.register = true
 
 export default handler

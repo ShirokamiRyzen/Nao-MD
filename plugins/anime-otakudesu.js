@@ -6,6 +6,12 @@ let handler = async (m, { conn, text }) => {
   let responseData = await res.json();
   let otaku = responseData.data;
 
+  // Mendapatkan thumbnail URL
+  let thumbnailUrl = otaku.thumbnail;
+
+  // Mengubah thumbnail URL sesuai format yang diinginkan
+  thumbnailUrl = `https://external-content.duckduckgo.com/iu/?u=${thumbnailUrl}`;
+
   let links = otaku.links.map(link => {
     let episodeLink = `https://ryzendesu.vip/nonton/${link.id}`;
     return `•(${episodeLink})`;
@@ -26,7 +32,7 @@ let handler = async (m, { conn, text }) => {
 ${links}
 `;
 
-  conn.sendFile(m.chat, otaku.thumbnail, 'otaku.jpeg', otakuinfo, m);
+  conn.sendFile(m.chat, thumbnailUrl, 'otaku.jpeg', otakuinfo, m);
 };
 
 handler.help = ['otakudesu <Judul>']

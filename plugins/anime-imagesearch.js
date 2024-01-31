@@ -14,7 +14,7 @@ let handler = async (m, { conn }) => {
 
         let media = await q.download();
         let url = await uploadImage(media);
-        let hasil = await fetch(`https://api.trace.moe/search?url=${encodeURIComponent(url)}`);
+        let hasil = await fetch(`https://api.trace.moe/search?cutBorders&url=${encodeURIComponent(url)}`);
         let response = await hasil.json();
 
         if (response && response.result && response.result.length > 0) {

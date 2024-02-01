@@ -37,8 +37,6 @@ global.mods = []
 global.prems = []
 global.nomorbot = '6285864034767'
 global.nomorown = '6285174269046'
-global.nomorwa = '0'
-
 
 /*============= WATERMARK =============*/
 global.readMore = readMore
@@ -52,14 +50,6 @@ global.stickpack = `Sticker Dibuat dengan ${namebot}\ngithub.com/ShirokamiRyzen\
 global.stickauth = `© Nao-MD By Shirokami Ryzen`
 global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
-
-/*============= OWNER INFO =============*/
-global.nameown1= 'Ryzn'
-global.nameown2 = 'Ryzn'
-/*============= MEDIA LINK =============*/
-global.Linkgc = 'Bentar'
-global.lynk = ''
-
 
 //*============= SOSMED =============*/
 global.sig = 'https://www.instagram.com/ryzen_vermillion'

@@ -22,10 +22,10 @@ let handler = async (m, { conn }) => {
 
             let filename = firstResult.filename;
             let episode = firstResult.episode;
-            let similarity = firstResult.similarity;
+            let similarity = Math.round(firstResult.similarity * 100);
             let videoURL = firstResult.video;
 
-            let caption = `Name: ${filename}\nEpisode: ${episode}\n\nSimilarity: ${similarity}`;
+            let caption = `Name: ${filename}\nEpisode: ${episode}\n\nSimilarity: ${similarity}%`;
 
             await conn.sendFile(m.chat, videoURL, filename, caption, m);
         } else {

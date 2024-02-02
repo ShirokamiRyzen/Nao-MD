@@ -4,11 +4,11 @@
 import fetch from 'node-fetch'
 import uploadImage from '../lib/uploadImage.js'
 
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
     try {
         let q = m.quoted ? m.quoted : m;
         let mime = (q.msg || q).mimetype || '';
-        if (!mime) throw 'Kirim/Reply Gambar dengan caption .animesearch';
+        if (!mime) throw `Kirim/Reply Gambar dengan caption ${usedPrefix + command}`;
 
         m.reply(wait);
 
@@ -33,14 +33,13 @@ let handler = async (m, { conn }) => {
         }
     } catch (error) {
         console.error(error);
-        if (error.includes('Kirim/Reply Gambar dengan caption .animesearch')) {
+        if (error.includes(`Kirim/Reply Gambar dengan caption ${usedPrefix + command}`)) {
             m.reply(error);
         } else {
             m.reply('Internal server error');
         }
     }
 };
-
 
 handler.help = ['animesearch']
 handler.tags = ['anime']

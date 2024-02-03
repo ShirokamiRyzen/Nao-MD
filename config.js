@@ -55,6 +55,7 @@ global.wibb = `${wktuwib}`
 global.sig = 'https://www.instagram.com/ryzen_vermillion'
 global.sgh = 'https://github.com/ShirokamiRyzen'
 global.sgc = 'https://whatsapp.com/channel/0029VaGoqK589indDi4Am40J'
+global.sgw = 'https://ryzendesu.vip'
 global.sdc = '-'
 global.sfb = 'https://www.facebook.com/Nao.Tomori.UwU'
 global.snh = 'https://www.instagram.com/ryzen_vermillion'

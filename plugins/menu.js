@@ -234,7 +234,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
             previewType: 0,
             renderLargerThumbnail: true,
             thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
-            sourceUrl: 'https://www.instagram.com/ryzen_vermillion',
+            sourceUrl: sgc,
           }
         }, mentions: [m.sender]
       }

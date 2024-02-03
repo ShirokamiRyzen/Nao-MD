@@ -36,12 +36,12 @@ handler.all = async function (m) {
                     showAdAttribution: true,
                     title: global.ucapan,
                     body: wm,
-                    mediaUrl: sgc,
+                    mediaUrl: sgw,
                     description: namebot,
                     previewType: "PHOTO",
                     thumbnail: fs.readFileSync('./thumbnail.jpg'),
                     //thumbnail: await (await fetch(pp)).buffer(),
-                    sourceUrl: sgc,
+                    sourceUrl: sgw,
                 }
             }
         }

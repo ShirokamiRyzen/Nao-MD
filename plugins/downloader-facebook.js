@@ -1,3 +1,6 @@
+//Dont delete this credit!!!
+//Script by ShirokamiRyzen
+
 import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 

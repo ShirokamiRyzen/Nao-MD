@@ -17,12 +17,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
         const videoBuffer = await fetch(result.hdLink).then(res => res.buffer());
 
-        const responseText = `
+        const responseText =`
 *Title*: ${result.title}
-*Description*: ${result.description}
+
+${result.description}
+
 *SD Link*: ${result.sdLink}
 *HD Link*: ${result.hdLink}
-        `;
+`;
 
         conn.sendFile(m.chat, videoBuffer, 'video.mp4', responseText, m);
     } catch (error) {

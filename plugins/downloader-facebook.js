@@ -5,9 +5,12 @@ import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-    try {
-        if (!args[0]) throw 'Please provide a Facebook video URL';
 
+    if (!args[0]) throw 'Please provide a Facebook video URL';
+
+    m.reply(wait)
+
+    try {
         const url = args[0];
         const result = await fbdown(url);
 

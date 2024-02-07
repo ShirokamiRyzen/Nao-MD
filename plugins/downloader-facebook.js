@@ -7,6 +7,7 @@ import cheerio from 'cheerio'
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 
     if (!args[0]) throw 'Please provide a Facebook video URL';
+    const sender = m.sender.split(`@`)[0];
 
     m.reply(wait)
 
@@ -20,7 +21,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
         const videoBuffer = await fetch(result.hdLink).then(res => res.buffer());
 
-        const responseText =`
+        const caption = `
 *Title*: ${result.title}
 
 ${result.description}
@@ -29,7 +30,17 @@ ${result.description}
 *HD Link*: ${result.hdLink}
 `;
 
-        conn.sendFile(m.chat, videoBuffer, 'video.mp4', responseText, m);
+        await conn.sendMessage(
+            m.chat, {
+            video: videoBuffer,
+            mimetype: "video/mp4",
+            fileName: `video.mp4`,
+            caption: `Ini kak videonya @${sender} \n${caption}`,
+            mentions: [m.sender],
+        }, {
+            quoted: m
+        },
+        );
     } catch (error) {
         console.error('Handler Error:', error);
         conn.reply(m.chat, `An error occurred: ${error}`, m);

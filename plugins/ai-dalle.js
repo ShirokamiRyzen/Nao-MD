@@ -1,4 +1,35 @@
-import OpenAI from 'openai'
+import fetch from "node-fetch"
+
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+    let wm = global.wm
+
+    if (!text) throw `This command generates image from texts\n\n Example usage\n${usedPrefix + command} Wooden house on snow mountainh`
+    await m.reply(wait)
+
+    await conn.relayMessage(m.chat, { reactionMessage: { key: m.key, text: '👌' } }, { messageId: m.key.id })
+    try {
+        let url = `https://aemt.me/dalle?text=${text}`
+
+        await conn.sendFile(m.chat, await (await fetch(url)).buffer(), 'dalle.jpg', wm, m)
+        m.react(done)
+
+    } catch (e) {
+        console.log(e)
+        conn.reply(eror)
+    }
+}
+
+handler.help = ['dalle <prompt>']
+handler.tags = ['ai']
+handler.command = /^(dalle)$/i
+
+handler.premium = false
+handler.limit = true
+handler.register = true
+
+export default handler
+
+/*import OpenAI from 'openai'
 
 const mySecret = process.env[`${global.openai}`] // process.env['key-apikey'] ubah jadi key-APIKEY kamu di openai.com
 
@@ -32,13 +63,4 @@ let handler = async (m, { conn, text, command }) => {
         }
     }
 }
-
-handler.help = ['dalle <prompt>']
-handler.tags = ['ai']
-handler.command = /^(dalle)$/i
-
-handler.premium = false
-handler.limit = true
-handler.register = true
-
-export default handler
+*/

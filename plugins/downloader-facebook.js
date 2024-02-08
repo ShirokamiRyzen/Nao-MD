@@ -2,7 +2,7 @@
 //Script by ShirokamiRyzen
 
 import fetch from 'node-fetch'
-import cheerio from 'cheerio'
+import { fbdown } from '../lib/scrape.js';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 
@@ -55,29 +55,3 @@ handler.limit = true
 handler.register = true
 
 export default handler
-
-async function fbdown(url) {
-    try {
-        const postOptions = {
-            method: 'POST',
-            body: new URLSearchParams({
-                URLz: url,
-            }),
-        };
-
-        const response = await fetch('https://fdown.net/download.php', postOptions);
-        const html = await response.text();
-
-        const $ = cheerio.load(html);
-
-        return {
-            title: $('.lib-row.lib-header').text().trim(),
-            description: $('.lib-row.lib-desc').text().trim(),
-            sdLink: $('#sdlink').attr('href'),
-            hdLink: $('#hdlink').attr('href'),
-        };
-    } catch (error) {
-        console.error('Error:', error.message);
-        return null;
-    }
-}

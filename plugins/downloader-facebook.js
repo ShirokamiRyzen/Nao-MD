@@ -19,16 +19,31 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             throw 'Failed to fetch video details';
         }
 
-        const videoBuffer = await fetch(result.hdLink).then(res => res.buffer());
+        let videoLink;
+        let caption;
 
-        const caption = `
+        if (result.hdLink && result.sdLink) {
+            videoLink = result.hdLink;
+            caption = `
+*Title*: ${result.title}
+
+${result.description}
+
+*HD Link*: ${result.hdLink}
+*SD Link*: ${result.sdLink}
+`;
+        } else {
+            videoLink = result.sdLink;
+            caption = `
 *Title*: ${result.title}
 
 ${result.description}
 
 *SD Link*: ${result.sdLink}
-*HD Link*: ${result.hdLink}
 `;
+        }
+
+        const videoBuffer = await fetch(videoLink).then(res => res.buffer());
 
         await conn.sendMessage(
             m.chat, {

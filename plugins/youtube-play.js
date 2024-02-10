@@ -66,6 +66,9 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
 handler.help = ['play'].map((v) => v + ' <query>')
 handler.tags = ['downloader']
 handler.command = /^(play)$/i
+
+handler.limit = true
 handler.register = true
+handler.disable = false
 
 export default handler

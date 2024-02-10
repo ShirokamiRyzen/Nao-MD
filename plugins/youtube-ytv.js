@@ -71,5 +71,6 @@ handler.command = /^(ytmp4)$/i
 
 handler.limit = true
 handler.register = true
+handler.disable = false
 
 export default handler

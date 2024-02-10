@@ -48,6 +48,6 @@ handler.command = /^(ytmp3)$/i
 
 handler.limit = true
 handler.register = true
-handler.exp = 0
+handler.disable = false
 
 export default handler

@@ -53,7 +53,6 @@ var handler = async (m, { conn, args }) => {
             //await conn.sendFile(m.chat, thumbnailURL, 'thumbnail.jpg', 'Ini thumbnail videonya', m);
             await conn.sendFile(m.chat, videoURL2, 'tiktok2.mp4', 'Ini kak videonya dari Server 2', m);
             //await conn.sendFile(m.chat, audioURL2, 'tiktok.mp3', 'Ini kak audionya', m);
-            conn.reply(m.chat, "tiktok.ryzendesu.com", m);
 
         } catch (error2) {
             // Jika server kedua juga gagal, tangani error di sini

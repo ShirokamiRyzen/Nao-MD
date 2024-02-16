@@ -14,5 +14,6 @@ handler.tags = ['sticker']
 handler.command = ['toimg']
 
 handler.register = true
+handler.limit = true
 
 export default handler

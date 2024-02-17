@@ -99,19 +99,16 @@ global.eror = 'Error!'
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
 global.xzn = 'YOUR_APIKEY_HERE'
-global.ryzen = 'YOUR_APIKEY_HERE' //daftar di api.ryzendesu.vip/
 
 global.APIs = {
   // name: 'https://website'
   xzn : 'https://skizo.tech/',
-  ryzen : 'https://api.ryzendesu.vip/'
 }
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
 
   'https://skizo.tech/' : '',
-  'https://api.ryzendesu.vip/': ''
 }
 
 /*============= OTHER =============*/

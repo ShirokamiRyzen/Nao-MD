@@ -46,7 +46,7 @@ handler.help = ['ytmp3'].map((v) => v + ' <URL>')
 handler.tags = ['downloader']
 handler.command = /^(ytmp3)$/i
 
-handler.limit = true
+handler.limit = 2
 handler.register = true
 handler.disable = false
 

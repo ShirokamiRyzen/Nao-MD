@@ -24,10 +24,13 @@ let handler = async (m, { conn, usedPrefix, command }) => {
             let episode = firstResult.episode;
             let similarity = Math.round(firstResult.similarity * 100);
             let videoURL = firstResult.video;
+            let videoIMG = firstResult.image;
 
-            let caption = `Name: ${filename}\nEpisode: ${episode}\n\nSimilarity: ${similarity}%`;
+            let captionVid = `Name: ${filename}\nEpisode: ${episode}\n\nSimilarity: ${similarity}%`;
+            let captionImg = `Name: ${filename}\nEpisode: ${episode}\n\nSimilarity: ${similarity}%`;
 
-            await conn.sendFile(m.chat, videoURL, filename, caption, m);
+            await conn.sendFile(m.chat, videoURL, filename, captionVid, m);
+            await conn.sendFile(m.chat, videoIMG, filename, captionImg, m);
         } else {
             m.reply('No result found');
         }

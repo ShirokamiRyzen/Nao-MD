@@ -33,6 +33,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
 handler.help = ['short <url>']
 handler.tags = ['internet']
 handler.command = /^(short|singkatin|singkat|bitly|tinyurl|vgd|ouo|isgd|shortlink|linkshort)$/i
+
 handler.register = true
 
 export default handler

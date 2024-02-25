@@ -11,4 +11,7 @@ let handler = async (m, { conn, text }) => {
 handler.command = /^(loli)$/i
 handler.tags = ['anime']
 handler.help = ['loli']
+
+handler.register = true
+
 export default handler

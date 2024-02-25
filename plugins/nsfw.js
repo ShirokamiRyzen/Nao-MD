@@ -22,6 +22,8 @@ let handler = async (m, { conn, usedPrefix, command, text, args }) => {
 };
 
 handler.command = /^(nsfw)$/i
+
+handler.register = true
 handler.premium = true
 handler.limit = false
 

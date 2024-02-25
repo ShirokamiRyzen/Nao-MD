@@ -38,6 +38,9 @@ handler.help = ['textpro'].map(v => v + ' <effect> <text>')
 handler.tags = ['maker', 'textpro']
 handler.command = /^(textpro)$/i
 
+handler.register = true
+handler.limit = true
+
 export default handler
 
 function pickRandom(list) {

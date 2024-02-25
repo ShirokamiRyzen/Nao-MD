@@ -25,6 +25,6 @@ handler.tags = ['sticker']
 handler.command = ['tovideo', 'tomp4']
 
 handler.register = true
-handler.limit = true
+handler.limit = 2
 
 export default handler

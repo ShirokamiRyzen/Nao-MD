@@ -7,7 +7,10 @@ let handler = async (m, { args, usedPrefix, command }) => {
 	m.reply(res.map(v => `*• Domain:* ${v.Domain}\n*• Status:* ${v.Status}`).join('\n\n'))
 }
 handler.command = /^web(check|cek)|(check|cek)web$/i
+
+handler.register = true
 handler.limit = true
+
 export default handler
 
 async function checkWeb(url) {

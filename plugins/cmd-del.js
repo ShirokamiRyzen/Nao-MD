@@ -12,6 +12,8 @@ let handler = async (m, { conn, usedPrefix, text, command }) => {
 handler.help = ['cmd'].map(v => 'del' + v + ' <teks>')
 handler.tags = ['database', 'premium']
 handler.command = ['delcmd']
+
+handler.register = true
 handler.premium = true
 
 export default handler

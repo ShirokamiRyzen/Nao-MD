@@ -16,6 +16,7 @@ handler.help = ['tomp3 (reply)']
 handler.tags = ['audio']
 
 handler.command = /^to(mp3|a(udio)?)$/i
+handler.register = true
 
 export default handler
 //script by Ryzen

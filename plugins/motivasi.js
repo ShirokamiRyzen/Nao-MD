@@ -19,6 +19,8 @@ handler.help = ['motivasi']
 handler.tags = ['quotes']
 handler.command = /^(motivasi)$/i
 
+handler.register = true
+
 export default handler
 
 function pickRandom(list) {

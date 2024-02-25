@@ -11,6 +11,7 @@ handler.help = ['chord <judul lagu>']
 handler.tags = ['tools']
 handler.command = /^(chord)$/i
 
+handler.register = true
 handler.limit = true
 
 export default handler

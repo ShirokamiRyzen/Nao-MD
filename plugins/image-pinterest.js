@@ -39,4 +39,6 @@ handler.help = ['pinterest <keyword>']
 handler.tags = ['internet']
 handler.command = /^pinterest$/i
 
+handler.register = true
+
 export default handler

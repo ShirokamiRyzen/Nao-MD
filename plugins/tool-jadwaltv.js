@@ -12,6 +12,8 @@ handler.help = ['jadwaltv']
 handler.tags = ['tools']
 handler.command = /^jadwaltv$/i
 
+handler.register = true
+
 export default handler
 
 async function jadwalTV(name) {

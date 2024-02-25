@@ -24,4 +24,6 @@ handler.help = ['mahasiswa <nama>']
 handler.tags = ['internet']
 handler.command = /^(mahasiswa)$/i
 
+handler.register = true
+
 export default handler

@@ -39,4 +39,7 @@ handler.help = ['lookup']
 handler.tags = ['internet']
 handler.command = /^(lookup)$/i
 
+handler.register = true
+handler.limit = true
+
 export default handler

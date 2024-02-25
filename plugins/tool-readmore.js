@@ -8,6 +8,8 @@ handler.help = ['readmore'].map(v => v + ' <teks>|<teks>')
 handler.tags = ['tools']
 handler.command = /^(spoiler|hidetext|readmore|selengkapnya)$/i
 
+handler.register = true
+
 export default handler
 
 const more = String.fromCharCode(8206)

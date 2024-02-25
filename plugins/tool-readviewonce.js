@@ -10,4 +10,6 @@ handler.help = ['read']
 handler.tags = ['tools']
 handler.command = /^read/i
 
+handler.register = true
+
 export default handler

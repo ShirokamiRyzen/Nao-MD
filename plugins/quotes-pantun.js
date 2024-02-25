@@ -18,6 +18,9 @@ m.reply(nth + `\n` + cin)
 handler.help = ['pantun']
 handler.tags = ['quotes']
 handler.command = /^(pantun)$/i
+
+handler.register = true
+
 export default handler
 
 function ucapan() {

@@ -24,6 +24,7 @@ handler.tags = ['internet']
 handler.command = /^(ssweb|sstablet|sspc|sshp)$/i
 
 handler.limit = false
+handler.register = true
 
 export default handler
 

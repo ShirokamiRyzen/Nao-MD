@@ -16,6 +16,10 @@ let handler = async (m, { conn, text }) => {
 		m.reply(buffer)
 	})
 }
+
+handler.help = ['blur']
+handler.tags = ['ai']
 handler.command = /^(blur)$/i
+handler.register = true
 
 export default handler

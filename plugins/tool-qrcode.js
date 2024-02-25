@@ -3,7 +3,7 @@ import { toDataURL } from 'qrcode'
 let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, 'Use example: \n.qrcode Shirokami Ryzen', m)
 
-conn.sendFile(m.chat, await toDataURL(text.slice(0, 2048), { scale: 8 }), 'qrcode.png', '¯\\_(ツ)_/¯', m)
+    conn.sendFile(m.chat, await toDataURL(text.slice(0, 2048), { scale: 8 }), 'qrcode.png', '¯\\_(ツ)_/¯', m)
 }
 
 handler.help = [''].map(v => 'qr' + v + ' <teks>')

@@ -14,6 +14,8 @@ handler.help = ['cekwarn']
 handler.tags = ['info']
 handler.command = /^(cekwarn)$/i
 
+handler.register = true
+
 export default handler
 
 const more = String.fromCharCode(8206)

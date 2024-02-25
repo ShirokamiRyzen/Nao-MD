@@ -9,4 +9,6 @@ handler.help = ['groups', 'grouplist']
 handler.tags = ['info']
 handler.command = /^(group(s|list))$/i
 
+handler.register = true
+
 export default handler

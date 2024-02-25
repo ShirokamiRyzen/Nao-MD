@@ -19,6 +19,9 @@ m.reply(nth + `\n` + cin)
 handler.help = ['q-bucin']
 handler.tags = ['quotes']
 handler.command = /^(q-bucin)$/i
+
+handler.register = true
+
 export default handler
 
 function ucapan() {

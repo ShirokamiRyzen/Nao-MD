@@ -20,6 +20,9 @@ m.reply(nth + `\n` + cin)
 handler.help = ['truth']
 handler.tags = ['quotes']
 handler.command = /^(truth)$/i
+
+handler.register = true
+
 export default handler
 
 function ucapan() {

@@ -53,4 +53,6 @@ handler.help = ['jarak'].map(v => v + ' dari|ke')
 handler.tags = ['tools']
 handler.command = /^(jarak)$/i
 
+handler.register = true
+
 export default handler

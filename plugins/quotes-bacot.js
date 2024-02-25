@@ -19,6 +19,7 @@ m.reply(nth + `\n` + bcod)
 handler.help = ['bacot']
 handler.tags = ['quotes']
 handler.command = /^(bacot)$/i
+
 handler.register = true
 
 export default handler

@@ -3,13 +3,14 @@ import fs from 'fs'
 let handler = async (m, { conn }) => {
 let teks = 'donasi'
 let dana = global.pdana
-//let saweria = global.psaweria
+let saweria = global.psaweria
 let bank1 = global.bank1
 let gopay = global.pgopay
 let numberowner = global.nomorown
 let anu = `Hai 👋
 Kalian bisa mendukung saya agar bot ini tetap up to date dengan:
 ┌〔 Donasi • Emoney 〕
+├ Saweria : ${saweria}
 ├ Jago : ${bank1}
 ├ Dana : ${dana}
 ├ Gopay : ${gopay}

@@ -67,7 +67,7 @@ global.pgopay = '085174269046'
 global.plinkaja = '-'
 global.ppulsa = '085174269046'
 global.ppulsa2 = '085174269046'
-global.psaweria = '-'
+global.psaweria = 'https://saweria.co/shirokamiryzen'
 global.bank1 = '109901209640'
 global.bank2 = '-'
 

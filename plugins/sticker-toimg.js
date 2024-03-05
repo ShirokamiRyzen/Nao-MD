@@ -1,4 +1,4 @@
-import sharp from 'sharp';
+import sharp from 'sharp'
 
 const TIMEOUT = 10000; // 10 detik
 
@@ -35,11 +35,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
   }
 };
 
-handler.help = ['toimg (reply)'];
-handler.tags = ['sticker'];
-handler.command = ['toimg'];
+handler.help = ['toimg (reply)']
+handler.tags = ['sticker']
+handler.command = ['toimg']
 
-handler.register = true;
-handler.limit = true;
+handler.register = true
+handler.limit = true
 
-export default handler;
+export default handler

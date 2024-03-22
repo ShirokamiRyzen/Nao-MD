@@ -7,6 +7,7 @@ enc/*
 main.js.bak
 plugins_bak/
 handlerr.js
+sftp/
 
 plugins/_monitor-mc.js
 Nao-MD.zip

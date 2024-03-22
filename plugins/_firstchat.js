@@ -7,12 +7,12 @@ export async function before(m) {
     let txt = `👋Hai, ${ucapan()}
 ${user.banned ? '📮Maaf, kamu dibanned & Tidak bisa menggunakan bot ini lagi' : `💬Ada yg bisa ${this.user.name} bantu?`}`.trim()
 
-    if (new Date() - user.pc < 21600000) return // waktu ori 21600000 (6 jam)
+    if (new Date() - user.pc < 86400000) return // waktu ori 21600000 (6 jam)
     await m.reply(`📮Note: Jangan spam botnya
 ⏩Ketik *.menu* untuk menampilkan menu
 
 📝Ingin menghilangkan *limit*?
-Berdonasi minimal 5k kamu akan mendapat akses *Premium*
+Berdonasi minimal 10k kamu akan mendapat akses *Premium*
 
 Ketik *.donasi* untuk info lebih lengkap
 

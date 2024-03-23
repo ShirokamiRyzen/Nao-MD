@@ -10,4 +10,6 @@ handler.help = ['user']
 handler.tags = ['info']
 handler.command = /^(user)$/i
 
+handler.owner = true
+
 export default handler

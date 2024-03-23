@@ -15,4 +15,6 @@ handler.tags = ['info']
 handler.help = ['blocklist']
 handler.command = /^(blocklist)$/i
 
+handler.owner = true
+
 export default handler

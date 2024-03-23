@@ -3,9 +3,10 @@ services:
   web:
     build: .
     ports:
-      - "8000:5000"
+      - "8100:5100"
     volumes:
-      - .:/code
+      - /home/ryzen/Nao-MD:/code
+      - /home/ryzen/Nao-MD/node_modules:/code/node_modules
       - logvolume01:/var/log
     links:
       - redis

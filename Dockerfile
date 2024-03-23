@@ -10,10 +10,8 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm i && npm i -g qrcode-terminal
-
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5100
 
 CMD ["node", "index.js"]

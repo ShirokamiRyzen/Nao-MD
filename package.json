@@ -11,7 +11,8 @@
     },
     "scripts": {
         "start": "node index.js --autocleartmp --autoread",
-        "test": "nodemon index.js --server --autocleartmp --autoread"
+        "test": "nodemon index.js --server --autocleartmp --autoread",
+        "mongodb": "node . --db 'url mongodbmu'"
     },
     "keywords": [
         "termux-whatsapp-bot",

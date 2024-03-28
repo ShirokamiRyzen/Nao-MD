@@ -71,9 +71,22 @@ async function tryServer1(url) {
 }
 
 async function tryServer2(url) {
-    // server 2 
+    // server 2 tikdown.ryzendesu.vip
+    let apiUrl;
+
+    // Checking if the URL is a TikTok video URL
+    const tiktokRegex = /^https:\/\/www\.tiktok\.com\/@.*\/video\/(\d+)\?/;
+    const match = url.match(tiktokRegex);
+
+    if (match) {
+        const id = match[1];
+        apiUrl = `https://tikdown.ryzendesu.vip/api/download?aweme_id=${id}`;
+    } else {
+        apiUrl = `https://tikdown.ryzendesu.vip/api/download?mobile=${url}`;
+    }
+
     try {
-        const response = await axios.get(`https://tikdown.ryzendesu.vip/api/download?mobile=${url}`);
+        const response = await axios.get(apiUrl);
 
         if (response.status === 200) {
             const data = response.data;

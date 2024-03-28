@@ -46,7 +46,7 @@ var handler = async (m, { conn, args }) => {
             const videoURL2 = tiktokData2.video0;
             //const soundURL2 = tiktokData2.sound;
 
-            await conn.sendFile(m.chat, videoURL2, 'tiktok2.mp4', 'Ini kak videonya dari Server 2', m);
+            await conn.sendFile(m.chat, videoURL2, 'tiktok2.mp4', 'Video dari: https://tikdown.ryzendesu.vip', m);
            // await conn.sendFile(m.chat, soundURL2, 'tiktok_sound.mp3', 'Ini kak soundnya dari Server 2', m);
 
         } catch (error2) {

@@ -3,7 +3,7 @@ import { googleImage } from '@bochilteam/scraper'
 var handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) throw `Use example ${usedPrefix}${command} Minecraft`
     
-    if (/(hentai|lewd|nude|bokep|porn|sex|furry|bugil|pussy|telanjang)/i.test(text) && global.db.data.users[m.sender].role === 'Free user') {
+    if (/(hentai|lewd|nude|bokep|porn|sex|furry|bugil|pussy|telanjang|pusy|memek|mmk)/i.test(text) && global.db.data.users[m.sender].role === 'Free user') {
         return conn.reply(m.chat, 'Hayoo mau ngapain lu?\n\nPesan ini otomatis diteruskan ke owner', m)
     }
     

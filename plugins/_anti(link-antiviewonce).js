@@ -1,32 +1,5 @@
 let { downloadContentFromMessage } = (await import('@adiwajshing/baileys'));
-
-export async function all(m) {
-    if (!m.message)
-        return
-    this.spam = this.spam ? this.spam : {}
-    let chat = global.db.data.chats[m.chat]
-    if (chat.antiSpam) {
-        if (m.sender in this.spam) {
-            this.spam[m.sender].count++
-            if (m.messageTimestamp.toNumber() - this.spam[m.sender].lastspam > 5) {
-                if (this.spam[m.sender].count > 5) {
-                    global.db.data.users[m.sender].banned = true
-                    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? this.user.jid : m.sender
-                    let caption = ` Banned *@${who.split("@")[0]}* Jangan spam kak!`
-                    this.reply(m.chat, caption, m)
-                }
-                this.spam[m.sender].count = 0
-                this.spam[m.sender].lastspam = m.messageTimestamp.toNumber()
-            }
-        }
-        else
-            this.spam[m.sender] = {
-                jid: m.sender,
-                count: 0,
-                lastspam: 0
-            }
-    }
-}
+import { format } from 'util';
 
 let handler = m => m
 let linkRegex = /(chat.whatsapp.com|whatsapp.com|wa.me|xnxx.com|xvideos.com|pornhub.com)\/([0-9A-Za-z]{1,99999})/i

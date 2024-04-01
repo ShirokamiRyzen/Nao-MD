@@ -17,8 +17,10 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     const media = await q.download();
 
     // Dekoding WebP tanpa webp-js
-    const decodedBuffer = await sharp(media).toFormat('png').toBuffer();
-
+    const decodedBuffer = await sharp(media).toFormat('png')
+      .png({ quality: 100, progressive: true, compressionLevel: 9 })
+      .toBuffer();
+      
     // Send PNG image
     if (decodedBuffer.length > 0) {
       await conn.sendFile(m.chat, decodedBuffer, 'out.png', '*DONE (≧ω≦)ゞ*', m);

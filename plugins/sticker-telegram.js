@@ -23,7 +23,7 @@ handler.help = ['stickertele <url>']
 handler.tags = ['sticker']
 handler.command = /^(stic?kertele(gram)?)$/i
 
-handler.limit = 1
+handler.limit = 15
 handler.register = true
 
 export default handler

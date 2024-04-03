@@ -18,7 +18,7 @@ Kalian bisa mendukung saya agar bot ini tetap up to date dengan:
 Kamu akan mendapat akses *Premium* jika berdonasi:
 10k = Premium 30 Hari
 15k = Premium 60 Hari
-25k = Premium 90 Hari
+25k = Premium 120 Hari
 50k = Premium 365 Hari
 
 Berapapun donasi kalian akan sangat berarti 👍

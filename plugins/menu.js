@@ -16,9 +16,6 @@ const defaultMenu = {
 ● *Premium:* %prems
 ● *Limit:* %limit
 ● *Role:* %role
-● *Level:* %level
-● *Xp:* %exp / %maxexp
-● *Total Xp:* %totalexp
 
 *${ucapan()} %name!*
 ● *Tanggal:* %week %weton
@@ -44,6 +41,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
     'main': 'Main',
+    'anonymous': 'Anonymous Chat',
     'stress': 'Stress',
     'ai': 'Ai feature',
     'memfess': 'Memfess',

@@ -1,7 +1,5 @@
 import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
-import uploadImage from '../lib/uploadImage.js'
-import { webp2png } from '../lib/webp2mp4.js'
 import fetch from 'node-fetch'
 import { addExif } from '../lib/sticker.js'
 import { Sticker } from 'wa-sticker-formatter'
@@ -35,7 +33,9 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       let img = await q.download?.()
       let stiker = false
       try {
-        stiker = await addExif(img, packname || '', author || '')
+        let pack = global.stickpack
+        let author = global.stickauth
+        stiker = await addExif(img, pack, author)
       } catch (e) {
         console.error(e)
       } finally {

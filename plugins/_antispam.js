@@ -4,10 +4,11 @@ export async function all(m) {
     this.spam = this.spam ? this.spam : {}
     if (m.sender in this.spam) {
         this.spam[m.sender].count++
-        if (m.messageTimestamp.toNumber() - this.spam[m.sender].lastspam > 10) {
-            if (this.spam[m.sender].count > 10) {
-                global.db.data.users[m.sender].banned = false
-                m.reply("Jangan spam") 
+        if (m.messageTimestamp.toNumber() - this.spam[m.sender].lastspam > 15) {
+            if (this.spam[m.sender].count > 15) {
+                global.db.data.users[m.sender].banned = true
+                global.db.data.users[m.sender].banReason = '*Auto detect:* Spam'
+                m.reply("Nomer kamu telah di-ban karena spam.") 
             }
             this.spam[m.sender].count = 0
             this.spam[m.sender].lastspam = m.messageTimestamp.toNumber()

@@ -6,23 +6,21 @@ let handler = async (m, { conn }) => {
 **Ketentuan Layanan (TOS) - Nao-MD ESM**
 Dengan menggunakan Nao-MD ESM, Anda setuju dengan ketentuan berikut:
 
-1. **Penafian Tanggung Jawab:**
-   Sebagai pengembang Nao-MD ESM, saya sebagai developer (${global.author}) tidak bertanggung jawab atas penggunaan Nao-MD ESM oleh pengguna, dalam bentuk atau cara apapun. Pengguna sepenuhnya bertanggung jawab atas tindakan mereka saat menggunakan layanan ini.
+1. *DILARANG KERAS MERUBAH TIMER/PESAN SEMENTARA*
+   Bot akan secara otomatis melakukan banning terhadap nomormu, untuk unban silahkan lapor owner (+${global.nomorown}).
 
-2. **Tanpa Jaminan:**
-   Nao-MD ESM disediakan "sebagaimana adanya" tanpa jaminan apa pun, baik secara tersurat maupun tersirat. Saya tidak menjamin akurasi, kehandalan, atau kesesuaian layanan untuk tujuan tertentu.
+2. *DILARANG MENGIRIM MEDIA NSFW*
+   Bot akan otomatis mendeteksi media dan melakukan banning terhadap nomormu, untuk unban silahkan lapor owner (+${global.nomorown}).
 
-3. **Risiko Penggunaan:**
-   Pengguna mengakui bahwa penggunaan Nao-MD ESM dapat melibatkan risiko, dan mereka setuju untuk menggunakan layanan ini atas risiko mereka sendiri. Saya tidak bertanggung jawab atas konsekuensi yang timbul dari penggunaan layanan ini.
+3. *DILARANG SPAM NOMOR BOT*
+   Bot akan melakukan ban permanent jika ada indikasi spam pada nomormu.
 
-4. **Perubahan Ketentuan:**
-   Saya berhak mengubah atau merevisi ketentuan ini kapan saja. Pengguna bertanggung jawab untuk memeriksa ketentuan ini secara berkala untuk pembaruan.
+4. *CHAT OWNER BILA PERLU*
+   Tidak ada gunanya chat ke nomor bot, karena nomor bot tersimpan di server dan owner tidak akan melihat chatmu.
 
-Dengan menggunakan Nao-MD ESM, Anda menunjukkan penerimaan Anda terhadap ketentuan ini. Jika Anda tidak setuju dengan ketentuan ini, harap hindari penggunaan Nao-MD ESM.
+Dengan menggunakan Nao-MD ESM, Anda setuju dengan semua ketentuan yang berlaku.
 
-Untuk pertanyaan atau kekhawatiran, hubungi saya di (+${global.nomorown}).
-
-*Ketentuan ini terakhir diperbarui pada 26 Desember 2023.*
+*Ketentuan ini terakhir diperbarui pada 12 Mei 2024.*
 `
   } else {
 
@@ -31,23 +29,21 @@ Untuk pertanyaan atau kekhawatiran, hubungi saya di (+${global.nomorown}).
 **Term of Service (TOS) - Nao-MD ESM**
 By using Nao-MD ESM, you agree to the following terms:
 
-1. **Disclaimer of Liability:**
-   As the developer of Nao-MD ESM, I as developer (${global.author}) do not assume any responsibility or liability for the usage of Nao-MD ESM by any user, in any form or manner. Users are solely responsible for their actions while using this service.
+1. *STRICTLY PROHIBITED TO MODIFY TIMERS/TEMPORARY MESSAGES*
+   The bot will automatically ban your number if you attempt to modify timers/temporary messages. To request an unban, please contact the owner at (+${global.nomorown}).
 
-2. **No Warranty:**
-   Nao-MD ESM is provided "as is" without any warranty of any kind, either expressed or implied. I do not guarantee the accuracy, reliability, or suitability of the service for any purpose.
+2. *PROHIBITED TO SEND NSFW MEDIA*
+   The bot will automatically detect NSFW media and ban your number. To request an unban, please contact the owner at (+${global.nomorown}).
 
-3. **Usage Risks:**
-   Users acknowledge that the use of Nao-MD ESM may involve risks, and they agree to use it at their own discretion. I am not responsible for any consequences resulting from the use of this service.
+3. *PROHIBITED TO SPAM BOT NUMBERS*
+   The bot will issue a permanent ban if there is any indication of spam from your number.
 
-4. **Changes to Terms:**
-   I reserve the right to modify or revise these terms at any time. Users are responsible for checking these terms regularly for updates.
+4. *CONTACT OWNER WHEN NECESSARY*
+   There is no point in messaging the bot number directly, as it is stored on the server and the owner will not see your messages.
 
-By using Nao-MD ESM, you indicate your acceptance of these terms. If you do not agree with these terms, please refrain from using Nao-MD ESM.
+By using Nao-MD ESM, you agree to abide by all applicable terms.
 
-For any inquiries or concerns, please contact me at (${global.nomorown}).
-
-*This TOS was last updated on 26 December 2023.*
+*These terms were last updated on May 12, 2024.*
 `
   }
 

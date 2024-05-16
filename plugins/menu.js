@@ -1,3 +1,7 @@
+// Script Ori By BochilGaming
+// Ditulis Ulang Oleh ImYanXiao
+// Disesuaikan Oleh ShirokamiRyzen
+
 import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
@@ -5,13 +9,11 @@ import moment from 'moment-timezone'
 import os from 'os'
 import fs from 'fs'
 import fetch from 'node-fetch'
-//import jimp from 'jimp'
-import PhoneNumber from 'awesome-phonenumber'
-
-const { generateWAMessageFromContent, proto } = (await import('@adiwajshing/baileys')).default
+const { generateWAMessageFromContent, proto, getDevice } = (await import('@adiwajshing/baileys')).default
 
 const defaultMenu = {
-  before: `● *Nama:*  %name 
+  before: `
+● *Nama:*  %name 
 ● *Nomor:* %tag
 ● *Premium:* %prems
 ● *Limit:* %limit
@@ -23,16 +25,25 @@ const defaultMenu = {
 ● *Tanggal Islam:* %dateIslamic
 ● *Waktu:* %time
 
+● *Nama Bot:* %me
+● *Mode:* %mode
+● *Prefix:* [ *%_p* ]
 ● *Platform:* %platform
 ● *Type:* Node.JS
 ● *Uptime:* %muptime
-%readmore
-`.trimStart(),
-  header: '╭─────『 %category 』',
-  body: '  ⫸ %cmd %isPremium %islimit',
-  footer: '╰–––––––––––––––༓',
-  after: ``,
-}
+● *Database:* %rtotalreg dari %totalreg
+
+⬣───「 *INFO CMD* 」───⬣
+│ *Ⓟ* = Premium
+│ *Ⓛ* = Limit
+▣────────────⬣
+  %readmore
+  `.trimStart(),
+    header: '╭─────『 %category 』',
+    body: '  ⫸ %cmd %isPremium %islimit',
+    footer: '╰–––––––––––––––༓',
+    after: ``,
+  }
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   if (m.isGroup && !global.db.data.chats[m.chat].menu) {
@@ -77,6 +88,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let lprem = global.lopr
     let llim = global.lolm
     let tag = `@${m.sender.split('@')[0]}`
+    let device = await getDevice(m.id)
 
     //-----------TIME---------
     let ucpn = `${ucapan()}`
@@ -126,6 +138,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let mpt = clockString(_mpt)
     let usrs = db.data.users[m.sender]
 
+
+    /**************************** TIME *********************/
     let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
     let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
@@ -157,6 +171,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
         enabled: !plugin.disabled,
       }
     })
+    
     let groups = {}
     for (let tag in tags) {
       groups[tag] = []

@@ -602,7 +602,7 @@ global.dfail = (type, m, conn) => {
         unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar',
         restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DI GRUP INI',
     }[type]
-    if (msg) return conn.reply(m.chat, msg)
+    if (msg) return conn.reply(m.chat, msg, m)
 }
 
 let file = global.__filename(import.meta.url, true)

@@ -11,9 +11,9 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 handler.help = ['delexpired']
 handler.tags = ['owner']
 handler.command = /^(delexpired|delsewa)$/i
-handler.rowner = false
+handler.rowner = true
 handler.group = true
-handler.premium = true
+handler.premium = false
 
 export default handler
 

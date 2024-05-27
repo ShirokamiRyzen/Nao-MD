@@ -64,7 +64,7 @@ ${result.description}
 
 handler.help = ['fb <url>']
 handler.tags = ['downloader']
-handler.command = /^(fbdownload|fb(dl)?)$/i
+handler.command = /^(fbdownload|facebook|fb(dl)?)$/i
 
 handler.limit = true
 handler.register = true

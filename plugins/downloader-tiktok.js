@@ -1,54 +1,46 @@
-import axios from 'axios'
+import fetch from 'node-fetch'
+import ffmpeg from "fluent-ffmpeg"
 
-var handler = async (m, { conn, args }) => {
+var handler = async (m, { conn, args, usedPrefix, command }) => {
     if (!args[0]) {
-        throw 'Uhm... URL-nya mana?';
+        throw `*[❗] Example: ${usedPrefix + command
+        } https://www.tiktok.com/@tuanliebert/video/7313159590349212934?is_from_webapp=1&sender_device=pc`;
     }
 
     try {
-        const tiktokData = await tryServer1(args[0]);
+        await conn.reply ( m.chat, "Tunggu sebentar kak, video sedang di download...", m, );
 
-        if (!tiktokData || !tiktokData.result.video || !tiktokData.result.music || !tiktokData.result.title) {
-            throw 'Gagal mendownload video dari server 1!';
+        const tiktokData = await tiktokdl(args[0]);
+
+        if (!tiktokData) {
+            throw "Gagal mendownload video!";
         }
 
-        const { title, music, video } = tiktokData.result;
-        const videoURL = video;
-        const audioURL = music;
-        const videoTitle = title;
+        const videoURL = tiktokData.data.play;
+        const videoURLWatermark = tiktokData.data.wmplay;
+        const infonya_gan = `Judul: ${tiktokData.data.title}\nUpload: ${tiktokData.data.create_time
+            }\n\nSTATUS:\n=====================\nLike = ${tiktokData.data.digg_count
+            }\nKomen = ${tiktokData.data.comment_count}\nShare = ${tiktokData.data.share_count
+            }\nViews = ${tiktokData.data.play_count}\nSimpan = ${tiktokData.data.download_count
+            }\n=====================\n\nUploader: ${tiktokData.data.author.nickname || "Tidak ada informasi penulis"
+            }\n(${tiktokData.data.author.unique_id} - https://www.tiktok.com/@${tiktokData.data.author.unique_id
+            } )\nSound: ${tiktokData.data.music
+            }\n`;
 
-        if (videoURL && audioURL && videoTitle) {
-            const infonya_gan = `Judul: ${videoTitle}\nLagu: ${audioURL}`;
-            await conn.sendFile(m.chat, videoURL, 'tiktok.mp4', `Ini kak videonya\n\n${infonya_gan}`, m);
+        if (videoURL || videoURLWatermark) {
+            await conn.sendFile( m.chat, videoURL, "tiktok.mp4", `Ini kak videonya\n\n${infonya_gan}`, m, );
+            setTimeout(async () => {
+                await conn.sendFile( m.chat, videoURLWatermark, "tiktokwm.mp4", `*Ini Versi Watermark*\n\n${infonya_gan}`, m, );
+
+                await conn.sendFile( m.chat, `${tiktokData.data.music}`, "lagutt.mp3", "ini lagunya", m, );
+
+                conn.reply( m.chat, "•⩊• Ini kak Videonya ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა\nDitonton yah ₍^ >ヮ<^₎", m, );
+            }, 1500);
         } else {
-            throw 'Tidak ada tautan video, audio, atau judul yang tersedia dari server 1.';
+            throw "Tidak ada tautan video yang tersedia.";
         }
     } catch (error1) {
-        // Jika server 1 gagal, gunakan server 2
-        await conn.reply(m.chat, 'Tunggu sebentar kak, video sedang di download... server 2', m);
-        try {
-            const tiktokData2 = await tryServer2(args[0]);
-
-            if (!tiktokData2 || !tiktokData2.result || !tiktokData2.result.video || !tiktokData2.result.audio || !tiktokData2.result.title) {
-                throw 'Gagal mendownload video dari server 2!';
-            }
-
-            const { title, title_audio, video, audio, creator } = tiktokData2.result;
-            const videoURL2 = video[0];
-            const audioURL2 = audio[0];
-            const videoTitle = title;
-            const audioTitle = title_audio;
-            const videoCreator = creator;
-
-            if (videoURL2 && audioURL2 && videoTitle && audioTitle) {
-                const infonya_gan = `Judul: ${videoTitle}\nLagu: ${audioTitle}\nAudio link: ${audioURL2}\nCreator: ${videoCreator}`;
-                await conn.sendFile(m.chat, videoURL2, 'tiktok2.mp4', `Ini kak videonya\n\n${infonya_gan}`, m);
-            } else {
-                throw 'Tidak ada tautan video, audio, atau judul yang tersedia dari server 2.';
-            }
-        } catch (error2) {
-            conn.reply(m.chat, `Error: ${error2}`, m);
-        }
+        conn.reply(m.chat, `Error: ${error1}`, m);
     }
 };
 
@@ -62,14 +54,18 @@ handler.limit = true
 
 export default handler
 
-async function tryServer1(url) {
-    let tiklydownAPI = `https://aemt.me/download/tikdl?url=${url}`;
-    let response = await axios.get(tiklydownAPI);
-    return response.data;
+async function tiktokdl(url) {
+    let tikwm = `https://www.tikwm.com/api/?url=${url}?hd=1`
+    let response = await (await fetch(tikwm)).json()
+    return response
 }
 
-async function tryServer2(url) {
-    let tiklydownAPI = `https://aemt.me/download/ttdl?url=${url}`;
-    let response = await axios.get(tiklydownAPI);
-    return response.data;
+async function convertVideoToMp3(videoUrl, outputFileName) {
+    return new Promise((resolve, reject) => {
+        ffmpeg(videoUrl)
+            .toFormat("mp3")
+            .on("end", () => resolve())
+            .on("error", (err) => reject(err))
+            .save(outputFileName);
+    });
 }

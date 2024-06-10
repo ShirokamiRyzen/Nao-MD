@@ -11,7 +11,10 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         m.reply('Tunggu Sebentar...')
         let media = await q.download()
         let url = await uploadImage(media)
-        let hasil = await (await fetch(`https://skizo.tech/api/toanime?url=${url}&apikey=${global.xzn}`)).buffer()
+        let response = await fetch(`https://aemt.me/toanime?url=${url}`)
+        let json = await response.json()
+        let hasilUrl = json.url
+        let hasil = await (await fetch(hasilUrl)).buffer()
         await conn.sendFile(m.chat, hasil, '', global.wm, m)
     } catch (error) {
         console.error(error)

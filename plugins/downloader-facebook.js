@@ -2,60 +2,75 @@
 //Script by ShirokamiRyzen
 
 import fetch from 'node-fetch'
-import { fbdown } from '../lib/scrape.js';
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+let handler = async (m, { conn, args }) => {
 
     if (!args[0]) throw 'Please provide a Facebook video URL';
     const sender = m.sender.split(`@`)[0];
 
-    m.reply(wait)
+    m.reply('Please wait...');
 
     try {
         const url = args[0];
-        const result = await fbdown(url);
+        const apiUrl = `https://aemt.me/download/fbdl?url=${url}`;
+        let response = await fetch(apiUrl);
+        let result = await response.json();
 
-        if (!result) {
-            throw 'Failed to fetch video details';
-        }
+        if (!result || !result.status || !result.result || (!result.result.HD && !result.result.Normal_video)) {
+            // Try the second API if the first one fails
+            const backupApiUrl = `https://aemt.me/download/fbdown?url=${url}`;
+            response = await fetch(backupApiUrl);
+            result = await response.json();
 
-        let videoLink;
-        let caption;
+            if (!result || !result.status || !result.result || !result.result.url) {
+                throw 'Failed to fetch video details from both APIs';
+            }
 
-        if (result.hdLink && result.sdLink) {
-            videoLink = result.hdLink;
-            caption = `
-*Title*: ${result.title}
+            const videoLink = result.result.url.isHdAvailable ? result.result.url.urls[0].hd : result.result.url.urls[1].sd;
+            const caption = `
+*Title*: ${result.result.url.title || 'No title'}
 
-${result.description}
-
-*HD Link*: ${result.hdLink}
-*SD Link*: ${result.sdLink}
+*HD Link*: ${result.result.url.isHdAvailable ? result.result.url.urls[0].hd : 'Not available'}
+*SD Link*: ${result.result.url.urls[1].sd}
 `;
+
+            const videoBuffer = await fetch(videoLink).then(res => res.buffer());
+
+            await conn.sendMessage(
+                m.chat, {
+                video: videoBuffer,
+                mimetype: "video/mp4",
+                fileName: `video.mp4`,
+                caption: `Ini kak videonya @${sender} \n${caption}`,
+                mentions: [m.sender],
+            }, {
+                quoted: m
+            });
         } else {
-            videoLink = result.sdLink;
-            caption = `
-*Title*: ${result.title}
+            // Handle the first API response
+            const videoLink = result.result.HD || result.result.Normal_video;
+            const caption = `
+*Title*: ${result.result.title || 'No title'}
 
-${result.description}
+${result.result.description || 'No description'}
 
-*SD Link*: ${result.sdLink}
+*HD Link*: ${result.result.HD || 'Not available'}
+*Normal Video Link*: ${result.result.Normal_video || 'Not available'}
 `;
+
+            const videoBuffer = await fetch(videoLink).then(res => res.buffer());
+
+            await conn.sendMessage(
+                m.chat, {
+                video: videoBuffer,
+                mimetype: "video/mp4",
+                fileName: `video.mp4`,
+                caption: `Ini kak videonya @${sender} \n${caption}`,
+                mentions: [m.sender],
+            }, {
+                quoted: m
+            });
         }
-
-        const videoBuffer = await fetch(videoLink).then(res => res.buffer());
-
-        await conn.sendMessage(
-            m.chat, {
-            video: videoBuffer,
-            mimetype: "video/mp4",
-            fileName: `video.mp4`,
-            caption: `Ini kak videonya @${sender} \n${caption}`,
-            mentions: [m.sender],
-        }, {
-            quoted: m
-        },
-        );
     } catch (error) {
         console.error('Handler Error:', error);
         conn.reply(m.chat, `An error occurred: ${error}`, m);

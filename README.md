@@ -24,11 +24,13 @@
 - If the feature not working, just buy your own API key
 - OpenAI require API key, so you need provide it
 - If you cant see the pairing code check [here](https://github.com/ShirokamiRyzen/Nao-MD/issues/10)
+- If you see #HIDDEN in error logs, just fill all API key in config.js or leave it blank.
 ---------
 - Ubah semua Informasi Owner di config.js
 - Jika sebagian fitur ada yang tidak berfungsi, beli API key lu sendiri
-- OpenAI perlu Api key jadi lu harus sediain sendiri
+- OpenAI perlu API key jadi lu harus sediain sendiri
 - Gak liat pairing code? [cek sini](https://github.com/ShirokamiRyzen/Nao-MD/issues/10)
+- Kalo di error log muncul #HIDDEN isi semua API key di config.js atau lu kosongin aja isinya
 
 
 ### a little about this bot

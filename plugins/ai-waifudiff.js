@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     await conn.relayMessage(m.chat, { reactionMessage: { key: m.key, text: '👌' } }, { messageId: m.key.id })
     try {
-        let url = `https://aemt.me/v5/text2img?text=${text}`
+        let url = `https://widipe.com/v5/text2img?text=${text}`
 
         await conn.sendFile(m.chat, await (await fetch(url)).buffer(), 'fubuki.jpg', wm, m)
         m.react(done)

@@ -11,7 +11,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         m.reply('Tunggu Sebentar...')
         let media = await q.download()
         let url = await uploadImage(media)
-        let response = await fetch(`https://aemt.me/toanime?url=${url}`)
+        let response = await fetch(`https://widipe.com/toanime?url=${url}`)
         let json = await response.json()
         let hasilUrl = json.url
         let hasil = await (await fetch(hasilUrl)).buffer()

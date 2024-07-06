@@ -2,18 +2,36 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
   if (!text) throw `Judulnya?`;
-  let res = await fetch(`https://ryzendesu-backend.vercel.app/anime/?search=${text}`);
-  let otaku = await res.json();
+
+  // Function to fetch anime or movie data
+  const fetchData = async (url) => {
+    let res = await fetch(url);
+    let data = await res.json();
+    return data;
+  };
+
+  // Try fetching from anime endpoint first
+  let otaku = await fetchData(`https://ryzendesu-backend.vercel.app/anime/?search=${text}`);
+  let isAnime = true;
 
   if (!otaku || otaku.length === 0) {
-    throw `Anime tidak ditemukan.`;
+    // If no anime found, try fetching from movies endpoint
+    let movies = await fetchData(`https://ryzendesu-movie-backend.netlify.app/movies`);
+    otaku = movies.filter(movie => movie.judul.toLowerCase().includes(text.toLowerCase()));
+    isAnime = false;
+
+    if (!otaku || otaku.length === 0) {
+      throw `Anime atau film tidak ditemukan.`;
+    }
   }
 
   // Mengambil slug dari JSON
   let animeSlug = otaku[0].slug;
 
   // Membuat URL dengan menggabungkan URL dasar dan slug
-  let animeUrl = `https://www.ryzendesu.vip/anime/${animeSlug}`;
+  let animeUrl = isAnime ? 
+    `https://www.ryzendesu.vip/anime/${animeSlug}` : 
+    `https://www.ryzendesu.vip/movie/${animeSlug}`;
 
   // Mengambil thumbnail URL
   let thumbnailUrl = otaku[0].gambar;

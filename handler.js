@@ -167,6 +167,8 @@ export async function handler(chatUpdate) {
             return
         if (opts['gconly'] && !m.chat.endsWith('g.us'))
             return
+        if (opts['owneronly'] && !m.chat.startsWith(`${global.nomorown}`))
+            return
         if (opts['swonly'] && m.chat !== 'status@broadcast')
             return
         if (typeof m.text !== 'string')

@@ -189,6 +189,14 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       global.opts['pconly'] = isEnable
       break
+    case 'owneronly':
+      isAll = true
+      if (!isROwner) {
+        global.dfail('rowner', m, conn)
+        throw false
+      }
+      global.opts['owneronly'] = isEnable
+      break
     case 'gconly':
     case 'grouponly':
       isAll = true
@@ -263,30 +271,32 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
     default:
       if (!/[01]/.test(command)) return m.reply(`
 List option:
-| autogpt
-| welcome
-| delete
-| public
 | antibadword
-| antilink
 | antidelete
+| antilink
 | antisticker
 | autobio
-| autosticker
+| autobio
+| autogpt
 | autolevelup
+| autoread
+| autosticker
+| delete
 | detect
 | document
-| whitelistmycontacts
-| restrict
-| nyimak
-| autoread
-| pconly
 | gconly
-| swonly
-| self
-| nsfw
-| simi
 | menu
+| nsfw
+| nyimak
+| owneronly
+| pconly
+| public
+| self
+| simi
+| swonly
+| whitelistmycontacts
+| welcome
+
 Contoh:
 ${usedPrefix}enable welcome
 ${usedPrefix}disable welcome

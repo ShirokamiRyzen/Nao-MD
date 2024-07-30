@@ -1,9 +1,10 @@
-import ytdl from 'ytdl-core';
-import yts from 'yt-search';
-import fs from 'fs';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
-import os from 'os';
+import yts from 'yt-search'
+import fs from 'fs'
+import { pipeline } from 'stream'
+import { promisify } from 'util'
+import os from 'os'
+import fetch from 'node-fetch'
+import { youtubedl } from '../lib/youtube.js'
 
 const streamPipeline = promisify(pipeline);
 
@@ -12,16 +13,17 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
 
   let search = await yts(text);
   let vid = search.videos[Math.floor(Math.random() * search.videos.length)];
-  if (!search) throw 'Video Not Found, Try Another Title';
+  if (!vid) throw 'Video Not Found, Try Another Title';
   let { title, thumbnail, timestamp, views, ago, url } = vid;
 
-  conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: wait, footer: author }, { quoted: m });
+  conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: wait }, { quoted: m });
 
+  // Get video details and download link
+  const { result, resultUrl } = await youtubedl(url);
+  const audioInfo = resultUrl.audio.find(a => a.quality === '128kbps') || resultUrl.audio[0];  // Select the highest quality available
 
-  const audioStream = ytdl(url, {
-    filter: 'audioonly',
-    quality: 'highestaudio',
-  });
+  // Fetch the download URL
+  const downloadUrl = await audioInfo.download();
 
   // Get the path to the system's temporary directory
   const tmpDir = os.tmpdir();
@@ -29,8 +31,12 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
   // Create writable stream in the temporary directory
   const writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
 
-  // Start the download
-  await streamPipeline(audioStream, writableStream);
+  // Download audio
+  const response = await fetch(downloadUrl);
+  if (!response.ok) throw new Error(`Failed to download audio: ${response.statusText}`);
+
+  // Start downloading audio
+  await streamPipeline(response.body, writableStream);
 
   let doc = {
     audio: {
@@ -44,7 +50,7 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
         mediaType: 2,
         mediaUrl: url,
         title: title,
-        body: wm,
+        body: 'Audio Download',
         sourceUrl: url,
         thumbnail: await (await conn.getFile(thumbnail)).data
       }

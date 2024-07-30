@@ -1,7 +1,7 @@
-import ytdl from 'ytdl-core'
 import fs from 'fs'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
+import { youtubedl } from '../lib/youtube.js'
 
 const streamPipeline = promisify(pipeline);
 
@@ -11,26 +11,25 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
 
     const videoUrl = text;
 
-    // Dapatkan informasi video dari URL
-    const videoInfo = await ytdl.getInfo(videoUrl);
+    m.reply(wait)
 
-    // Ekstrak informasi yang diperlukan
-    const { videoDetails } = videoInfo;
-    const { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
-    const thumbnail = thumbnails[0].url; // Gunakan thumbnail pertama
+    // Get video details and download link
+    const { result, resultUrl } = await youtubedl(videoUrl);
+    const { title, duration, author } = result;
+    const videoInfo = resultUrl.video.find(v => v.quality === '1080p') || resultUrl.video[0];  // Select the highest quality available
 
+    // Fetch the download URL
+    const downloadUrl = await videoInfo.download();
 
-    // Dapatkan aliran video dengan kualitas tertinggi
-    const videoStream = ytdl(videoUrl, {
-        filter: 'audioandvideo',
-        quality: 'highest',
-    });
-
-    // Buat writable stream dalam direktori sementara
+    // Create writable stream in temporary directory
     const writableStream = fs.createWriteStream(`tmp/${title}.mp4`);
 
-    // Mulai mengunduh video
-    await streamPipeline(videoStream, writableStream);
+    // Download video
+    const response = await fetch(downloadUrl);
+    if (!response.ok) throw new Error(`Failed to download video: ${response.statusText}`);
+
+    // Start downloading video
+    await streamPipeline(response.body, writableStream);
 
     let doc = {
         video: {
@@ -45,14 +44,14 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
                 mediaUrl: videoUrl,
                 title: title,
                 sourceUrl: videoUrl,
-                thumbnail: await (await conn.getFile(thumbnail)).data
+                thumbnail: await (await conn.getFile(result.thumbnail)).data
             }
         }
     };
 
     await conn.sendMessage(m.chat, doc, { quoted: m });
 
-    // Hapus file video
+    // Delete video file
     fs.unlink(`tmp/${title}.mp4`, (err) => {
         if (err) {
             console.error(`Failed to delete video file: ${err}`);

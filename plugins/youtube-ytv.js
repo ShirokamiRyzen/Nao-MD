@@ -65,7 +65,7 @@ handler.help = ['ytmp4'].map((v) => v + ' <URL>')
 handler.tags = ['downloader']
 handler.command = /^(ytmp4)$/i
 
-handler.limit = 2
+handler.limit = 4
 handler.register = true
 handler.disable = false
 

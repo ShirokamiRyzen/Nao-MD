@@ -73,7 +73,7 @@ handler.help = ['play'].map((v) => v + ' <query>')
 handler.tags = ['downloader']
 handler.command = /^(play)$/i
 
-handler.limit = true
+handler.limit = 2
 handler.register = true
 handler.disable = false
 

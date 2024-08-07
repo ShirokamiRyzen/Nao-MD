@@ -1,5 +1,4 @@
 import yts from 'yt-search'
-import fs from 'fs'
 
 let handler = async (m, {conn, text }) => {
   if (!text) throw 'Cari apa?'

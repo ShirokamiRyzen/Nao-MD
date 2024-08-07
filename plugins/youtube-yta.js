@@ -1,11 +1,7 @@
 import fs from 'fs'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
 import os from 'os'
 import fetch from 'node-fetch'
 import { youtubedl } from '../lib/youtube.js'
-
-const streamPipeline = promisify(pipeline);
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
@@ -24,35 +20,42 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
   // Create writable stream in temporary directory
   let tmpDir = os.tmpdir();
-  let writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
+  let filePath = `${tmpDir}/${title}.mp3`;
+  let writableStream = fs.createWriteStream(filePath);
 
   // Download audio
   const response = await fetch(downloadUrl);
   if (!response.ok) throw new Error(`Failed to download audio: ${response.statusText}`);
 
-  // Start downloading audio
-  await streamPipeline(response.body, writableStream);
+  // Pipe the response into the writable stream
+  response.body.pipe(writableStream);
 
-  let dl_url = `${tmpDir}/${title}.mp3`;
-  let info = `Title: ${title}\nLength: ${duration}s\nAuthor: ${author}`;
+  writableStream.on('finish', async () => {
+    let info = `Title: ${title}\nLength: ${duration}s\nAuthor: ${author}`;
 
-  await conn.sendMessage(m.chat, {
-    document: {
-      url: dl_url,
-    },
-    mimetype: 'audio/mpeg',
-    fileName: `${title}.mp3`,
-    caption: info,
-  }, { quoted: m });
+    await conn.sendMessage(m.chat, {
+      document: {
+        url: filePath,
+      },
+      mimetype: 'audio/mpeg',
+      fileName: `${title}.mp3`,
+      caption: info,
+    }, { quoted: m });
 
-  fs.unlink(`${tmpDir}/${title}.mp3`, (err) => {
-    if (err) {
-      console.error(`Failed to delete audio file: ${err}`);
-    } else {
-      console.log(`Deleted audio file: ${tmpDir}/${title}.mp3`);
-    }
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(`Failed to delete audio file: ${err}`);
+      } else {
+        console.log(`Deleted audio file: ${filePath}`);
+      }
+    });
   });
-};
+
+  writableStream.on('error', (err) => {
+    console.error(`Failed to write audio file: ${err}`);
+    m.reply('Failed to download audio');
+  });
+}
 
 handler.help = ['ytmp3'].map((v) => v + ' <URL>')
 handler.tags = ['downloader']

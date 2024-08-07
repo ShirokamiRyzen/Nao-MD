@@ -1,67 +1,84 @@
 import fs from 'fs'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
+import os from 'os'
+import fetch from 'node-fetch'
 import { youtubedl } from '../lib/youtube.js'
 
-const streamPipeline = promisify(pipeline);
-
 var handler = async (m, { conn, command, text, usedPrefix }) => {
+  if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL> [resolution]`;
 
-    if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
+  // Split the text to get the video URL and the optional resolution
+  const args = text.split(' ');
+  const videoUrl = args[0];
+  const resolution = args[1];
 
-    const videoUrl = text;
+  m.reply(wait);
 
-    m.reply(wait)
+  // Get video details and download link
+  const { result, resultUrl } = await youtubedl(videoUrl);
+  const { title, duration, author, thumbnail } = result;
 
-    // Get video details and download link
-    const { result, resultUrl } = await youtubedl(videoUrl);
-    const { title, duration, author } = result;
-    const videoInfo = resultUrl.video.find(v => v.quality === '1080p') || resultUrl.video[0];  // Select the highest quality available
+  // Select the video quality based on user input or default to the highest quality
+  const videoInfo = resolution
+    ? resultUrl.video.find(v => v.quality === resolution)
+    : resultUrl.video[0];
 
-    // Fetch the download URL
-    const downloadUrl = await videoInfo.download();
+  if (!videoInfo) throw `Resolution ${resolution} not available for this video.`;
 
-    // Create writable stream in temporary directory
-    const writableStream = fs.createWriteStream(`tmp/${title}.mp4`);
+  // Fetch the download URL
+  const downloadUrl = await videoInfo.download();
 
-    // Download video
-    const response = await fetch(downloadUrl);
-    if (!response.ok) throw new Error(`Failed to download video: ${response.statusText}`);
+  // Get the path to the system's temporary directory
+  const tmpDir = os.tmpdir();
+  const filePath = `${tmpDir}/${title}.mp4`;
 
-    // Start downloading video
-    await streamPipeline(response.body, writableStream);
+  // Create writable stream in the temporary directory
+  const writableStream = fs.createWriteStream(filePath);
 
+  // Download video
+  const response = await fetch(downloadUrl);
+  if (!response.ok) throw new Error(`Failed to download video: ${response.statusText}`);
+
+  // Pipe the response into the writable stream
+  response.body.pipe(writableStream);
+
+  writableStream.on('finish', async () => {
     let doc = {
-        video: {
-            url: `tmp/${title}.mp4`
-        },
-        mimetype: 'video/mp4',
-        fileName: `${title}`,
-        contextInfo: {
-            externalAdReply: {
-                showAdAttribution: true,
-                mediaType: 2,
-                mediaUrl: videoUrl,
-                title: title,
-                sourceUrl: videoUrl,
-                thumbnail: await (await conn.getFile(result.thumbnail)).data
-            }
+      video: {
+        url: filePath
+      },
+      mimetype: 'video/mp4',
+      fileName: `${title}`,
+      contextInfo: {
+        externalAdReply: {
+          showAdAttribution: true,
+          mediaType: 2,
+          mediaUrl: videoUrl,
+          title: title,
+          sourceUrl: videoUrl,
+          thumbnail: await (await conn.getFile(thumbnail)).data
         }
+      }
     };
 
     await conn.sendMessage(m.chat, doc, { quoted: m });
 
-    // Delete video file
-    fs.unlink(`tmp/${title}.mp4`, (err) => {
-        if (err) {
-            console.error(`Failed to delete video file: ${err}`);
-        } else {
-            console.log(`Deleted video file: tmp/${title}.mp4`);
-        }
+    // Delete the video file
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(`Failed to delete video file: ${err}`);
+      } else {
+        console.log(`Deleted video file: ${filePath}`);
+      }
     });
-};
+  });
 
-handler.help = ['ytmp4'].map((v) => v + ' <URL>')
+  writableStream.on('error', (err) => {
+    console.error(`Failed to write video file: ${err}`);
+    m.reply('Failed to download video');
+  });
+}
+
+handler.help = ['ytmp4'].map((v) => v + ' <URL> [resolution]')
 handler.tags = ['downloader']
 handler.command = /^(ytmp4)$/i
 

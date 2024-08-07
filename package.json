@@ -36,7 +36,7 @@
     "license": "GPL-3.0-or-later",
     "dependencies": {
         "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@latest",
-        "@bochilteam/scraper": "^4.2.4",
+        "@bochilteam/scraper": "^5.0.1",
         "@ibaraki-douji/pixivts": "*",
         "@vitalets/google-translate-api": "^9.2.0",
         "awesome-phonenumber": "^2.68.0",

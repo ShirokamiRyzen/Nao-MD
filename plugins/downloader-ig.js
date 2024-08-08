@@ -1,23 +1,42 @@
-import { instagramdl } from '@bochilteam/scraper'
-import fetch from 'node-fetch'
+// Don't delete this credit!!!
+// Script by ShirokamiRyzen
 
-var handler = async (m, { args, conn, usedPrefix, command }) => {
-    if (!args[0]) throw `Ex:\n${usedPrefix}${command} https://www.instagram.com/reel/C0EEgMNSSHw/?igshid=MzY1NDJmNzMyNQ==`;
+import { snapsave } from '@bochilteam/scraper'
 
-    m.reply('Sedang mengunduh video...')
-    
+let handler = async (m, { conn, args }) => {
+    if (!args[0]) throw 'Please provide a Instagram video URL';
+    const sender = m.sender.split('@')[0];
+    const url = args[0];
+
+    m.reply(wait);
+
     try {
-        let res = await bochil.snapsave(args[0]);
-        let media = await res[0].url;
-      
-        const sender = m.sender.split(`@`)[0];
+        const data = await snapsave(url);
+        
+        // Find the HD video
+        let video = data.results[0];
 
-        if (!res) throw 'Can\'t download the post';
-      
-        await conn.sendMessage(m.chat, { video: { url: media }, caption: `ini kak videonya @${sender}`, mentions: [m.sender]}, m);
+        if (video) {
+            const videoBuffer = await fetch(video.url).then(res => res.buffer());
+            const caption = `Ini kak videonya @${sender}`;
 
-    } catch (e) {
-      conn.reply(m.chat, 'Gagal mengunduh video', m);
+            await conn.sendMessage(
+                m.chat, {
+                    video: videoBuffer,
+                    mimetype: "video/mp4",
+                    fileName: `video.mp4`,
+                    caption: caption,
+                    mentions: [m.sender],
+                }, {
+                    quoted: m
+                }
+            );
+        } else {
+            throw 'No available video found';
+        }
+    } catch (error) {
+        console.error('Handler Error:', error);
+        conn.reply(m.chat, `An error occurred: ${error}`, m);
     }
 }
 

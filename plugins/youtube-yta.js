@@ -1,69 +1,50 @@
-import axios from 'axios'
+import ytdl from '@distube/ytdl-core'
 import fs from 'fs'
-import path from 'path'
+import { pipeline } from 'stream'
 import { promisify } from 'util'
+import os from 'os'
 
-const unlinkAsync = promisify(fs.unlink);
-
+let streamPipeline = promisify(pipeline);
 let handler = async (m, { conn, command, text, usedPrefix }) => {
+
   if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
+  let videoUrl = text;
+  let videoInfo = await ytdl.getInfo(videoUrl);
+  let { videoDetails } = videoInfo;
+  let { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
+  let thumbnail = thumbnails[0].url;
+  let audioStream = ytdl(videoUrl, {
+    filter: 'audioonly',
+    quality: 'highestaudio',
+  });
+  let tmpDir = os.tmpdir();
+  let writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
+  await streamPipeline(audioStream, writableStream);
 
-  const videoUrl = text;
-  m.reply('Processing...');
+  let dl_url = `${tmpDir}/${title}.mp3`;
+  let info = `Title: ${title}\nLength: ${lengthSeconds}s\nViews: ${viewCount}\nUploaded: ${uploadDate}`;
 
-  try {
-    // Fetch video data from the API
-    const { data } = await axios.get(`https://apis.ryzendesu.vip/api/downloader/ytdl?url=${videoUrl}`);
-    
-    if (!data || !data.audioFormats || data.audioFormats.length === 0) {
-      throw 'No audio formats available for this video.';
+  await conn.sendMessage(m.chat, {
+    document: {
+      url: dl_url,
+    },
+    mimetype: 'audio/mpeg',
+    fileName: `${title}.mp3`,
+    caption: info,
+  }, { quoted: m });
+
+  fs.unlink(`${tmpDir}/${title}.mp3`, (err) => {
+    if (err) {
+      console.error(`Failed to delete audio file: ${err}`);
+    } else {
+      console.log(`Deleted audio file: ${tmpDir}/${title}.mp3`);
     }
+  });
+};
 
-    // Select the first audio format (you can modify this to choose different formats)
-    const audioFormat = data.audioFormats[0];
-    const audioUrl = audioFormat.download;
-
-    // Download the audio file
-    const filePath = path.join(__dirname, `${Date.now()}.mp3`);
-    const writer = fs.createWriteStream(filePath);
-
-    // Pipe the audio stream to a file
-    const response = await axios({
-      url: audioUrl,
-      method: 'GET',
-      responseType: 'stream'
-    });
-
-    response.data.pipe(writer);
-
-    // Wait for the file to be fully written
-    await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
-
-    // Send the audio file
-    await conn.sendMessage(m.chat, {
-      document: {
-        url: filePath,
-      },
-      mimetype: 'audio/mpeg',
-      fileName: `${data.result.title}.mp3`,
-      caption: `Title: ${data.result.title}\nDuration: ${data.result.duration}\nAuthor: ${data.result.author}`,
-    }, { quoted: m });
-
-    // Clean up: delete the file after sending
-    await unlinkAsync(filePath);
-
-  } catch (error) {
-    console.error(`Failed to process video: ${error}`);
-    m.reply('Failed to download audio');
-  }
-}
-
-handler.help = ['ytmp3'].map((v) => v + ' <URL>');
-handler.tags = ['downloader'];
-handler.command = /^(ytmp3)$/i;
+handler.help = ['ytmp3'].map((v) => v + ' <URL>')
+handler.tags = ['downloader']
+handler.command = /^(ytmp3)$/i
 
 handler.limit = 10
 handler.register = true

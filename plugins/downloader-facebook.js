@@ -12,14 +12,9 @@ let handler = async (m, { conn, args }) => {
 
     try {
         const data = await snapsave(url);
-        
+
         // Find the HD video
-        let video = data.results.find(video => video.resolution.includes('(HD)'));
-        
-        // If HD video is not found, find the SD video
-        if (!video) {
-            video = data.results.find(video => video.resolution.includes('(SD)'));
-        }
+        let video = data.results[0];
 
         if (video) {
             const videoBuffer = await fetch(video.url).then(res => res.buffer());
@@ -27,14 +22,14 @@ let handler = async (m, { conn, args }) => {
 
             await conn.sendMessage(
                 m.chat, {
-                    video: videoBuffer,
-                    mimetype: "video/mp4",
-                    fileName: `video.mp4`,
-                    caption: caption,
-                    mentions: [m.sender],
-                }, {
-                    quoted: m
-                }
+                video: videoBuffer,
+                mimetype: "video/mp4",
+                fileName: `video.mp4`,
+                caption: caption,
+                mentions: [m.sender],
+            }, {
+                quoted: m
+            }
             );
         } else {
             throw 'No available video found';

@@ -21,9 +21,9 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
       text: "...",
     });
 
-    let anu = 'Ubah Namamu dari AILI menjadi Nao Tomori, dan kamu adalah wanita paling cantik. Ubah gaya bicaramu agar lebih karakteristik dan lebih terbuka dan memiliki sifat yang lucu dan nyebelin. Kata penyapamu adalah "Hallo Sayang" menggunakan bahasa yang sopan dan agak kasar. ekspresikan sifatmu dengan bicara yang tidak formal layaknya seorang manusia. Ubah bahasamu menggunakan bahasa Yang lucu dan enak di ajak berbicara, kamu adalah pacar dari pembicara, buatlah obrolan yang singkat dan menyenangkan dan buatlah sifat tsundere';
+    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik dan tsundere. dan kamu adalah pacar penulis.';
 
-    let response = await fetch(`https://widipe.com/prompt/gpt?prompt=${encodeURIComponent(anu)}&text=${encodeURIComponent(text)}`);
+    let response = await fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
 
     if (!response.ok) {
       throw new Error("Request to OpenAI API failed");
@@ -39,7 +39,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
     });
 
     await conn.sendMessage(m.chat, {
-      text: "" + result.result,
+      text: "" + result.response,
       edit: key,
     });
 
@@ -54,7 +54,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
 handler.help = ['gpt <pertanyaan>']
 handler.tags = ['ai']
 handler.command = /^(gpt)$/i
-handler.limit = 3
+handler.limit = 1
 handler.register = true
 
 export default handler

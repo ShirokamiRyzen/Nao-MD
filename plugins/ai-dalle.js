@@ -24,7 +24,7 @@ handler.tags = ['ai']
 handler.command = /^(dalle)$/i
 
 handler.premium = false
-handler.limit = true
+handler.limit = 5
 handler.register = true
 
 export default handler

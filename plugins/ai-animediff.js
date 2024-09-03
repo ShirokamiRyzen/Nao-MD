@@ -24,7 +24,7 @@ handler.tags = ['ai']
 handler.command = /^(text2img)$/i
 
 handler.premium = false
-handler.limit = 2
+handler.limit = 15
 handler.register = true
 
 export default handler

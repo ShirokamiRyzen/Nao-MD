@@ -1,50 +1,75 @@
-import ytdl from '@distube/ytdl-core'
+import axios from 'axios'
 import fs from 'fs'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 import os from 'os'
+import yts from 'yt-search'
 
-let streamPipeline = promisify(pipeline);
+const streamPipeline = promisify(pipeline);
+
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-
   if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
-  let videoUrl = text;
-  let videoInfo = await ytdl.getInfo(videoUrl);
-  let { videoDetails } = videoInfo;
-  let { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
-  let thumbnail = thumbnails[0].url;
-  let audioStream = ytdl(videoUrl, {
-    filter: 'audioonly',
-    quality: 'highestaudio',
-  });
-  let tmpDir = os.tmpdir();
-  let writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
-  await streamPipeline(audioStream, writableStream);
+  const videoUrl = text;
 
-  let dl_url = `${tmpDir}/${title}.mp3`;
-  let info = `Title: ${title}\nLength: ${lengthSeconds}s\nViews: ${viewCount}\nUploaded: ${uploadDate}`;
+  m.reply(wait)
 
-  await conn.sendMessage(m.chat, {
-    document: {
-      url: dl_url,
-    },
-    mimetype: 'audio/mpeg',
-    fileName: `${title}.mp3`,
-    caption: info,
-  }, { quoted: m });
+  try {
+    // Mengambil informasi video menggunakan yt-search
+    const videoInfo = await yts(videoUrl);
+    if (!videoInfo || !videoInfo.videos.length) throw new Error('Video tidak ditemukan.');
+    
+    const video = videoInfo.videos[0];
+    const { title, timestamp: lengthSeconds, views, ago: uploadDate, thumbnail } = video;
 
-  fs.unlink(`${tmpDir}/${title}.mp3`, (err) => {
-    if (err) {
-      console.error(`Failed to delete audio file: ${err}`);
-    } else {
-      console.log(`Deleted audio file: ${tmpDir}/${title}.mp3`);
-    }
-  });
+    // Fetch audio URL dari ryzendesu API
+    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytdl?url=${encodeURIComponent(videoUrl)}`);
+    const { audioUrl } = response.data;
+
+    if (!audioUrl) throw new Error('Gagal mengambil URL audio dari API.');
+
+    const tmpDir = os.tmpdir();
+    const filePath = `${tmpDir}/${title}.mp3`;
+
+    // Mengunduh file audio menggunakan audioUrl
+    const audioResponse = await axios({
+      method: 'get',
+      url: audioUrl,
+      responseType: 'stream'
+    });
+
+    // Menulis stream ke file
+    const writableStream = fs.createWriteStream(filePath);
+    await streamPipeline(audioResponse.data, writableStream);
+
+    const info = `Title: ${title}\nLength: ${lengthSeconds}\nViews: ${views}\nUploaded: ${uploadDate}`;
+
+    // Mengirim file audio
+    await conn.sendMessage(m.chat, {
+      document: {
+        url: filePath,
+      },
+      mimetype: 'audio/mpeg',
+      fileName: `${title}.mp3`,
+      caption: info,
+    }, { quoted: m });
+
+    // Membersihkan: hapus file audio
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(`Gagal menghapus file audio: ${err}`);
+      } else {
+        console.log(`Berhasil menghapus file audio: ${filePath}`);
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching audio URL:', error.message);
+    throw `Error: Tidak dapat mengunduh audio. Silakan coba lagi nanti.`;
+  }
 };
 
-handler.help = ['ytmp3'].map((v) => v + ' <URL>')
-handler.tags = ['downloader']
-handler.command = /^(ytmp3)$/i
+handler.help = ['ytmp3'].map((v) => v + ' <URL>');
+handler.tags = ['downloader'];
+handler.command = /^(ytmp3)$/i;
 
 handler.limit = 10
 handler.register = true

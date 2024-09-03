@@ -54,7 +54,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
 handler.help = ['gpt <pertanyaan>']
 handler.tags = ['ai']
 handler.command = /^(gpt)$/i
-handler.limit = 1
+handler.premium = true
 handler.register = true
 
 export default handler

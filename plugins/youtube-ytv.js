@@ -13,13 +13,9 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
 
     const args = text.split(' ');
     const videoUrl = args[0];
-    let resolution = '480';
+    let resolution = '720';
 
-    if (args[1] && /^[0-9]+p$/.test(args[1])) {
-        resolution = args[1].replace('p', '');
-    }
-
-    const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
+    const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}`;
 
     try {
         const response = await axios.get(apiUrl);

@@ -7,7 +7,7 @@ import os from 'os'
 const streamPipeline = promisify(pipeline);
 
 var handler = async (m, { conn, command, text, usedPrefix }) => {
-    if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL> [optional resolution like 720p]`;
+    if (!text) throw `Usage: ${usedPrefix}${command} url reso`;
 
     m.reply(wait);
 
@@ -73,7 +73,7 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
     }
 };
 
-handler.help = ['ytmp4'].map((v) => v + ' <URL> [reso]');
+handler.help = ['ytmp4'];
 handler.tags = ['downloader'];
 handler.command = /^(ytmp4)$/i;
 

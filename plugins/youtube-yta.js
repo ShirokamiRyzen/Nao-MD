@@ -22,18 +22,18 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     const { title, timestamp: lengthSeconds, views, ago: uploadDate, thumbnail } = video;
 
     // Fetch audio URL dari ryzendesu API
-    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytdl?url=${encodeURIComponent(videoUrl)}`);
-    const { audioUrl } = response.data;
+    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
+    const { url } = response.data;
 
-    if (!audioUrl) throw new Error('Gagal mengambil URL audio dari API.');
+    if (!url) throw new Error('Gagal mengambil URL audio dari API.');
 
     const tmpDir = os.tmpdir();
     const filePath = `${tmpDir}/${title}.mp3`;
 
-    // Mengunduh file audio menggunakan audioUrl
+    // Mengunduh file audio menggunakan url
     const audioResponse = await axios({
       method: 'get',
-      url: audioUrl,
+      url: url,
       responseType: 'stream'
     });
 

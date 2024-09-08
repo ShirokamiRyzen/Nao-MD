@@ -7,30 +7,34 @@ import os from 'os'
 const streamPipeline = promisify(pipeline);
 
 var handler = async (m, { conn, command, text, usedPrefix }) => {
-    if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
+    if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL> [optional resolution like 720p]`;
 
-    m.reply(wait)
+    m.reply(wait);
 
-    const videoUrl = text;
-    const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytdl?url=${encodeURIComponent(videoUrl)}`;
+    const args = text.split(' ');
+    const videoUrl = args[0];
+    let resolution = '480';
+
+    if (args[1] && /^[0-9]+p$/.test(args[1])) {
+        resolution = args[1].replace('p', '');
+    }
+
+    const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
 
     try {
-        // Mengambil data dari API eksternal
         const response = await axios.get(apiUrl);
-        const { videoUrl: videoStreamUrl } = response.data;
+        const { url: videoStreamUrl } = response.data;
 
         if (!videoStreamUrl) throw 'Video URL not found in API response.';
 
-        // Unduh video menggunakan URL yang diperoleh dari API
         const videoStream = await axios({
             url: videoStreamUrl,
             method: 'GET',
             responseType: 'stream'
         }).then(res => res.data);
 
-        // Buat writable stream dalam direktori sementara
-        const tmpDir = os.tmpdir(); // Menggunakan direktori sementara sistem operasi
-        const filePath = `${tmpDir}/${new URL(videoUrl).pathname.split('/').pop()}.mp4`;
+        const tmpDir = os.tmpdir();
+        const filePath = `${tmpDir}/${new URL(videoUrl).pathname.split('/').pop()}_${resolution}.mp4`;
         const writableStream = fs.createWriteStream(filePath);
 
         // Mulai mengunduh video
@@ -65,11 +69,11 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
         });
     } catch (error) {
         console.error(`Error: ${error.message}`);
-        throw `Failed to process request: ${error.message}`;
+        throw `Failed to process request: ${error.message || error}`;
     }
 };
 
-handler.help = ['ytmp4'].map((v) => v + ' <URL>');
+handler.help = ['ytmp4'].map((v) => v + ' <URL> [reso]');
 handler.tags = ['downloader'];
 handler.command = /^(ytmp4)$/i;
 

@@ -9,13 +9,15 @@ let handler = async (m, { conn, args }) => {
     if (!zoneId) throw 'Masukkan Server ID'
     if (!userId && !zoneId) throw 'Masukkan User ID & Server ID'
 
-    m.reply(wait)
+    let { key } = await conn.sendMessage(m.chat, {
+        text: "Ksabar cuy...",
+    });
 
     try {
         let res = await axios.get(`https://api.ryzendesu.vip/api/internet/cekml?userId=${userId}&zoneId=${zoneId}`)
         let result = res.data
-        let text =
-`
+        let ini_text =
+            `
 *RESULT*
 
 > Username: ${result.data.username}
@@ -30,10 +32,16 @@ ${result.accountAge.years} Tahun, ${result.accountAge.months} Bulan, ${result.ac
 ${result.accountAge.hours} Jam, ${result.accountAge.minutes} Menit, ${result.accountAge.seconds} Detik
 `
 
-        conn.reply(m.chat, text, m)
+        await conn.sendMessage(m.chat, {
+            text: ini_text,
+            edit: key
+        });
     } catch (e) {
-        conn.reply(m.chat, `Error from API: ${e}`, m)
-    }    
+        await conn.sendMessage(m.chat, {
+            text: `error from API: ${e}`,
+            edit: key
+        });
+    }
 }
 
 handler.help = ['cekml <id> <server>']

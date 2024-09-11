@@ -13,14 +13,21 @@ let handler = async (m, { conn, args }) => {
 
     try {
         let res = await axios.get(`https://api.ryzendesu.vip/api/internet/cekml?userId=${userId}&zoneId=${zoneId}`)
-        let result = res.data.data
+        let result = res.data
         let text =
-        `*RESULT*
-Username: ${result.username}
-Negara akun asal: ${result.create_role_country}
-Negara login terbaru: ${result.this_login_country}
-Terakhir login: ${result.timestamp}
-Login Pertama: ${result.user_reg_time}`
+`
+*RESULT*
+> Username: ${result.data.username}
+> Negara akun dibuat: ${result.data.create_role_country}
+> Negara terakhir login: ${result.data.this_login_country}
+
+> Waktu dibuat: ${result.data.user_reg_time}
+> Terakhir login: ${result.data.timestamp}
+
+Usia akun:
+${result.accountAge.years} Tahun, ${result.accountAge.months} Bulan, ${result.accountAge.days} Hari,
+${result.accountAge.hours} Jam, ${result.accountAge.minutes} Menit, ${result.accountAge.seconds} Detik
+`
 
         conn.reply(m.chat, text, m)
     } catch (e) {

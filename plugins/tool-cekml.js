@@ -17,6 +17,7 @@ let handler = async (m, { conn, args }) => {
         let text =
 `
 *RESULT*
+
 > Username: ${result.data.username}
 > Negara akun dibuat: ${result.data.create_role_country}
 > Negara terakhir login: ${result.data.this_login_country}

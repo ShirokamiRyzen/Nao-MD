@@ -1,7 +1,7 @@
 // Don't delete this credit!!!
 // Script by ShirokamiRyzen
 
-import { snapsave } from '@bochilteam/scraper'
+import axios from 'axios'
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) throw 'Please provide a Facebook video URL';
@@ -11,13 +11,15 @@ let handler = async (m, { conn, args }) => {
     m.reply(wait);
 
     try {
-        const data = await snapsave(url);
+        const { data } = await axios.get(`https://api.ryzendesu.vip/api/downloader/fbdl?url=${encodeURIComponent(url)}`);
 
-        // Find the HD video
-        let video = data.results[0];
+        if (!data.status || !data.data || data.data.length === 0) throw 'No available video found';
 
-        if (video) {
-            const videoBuffer = await fetch(video.url).then(res => res.buffer());
+        // Prioritize 720p (HD) and fallback to 360p (SD)
+        let video = data.data.find(v => v.resolution === '720p (HD)') || data.data.find(v => v.resolution === '360p (SD)');
+        
+        if (video && video.url) {
+            const videoBuffer = await axios.get(video.url, { responseType: 'arraybuffer' }).then(res => res.data);
             const caption = `Ini kak videonya @${sender}`;
 
             await conn.sendMessage(

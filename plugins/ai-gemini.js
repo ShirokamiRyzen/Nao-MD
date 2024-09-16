@@ -12,18 +12,18 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
       text: "...",
     });
 
-    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik dan tsundere. dan kamu adalah pacarku.';
+    //let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik dan tsundere. dan kamu adalah pacarku.';
 
-    let response = await fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
+    let response = await fetch(`https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(text)}}`);
 
     if (!response.ok) {
-      throw new Error("Request to OpenAI API failed");
+      throw new Error("Request to Gemini AI failed");
     }
 
     let result = await response.json();
 
     await conn.sendMessage(m.chat, {
-      text: "" + result.response,
+      text: "" + result.answer,
       edit: key,
     });
 
@@ -36,9 +36,9 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
   }
 }
 
-handler.help = ['gpt <pertanyaan>']
+handler.help = ['gemini <pertanyaan>']
 handler.tags = ['ai']
-handler.command = /^(gpt)$/i
+handler.command = /^(gemini)$/i
 
 handler.limit = 3
 handler.premium = false

@@ -11,7 +11,7 @@ let handler = async (m, { conn, text }) => {
   };
 
   // Try fetching from anime endpoint first
-  let otaku = await fetchData(`https://ryzendesu-backend.vercel.app/anime/?search=${text}`);
+  let otaku = await fetchData(`https://backend.ryzendesu.vip/anime/?search=${text}`);
   let isAnime = true;
 
   if (!otaku || otaku.length === 0) {

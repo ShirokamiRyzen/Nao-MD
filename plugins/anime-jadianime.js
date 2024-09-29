@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import uploadImage from '../lib/uploadImage.js'
+import { uploadPomf } from '../lib/uploadImage.js'
 
 let handler = async (m, { conn, usedPrefix, command, text }) => {
     try {
@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         if (!mime) throw 'Kirim/Reply Gambar dengan caption .toanime'
         m.reply('Tunggu Sebentar...')
         let media = await q.download()
-        let url = await uploadImage(media)
+        let url = await uploadPomf(media)
         let response = await fetch(`https://widipe.com/toanime?url=${url}`)
         let json = await response.json()
         let hasilUrl = json.url

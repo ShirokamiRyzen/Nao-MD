@@ -1,4 +1,4 @@
-import uploadImage from '../lib/uploadImage.js'
+import { uploadPomf } from '../lib/uploadImage.js'
 import ocrapi from 'ocr-space-api-wrapper'
 const { MessageType } = (await import('@adiwajshing/baileys')).default
 

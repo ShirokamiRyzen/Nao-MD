@@ -1,7 +1,7 @@
 import fs from 'fs'
 import fetch from 'node-fetch'
 import moment from 'moment-timezone'
-import uploadImage from '../lib/uploadImage.js'
+import { uploadPomf } from '../lib/uploadImage.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     conn.ownreply = conn.ownreply ? conn.ownreply : {}
@@ -19,7 +19,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     try {
         let q = m.quoted ? m.quoted : m
         let media = await q.download()
-        let gambar = await uploadImage(media)
+        let gambar = await uploadPomf(media)
         let id = + new Date
         let imagePath = `${gambar}`;
         let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Dari: *Owner*\nPesan: \n${pesan}`.trim();

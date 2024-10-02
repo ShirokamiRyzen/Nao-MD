@@ -1,4 +1,3 @@
-/*
 import fs from 'fs'
 import os from 'os'
 import fetch from 'node-fetch'
@@ -67,8 +66,8 @@ handler.register = true
 handler.disable = false
 
 export default handler
-*/
 
+/*
 import axios from 'axios'
 import fs from 'fs'
 import { pipeline } from 'stream'
@@ -147,3 +146,4 @@ handler.register = true
 handler.disable = false
 
 export default handler
+*/

@@ -31,7 +31,7 @@ var handler = async (m, { conn, args, usedPrefix, command }) => {
             await conn.sendFile( m.chat, videoURL, "tiktok.mp4", `Ini kak videonya\n\n${infonya_gan}`, m, );
             setTimeout(async () => {
                 //await conn.sendFile( m.chat, videoURLWatermark, "tiktokwm.mp4", `*Ini Versi Watermark*\n\n${infonya_gan}`, m, );
-                await conn.sendFile( m.chat, `${tiktokData.data.music}`, "lagutt.mp3", "ini lagunya", m, );
+                //await conn.sendFile( m.chat, `${tiktokData.data.music}`, "lagutt.mp3", "ini lagunya", m, );
                 //conn.reply( m.chat, "•⩊• Ini kak Videonya ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა\nDitonton yah ₍^ >ヮ<^₎", m, );
             }, 1500);
         } else {

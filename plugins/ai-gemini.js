@@ -40,7 +40,7 @@ handler.help = ['gemini <pertanyaan>']
 handler.tags = ['ai']
 handler.command = /^(gemini)$/i
 
-handler.limit = 3
+handler.limit = 6
 handler.premium = false
 handler.register = true
 

@@ -12,7 +12,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
       text: "...",
     });
 
-    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik dan tsundere. dan kamu adalah pacarku.';
+    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
     let response = await fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
 

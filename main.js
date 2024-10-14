@@ -182,6 +182,26 @@ if (!opts['test']) {
   }, 60 * 1000)
 }
 
+async function resetLimit() {
+  try {
+    let list = Object.entries(global.db.data.users);
+    let lim = 25; // Nilai limit default yang ingin di-reset
+
+    list.map(([user, data], i) => {
+      // Hanya reset limit jika limit saat ini <= 25
+      if (data.limit <= lim) {
+        data.limit = lim;
+      }
+    });
+
+    // logs bahwa reset limit telah sukses
+    console.log(`Success Auto Reset Limit`)
+  } finally {
+    // Setel ulang fungsi reset setiap 24 jam (1 hari)
+    setInterval(() => resetLimit(), 1 * 86400000);
+  }
+}
+
 function clearTmp() {
   const tmp = [tmpdir(), join(__dirname, './tmp')]
   const filename = []

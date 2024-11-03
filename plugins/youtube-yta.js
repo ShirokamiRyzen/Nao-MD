@@ -7,15 +7,26 @@ import yts from 'yt-search'
 
 const streamPipeline = promisify(pipeline);
 
+// Fungsi untuk mengekstrak ID video dari URL
+const extractVideoID = (url) => {
+  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+};
+
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
   const videoUrl = text;
 
+  // Ekstrak ID video dari URL
+  const videoID = extractVideoID(videoUrl);
+  if (!videoID) throw new Error('Format URL tidak valid.');
+
   m.reply(wait)
 
   try {
-    // Mengambil informasi video menggunakan yt-search
-    const videoInfo = await yts(videoUrl);
+    // Mengambil informasi video menggunakan yt-search dengan ID video
+    const videoInfo = await yts(videoID);
     if (!videoInfo || !videoInfo.videos.length) throw new Error('Video tidak ditemukan.');
     
     const video = videoInfo.videos[0];
@@ -23,14 +34,16 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
     // Fetch audio URL dari ryzendesu API
     const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
-    const { url } = response.data;
 
-    if (!url) throw new Error('Gagal mengambil URL audio dari API.');
+    if (!response.data.url) throw new Error('URL audio tidak tersedia.');
+    const { url } = response.data;
+    
+    if (!url) throw new Error('URL audio tidak tersedia.');
 
     const tmpDir = os.tmpdir();
     const filePath = `${tmpDir}/${title}.mp3`;
 
-    // Mengunduh file audio menggunakan url
+    // Mengunduh file audio menggunakan URL
     const audioResponse = await axios({
       method: 'get',
       url: url,
@@ -62,8 +75,8 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       }
     });
   } catch (error) {
-    console.error('Error fetching audio URL:', error.message);
-    throw `Error: Tidak dapat mengunduh audio. Silakan coba lagi nanti.`;
+    console.error('Error:', error.message);
+    throw `Error: ${error.message}. Silakan periksa format URL dan coba lagi.`;
   }
 };
 

@@ -9,6 +9,7 @@ plugins_bak/
 handlerr.js
 sftp/
 database.json
+config.js
 
 plugins/_monitor-mc.js
 Nao-MD.zip

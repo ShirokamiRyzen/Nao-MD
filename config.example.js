@@ -52,13 +52,13 @@ global.week = `${week} ${date}`
 global.wibb = `${wktuwib}`
 
 //*============= SOSMED =============*/
-global.sig = 'https://www.instagram.com/ryzen_vermillion'
+global.sig = 'https://www.instagram.com/fatih_frdaus'
 global.sgh = 'https://github.com/ShirokamiRyzen'
 global.sgc = 'https://whatsapp.com/channel/0029VaGoqK589indDi4Am40J'
 global.sgw = 'https://ryzendesu.vip'
 global.sdc = '-'
 global.sfb = 'https://www.facebook.com/Nao.Tomori.UwU'
-global.snh = 'https://www.instagram.com/ryzen_vermillion'
+global.snh = 'https://www.instagram.com/fatih_frdaus'
 
 /*============= DONASI =============*/
 global.pdana = '085174269046'
@@ -98,17 +98,13 @@ global.eror = 'Error!'
 /*============= WEB API KEY =============*/
 global.openai = 'YOUR_APIKEY_HERE'  //api key bisa didapatkan dari https://openai.com/api/
 global.org = 'YOUR_APIKEY_HERE'  //openAI Organization name
-global.xzn = 'YOUR_APIKEY_HERE'
 
 global.APIs = {
   // name: 'https://website'
-  xzn : 'https://skizo.tech/',
 }
 
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-
-  'https://skizo.tech/' : '',
 }
 
 /*============= OTHER =============*/
@@ -155,82 +151,3 @@ watchFile(file, () => {
   console.log(chalk.redBright("Update 'config.js'"))
   import(`${file}?update=${Date.now()}`)
 })
-
-/*============= RESPON GAME =============*/
-global.benar = 'Good Job! ◕◡◕'
-global.salah = 'Not Bad! ◕◠◕'
-global.dikit = "Dikit Lagi, Semangat!!"
-
-
-/*============= RPG GAME =============*/
-global.multiplier = 69 // The higher, The harder levelup
-global.rpg = {
-  emoticon(string) {
-    string = string.toLowerCase()
-    let emot = {
-      agility: '🤸‍♂️',
-      arc: '🏹',
-      armor: '🥼',
-      bank: '🏦',
-      bibitanggur: '🍇',
-      bibitapel: '🍎',
-      bibitjeruk: '🍊',
-      bibitmangga: '🥭',
-      bibitpisang: '🍌',
-      bow: '🏹',
-      bull: '🐃',
-      cat: '🐈',
-      chicken: '🐓',
-      common: '📦',
-      cow: '🐄',
-      crystal: '🔮',
-      darkcrystal: '♠️',
-      diamond: '💎',
-      dog: '🐕',
-      dragon: '🐉',
-      elephant: '🐘',
-      emerald: '💚',
-      exp: '✉️',
-      fishingrod: '🎣',
-      fox: '🦊',
-      gems: '🍀',
-      giraffe: '🦒',
-      gold: '👑',
-      health: '❤️',
-      horse: '🐎',
-      intelligence: '🧠',
-      iron: '⛓️',
-      keygold: '🔑',
-      keyiron: '🗝️',
-      knife: '🔪',
-      legendary: '🗃️',
-      level: '🧬',
-      limit: '🌌',
-      lion: '🦁',
-      magicwand: '⚕️',
-      mana: '🪄',
-      money: '💵',
-      mythic: '🗳️',
-      pet: '🎁',
-      petFood: '🍖',
-      pickaxe: '⛏️',
-      pointxp: '📧',
-      potion: '🥤',
-      rock: '🪨',
-      snake: '🐍',
-      stamina: '⚡',
-      strength: '🦹‍♀️',
-      string: '🕸️',
-      superior: '💼',
-      sword: '⚔️',
-      tiger: '🐅',
-      trash: '🗑',
-      uncommon: '🎁',
-      upgrader: '🧰',
-      wood: '🪵'
-    }
-    let results = Object.keys(emot).map(v => [v, new RegExp(v, 'gi')]).filter(v => v[1].test(string))
-    if (!results.length) return ''
-    else return emot[results[0][0]]
-  }
-}

@@ -1,6 +1,5 @@
-import { sticker } from '../lib/sticker.js'
+import { sticker, addExif } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
-import { addExif } from '../lib/sticker.js'
 import { Sticker } from 'wa-sticker-formatter'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {

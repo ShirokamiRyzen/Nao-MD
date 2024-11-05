@@ -1,64 +1,62 @@
 import axios from 'axios'
 import fs from 'fs'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
 import os from 'os'
 
-const streamPipeline = promisify(pipeline);
-
-var handler = async (m, { conn, command, text, usedPrefix }) => {
+let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Usage: ${usedPrefix}${command} url reso`;
 
   m.reply(wait);
 
+  // Parsing URL dan resolusi
   const args = text.split(' ');
   const videoUrl = args[0];
   const resolution = args[1] || '480';
 
+  // URL API untuk mendapatkan link unduhan video
   const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
 
   try {
+    // Mendapatkan URL video dari API
     const response = await axios.get(apiUrl);
     const { url: videoStreamUrl } = response.data;
 
     if (!videoStreamUrl) throw 'Video URL not found in API response.';
 
+    // Tentukan direktori sementara dan nama file
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${new URL(videoUrl).pathname.split('/').pop()}_${resolution}p.mp4`;
+    const fileName = `${new URL(videoUrl).pathname.split('/').pop()}_${resolution}p.mp4`;
+    const filePath = `${tmpDir}/${fileName}`;
 
-    // Mengunduh video dengan pipeline dan menyimpan di buffer sementara
-    const videoStream = await axios({
+    // Unduh video langsung ke file lokal
+    const writer = fs.createWriteStream(filePath);
+    const downloadResponse = await axios({
       url: videoStreamUrl,
       method: 'GET',
-      responseType: 'stream'
-    }).then(res => res.data);
+      responseType: 'stream' // Mengunduh langsung sebagai stream ke file
+    });
 
-    const writableStream = fs.createWriteStream(filePath);
+    // Pipe stream langsung ke file
+    downloadResponse.data.pipe(writer);
 
-    // Mulai mengunduh video dengan pipeline langsung ke filePath
-    await streamPipeline(videoStream, writableStream);
+    // Tunggu sampai unduhan selesai
+    await new Promise((resolve, reject) => {
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
 
-    // Kirim video langsung dari file hasil unduhan
-    let doc = {
-      video: {
-        url: filePath
-      },
-      mimetype: 'video/mp4',
-      fileName: filePath.split('/').pop(),
-      contextInfo: {
-        externalAdReply: {
-          showAdAttribution: true,
-          mediaType: 2,
-          mediaUrl: videoUrl,
-          title: filePath.split('/').pop(),
-          sourceUrl: videoUrl
-        }
-      }
-    };
+    // Caption pesan
+    const caption = `Ini kak videonya @${m.sender.split('@')[0]}`;
 
-    await conn.sendMessage(m.chat, doc, { quoted: m });
+    // Kirim video dengan caption langsung dari file yang diunduh
+    await conn.sendMessage(m.chat, {
+      video: { url: filePath },
+      mimetype: "video/mp4",
+      fileName,
+      caption,
+      mentions: [m.sender]
+    }, { quoted: m });
 
-    // Hapus file video setelah dikirim
+    // Hapus file setelah dikirim
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error(`Failed to delete video file: ${err}`);
@@ -66,6 +64,7 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
         console.log(`Deleted video file: ${filePath}`);
       }
     });
+
   } catch (error) {
     console.error(`Error: ${error.message}`);
     throw `Failed to process request: ${error.message || error}`;
@@ -76,7 +75,7 @@ handler.help = ['ytmp4'];
 handler.tags = ['downloader'];
 handler.command = /^(ytmp4)$/i;
 
-handler.limit = 10;
+handler.limit = 10
 handler.register = true
 handler.disable = false
 

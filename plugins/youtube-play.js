@@ -1,62 +1,65 @@
 import yts from 'yt-search'
 import fs from 'fs'
 import os from 'os'
-import fetch from 'node-fetch'
-import { youtubedl } from '../lib/youtube.js'
+import axios from 'axios'
 
-var handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Use example ${usedPrefix}${command} 7!! Orange`;
+const handler = async (m, { conn, command, text, usedPrefix }) => {
+  if (!text) throw `Use example ${usedPrefix}${command} <search term>`;
 
-  let search = await yts(text);
-  let vid = search.videos[Math.floor(Math.random() * search.videos.length)];
-  if (!vid) throw 'Video Not Found, Try Another Title';
-  let { title, thumbnail, timestamp, views, ago, url } = vid;
+  // Pencarian video berdasarkan query text
+  const search = await yts(text);
+  const vid = search.videos[Math.floor(Math.random() * search.videos.length)];
+  if (!vid) throw 'Video not found, try another title';
 
-  conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: 'Please wait...' }, { quoted: m });
+  const { title, thumbnail, timestamp, views, ago, url } = vid;
 
-  // Get video details and download link
-  const { result, resultUrl } = await youtubedl(url);
-  const audioInfo = resultUrl.audio.find(a => a.quality === '128kbps') || resultUrl.audio[0];
+  // Mengirim pesan awal dengan thumbnail
+  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: 'Please wait...' }, { quoted: m });
 
-  // Fetch the download URL
-  const downloadUrl = await audioInfo.download();
+  try {
+    // Mendapatkan URL audio menggunakan API ryzendesu
+    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(url)}`);
+    const downloadUrl = response.data.url;
 
-  // Get the path to the system's temporary directory
-  const tmpDir = os.tmpdir();
-  const filePath = `${tmpDir}/${title}.mp3`;
+    if (!downloadUrl) throw new Error('Audio URL not found');
 
-  // Create writable stream in the temporary directory
-  const writableStream = fs.createWriteStream(filePath);
+    // Lokasi file sementara
+    const tmpDir = os.tmpdir();
+    const filePath = `${tmpDir}/${title}.mp3`;
 
-  // Download audio
-  const response = await fetch(downloadUrl);
-  if (!response.ok) throw new Error(`Failed to download audio: ${response.statusText}`);
+    // Mengunduh file audio dan menyimpannya di direktori sementara
+    const audioResponse = await axios({
+      method: 'get',
+      url: downloadUrl,
+      responseType: 'stream',
+    });
 
-  // Pipe the response into the writable stream
-  response.body.pipe(writableStream);
+    const writableStream = fs.createWriteStream(filePath);
+    audioResponse.data.pipe(writableStream);
 
-  writableStream.on('finish', async () => {
-    let doc = {
-      audio: {
-        url: filePath
-      },
-      mimetype: 'audio/mp4',
-      fileName: title,
-      contextInfo: {
-        externalAdReply: {
-          showAdAttribution: true,
-          mediaType: 2,
-          mediaUrl: url,
-          title: title,
-          body: 'Audio Download',
-          sourceUrl: url,
-          thumbnail: await (await conn.getFile(thumbnail)).data
-        }
-      }
-    };
+    writableStream.on('finish', async () => {
+      // Mengirim file audio
+      await conn.sendMessage(m.chat, {
+        document: {
+          url: filePath,
+        },
+        mimetype: 'audio/mpeg',
+        fileName: `${title}.mp3`,
+        caption: `Title: ${title}\nLength: ${timestamp}\nViews: ${views}\nUploaded: ${ago}`,
+        contextInfo: {
+          externalAdReply: {
+            showAdAttribution: true,
+            mediaType: 2,
+            mediaUrl: url,
+            title: title,
+            body: 'Audio Download',
+            sourceUrl: url,
+            thumbnail: await (await conn.getFile(thumbnail)).data,
+          },
+        },
+      }, { quoted: m });
 
-    await conn.sendMessage(m.chat, doc, { quoted: m }).then(() => {
-      // Delete the audio file after sending
+      // Menghapus file setelah dikirim
       fs.unlink(filePath, (err) => {
         if (err) {
           console.error(`Failed to delete audio file: ${err}`);
@@ -64,20 +67,21 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
           console.log(`Deleted audio file: ${filePath}`);
         }
       });
-    }).catch((err) => {
-      console.error(`Failed to send message: ${err}`);
     });
-  });
 
-  writableStream.on('error', (err) => {
-    console.error(`Failed to write audio file: ${err}`);
-    m.reply('Failed to download audio');
-  });
-}
+    writableStream.on('error', (err) => {
+      console.error(`Failed to write audio file: ${err}`);
+      m.reply('Failed to download audio');
+    });
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw `Error: ${error.message}. Please check the URL and try again.`;
+  }
+};
 
-handler.help = ['play'].map((v) => v + ' <query>')
-handler.tags = ['downloader']
-handler.command = /^(play)$/i
+handler.help = ['play'].map((v) => v + ' <query>');
+handler.tags = ['downloader'];
+handler.command = /^(play)$/i;
 
 handler.limit = 8
 handler.register = true

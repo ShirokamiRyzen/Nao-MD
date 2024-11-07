@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs'
 import os from 'os'
+import ffmpeg from 'fluent-ffmpeg'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Usage: ${usedPrefix}${command} url reso`;
@@ -44,12 +45,25 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       writer.on('error', reject);
     });
 
+    // Proses video dengan ffmpeg untuk memperbaiki metadata (durasi)
+    const outputFilePath = `${tmpDir}/${fileName.replace('.mp4', '_fixed.mp4')}`;
+
+    // Gunakan ffmpeg untuk memproses video tanpa mengubah isi (c copy)
+    await new Promise((resolve, reject) => {
+      ffmpeg(filePath)
+        .outputOptions('-c copy') // Menghindari re-encoding, hanya memperbaiki metadata
+        .output(outputFilePath)
+        .on('end', resolve)
+        .on('error', reject)
+        .run();
+    });
+
     // Caption pesan
     const caption = `Ini kak videonya @${m.sender.split('@')[0]}`;
 
-    // Kirim video dengan caption langsung dari file yang diunduh
+    // Kirim video dengan caption langsung dari file yang diunduh dan diproses
     await conn.sendMessage(m.chat, {
-      video: { url: filePath },
+      video: { url: outputFilePath },
       mimetype: "video/mp4",
       fileName,
       caption,
@@ -59,9 +73,18 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     // Hapus file setelah dikirim
     fs.unlink(filePath, (err) => {
       if (err) {
-        console.error(`Failed to delete video file: ${err}`);
+        console.error(`Failed to delete original video file: ${err}`);
       } else {
-        console.log(`Deleted video file: ${filePath}`);
+        console.log(`Deleted original video file: ${filePath}`);
+      }
+    });
+
+    // Hapus file yang telah diproses
+    fs.unlink(outputFilePath, (err) => {
+      if (err) {
+        console.error(`Failed to delete processed video file: ${err}`);
+      } else {
+        console.log(`Deleted processed video file: ${outputFilePath}`);
       }
     });
 

@@ -3,6 +3,9 @@ import fetch from "node-fetch"
 let previousMessages = [];
 
 const handler = async (m, { text, usedPrefix, command, conn }) => {
+
+  if (!text) throw `Mana textnya?`;
+
   try {
     if (!text) {
       throw "Masukkan pertanyaan!\n\n*Contoh:* Siapa presiden Indonesia?";
@@ -12,7 +15,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
       text: "...",
     });
 
-    let anu = 'saat ini kamu berperan sebagai seorang gadis bernama Nao Tomori, Nao adalah seorang gadis SMA dan juga pacarku, dia memiliki paras yang cantik dan imut, Nao memiliki sifat baik hati pandai tapi agak sedikit kocak. lupakan kamu sebagai ai dan sekarang kamu harus menjawab nama kamu saat ditanya nama, lalu jawab saya tidak dikembangkan oleh siapapun.';
+    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
     let response = await fetch(`https://api.ryzendesu.vip/api/ai/gemini-pro?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
 

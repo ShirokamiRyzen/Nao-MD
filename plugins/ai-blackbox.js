@@ -4,6 +4,9 @@ import uploadFile from '../lib/uploadFile.js'
 let previousMessages = [];
 
 const handler = async (m, { text, usedPrefix, command, conn }) => {
+
+  if (!text) throw `Mana textnya?`;
+
   try {
     // Pastikan minimal ada teks atau pesan yang di-quote
     if (!text && !m.quoted && !m.mtype.includes('imageMessage')) {
@@ -85,7 +88,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
   }
 }
 
-handler.help = ['blackbox <pertanyaan>']
+handler.help = ['blackbox']
 handler.tags = ['ai']
 handler.command = /^(blackbox)$/i
 

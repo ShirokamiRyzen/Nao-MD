@@ -35,7 +35,8 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@^6.7.5",
+        "@adiwajshing/baileys": "npm:@whiskeysockets/baileys",
+        "@adiwajshing/keyed-db": "^0.2.4",
         "@bochilteam/scraper": "^5.0.1",
         "@distube/ytdl-core": "^4.14.4",
         "@ibaraki-douji/pixivts": "*",
@@ -80,7 +81,6 @@
         "perf_hooks": "^0.0.1",
         "pino": "^8.11.0",
         "pino-pretty": "^9.4.0",
-        "puppeteer": "^21.6.0",
         "qrcode": "^1.5.0",
         "qrcode-terminal": "^0.12.0",
         "qs": "^6.11.0",

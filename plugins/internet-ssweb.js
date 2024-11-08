@@ -1,66 +1,55 @@
 import axios from 'axios'
 
-let handler = async (m, { 
-conn, text, command, usedPrefix
-}) => {
-if (!text) return m.reply(`Gunakan format ${usedPrefix + command} <url>\n\n*Contoh :* ${usedPrefix + command} https://github.com/ShirokamiRyzen`)
-m.reply(wait)
-var phone = await ssweb(text, 'phone')
-var desktop = await ssweb(text, 'desktop')
-var tablet = await ssweb(text, 'tablet')
-var res = ``
-if (command === 'sshp') {
-await conn.sendFile(m.chat, phone.result, '',res, m, false)
-}
-if (command === 'ssweb' || command === 'sstablet') {
-await conn.sendFile(m.chat, tablet.result, '',res, m, false)
-}
-if (command === 'sspc') {
-await conn.sendFile(m.chat, desktop.result, '',res, m, false)
-}
-}
-handler.help = ['ssweb','sspc','sshp','sstablet'].map(v => v + ' <url>')
-handler.tags = ['internet']
-handler.command = /^(ssweb|sstablet|sspc|sshp)$/i
+let handler = async (m, { conn, text, command, usedPrefix }) => {
+    if (!text) return m.reply(`Gunakan format ${usedPrefix + command} <url>\n\n*Contoh :* ${usedPrefix + command} https://github.com/ShirokamiRyzen`);
+    
+    m.reply(wait);
 
-handler.limit = false
+    if (!text.startsWith('https://') && !text.startsWith('http://')) {
+        text = 'https://' + text;
+    }
+
+    const ssweb = async (url, mode) => {
+        try {
+            let response = await axios.get(`https://api.ryzendesu.vip/api/tool/ssweb`, {
+                params: { url, mode },
+                responseType: 'arraybuffer'
+            });
+            return response.data;
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    };
+
+    let screenshot;
+    if (command === 'sshp') {
+        screenshot = await ssweb(text, 'handphone');
+    } else if (command === 'sspc') {
+        screenshot = await ssweb(text, 'desktop');
+    } else if (command === 'ssweb') {
+        screenshot = await ssweb(text, 'desktop');
+    } else if (command === 'ssfull') {
+        screenshot = await ssweb(text, 'full');
+    }
+
+    if (!screenshot) {
+        return m.reply("Gagal mengambil screenshot. Pastikan URL valid atau coba lagi nanti.");
+    }
+
+    let res = `Screenshot untuk ${text}`;
+
+    await conn.sendMessage(m.chat, {
+        image: screenshot,
+        caption: res
+    }, { quoted: m });
+};
+
+handler.help = ['ssweb', 'sspc', 'sshp', 'ssfull'].map(v => v + ' <url>');
+handler.tags = ['internet'];
+handler.command = /^(ssweb|ssfull|sspc|sshp)$/i;
+
+handler.limit = 1
 handler.register = true
 
 export default handler
-
-async function ssweb(url, device = 'desktop'){
-     return new Promise((resolve, reject) => {
-          const base = 'https://www.screenshotmachine.com'
-          const param = {
-            url: url,
-            device: device,
-            cacheLimit: 0
-          }
-          axios({url: base + '/capture.php',
-               method: 'POST',
-               data: new URLSearchParams(Object.entries(param)),
-               headers: {
-                    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-               }
-          }).then((data) => {
-               const cookies = data.headers['set-cookie']
-               if (data.data.status == 'success') {
-                    axios.get(base + '/' + data.data.link, {
-                         headers: {
-                              'cookie': cookies.join('')
-                         },
-                         responseType: 'arraybuffer'
-                    }).then(({ data }) => {
-                       let result = {
-                            status: 200,
-                            author: 'Ryzn',
-                            result: data
-                        }
-                         resolve(result)
-                    })
-               } else {
-                    reject({ status: 404, author: 'Ryzn', message: data.data })
-               }
-          }).catch(reject)
-     })
-}

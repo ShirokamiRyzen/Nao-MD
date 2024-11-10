@@ -14,7 +14,7 @@ import './config.js'
 import path, { join } from 'path'
 import { platform } from 'process'
 import { fileURLToPath, pathToFileURL } from 'url'
-import { createRequire } from 'module' // Bring in the ability to create the 'require' method
+import { createRequire } from 'module'
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 import {
   readdirSync,
@@ -92,7 +92,7 @@ global.loadDatabase = async function loadDatabase() {
   global.db.chain = chain(db.data)
 }
 loadDatabase()
-const usePairingCode = !process.argv.includes('--use-pairing-code')
+const usePairingCode = !process.argv.includes('--use-qr')
 const useMobile = process.argv.includes('--mobile')
 
 var question = function (text) {

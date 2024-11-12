@@ -4,7 +4,7 @@ var handler = async (m, { conn }) => {
     let buffer = await m.quoted.download()
     let caption = m.quoted.message[mtype].caption || ''
     
-    // Memeriksa apakah kata kunci "admin" ada dalam teks pesan
+    // Memeriksa apakah kata kunci "x" ada dalam teks pesan
     if (caption.toLowerCase().includes('×')) {
         throw 'Not allowed by user'
     }

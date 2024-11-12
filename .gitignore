@@ -12,4 +12,5 @@ database.json
 config.js
 
 plugins/_monitor-mc.js
+plugins/_autoviewonce.js
 Nao-MD.zip

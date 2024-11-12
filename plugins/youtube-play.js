@@ -40,8 +40,8 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
     writableStream.on('finish', async () => {
       // Mengirim file audio
       await conn.sendMessage(m.chat, {
-        document: {
-          url: filePath,
+        audio: {
+          url: filePath
         },
         mimetype: 'audio/mpeg',
         fileName: `${title}.mp3`,

@@ -19,21 +19,20 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   try {
     // Mendapatkan URL video dari API
     const response = await axios.get(apiUrl);
-    const { url: videoStreamUrl } = response.data;
+    const { url: videoStreamUrl, filename } = response.data;
 
     if (!videoStreamUrl) throw 'Video URL not found in API response.';
 
     // Tentukan direktori sementara dan nama file
     const tmpDir = os.tmpdir();
-    const fileName = `${new URL(videoUrl).pathname.split('/').pop()}_${resolution}p.mp4`;
-    const filePath = `${tmpDir}/${fileName}`;
+    const filePath = `${tmpDir}/${filename}`;
 
     // Unduh video langsung ke file lokal
     const writer = fs.createWriteStream(filePath);
     const downloadResponse = await axios({
       url: videoStreamUrl,
       method: 'GET',
-      responseType: 'stream' // Mengunduh langsung sebagai stream ke file
+      responseType: 'stream'
     });
 
     // Pipe stream langsung ke file
@@ -46,7 +45,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     });
 
     // Proses video dengan ffmpeg untuk memperbaiki metadata (durasi)
-    const outputFilePath = `${tmpDir}/${fileName.replace('.mp4', '_fixed.mp4')}`;
+    const outputFilePath = `${tmpDir}/${filename.replace('.mp4', '_fixed.mp4')}`;
 
     // Gunakan ffmpeg untuk memproses video tanpa mengubah isi (c copy)
     await new Promise((resolve, reject) => {
@@ -58,14 +57,14 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
         .run();
     });
 
-    // Caption pesan
-    const caption = `Ini kak videonya @${m.sender.split('@')[0]}`;
+    // Caption pesan dengan nama file dari API
+    const caption = `Ini kak videonya @${m.sender.split('@')[0]}\n\nFilename: ${filename}`;
 
     // Kirim video dengan caption langsung dari file yang diunduh dan diproses
     await conn.sendMessage(m.chat, {
       video: { url: outputFilePath },
       mimetype: "video/mp4",
-      fileName,
+      fileName: filename,
       caption,
       mentions: [m.sender]
     }, { quoted: m });

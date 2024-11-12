@@ -10,6 +10,7 @@ handlerr.js
 sftp/
 database.json
 config.js
+bot.sh
 
 plugins/_monitor-mc.js
 plugins/_autoviewonce.js

@@ -12,10 +12,7 @@ import knights from 'knights-canvas'
  */
 const { proto } = (await import('@adiwajshing/baileys')).default
 const isNumber = x => typeof x === 'number' && !isNaN(x)
-const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function () {
-    clearTimeout(this)
-    resolve()
-}, ms))
+const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(resolve, ms))
 
 /**
  * Handle messages upsert
@@ -182,8 +179,8 @@ export async function handler(chatUpdate) {
             let queque = this.msgqueque, time = 1000 * 5
             const previousID = queque[queque.length - 1]
             queque.push(m.id || m.key.id)
-            setInterval(async function () {
-                if (queque.indexOf(previousID) === -1) clearInterval(this)
+            let intervalID = setInterval(async function () {
+                if (queque.indexOf(previousID) === -1) clearInterval(intervalID)
                 await delay(time)
             }, time)
         }

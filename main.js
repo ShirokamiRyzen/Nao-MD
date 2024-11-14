@@ -16,7 +16,7 @@ import './config.js'
 import path, { join } from 'path'
 import { platform } from 'process'
 import { fileURLToPath, pathToFileURL } from 'url'
-import { createRequire } from 'module' // Bring in the ability to create the 'require' method
+import { createRequire } from 'module'
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 import {
   readdirSync,
@@ -159,8 +159,9 @@ if (usePairingCode && !conn.authState.creds.registered) {
   if (useMobile) throw new Error('Cannot use pairing code with mobile api')
   const { registration } = { registration: {} }
   let phoneNumber = global.pairing
-  if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-    throw new Error('Invalid phone number format.')
+  if (PHONENUMBER_MCC && Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
+  } else {
+    throw new Error('Invalid phone number format.');
   }
   console.log(chalk.bgWhite(chalk.blue('Generating code...')))
   setTimeout(async () => {

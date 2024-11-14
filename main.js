@@ -169,6 +169,7 @@ if (usePairingCode && !conn.authState.creds.registered) {
     console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
   }, 3000)
 }
+
 async function resetLimit() {
   try {
     let list = Object.entries(global.db.data.users);

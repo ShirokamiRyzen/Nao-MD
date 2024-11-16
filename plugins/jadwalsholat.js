@@ -10,9 +10,9 @@ let handler = async (m, { text }) => {
     }).join`\n\n`
     m.reply(res)
 }
-handler.help = ['jadwalsholat']
+handler.help = ['sholat']
 handler.tags = ['tools']
-handler.command = /^(jadwalsholat)$/i
+handler.command = /^(jadwal(sholat)?)$/i
 
 export default handler
 

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 import path, { join } from 'path'
 import { unwatchFile, watchFile, readFileSync } from 'fs'
 import chalk from 'chalk'
-import fetch from 'node-fetch'
+const printMessage = (await import('./lib/print.js')).default
 import knights from 'knights-canvas'
 
 /**
@@ -455,7 +455,7 @@ export async function handler(chatUpdate) {
             }
         }
         try {
-            if (!opts['noprint']) await (await import(`./lib/print.js`)).default(m, this)
+            if (!opts['noprint']) await printMessage(m, this)
         } catch (e) {
             console.log(m, m.quoted, e)
         }

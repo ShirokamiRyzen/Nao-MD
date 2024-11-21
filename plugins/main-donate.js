@@ -1,7 +1,4 @@
-import fs from 'fs'
-
 let handler = async (m, { conn }) => {
-let teks = 'donasi'
 let dana = global.pdana
 let saweria = global.psaweria
 let bank1 = global.bank1

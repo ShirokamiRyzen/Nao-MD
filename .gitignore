@@ -15,4 +15,5 @@ bot.sh
 plugins/_monitor-mc.js
 plugins/_autoviewonce.js
 plugins/_cf_API.js
+plugins/ai-farel.js
 Nao-MD.zip

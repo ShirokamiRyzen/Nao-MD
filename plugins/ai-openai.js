@@ -3,17 +3,17 @@ import fetch from "node-fetch"
 let previousMessages = [];
 
 const handler = async (m, { text, usedPrefix, command, conn }) => {
+
+  if (!text) throw `Mana textnya?`;
+
   try {
-
-    if (!text) throw `Mana textnya?`;
-
     let { key } = await conn.sendMessage(m.chat, {
       text: "...",
     });
 
     let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
-    let response = await fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
+    let response = await fetch(`https://api.ryzendesu.vip/api/ai/v2/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
 
     if (!response.ok) {
       throw new Error("Request to OpenAI API failed");

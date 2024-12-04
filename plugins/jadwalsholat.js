@@ -12,7 +12,7 @@ let handler = async (m, { text }) => {
 }
 handler.help = ['sholat']
 handler.tags = ['tools']
-handler.command = /^(jadwal(sholat)?)$/i
+handler.command = /^(jadwalsholat|sholat)$/i
 
 export default handler
 

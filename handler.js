@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url'
 import path, { join } from 'path'
 import { unwatchFile, watchFile, readFileSync } from 'fs'
 import chalk from 'chalk'
-const printMessage = (await import('./lib/print.js')).default
 import knights from 'knights-canvas'
+import fetch from 'node-fetch'
 
 /**
  * @type {import('@adiwajshing/baileys')}
@@ -158,13 +158,9 @@ export async function handler(chatUpdate) {
         }
         if (opts['nyimak'])
             return
-        if (!m.fromMe && opts['self'])
-            return
         if (opts['pconly'] && m.chat.endsWith('g.us'))
             return
         if (opts['gconly'] && !m.chat.endsWith('g.us'))
-            return
-        if (opts['owneronly'] && !m.chat.startsWith(`${global.nomorown}`))
             return
         if (opts['swonly'] && m.chat !== 'status@broadcast')
             return
@@ -175,7 +171,7 @@ export async function handler(chatUpdate) {
         const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isPrems = isROwner || db.data.users[m.sender].premiumTime > 0
         if (!isOwner && !m.fromMe && opts['self']) return;
-        if (opts['queque'] && m.text && !(isMods || isPrems)) {
+        if (m.text && !(isMods || isPrems)) {
             let queque = this.msgqueque, time = 1000 * 5
             const previousID = queque[queque.length - 1]
             queque.push(m.id || m.key.id)
@@ -301,10 +297,6 @@ export async function handler(chatUpdate) {
                     fail('owner', m, this)
                     continue
                 }
-                if (plugin.disable && !(isROwner || isOwner)) { // Bot number
-                    fail('disable', m, this)
-                    continue
-                }
                 if (plugin.rowner && !isROwner) { // Real Owner
                     fail('rowner', m, this)
                     continue
@@ -342,11 +334,12 @@ export async function handler(chatUpdate) {
                 m.isCommand = true
                 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17 // XP Earning per command
                 if (xp > 200)
-                    m.reply('Ngecit -_-') // Hehehe
+                    // m.reply('Ngecit -_-') // Hehehe
+                    console.log("ngecit -_-");
                 else
                     m.exp += xp
                 if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                    this.reply(m.chat, `[❗] Limit harian kamu telah habis, ketik *${usedPrefix}claimlimit* untuk refill\n\natau\nbypass limit dengan berdonasi, ketik *${usedPrefix}donasi*`, m)
+                    this.reply(m.chat, `[❗] Limit harian kamu telah habis, silahkan beli melalui *${usedPrefix}buy limit*`, m)
                     continue // Limit habis
                 }
                 if (plugin.level > _user.level) {
@@ -406,7 +399,7 @@ export async function handler(chatUpdate) {
                         }
                     }
                     if (m.limit)
-                        m.reply(+m.limit + ' Limit terpakai')
+                        m.reply(+m.limit + ' Limit kamu terpakai ✔️')
                 }
                 break
             }
@@ -414,7 +407,7 @@ export async function handler(chatUpdate) {
     } catch (e) {
         console.error(e)
     } finally {
-        if (opts['queque'] && m.text) {
+        if (m.text) {
             const quequeIndex = this.msgqueque.indexOf(m.id || m.key.id)
             if (quequeIndex !== -1)
                 this.msgqueque.splice(quequeIndex, 1)
@@ -455,7 +448,7 @@ export async function handler(chatUpdate) {
             }
         }
         try {
-            if (!opts['noprint']) await printMessage(m, this)
+            if (!opts['noprint']) await (await import(`./lib/print.js`)).default(m, this)
         } catch (e) {
             console.log(m, m.quoted, e)
         }
@@ -574,7 +567,7 @@ export async function deleteUpdate(message) {
 Terdeteksi @${participant.split`@`[0]} telah menghapus pesan. 
 Untuk mematikan fitur ini, ketik
 *.enable delete*
-          
+
 Untuk menghapus pesan yang dikirim oleh Bot, reply pesan dengan perintah
 *.delete*`, msg)
         this.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
@@ -585,20 +578,20 @@ Untuk menghapus pesan yang dikirim oleh Bot, reply pesan dengan perintah
 
 global.dfail = (type, m, conn) => {
     let msg = {
-        rowner: '*DEVELOPER ONLY* • COMMAND INI HANYA UNTUK DEVELOPER BOT',
-        disable: '*DISABLED* • COMMAND INI TELAH DIMATIKAN OLEH OWNER',
-        owner: '*OWNER ONLY* • COMMAND INI HANYA UNTUK OWNER BOT',
-        mods: '*MODERATOR ONLY* • COMMAND INI HANYA UNTUK MODERATOR',
-        premium: '*PREMIUM ONLY* • COMMAND INI HANYA UNTUK PREMIUM USER',
-        group: '*GROUP CHAT* • COMMAND INI HANYA BISA DIGUNAKAN DIDALAM GRUP',
-        private: '*PRIVATE CHAT* • COMMAND INI HANYA BISA DIGUNAKAN DI PRIVATE CHAT',
-        admin: '*ADMIN ONLY* • COMMAND INI HANYA UNTUK ADMIN GRUP',
-        botAdmin: '*BOT ADMIN ONLY* • COMMAND INI HANYA UNTUK ADMIN BOT',
-        unreg: 'Halo Kak 👋\nAnda harus mendaftar ke database dulu sebelum menggunakan fitur ini\n\n➞ Ketik .register untuk mendaftar',
-        restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DI GRUP INI',
+        rowner: '*ONLY DEVELOPER* • COMMAND INI HANYA UNTUK DEVELOPER BOT',
+        owner: '*ONLY OWNER* • COMMAND INI HANYA UNTUK OWNER BOT',
+        mods: '*ONLY MODERATOR* • COMMAND INI HANYA UNTUK MODERATOR BOT',
+        premium: '*ONLY PREMIUM* • COMMAND INI HANYA UNTUK PREMIUM USER',
+        group: '*GROUP CHAT* • COMMAND INI HANYA BISA DIPAKAI DIDALAM GROUP',
+        private: '*PRIVATE CHAT* • COMMAND INI HANYA BISA DIPAKAI DIPRIVAT CHAT',
+        admin: '*ONLY ADMIN* • COMMAND INI HANYA UNTUK ADMIN GROUP',
+        botAdmin: '*ONLY BOT ADMIN* • COMMAND INI HANYA BISA DIGUNAKAN KETIKA BOT MENJADI ADMIN',
+        unreg: '*YOU ARE NOT REGISTERED YET* • KETIK .daftar UNTUK BISA MENGGUNAKAN FITUR INI',
+        restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DICHAAT INI',
     }[type]
     if (msg) return conn.reply(m.chat, msg, m)
 }
+
 
 let file = global.__filename(import.meta.url, true)
 watchFile(file, async () => {

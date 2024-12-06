@@ -21,6 +21,10 @@ console.log('🐾 Starting...');
 
 var isRunning = false;
 
+/**
+ * Start a js file
+ * @param {String} file `path/to/file`
+ */
 function start(file) {
   if (isRunning) return;
   isRunning = true;
@@ -35,7 +39,7 @@ function start(file) {
     console.log('[✅RECEIVED]', data);
     switch (data) {
       case 'reset':
-        p.kill();
+        p.kill(); // Change here
         isRunning = false;
         start(file);
         break;

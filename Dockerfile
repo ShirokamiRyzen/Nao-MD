@@ -1,25 +1,23 @@
-FROM node:21
+FROM node:18
 
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy package files and install dependencies
+COPY package.json ./
+RUN npm install
+
+# Install system dependencies
 RUN apt-get update && \
-apt-get install -y \
-ffmpeg \
-imagemagick \
-webp && \
-apt-get upgrade -y && \
-rm -rf /var/lib/apt/lists/*
+    apt-get install -y ffmpeg imagemagick webp && \
+    apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-
-COPY package*.json ./
-
-# Install dependensi Node.js
-RUN npm install --prefer-offline --no-audit --progress=false
-
-# Copy semua file proyek ke dalam container
+# Copy the rest of the application files
 COPY . .
 
-# Expose port 3000
-EXPOSE 5100
+# Expose the required port
+EXPOSE 3000
 
-# Command untuk menjalankan aplikasi
+# Command to run the application
 CMD ["node", "index.js"]

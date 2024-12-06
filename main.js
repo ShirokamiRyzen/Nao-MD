@@ -40,8 +40,14 @@ import readline from 'readline'
 import { format } from 'util'
 import pino from 'pino'
 import ws from 'ws'
-import pkg from '@adiwajshing/baileys'
-const { useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeInMemoryStore, makeCacheableSignalKeyStore, PHONENUMBER_MCC } = pkg;
+const {
+  useMultiFileAuthState,
+  DisconnectReason,
+  fetchLatestBaileysVersion,
+  makeInMemoryStore,
+  makeCacheableSignalKeyStore,
+  PHONENUMBER_MCC
+} = await import('@adiwajshing/baileys')
 import { Low, JSONFile } from 'lowdb'
 import { makeWASocket, protoType, serialize } from './lib/simple.js'
 import cloudDBAdapter from './lib/cloudDBAdapter.js'
@@ -114,7 +120,8 @@ const connectionOptions = {
   version,
   logger: pino({ level: 'silent' }),
   printQRInTerminal: !usePairingCode,
-  //browser: ['Ubuntu', 'Chrome', '20.0.04'],
+  // Optional If Linked Device Could'nt Connected
+  // browser: ['Mac OS', 'chrome', '125.0.6422.53']
   browser: ['Mac OS', 'safari', '5.1.10'],
   auth: {
     creds: state.creds,
@@ -171,7 +178,6 @@ if (usePairingCode && !conn.authState.creds.registered) {
     console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
   }, 3000)
 }
-
 async function resetLimit() {
   try {
     let list = Object.entries(global.db.data.users);

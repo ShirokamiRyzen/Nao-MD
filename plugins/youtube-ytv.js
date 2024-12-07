@@ -1,75 +1,71 @@
 import axios from 'axios'
 import fs from 'fs'
 import os from 'os'
-import ffmpeg from 'fluent-ffmpeg'
+import { exec } from 'child_process'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Usage: ${usedPrefix}${command} url reso`;
 
   m.reply(wait);
 
-  // Parsing URL dan resolusi
+  // Parse URL and resolution from the input text
   const args = text.split(' ');
   const videoUrl = args[0];
   const resolution = args[1] || '480';
 
-  // URL API untuk mendapatkan link unduhan video
+  // API URL to fetch the video download link
   const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
 
   try {
-    // Mendapatkan URL video dari API
+    // Fetch video URL from the API
     const response = await axios.get(apiUrl);
     const { url: videoStreamUrl, filename } = response.data;
 
     if (!videoStreamUrl) throw 'Video URL not found in API response.';
 
-    // Tentukan direktori sementara dan nama file
+    // Define the temporary directory and file name
     const tmpDir = os.tmpdir();
     const filePath = `${tmpDir}/${filename}`;
 
-    // Unduh video langsung ke file lokal
+    // Download video directly to a local file
     const writer = fs.createWriteStream(filePath);
     const downloadResponse = await axios({
       url: videoStreamUrl,
       method: 'GET',
-      responseType: 'stream'
+      responseType: 'stream',
     });
 
-    // Pipe stream langsung ke file
+    // Pipe the stream directly to the file
     downloadResponse.data.pipe(writer);
 
-    // Tunggu sampai unduhan selesai
+    // Wait until the download is complete
     await new Promise((resolve, reject) => {
       writer.on('finish', resolve);
       writer.on('error', reject);
     });
 
-    // Proses video dengan ffmpeg untuk memperbaiki metadata (durasi)
+    // Process the video with ffmpeg to fix metadata (duration)
     const outputFilePath = `${tmpDir}/${filename.replace('.mp4', '_fixed.mp4')}`;
-
-    // Gunakan ffmpeg untuk memproses video tanpa mengubah isi (c copy)
     await new Promise((resolve, reject) => {
-      ffmpeg(filePath)
-        .outputOptions('-c copy') // Menghindari re-encoding, hanya memperbaiki metadata
-        .output(outputFilePath)
-        .on('end', resolve)
-        .on('error', reject)
-        .run();
+      exec(`ffmpeg -i "${filePath}" -c copy "${outputFilePath}"`, (error) => {
+        if (error) reject(error);
+        else resolve();
+      });
     });
 
-    // Caption pesan dengan nama file dari API
-    const caption = `Ini kak videonya @${m.sender.split('@')[0]}\n\nFilename: ${filename}`;
+    // Message caption with the filename from the API
+    const caption = `Here's the video for you @${m.sender.split('@')[0]}\n\nFilename: ${filename}`;
 
-    // Kirim video dengan caption langsung dari file yang diunduh dan diproses
+    // Send the video with the caption directly from the processed file
     await conn.sendMessage(m.chat, {
       video: { url: outputFilePath },
-      mimetype: "video/mp4",
+      mimetype: 'video/mp4',
       fileName: filename,
       caption,
-      mentions: [m.sender]
+      mentions: [m.sender],
     }, { quoted: m });
 
-    // Hapus file setelah dikirim
+    // Delete the original downloaded file
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error(`Failed to delete original video file: ${err}`);
@@ -78,7 +74,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       }
     });
 
-    // Hapus file yang telah diproses
+    // Delete the processed file
     fs.unlink(outputFilePath, (err) => {
       if (err) {
         console.error(`Failed to delete processed video file: ${err}`);

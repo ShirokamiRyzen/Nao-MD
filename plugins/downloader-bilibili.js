@@ -2,7 +2,7 @@
 // Script by ShirokamiRyzen
 
 import axios from 'axios'
-import ffmpeg from 'fluent-ffmpeg'
+import { exec } from 'child_process'
 import fs from 'fs/promises'
 import path from 'path'
 
@@ -28,19 +28,17 @@ let handler = async (m, { conn, args }) => {
         if (video.url) {
             const videoBuffer = await axios.get(video.url, { responseType: 'arraybuffer' }).then(res => res.data);
             const tempFilePath = path.join('/tmp', `${video.filename || 'video'}.mp4`);
+            const outputFilePath = path.join('/tmp', `${video.filename || 'video'}_fixed.mp4`);
 
             // Write the video buffer to a temporary file
             await fs.writeFile(tempFilePath, videoBuffer);
 
-            // Process video with FFmpeg to fix duration metadata
-            const outputFilePath = path.join('/tmp', `${video.filename || 'video'}_fixed.mp4`);
+            // Use ffmpeg command to copy the video without re-encoding
             await new Promise((resolve, reject) => {
-                ffmpeg(tempFilePath)
-                    .outputOptions('-c copy')
-                    .output(outputFilePath)
-                    .on('end', resolve)
-                    .on('error', reject)
-                    .run();
+                exec(`ffmpeg -i ${tempFilePath} -c copy ${outputFilePath}`, (error) => {
+                    if (error) reject(error);
+                    else resolve();
+                });
             });
 
             const caption = `Ini videonya kak @${sender}!\n\n*Judul:* ${title}\n*Ditonton:* ${views}\n*Suka:* ${likes}`;
@@ -68,7 +66,7 @@ let handler = async (m, { conn, args }) => {
         }
     } catch (error) {
         console.error('Handler Error:', error);
-        conn.reply(m.chat, `An error occurred: ${error}`, m);
+        conn.reply(m.chat, `An error occurred: ${error.message || error}`, m);
     }
 };
 

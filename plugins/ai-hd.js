@@ -33,7 +33,7 @@ handler.tags = ['ai']
 handler.command = /^(hd|remini)$/i
 
 handler.register = true
-handler.limit = 10
+handler.limit = 15
 handler.disable = false
 
 export default handler

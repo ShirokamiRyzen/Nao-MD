@@ -44,9 +44,9 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
     // Tentukan endpoint berdasarkan kondisi kombinasi `text` dan `m.quoted`
     let apiUrl;
     if ((!text && m.quoted) || (text && m.quoted) || (text && m.mtype.includes('imageMessage'))) {
-      apiUrl = `https://api.ryzendesu.vip/api/ai/blackbox?chat=${encodeURIComponent(text || '')}&options=blackboxai&imageurl=${imgUrl}`;
+      apiUrl = `${APIs.ryzen}/api/ai/blackbox?chat=${encodeURIComponent(text || '')}&options=blackboxai&imageurl=${imgUrl}`;
     } else if (text && !m.quoted) {
-      apiUrl = `https://api.ryzendesu.vip/api/ai/blackbox?chat=${encodeURIComponent(text)}&options=blackboxai`;
+      apiUrl = `${APIs.ryzen}/api/ai/blackbox?chat=${encodeURIComponent(text)}&options=blackboxai`;
     }
 
     // Fetch ke API dengan URL yang dipilih

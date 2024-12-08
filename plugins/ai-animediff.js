@@ -17,8 +17,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     await conn.relayMessage(m.chat, { reactionMessage: { key: m.key, text: '⏱️' } }, { messageId: m.key.id })
 
     const apiCombinations = [
-        `https://api.ryzendesu.vip/api/ai/flux-diffusion?prompt=${encodeURIComponent(text)}`,   // Primary API: flux-diffusion
-        `https://api.ryzendesu.vip/api/ai/flux-schnell?prompt=${encodeURIComponent(text)}`,      // Primary API: flux-schnell
+        `${APIs.ryzen}/api/ai/flux-diffusion?prompt=${encodeURIComponent(text)}`,   // Primary API: flux-diffusion
+        `${APIs.ryzen}/api/ai/flux-schnell?prompt=${encodeURIComponent(text)}`,      // Primary API: flux-schnell
         `https://apidl.asepharyana.my.id/api/ai/flux-diffusion?prompt=${encodeURIComponent(text)}`,  // Backup API: flux-diffusion
         `https://apidl.asepharyana.my.id/api/ai/flux-schnell?prompt=${encodeURIComponent(text)}`     // Backup API: flux-schnell
     ];

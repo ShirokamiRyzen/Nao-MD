@@ -11,7 +11,7 @@ let handler = async (m, { conn, args }) => {
     m.reply(wait)
 
     try {
-        const response = await axios.get(`https://api.ryzendesu.vip/api/tool/carbon?code=${encodeURIComponent(code)}`, {
+        const response = await axios.get(`${APIs.ryzen}/api/tool/carbon?code=${encodeURIComponent(code)}`, {
             responseType: 'arraybuffer'
         });
 

@@ -33,7 +33,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     const { title, timestamp: lengthSeconds, views, ago: uploadDate, thumbnail } = video;
 
     // Fetch audio URL dari ryzendesu API
-    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
+    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
 
     if (!response.data.url) throw new Error('URL audio tidak tersedia.');
     const { url } = response.data;

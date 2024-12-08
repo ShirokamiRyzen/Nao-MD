@@ -14,7 +14,7 @@ let handler = async (m, { conn, args }) => {
     });
 
     try {
-        let res = await axios.get(`https://api.ryzendesu.vip/api/internet/cekml?userId=${userId}&zoneId=${zoneId}`)
+        let res = await axios.get(`${APIs.ryzen}/api/internet/cekml?userId=${userId}&zoneId=${zoneId}`)
         let result = res.data
         let ini_text =
             `

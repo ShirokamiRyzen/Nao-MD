@@ -5,7 +5,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) throw 'Masukkan teks!';
 
   try {
-    let res = await fetch(`https://api.ryzendesu.vip/api/sticker/brat?text=${encodeURIComponent(text)}`);
+    let res = await fetch(`${APIs.ryzen}/api/sticker/brat?text=${encodeURIComponent(text)}`);
 
     if (!res.ok) throw 'Gagal mengambil gambar dari kedua API!';
 

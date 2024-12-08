@@ -32,7 +32,7 @@ export default handler;
 
 export async function chord(query) {
     return new Promise(async (resolve, reject) => {
-        const url = `https://api.ryzendesu.vip/api/search/chord?query=${query}`;
+        const url = `${APIs.ryzen}/api/search/chord?query=${query}`;
         
         try {
             let { data } = await axios.get(url);

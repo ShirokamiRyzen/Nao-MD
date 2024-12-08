@@ -13,7 +13,7 @@ handler.before = async (m) => {
 
         let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
-        let res = await fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
+        let res = await fetch(`${APIs.ryzen}/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
         if (!res.ok) throw new Error("Failed to fetch data from the GPT prompt API");
 
         let json = await res.json();

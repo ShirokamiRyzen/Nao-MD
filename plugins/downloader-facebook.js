@@ -11,7 +11,7 @@ let handler = async (m, { conn, args }) => {
     m.reply(wait);
 
     try {
-        const { data } = await axios.get(`https://api.ryzendesu.vip/api/downloader/fbdl?url=${encodeURIComponent(url)}`);
+        const { data } = await axios.get(`${APIs.ryzen}/api/downloader/fbdl?url=${encodeURIComponent(url)}`);
 
         if (!data.status || !data.data || data.data.length === 0) throw 'No available video found';
 

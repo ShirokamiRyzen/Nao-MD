@@ -14,7 +14,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   const resolution = args[1] || '480';
 
   // API URL to fetch the video download link
-  const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
+  const apiUrl = `${APIs.ryzen}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
 
   try {
     // Fetch video URL from the API

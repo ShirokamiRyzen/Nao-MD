@@ -13,7 +13,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         let url = await uploadPomf(media)
 
         // Mengirim permintaan ke API waifu2x dan mendapatkan buffer
-        let response = await fetch(`https://api.ryzendesu.vip/api/ai/waifu2x?url=${url}`)
+        let response = await fetch(`${APIs.ryzen}/api/ai/waifu2x?url=${url}`)
         if (!response.ok) throw new Error('Gagal menghubungi API waifu2x')
 
         let hasil = await response.buffer()

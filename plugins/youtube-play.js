@@ -18,7 +18,7 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
 
   try {
     // Mendapatkan URL audio menggunakan API ryzendesu
-    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(url)}`);
+    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`);
     const downloadUrl = response.data.url;
 
     if (!downloadUrl) throw new Error('Audio URL not found');

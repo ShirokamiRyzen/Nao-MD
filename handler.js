@@ -104,7 +104,7 @@ export async function handler(chatUpdate) {
                 if (!('simi' in chat))
                     chat.simi = false
                 if (!('autogpt' in chat))
-                    chat.chatgpt = false
+                    chat.autogpt = false
                 if (!('autoSticker' in chat))
                     chat.autoSticker = false
                 if (!('premium' in chat))
@@ -339,7 +339,7 @@ export async function handler(chatUpdate) {
                 else
                     m.exp += xp
                 if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                    this.reply(m.chat, `[❗] Limit harian kamu telah habis, silahkan beli melalui *${usedPrefix}buy limit*`, m)
+                    this.reply(m.chat, `[❗] Limit harian kamu telah habis, silahkan beli Premium melalui *${usedPrefix}donasi*`, m)
                     continue // Limit habis
                 }
                 if (plugin.level > _user.level) {
@@ -399,7 +399,7 @@ export async function handler(chatUpdate) {
                         }
                     }
                     if (m.limit)
-                        m.reply(+m.limit + ' Limit kamu terpakai ✔️')
+                        m.reply(+m.limit + ' Limit kamu terpakai')
                 }
                 break
             }

@@ -8,12 +8,12 @@ let handler = m => m
 handler.before = async (m) => {
     let chat = global.db.data.chats[m.chat];
     if (chat.autogpt && !chat.isBanned) {
-        if (/^.*false|disnable|(turn)?off|0/i.test(m.text)) return;
+        if (/^.*false|disable|(turn)?off|0/i.test(m.text)) return;
         if (!m.text) return;
 
         let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
-        let res = await fetch(`${APIs.ryzen}/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
+        let res = await fetch(`${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
         if (!res.ok) throw new Error("Failed to fetch data from the GPT prompt API");
 
         let json = await res.json();

@@ -588,6 +588,7 @@ global.dfail = (type, m, conn) => {
         botAdmin: '*ONLY BOT ADMIN* • COMMAND INI HANYA BISA DIGUNAKAN KETIKA BOT MENJADI ADMIN',
         unreg: '*YOU ARE NOT REGISTERED YET* • KETIK .daftar UNTUK BISA MENGGUNAKAN FITUR INI',
         restrict: '*RESTRICT* • RESTRICT BELUM DINYALAKAN DICHAAT INI',
+        disable: '*DISABLED* • CMD INI TELAH DIMATIKAN OLEH OWNER', 
     }[type]
     if (msg) return conn.reply(m.chat, msg, m)
 }

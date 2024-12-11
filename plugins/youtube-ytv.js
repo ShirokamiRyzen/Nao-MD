@@ -15,7 +15,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
   try {
     const response = await axios.get(apiUrl);
-    const { url: videoStreamUrl, filename, lengthSeconds, title, uploadDate, views } = response.data;
+    const { url: videoStreamUrl, filename, lengthSeconds, title, uploadDate, views, author } = response.data;
 
     if (!videoStreamUrl) throw 'Video URL not found in API response.';
 
@@ -45,7 +45,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       });
     });
 
-    const caption = `Ini kak videonya @${m.sender.split('@')[0]}\n\n*Title*: ${title} (${resolution})\n*Duration*: ${lengthSeconds}\n*Views*: ${views}\n*Uploaded*: ${uploadDate}`;
+    const caption = `Ini kak videonya @${m.sender.split('@')[0]}\n\n*Title*: ${title} (${resolution})\n*Author*: ${author}\n*Duration*: ${lengthSeconds}\n*Views*: ${views}\n*Uploaded*: ${uploadDate}`;
 
     // Send the fixed video
     await conn.sendMessage(m.chat, {

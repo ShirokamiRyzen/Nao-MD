@@ -17,7 +17,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
     if (!response.data || !response.data.url) throw new Error('Audio not found or unavailable.');
 
-    const { title, lengthSeconds, views, uploadDate, thumbnail, url, filename } = response.data;
+    const { title, lengthSeconds, views, uploadDate, thumbnail, url, filename, author } = response.data;
 
     const tmpDir = os.tmpdir();
     const filePath = `${tmpDir}/${filename}`;
@@ -31,7 +31,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     const writableStream = fs.createWriteStream(filePath);
     await streamPipeline(audioResponse.data, writableStream);
 
-    const info = `Title: ${title}\nLength: ${lengthSeconds}\nViews: ${views}\nUploaded: ${uploadDate}`;
+    const info = `Title: ${title}\n*Author*: ${author}\nLength: ${lengthSeconds}\nViews: ${views}\nUploaded: ${uploadDate}`;
 
     await conn.sendMessage(m.chat, {
       document: {

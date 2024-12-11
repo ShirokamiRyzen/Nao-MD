@@ -3,60 +3,36 @@ import fs from 'fs'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 import os from 'os'
-import yts from 'yt-search'
 
 const streamPipeline = promisify(pipeline);
-
-// Fungsi untuk mengekstrak ID video dari URL
-const extractVideoID = (url) => {
-  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-};
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL>`;
   const videoUrl = text;
 
-  // Ekstrak ID video dari URL
-  const videoID = extractVideoID(videoUrl);
-  if (!videoID) throw new Error('Format URL tidak valid.');
-
-  m.reply(wait)
+  m.reply(wait);
 
   try {
-    // Mengambil informasi video menggunakan yt-search dengan ID video
-    const videoInfo = await yts(videoID);
-    if (!videoInfo || !videoInfo.videos.length) throw new Error('Video tidak ditemukan.');
-    
-    const video = videoInfo.videos[0];
-    const { title, timestamp: lengthSeconds, views, ago: uploadDate, thumbnail } = video;
-
-    // Fetch audio URL dari ryzendesu API
     const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
 
-    if (!response.data.url) throw new Error('URL audio tidak tersedia.');
-    const { url } = response.data;
-    
-    if (!url) throw new Error('URL audio tidak tersedia.');
+    if (!response.data || !response.data.url) throw new Error('Audio not found or unavailable.');
+
+    const { title, lengthSeconds, views, uploadDate, thumbnail, url, filename } = response.data;
 
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${title}.mp3`;
+    const filePath = `${tmpDir}/${filename}`;
 
-    // Mengunduh file audio menggunakan URL
     const audioResponse = await axios({
       method: 'get',
       url: url,
       responseType: 'stream'
     });
 
-    // Menulis stream ke file
     const writableStream = fs.createWriteStream(filePath);
     await streamPipeline(audioResponse.data, writableStream);
 
     const info = `Title: ${title}\nLength: ${lengthSeconds}\nViews: ${views}\nUploaded: ${uploadDate}`;
 
-    // Mengirim file audio
     await conn.sendMessage(m.chat, {
       document: {
         url: filePath,
@@ -66,17 +42,17 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       caption: info,
     }, { quoted: m });
 
-    // Membersihkan: hapus file audio
     fs.unlink(filePath, (err) => {
       if (err) {
-        console.error(`Gagal menghapus file audio: ${err}`);
+        console.error(`Failed to delete audio file: ${err}`);
       } else {
-        console.log(`Berhasil menghapus file audio: ${filePath}`);
+        console.log(`Successfully deleted audio file: ${filePath}`);
       }
     });
+
   } catch (error) {
     console.error('Error:', error.message);
-    throw `Error: ${error.message}. Silakan periksa format URL dan coba lagi.`;
+    throw `Error: ${error.message}. Please check the URL and try again.`;
   }
 };
 

@@ -52,8 +52,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
     'main': 'Main',
-    'anonymous': 'Anonymous Chat',
-    'stress': 'Stress',
+    // 'anonymous': 'Anonymous Chat',
+    // 'stress': 'Stress',
     'ai': 'Ai feature',
     'memfess': 'Memfess',
     'downloader': 'Downloader',

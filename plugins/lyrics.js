@@ -1,22 +1,27 @@
 import axios from 'axios'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) throw `Contoh\n*${usedPrefix}${command} Seven oops Orange Romaji*`;
+    if (!text) throw `Contoh\n*${usedPrefix}${command} Seven oops - Orange*`;
 
-    m.reply(wait)
+    m.reply(wait);
 
     try {
         const response = await axios.get(`${APIs.ryzen}/api/search/lyrics?query=${encodeURIComponent(text)}`);
-        const result = response.data;
+        const results = response.data;
 
-        if (result && result.lyrics) {
+        if (results && results.length > 0) {
+            const firstResult = results[0];
+
             m.reply(`
-Title *${result.title}*
-Artist *${result.artist}*
+*Title:* ${firstResult.name}
+*Artist:* ${firstResult.artistName}
+*Album:* ${firstResult.albumName}
+*Duration:* ${Math.floor(firstResult.duration / 60)}:${(firstResult.duration % 60).toString().padStart(2, '0')}
 
-${result.lyrics}
+*Lyrics:*
+${firstResult.plainLyrics}
 
-Url: ${result.url}
+*Url:* ${APIs.ryzen}/api/search/lyrics?query=${encodeURIComponent(text)}
 `.trim());
         } else {
             throw new Error('Lirik tidak ditemukan');
@@ -24,7 +29,7 @@ Url: ${result.url}
     } catch (error) {
         conn.reply(m.chat, `Terjadi kesalahan saat memproses permintaan. ${error.message}`, m);
     }
-}
+};
 
 handler.help = ['lirik'].map(v => v + ' <Apa>');
 handler.tags = ['internet'];

@@ -5,15 +5,10 @@ var handler = async (m, { conn, text }) => {
 
   conn.reply(m.chat, 'Sedang mencari orangnya... Silahkan tunggu.', m);
 
-  const apiKey = '3ed297db-db1c-4266-8bf4-a89f21c01317';
-  const url = `https://pddikti.kemdikbud.go.id/api/pencarian/mhs/${text.replaceAll(' ', '%20')}`;
+  const url = `${APIs.ryzen}/api/search/mahasiswa?query=${encodeURIComponent(text)}`;
 
   try {
-    let res = await axios.get(url, {
-      headers: {
-        'x-api-key': apiKey,
-      },
-    });
+    let res = await axios.get(url);
 
     const data = res.data;
 

@@ -1,15 +1,16 @@
-version: "3.9" 
+version: '3.8'
+
 services:
-  web:
+  app:
+    container_name: nao
     build: .
     ports:
-      - "8000:5000"
+      - "3000:3000"
     volumes:
-      - .:/code
-      - logvolume01:/var/log
-    links:
-      - redis
-  redis:
-    image: redis
-volumes:
-  logvolume01: {}
+      - .:/app                      # Mount direktori aplikasi ke dalam container
+      - ./sessions:/app/sessions    # Mount folder database ke dalam container (di luar container)
+      - /app/node_modules           # Memastikan node_modules tidak ikut di-mount dari host
+    environment:
+      NODE_ENV: production
+    command: "node index.js"
+    restart: unless-stopped

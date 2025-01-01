@@ -15,16 +15,16 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   try {
     const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
 
-    if (!response.data || !response.data.url) throw new Error('Audio not found or unavailable.');
+    if (!response.data) throw new Error('Audio not found or unavailable.');
 
-    const { title, lengthSeconds, views, uploadDate, thumbnail, url, filename, author } = response.data;
+    const { title, lengthSeconds, views, uploadDate, downloadUrl, author } = response.data;
 
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${filename}`;
+    const filePath = `${tmpDir}/${title}`;
 
     const audioResponse = await axios({
       method: 'get',
-      url: url,
+      url: downloadUrl,
       responseType: 'stream'
     });
 

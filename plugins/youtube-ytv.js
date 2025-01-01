@@ -11,20 +11,31 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   const videoUrl = args[0];
   const resolution = args[1] || '480';
 
-  const apiUrl = `${APIs.ryzen}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&reso=${resolution}`;
+  const apiUrl = `${APIs.ryzen}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&quality=${resolution}`;
 
   try {
     const response = await axios.get(apiUrl);
-    const { url: videoStreamUrl, filename, lengthSeconds, title, uploadDate, views, author } = response.data;
+    const {
+      title,
+      author,
+      authorUrl,
+      views,
+      uploadDate,
+      description,
+      videoUrl,
+      duration,
+      downloadUrl,
+      quality
+    } = response.data;
 
-    if (!videoStreamUrl) throw 'Video URL not found in API response.';
+    if (!downloadUrl) throw 'Download URL not found in API response.';
 
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${filename}`;
+    const filePath = `${tmpDir}/${title.replace(/[^a-zA-Z0-9]/g, '_')}_${quality}.mp4`;
 
     const writer = fs.createWriteStream(filePath);
     const downloadResponse = await axios({
-      url: videoStreamUrl,
+      url: downloadUrl,
       method: 'GET',
       responseType: 'stream',
     });
@@ -37,7 +48,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     });
 
     // Fix the video duration using ffmpeg
-    const outputFilePath = `${tmpDir}/${filename.replace('.mp4', '_fixed.mp4')}`;
+    const outputFilePath = `${tmpDir}/${title.replace(/[^a-zA-Z0-9]/g, '_')}_${quality}_fixed.mp4`;
     await new Promise((resolve, reject) => {
       exec(`ffmpeg -i "${filePath}" -c copy "${outputFilePath}"`, (error) => {
         if (error) reject(error);
@@ -45,13 +56,22 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       });
     });
 
-    const caption = `Ini kak videonya @${m.sender.split('@')[0]}\n\n*Title*: ${title} (${resolution})\n*Author*: ${author}\n*Duration*: ${lengthSeconds}\n*Views*: ${views}\n*Uploaded*: ${uploadDate}`;
+    const caption = `Ini kak videonya @${m.sender.split('@')[0]}
+
+*Title*: ${title} (${quality})
+*Author*: ${author} (${authorUrl})
+*Duration*: ${duration}
+*Views*: ${views}
+*Uploaded*: ${uploadDate}
+*URL*: ${videoUrl}
+
+*Description*: ${description}`;
 
     // Send the fixed video
     await conn.sendMessage(m.chat, {
       video: { url: outputFilePath },
       mimetype: 'video/mp4',
-      fileName: filename,
+      fileName: `${title}_${quality}.mp4`,
       caption,
       mentions: [m.sender],
     }, { quoted: m });
@@ -79,9 +99,9 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   }
 };
 
-handler.help = ['ytmp4'];
-handler.tags = ['downloader'];
-handler.command = /^(ytmp4)$/i;
+handler.help = ['ytmp4']
+handler.tags = ['downloader']
+handler.command = /^(ytmp4)$/i
 
 handler.limit = 10
 handler.register = true

@@ -1,4 +1,4 @@
-import { sticker3 } from '../lib/sticker.js'
+import { sticker } from '../lib/sticker.js'
 import axios from 'axios'
 
 const handler = async (m, { conn, args, usedPrefix, command }) => {
@@ -18,7 +18,7 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
     const obj = { "type": "quote", "format": "png", "backgroundColor": "#000000", "width": 1024, "height": 1024, "scale": 2, "messages": [{ "entities": [], "avatar": true, "from": { "id": 1, "name": `${who?.name || number}`, "photo": { url: `${pp}` } }, "text": orang, "replyMessage": {} }] };
     const json = await axios.post('https://bot.lyo.su/quote/generate', obj, { headers: { 'Content-Type': 'application/json' } });
     const buffer = Buffer.from(json.data.result.image, 'base64');
-    let stiker = await sticker3(buffer, false, global.stickpack, global.stickauth);
+    let stiker = await sticker(buffer, false, global.stickpack, global.stickauth);
     if (stiker) return conn.sendFile(m.chat, stiker, 'qc.webp', '', m);
 }
 

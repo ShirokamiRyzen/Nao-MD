@@ -1,28 +1,32 @@
 import fetch from 'node-fetch'
 import { sticker } from '../lib/sticker.js'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) throw 'Masukkan teks!';
+let handler = async (m, { conn, text }) => {
+  if (!text || !text.trim()) throw 'Masukkan teks yang valid!';
 
   try {
-    let res = await fetch(`${APIs.ryzen}/api/sticker/brat?text=${encodeURIComponent(text)}`);
+    let url = `${APIs.ryzen}/api/sticker/brat?text=${encodeURIComponent(text.trim())}`;
 
-    if (!res.ok) throw 'Gagal mengambil gambar dari kedua API!';
+    // Fetch gambar
+    let res = await fetch(url);
+    if (!res.ok) throw `Gagal mengambil gambar dari API! Status: ${res.status}`;
 
+    // Ambil buffer gambar
     let imageBuffer = await res.buffer();
 
-    let stiker = await sticker(false, imageBuffer, global.stickpack, global.stickauth);
-
+    // Buat stiker menggunakan buffer gambar
+    let stiker = await sticker(imageBuffer, null, global.stickpack, global.stickauth);
     await conn.sendFile(m.chat, stiker, null, { asSticker: true }, m);
 
   } catch (err) {
-    await conn.sendMessage(m.chat, { text: 'Gagal mengambil gambar.' }, { quoted: m });
+    console.error('Error:', err.message || err);
+    await conn.sendMessage(m.chat, { text: `Error: ${err.message || 'Gagal mengambil gambar.'}` }, { quoted: m });
   }
 };
 
-handler.help = ['brat'];
-handler.tags = ['sticker'];
-handler.command = /^(brat)$/i;
+handler.help = ['brat']
+handler.tags = ['sticker']
+handler.command = /^(brat)$/i
 
 handler.register = true
 

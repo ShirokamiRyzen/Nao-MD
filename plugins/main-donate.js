@@ -1,16 +1,13 @@
 let handler = async (m) => {
-  let dana = global.pdana
+  let gambar = 'https://api.ryzendesu.vip/images/qris.png'
   let saweria = global.psaweria
-  let bank1 = global.bank1
-  let gopay = global.pgopay
+  let qris = global.qris
   let numberowner = global.nomorown
   let anu = `Hai 👋
 Kalian bisa membeli paket premium melalui:
 ┌〔 Premium • Emoney 〕
+├ QRIS : ${qris}
 ├ Saweria : ${saweria}
-├ Jago : ${bank1}
-├ Dana : ${dana}
-├ Gopay : ${gopay}
 └────
 List Premium:
 10k = Premium 15 Hari
@@ -23,7 +20,8 @@ Terimakasih :D
 Contact Owner:
 wa.me/${numberowner} (Owner)
 `
-  m.reply(anu)
+  let qris_img = await (await fetch(gambar)).buffer()
+  await conn.sendFile(m.chat, qris_img, '', anu, m)
 }
 
 handler.help = ['premium']

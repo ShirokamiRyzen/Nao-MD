@@ -13,7 +13,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
 
     let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
-    let response = await fetch(`${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
+    let response = await fetch(`${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}`);
 
     if (!response.ok) {
       throw new Error("Request to OpenAI API failed");

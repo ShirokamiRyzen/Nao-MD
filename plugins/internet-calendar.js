@@ -31,7 +31,7 @@ let handler = async (m, { conn, text }) => {
 };
 
 handler.help = ['calendar'];
-handler.tags = ['sticker'];
+handler.tags = ['internet'];
 handler.command = /^(calendar|kalender)$/i;
 
 handler.register = true

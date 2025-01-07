@@ -5,7 +5,7 @@ let handler = async (m, { conn, text }) => {
   if (!text || !text.trim()) throw 'Masukkan teks yang valid!';
 
   try {
-    let url = `${APIs.ryzen}/api/sticker/brat?text=${encodeURIComponent(text.trim())}`;
+    let url = `${APIs.ryzen}/api/image/brat?text=${encodeURIComponent(text.trim())}`;
 
     // Fetch gambar
     let res = await fetch(url);

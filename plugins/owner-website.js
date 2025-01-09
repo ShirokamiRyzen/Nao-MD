@@ -3,13 +3,8 @@ let handler = async (m) => {
 *「 Owner Website 」*
 
 Nonton Anime: ryzendesu.vip
-Modded App: forum.ryzendesu.vip
+Rest API: api.ryzendesu.vip
 
-*「 Android Modded Apps 」*
-forum.ryzendesu.vip/forumdisplay.php?fid=6
-
-*「 Windows Modded Apps 」*
-https://forum.ryzendesu.vip/forumdisplay.php?fid=5
 `.trim();
 
   m.reply(replyMessage);

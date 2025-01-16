@@ -1,13 +1,12 @@
 let handler = async (m) => {
   let gambar = 'https://api.ryzendesu.vip/images/qris.png'
-  let saweria = global.psaweria
+  //let saweria = global.psaweria
   let qris = global.qris
   let numberowner = global.nomorown
   let anu = `Hai 👋
 Kalian bisa membeli paket premium melalui:
 ┌〔 Premium • Emoney 〕
 ├ QRIS : ${qris}
-├ Saweria : ${saweria}
 └────
 List Premium:
 10k = Premium 15 Hari

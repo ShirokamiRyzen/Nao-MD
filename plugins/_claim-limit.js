@@ -21,7 +21,6 @@ let handler = async (m,{ conn} ) => {
   user.lastclaim = new Date * 1
 }
 handler.help = ['claimlimit']
-handler.tags = ['main']
 handler.command = /^(claimlimit)$/i
 
 handler.cooldown = cooldown

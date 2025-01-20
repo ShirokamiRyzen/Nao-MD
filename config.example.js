@@ -53,7 +53,7 @@ global.wibb = `${wktuwib}`
 //*============= SOSMED =============*/
 global.sig = 'https://www.instagram.com/fatih_frdaus'
 global.sgh = 'https://github.com/ShirokamiRyzen'
-global.sgc = 'https://whatsapp.com/channel/0029VaGoqK589indDi4Am40J'
+global.sgc = 'https://whatsapp.com/channel/0029Vb2qO9Q5vKAGd2t7ap1F'
 global.sgw = 'https://ryzendesu.vip'
 global.sdc = '-'
 global.sfb = 'https://www.facebook.com/Nao.Tomori.UwU'

@@ -8,6 +8,7 @@ import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
 import os from 'os'
 import jimp from 'jimp'
+import fs from 'fs'
 import PhoneNumber from 'awesome-phonenumber'
 import { uploadPomf } from '../lib/uploadImage.js'
 const { getDevice } = (await import('@adiwajshing/baileys')).default
@@ -299,10 +300,10 @@ function ucapan() {
 
 async function genProfile(conn, m) {
   let font = await jimp.loadFont('./names.fnt'),
-    mask = await jimp.read('https://i.imgur.com/552kzaW.png'),
-    border = await jimp.read('https://telegra.ph/file/a81aa1b95381c68bc9932.png'),
+    mask = await jimp.read(fs.readFileSync('./src/mask.png')),
+    border = await jimp.read(fs.readFileSync('./src/premium_border.png')),
     welcome = await jimp.read(thumbnailUrl.getRandom()),
-    avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')),
+    avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => fs.readFileSync('./src/avatar_contact.png'))),
     status = (await conn.fetchStatus(m.sender).catch(console.log) || {}).status?.slice(0, 30) || 'Not Detected',
     premiumUnixTime = global.db.data.users[m.sender].premiumTime,
     prems = `${premiumUnixTime > 0 ? 'Premium User' : 'Free User'}`;

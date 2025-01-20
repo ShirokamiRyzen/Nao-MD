@@ -7,9 +7,10 @@ import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
 import os from 'os'
-import fs from 'fs'
-import fetch from 'node-fetch'
-const { generateWAMessageFromContent, proto, getDevice } = (await import('@adiwajshing/baileys')).default
+import jimp from 'jimp'
+import PhoneNumber from 'awesome-phonenumber'
+import { uploadPomf } from '../lib/uploadImage.js'
+const { getDevice } = (await import('@adiwajshing/baileys')).default
 
 const defaultMenu = {
   before: `
@@ -246,7 +247,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
             mediaType: 1,
             previewType: 0,
             renderLargerThumbnail: true,
-            thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
+            thumbnailUrl: await genProfile(conn, m),
             sourceUrl: sgc,
           }
         }, mentions: [m.sender]
@@ -268,10 +269,6 @@ export default handler
 
 //----------- FUNCTION -------
 
-function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
-}
-
 const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 
@@ -281,15 +278,7 @@ function clockString(ms) {
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, ' H ', m, ' M ', s, ' S '].map(v => v.toString().padStart(2, 0)).join('')
 }
-function clockStringP(ms) {
-  let ye = isNaN(ms) ? '--' : Math.floor(ms / 31104000000) % 10
-  let mo = isNaN(ms) ? '--' : Math.floor(ms / 2592000000) % 12
-  let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000) % 30
-  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
-  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [ye, ' *Years 🗓️*\n', mo, ' *Month 🌙*\n', d, ' *Days ☀️*\n', h, ' *Hours 🕐*\n', m, ' *Minute ⏰*\n', s, ' *Second ⏱️*'].map(v => v.toString().padStart(2, 0)).join('')
-}
+
 function ucapan() {
   const time = moment.tz('Asia/Jakarta').format('HH')
   let res = "Kok Belum Tidur Kak? 🥱"
@@ -308,7 +297,7 @@ function ucapan() {
   return res
 }
 
-/*async function genProfile(conn, m) {
+async function genProfile(conn, m) {
   let font = await jimp.loadFont('./names.fnt'),
     mask = await jimp.read('https://i.imgur.com/552kzaW.png'),
     border = await jimp.read('https://telegra.ph/file/a81aa1b95381c68bc9932.png'),
@@ -320,30 +309,32 @@ function ucapan() {
 
   const gmtPlus7Time = premiumUnixTime * 1000 + 7 * 60 * 60 * 1000;
 
+  await avatar.resize(460, 460);
+  await mask.resize(460, 460);
+  await avatar.mask(mask);
 
-  await avatar.resize(460, 460)
-  await mask.resize(460, 460)
-  await avatar.mask(mask)
+  await welcome.resize(welcome.getWidth(), welcome.getHeight());
 
-  await welcome.resize(welcome.getWidth(), welcome.getHeight())
-
-  await welcome.print(font, 550, 150, 'Name:')
-  await welcome.print(font, 800, 150, m.pushName.slice(0, 25))
-  await welcome.print(font, 550, 215, 'About:')
-  await welcome.print(font, 800, 215, status)
-  await welcome.print(font, 550, 280, 'Number:')
-  await welcome.print(font, 800, 280, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'))
-  await welcome.print(font, 550, 400, 'Status:')
-  await welcome.print(font, 800, 400, prems)
+  await welcome.print(font, 550, 150, 'Name:');
+  await welcome.print(font, 800, 150, m.pushName.slice(0, 25));
+  await welcome.print(font, 550, 215, 'About:');
+  await welcome.print(font, 800, 215, status);
+  await welcome.print(font, 550, 280, 'Number:');
+  await welcome.print(font, 800, 280, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'));
+  await welcome.print(font, 550, 400, 'Status:');
+  await welcome.print(font, 800, 400, prems);
 
   if (premiumUnixTime > 0) {
     const gmtPlus7DateString = new Date(gmtPlus7Time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-    await border.resize(460, 460)
+    await border.resize(460, 460);
     await welcome.print(font, 550, 460, 'Until:');
     await welcome.print(font, 800, 460, gmtPlus7DateString);
     await welcome.composite(border, 50, 170);
   }
 
-  return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
+  await welcome.composite(avatar, 50, 170);
+  const buffer = await welcome.getBufferAsync('image/png');
+
+  const imageUrl = await uploadPomf(buffer);
+  return imageUrl;
 }
-*/

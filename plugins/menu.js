@@ -307,7 +307,7 @@ async function genProfile(conn, m) {
     premiumUnixTime = global.db.data.users[m.sender].premiumTime,
     prems = `${premiumUnixTime > 0 ? 'Premium User' : 'Free User'}`;
 
-  const gmtPlus7Time = premiumUnixTime * 1000 + 7 * 60 * 60 * 1000;
+  const gmtPlus7Time = premiumUnixTime + 7 * 60 * 60 * 1000;
 
   await avatar.resize(460, 460);
   await mask.resize(460, 460);

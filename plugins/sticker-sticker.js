@@ -1,5 +1,5 @@
 import { sticker, addExif } from '../lib/sticker.js'
-import uploadFile from '../lib/uploadFile.js'
+import { ryzenCDN } from '../lib/uploadFile.js'
 import { Sticker } from 'wa-sticker-formatter'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
@@ -8,7 +8,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let mime = (q.msg || q).mimetype || q.mediaType || ''
 
     if (/video/g.test(mime)) {
-      // Jalankan kode untuk video di sini
       if ((q.msg || q).seconds > 10) return m.reply('Maksimal 10 detik')
       let img = await q.download?.()
       if (!img) throw `Balas video dengan *${usedPrefix + command}*`
@@ -19,13 +18,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         console.error(e)
       } finally {
         if (!stiker) {
-          let out = await uploadFile(img)
-          stiker = await sticker(false, out, global.stickpack, global.stickauth)
+          let out = await ryzenCDN(img)
+          if (!out?.url) throw 'Gagal mengupload video'
+          stiker = await sticker(false, out.url, global.stickpack, global.stickauth)
         }
       }
       conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, null)
     } else if (/image/g.test(mime)) {
-      // Jalankan kode untuk gambar di sini
       let [packname, ...author] = args.join` `.split`|`
       author = (author || []).join`|`
       let img = await q.download?.()

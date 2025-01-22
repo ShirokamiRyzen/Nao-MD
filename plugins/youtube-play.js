@@ -14,23 +14,23 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
   const { title, thumbnail, timestamp, views, ago, url } = vid;
 
   // Mengirim pesan awal dengan thumbnail
-  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: 'Please wait...' }, { quoted: m });
+  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: wait }, { quoted: m });
 
   try {
     // Mendapatkan URL audio menggunakan API ryzendesu
-    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`);
-    const downloadUrl = response.data.downloadUrl;
+    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(url)}`);
+    const data = response.data;
 
-    if (!downloadUrl) throw new Error('Audio URL not found');
+    if (!data.url) throw new Error('Audio URL not found');
 
     // Lokasi file sementara
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${title}.mp3`;
+    const filePath = `${tmpDir}/${data.filename}`;
 
     // Mengunduh file audio dan menyimpannya di direktori sementara
     const audioResponse = await axios({
       method: 'get',
-      url: downloadUrl,
+      url: data.url,
       responseType: 'stream',
     });
 
@@ -44,17 +44,17 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
           url: filePath
         },
         mimetype: 'audio/mpeg',
-        fileName: `${title}.mp3`,
-        caption: `Title: ${title}\nLength: ${timestamp}\nViews: ${views}\nUploaded: ${ago}`,
+        fileName: data.filename,
+        caption: `Title: ${data.title}\nLength: ${data.lengthSeconds}\nViews: ${data.views}\nUploaded: ${data.uploadDate}`,
         contextInfo: {
           externalAdReply: {
             showAdAttribution: true,
             mediaType: 2,
-            mediaUrl: url,
-            title: title,
+            mediaUrl: data.videoUrl,
+            title: data.title,
             body: 'Audio Download',
-            sourceUrl: url,
-            thumbnail: await (await conn.getFile(thumbnail)).data,
+            sourceUrl: data.videoUrl,
+            thumbnail: await (await conn.getFile(data.thumbnail)).data,
           },
         },
       }, { quoted: m });

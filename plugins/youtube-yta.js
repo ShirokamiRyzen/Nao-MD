@@ -13,35 +13,54 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   m.reply(wait);
 
   try {
-    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
+    // Mengambil data dari API ryzendesu
+    const response = await axios.get(`https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`);
+    const data = response.data;
 
-    if (!response.data) throw new Error('Audio not found or unavailable.');
+    if (!data.url) throw new Error('Audio URL not found or unavailable.');
 
-    const { title, lengthSeconds, views, uploadDate, downloadUrl, author } = response.data;
+    const { title, lengthSeconds, views, uploadDate, url, author, thumbnail, filename } = data;
 
+    // Lokasi file sementara
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${title}`;
+    const filePath = `${tmpDir}/${filename}`;
 
+    // Mengunduh file audio
     const audioResponse = await axios({
       method: 'get',
-      url: downloadUrl,
+      url: data.url,
       responseType: 'stream'
     });
 
+    // Menyimpan file audio ke direktori sementara
     const writableStream = fs.createWriteStream(filePath);
     await streamPipeline(audioResponse.data, writableStream);
 
+    // Informasi yang akan dikirim sebagai caption
     const info = `Title: ${title}\n*Author*: ${author}\nLength: ${lengthSeconds}\nViews: ${views}\nUploaded: ${uploadDate}`;
 
+    // Mengirim file audio sebagai dokumen
     await conn.sendMessage(m.chat, {
       document: {
         url: filePath,
       },
       mimetype: 'audio/mpeg',
-      fileName: `${title}.mp3`,
+      fileName: filename,
       caption: info,
+      contextInfo: {
+        externalAdReply: {
+          showAdAttribution: true,
+          mediaType: 2,
+          mediaUrl: data.videoUrl,
+          title: title,
+          body: 'Audio Download',
+          sourceUrl: data.videoUrl,
+          thumbnail: await (await conn.getFile(thumbnail)).data,
+        },
+      },
     }, { quoted: m });
 
+    // Menghapus file setelah dikirim
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error(`Failed to delete audio file: ${err}`);

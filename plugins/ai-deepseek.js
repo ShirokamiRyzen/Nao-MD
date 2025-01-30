@@ -17,10 +17,10 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
 
     let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
 
-    let response = await fetch(`${APIs.ryzen}/api/ai/gemini-pro?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}`);
+    let response = await fetch(`${APIs.ryzen}/api/ai/deepseek?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}`);
 
     if (!response.ok) {
-      throw new Error("Request to Gemini AI failed");
+      throw new Error("Request to DeepSeek AI failed");
     }
 
     let result = await response.json();
@@ -39,9 +39,9 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
   }
 }
 
-handler.help = ['gemini <pertanyaan>']
+handler.help = ['deepseek <pertanyaan>']
 handler.tags = ['ai']
-handler.command = /^(gemini)$/i
+handler.command = /^(deepseek)$/i
 
 handler.limit = 6
 handler.premium = false

@@ -1,4 +1,4 @@
-const { downloadContentFromMessage } = require('@adiwajshing/baileys')
+import { downloadContentFromMessage } from '@adiwajshing/baileys'
 
 let handler = async (m, { conn }) => {
   if (!m.quoted) throw 'Send/Reply Images with the caption *.readviewonve*'

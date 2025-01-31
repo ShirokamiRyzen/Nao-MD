@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
   if (!text || !text.trim()) throw '⚠️ Masukkan nomor telepon yang valid!';
@@ -32,6 +32,9 @@ ${tags.length ? tags.map(tag => `- ${tag}`).join('\n') : 'Tidak ada tag.'}
 
 handler.help = ['getcontact <nomor>']
 handler.tags = ['tools']
-handler.command = /^(getcontact|stalkcontact)$/i
+handler.command = /^(getcontact)$/i
+
+handler.limit = 5
+handler.register = true
 
 export default handler

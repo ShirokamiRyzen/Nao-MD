@@ -43,7 +43,7 @@
 - ✔️ | Tools 
 ---------
 
-## Requirement
+## Requirements
 
 * NodeJS (v18 up)
 * FFMPEG
@@ -59,7 +59,7 @@ $ npm i
 
 ---------
 
-## Run 🏃
+## Run
 
 ```bash
 node index.js

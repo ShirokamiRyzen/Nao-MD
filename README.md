@@ -72,7 +72,7 @@ node index.js --autocleartmp
 ---------
 
 #
-### 📮 S&K
+### Terms
 1. Dont sell this script!
 2. Dont forget to star this repository!
 3. Follow my GitHub!

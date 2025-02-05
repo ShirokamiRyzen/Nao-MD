@@ -38,14 +38,18 @@ let handler = async (m, { conn, args }) => {
                 }
             );
         } else if (images.length > 0) {
+            let firstImage = true;
             for (const item of images) {
                 try {
                     const imageUrl = item.url;
                     const imageBuffer = await fetch(imageUrl).then(res => res.buffer());
+                    const caption = firstImage ? `Ini kak gambarnya @${sender}` : '';
+                    firstImage = false;
+
                     await conn.sendMessage(
                         m.chat, {
                             image: imageBuffer,
-                            caption: `Ini kak gambarnya @${sender}`,
+                            caption: caption,
                             mentions: [m.sender]
                         }, {
                             quoted: m

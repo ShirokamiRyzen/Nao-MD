@@ -17,7 +17,7 @@ let handler = async (m, { conn, args }) => {
         let media = await q.download();
         let url = await uploadPomf(media);
 
-        let response = await axios.get(`https://api.ryzendesu.vip/api/ai/faceswap`, {
+        let response = await axios.get(`${APIs.ryzen}/api/ai/faceswap`, {
             params: {
                 original: args[0],
                 face: url

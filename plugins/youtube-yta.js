@@ -23,7 +23,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
     // Lokasi file sementara
     const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${filename}`;
+    const filePath = `${tmpDir}/${title}`;
 
     // Mengunduh file audio
     const audioResponse = await axios({
@@ -45,7 +45,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
         url: filePath,
       },
       mimetype: 'audio/mpeg',
-      fileName: filename,
+      fileName: title,
       caption: info,
       contextInfo: {
         externalAdReply: {

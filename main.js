@@ -167,10 +167,6 @@ if (usePairingCode && !conn.authState.creds.registered) {
   if (useMobile) throw new Error('Cannot use pairing code with mobile api')
   const { registration } = { registration: {} }
   let phoneNumber = global.pairing
-  if (PHONENUMBER_MCC && Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-  } else {
-    throw new Error('Invalid phone number format.');
-  }
   console.log(chalk.bgWhite(chalk.blue('Generating code...')))
   setTimeout(async () => {
     let code = await conn.requestPairingCode(phoneNumber)

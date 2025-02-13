@@ -1,44 +1,36 @@
-//By Shirokami Ryzen
-//Dont delete this credit!!!
-import fetch from 'node-fetch'
-import { pinterest } from '../lib/scrape.js'
+import axios from 'axios'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Input *Query*`
-  conn.reply(m.chat, 'Wait a moment...', m)
+  if (!text) throw `Input *Query*`;
+
+  m.reply(wait);
 
   try {
-    const hasil = await pinterest(text);
-    let gambarUrls = hasil.slice(0, 20); // Ambil 20 gambar pertama
+    const url = `${APIs.ryzen}/api/search/pinterest?query=${encodeURIComponent(text)}`;
+    const response = await axios.get(url);
+    const data = response.data;
 
-    // Mengacak array gambarUrls
-    for (let i = gambarUrls.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [gambarUrls[i], gambarUrls[j]] = [gambarUrls[j], gambarUrls[i]];
-    }
+    const shuffled = data.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 3);
 
-    // Mengirim 10 gambar secara acak
-    for (let i = 0; i < 10; i++) {
-      let imageUrl = gambarUrls[i];
-      let imageRes = await fetch(imageUrl);
-      let imageBuffer = await imageRes.buffer();
+    for (const item of selected) {
+      const imageRes = await axios.get(item.directLink, { responseType: 'arraybuffer' });
+      const imageBuffer = Buffer.from(imageRes.data, 'binary');
+      const caption = `🔗 *Source:* ${item.link}`;
 
-      // Menggunakan fungsi sendImage untuk mengirim gambar ke WhatsApp
-      await conn.sendFile(m.chat, imageBuffer, 'gambar.jpg', '');
-
-      // Tambahkan jeda agar tidak mengirim gambar terlalu cepat
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await conn.sendFile(m.chat, imageBuffer, 'gambar.jpg', caption);
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   } catch (e) {
-    console.log(e)
-    conn.reply(m.chat, 'Terjadi kesalahan saat mendownload gambar.', m)
+    conn.reply(m.chat, 'Terjadi kesalahan saat mendownload gambar.', m);
   }
-}
+};
 
-handler.help = ['pinterest <keyword>']
-handler.tags = ['internet']
-handler.command = /^pinterest$/i
+handler.help = ['pinterest'];
+handler.tags = ['internet'];
+handler.command = /^pin(terest)?$/i;
 
+handler.limit = 2
 handler.register = true
 
 export default handler

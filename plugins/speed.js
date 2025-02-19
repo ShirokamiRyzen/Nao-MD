@@ -2,12 +2,15 @@ import { cpus as _cpus, totalmem, freemem } from 'os'
 import os from 'os'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
+import { readFileSync } from 'fs'
+
 let format = sizeFormatter({
   std: 'JEDEC',
   decimalPlaces: 2,
   keepTrailingZeroes: false,
   render: (literal, symbol) => `${literal} ${symbol}B`,
 })
+
 var handler = async (m, { conn, isRowner }) => {
   let _muptime
   if (process.send) {
@@ -19,11 +22,13 @@ var handler = async (m, { conn, isRowner }) => {
   }
   let muptime = clockString(_muptime)
   const used = process.memoryUsage()
+
   const cpus = _cpus().map(cpu => {
-    cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
+    cpu.total = Object.values(cpu.times).reduce((a, b) => a + b, 0)
     return cpu
   })
-  const cpu = cpus.reduce((last, cpu, _, { length }) => {
+
+  const cpuAggregated = cpus.reduce((last, cpu, _, { length }) => {
     last.total += cpu.total
     last.speed += cpu.speed / length
     last.times.user += cpu.times.user
@@ -44,24 +49,74 @@ var handler = async (m, { conn, isRowner }) => {
     }
   })
 
+  let avgSpeed = cpuAggregated.speed
+  if (!avgSpeed || avgSpeed === 0) {
+    try {
+      const cpuInfo = readFileSync('/proc/cpuinfo', 'utf8')
+      const speedMatches = cpuInfo.split('\n')
+        .filter(line => line.startsWith('cpu MHz'))
+        .map(line => parseFloat(line.split(':')[1].trim()))
+      if (speedMatches.length > 0) {
+        avgSpeed = speedMatches.reduce((a, b) => a + b, 0) / speedMatches.length
+      }
+    } catch (e) {
+      avgSpeed = cpus[0] ? cpus[0].speed : 0
+    }
+  }
+
+  const mainCpuSpeed = cpus[0].speed === 0 ? avgSpeed : cpus[0].speed
+
+  const networkInterfaces = os.networkInterfaces()
+  let ipv4Addresses = []
+  let ipv6Addresses = []
+  Object.values(networkInterfaces).forEach(ifaces => {
+    if (ifaces) {
+      ifaces.forEach(iface => {
+        if (!iface.internal) {
+          if (iface.family === 'IPv4') {
+            ipv4Addresses.push(iface.address)
+          } else if (iface.family === 'IPv6') {
+            ipv6Addresses.push(iface.address)
+          }
+        }
+      })
+    }
+  })
+
   let old = performance.now()
+  await m.reply(wait)
   let neww = performance.now()
   let speed = neww - old
+
   let maxim = `\`PING\`
-\`\`\`${Math.round(neww - old)} ms\`\`\`
+\`\`\`${Math.round(speed)} ms\`\`\`
 ${readMore}
 \`SERVER\`
-\`\`\`Memory: ${format(totalmem() - freemem())} / ${format(totalmem())}\`\`\`
-\`\`\`Os: ${os.platform()}\`\`\`
+Memory: ${format(totalmem() - freemem())} / ${format(totalmem())}
+Os: ${os.platform()}
+Hostname: root@shirokami
+IPv4: ${ipv4Addresses.length ? ipv4Addresses.join(', ') : 'N/A'}
+IPv6: ${ipv6Addresses.length ? ipv6Addresses.join(', ') : 'N/A'}
+
 
 \`NODEJS MEMORY USAGE\`
-${'```' + Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${format(used[key])}`).join('\n') + '```'}
+${Object.keys(used).map(key => `${key.padEnd(10)}: ${format(used[key])}`).join('\n')}
 
-${cpus[0] ? `\`CPU INFO\`
-*${cpus[0].model.trim()} (${cpu.speed} MHZ)*\n\`\`\`${Object.keys(cpu.times).map(type => `${(type).padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%\`\`\``).join('\n\`\`\`')}
+${cpus[0] ? `
+\`CPU INFO\`
+*${cpus[0].model.trim()} (${mainCpuSpeed.toFixed(2)} MHZ)*
+${Object.keys(cpus[0].times).map(type =>
+  `${type.padEnd(6)}: ${(100 * cpus[0].times[type] / cpus[0].total).toFixed(2)}%`
+).join('\n')}
 
+` : ''}
 \`CPU Core(s) Usage (${cpus.length} Core CPU)\`
-${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
+${cpus.map((cpu, i) =>
+  `${i + 1}. ${cpu.model.trim()} (${cpu.speed === 0 ? avgSpeed.toFixed(2) : cpu.speed} MHZ)
+${Object.keys(cpu.times).map(type =>
+    `- ${type.padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`
+  ).join('\n')}`
+).join('\n\n')}
 `
   m.reply(maxim)
 }
@@ -78,5 +133,7 @@ function clockString(ms) {
   let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
   let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [d, ' *Days ☀️*\n ', h, ' *Hours 🕐*\n ', m, ' *Minute ⏰*\n ', s, ' *Second ⏱️* '].map(v => v.toString().padStart(2, 0)).join('')
+  return [d, ' *Days ☀️*\n ', h, ' *Hours 🕐*\n ', m, ' *Minute ⏰*\n ', s, ' *Second ⏱️* ']
+    .map(v => v.toString().padStart(2, '0'))
+    .join('')
 }

@@ -68,7 +68,7 @@ var handler = async(m, { conn, text }) => {
 }
 
 handler.help = ['githubstalk'].map(v => v + ' <query>')
-handler.tags = ['internet']
+handler.tags = ['stalk']
 handler.command = /^(githubstalk)$/i
 
 export default handler;

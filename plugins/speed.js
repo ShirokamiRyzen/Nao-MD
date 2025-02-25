@@ -106,17 +106,17 @@ ${cpus[0] ? `
 \`CPU INFO\`
 *${cpus[0].model.trim()} (${mainCpuSpeed.toFixed(2)} MHZ)*
 ${Object.keys(cpus[0].times).map(type =>
-  `${type.padEnd(6)}: ${(100 * cpus[0].times[type] / cpus[0].total).toFixed(2)}%`
-).join('\n')}
+    `${type.padEnd(6)}: ${(100 * cpus[0].times[type] / cpus[0].total).toFixed(2)}%`
+  ).join('\n')}
 
 ` : ''}
 \`CPU Core(s) Usage (${cpus.length} Core CPU)\`
 ${cpus.map((cpu, i) =>
-  `${i + 1}. ${cpu.model.trim()} (${cpu.speed === 0 ? avgSpeed.toFixed(2) : cpu.speed} MHZ)
+    `${i + 1}. ${cpu.model.trim()} (${cpu.speed === 0 ? avgSpeed.toFixed(2) : cpu.speed} MHZ)
 ${Object.keys(cpu.times).map(type =>
-    `- ${type.padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`
-  ).join('\n')}`
-).join('\n\n')}
+      `- ${type.padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`
+    ).join('\n')}`
+  ).join('\n\n')}
 `
   m.reply(maxim)
 }
@@ -124,7 +124,7 @@ ${Object.keys(cpu.times).map(type =>
 handler.help = ['ping', 'speed']
 handler.tags = ['info']
 
-handler.command = /^(ping|speed|info)$/i
+handler.command = /^(ping|speed)$/i
 
 export default handler
 

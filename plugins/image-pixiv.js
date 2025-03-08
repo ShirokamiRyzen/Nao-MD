@@ -1,43 +1,61 @@
 import fetch from 'node-fetch'
+import sharp from 'sharp'
 import pkg from '@adiwajshing/baileys'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = pkg
 
 const handler = async (m, { usedPrefix, command, conn, args }) => {
-  if (!args[0]) throw `*Example:* ${usedPrefix}${command} Nao Tomori`;
+  if (!args[0]) throw `*Example:* ${usedPrefix}${command} Nao Tomori atau https://www.pixiv.net/en/artworks/92445569`
   m.reply(wait);
 
   try {
     const q = encodeURIComponent(args.join(' '));
-    const response = await fetch(`${APIs.ryzen}/api/search/pinterest?query=${q}`);
+    const response = await fetch(`${APIs.ryzen}/api/search/pixiv?query=${q}`);
     const data = await response.json();
-    const res = data;
-    if (!Array.isArray(res) || res.length < 1) return m.reply("Error, Foto Tidak Ditemukan");
 
-    const results = res.sort(() => Math.random() - 0.5).slice(0, Math.min(5, res.length));
-    const limit = results.length;
+    if (!data || !data.Media || !Array.isArray(data.Media) || data.Media.length < 1) {
+      return m.reply("Error, Foto Tidak Ditemukan");
+    }
+
+    const images = data.Media;
+    let pageLink;
+    if (args[0].includes('pixiv.net')) {
+      pageLink = args[0];
+    } else {
+      pageLink = `https://www.pixiv.net/search.php?s_mode=s_tag&word=${encodeURIComponent(args.join(' '))}`;
+    }
+    
+    const caption = data.caption || '';
+    const artist = data.artist || '';
+    const tags = data.tags ? data.tags.join(', ') : '';
+
     const nem = await conn.getName(m.sender);
-
     const push = [];
 
     async function createImage(url) {
+      const res = await fetch(url);
+      let buffer = await res.buffer();
+      const threshold = 12 * 1024 * 1024;
+      if (buffer.length > threshold) {
+        buffer = await sharp(buffer)
+          .jpeg({ quality: 80 })
+          .toBuffer();
+      }
       const { imageMessage } = await generateWAMessageContent({
-        image: { url }
+        image: buffer
       }, {
         upload: conn.waUploadToServer
       });
       return imageMessage;
     }
 
-    for (const result of results) {
-      const imageUrl = result.directLink;
-      const pageLink = result.link;
+    for (const imageUrl of images) {
       const imageMsg = await createImage(imageUrl);
       push.push({
         body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: pageLink
+          text: caption
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: global.footer
+          text: `Artist: ${artist}\nTags: ${tags}`
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
           title: '',
@@ -49,7 +67,7 @@ const handler = async (m, { usedPrefix, command, conn, args }) => {
             {
               name: "cta_url",
               buttonParamsJson: JSON.stringify({
-                display_text: "View on Pinterest",
+                display_text: "View on Pixiv",
                 cta_type: "1",
                 url: pageLink
               })
@@ -68,10 +86,10 @@ const handler = async (m, { usedPrefix, command, conn, args }) => {
           },
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             body: proto.Message.InteractiveMessage.Body.create({
-              text: `Total results: ${limit}`
+              text: `Total results: ${images.length}`
             }),
             footer: proto.Message.InteractiveMessage.Footer.create({
-              text: `Hai\nDibawah ini adalah hasil pencarian dari:\n${nem}`
+              text: `Hai ${nem},\nDibawah ini adalah hasil pencarian Pixiv kamu`
             }),
             header: proto.Message.InteractiveMessage.Header.create({
               hasMediaAttachment: false
@@ -92,9 +110,9 @@ const handler = async (m, { usedPrefix, command, conn, args }) => {
   }
 };
 
-handler.help = ['pinterest'];
+handler.help = ['pixiv'];
 handler.tags = ['internet'];
-handler.command = /^pin(terest)?$/i;
+handler.command = /^pixiv$/i;
 
 handler.limit = 2
 handler.register = true

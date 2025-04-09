@@ -14,7 +14,7 @@ let handler = async (m, { conn, args }) => {
     });
 
     try {
-        let res = await axios.get(`${APIs.ryzen}/api/stalk/ml?userId=${userId}&zoneId=${zoneId}`)
+        let res = await axios.get(`${APIs.ryzen}/api/stalk/mobile-legends?userId=${userId}&zoneId=${zoneId}`)
         let result = res.data
 
         if (!result.success) throw 'API tidak mengembalikan data yang valid'

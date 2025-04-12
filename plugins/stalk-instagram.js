@@ -10,6 +10,7 @@ let handler = async (m, { conn, text }) => {
         const { data } = await axios.get(`${APIs.ryzen}/api/stalk/instagram?username=${username}`)
 
         let caption = `
+Name: ${data.name}
 Username: ${data.username}
 Bio: ${data.bio}
 Followers: ${data.followers}

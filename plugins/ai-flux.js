@@ -15,7 +15,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     await m.reply(wait);
     await conn.relayMessage(m.chat, { reactionMessage: { key: m.key, text: '⏱️' } }, { messageId: m.key.id });
 
-    const apiUrl = `${APIs.ryzen}/api/ai/text2img?prompt=${encodeURIComponent(text)}`;
+    const apiUrl = `${APIs.ryzen}/api/ai/waifu-diff?prompt=${encodeURIComponent(text)}`;
 
     try {
         let response = await fetch(apiUrl);
@@ -30,9 +30,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 }
 
-handler.help = ['txt2img']
+handler.help = ['flux']
 handler.tags = ['ai']
-handler.command = /^(text2img|txt2img)$/i
+handler.command = /^(flux|flux)$/i
 
 handler.premium = false
 handler.limit = 15

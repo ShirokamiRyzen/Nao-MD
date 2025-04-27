@@ -29,10 +29,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
         screenshot = await ssweb(text, 'desktop');
     } else if (command === 'ssweb') {
         screenshot = await ssweb(text, 'desktop');
-    } else if (command === 'ssfull') {
-        screenshot = await ssweb(text, 'full');
     }
-
     if (!screenshot) {
         return m.reply("Gagal mengambil screenshot. Pastikan URL valid atau coba lagi nanti.");
     }
@@ -45,9 +42,9 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
     }, { quoted: m });
 };
 
-handler.help = ['ssweb', 'sspc', 'sshp', 'ssfull'].map(v => v + ' <url>');
+handler.help = ['ssweb', 'sspc', 'sshp'].map(v => v + ' <url>');
 handler.tags = ['internet'];
-handler.command = /^(ssweb|ssfull|sspc|sshp)$/i;
+handler.command = /^(ssweb|sspc|sshp)$/i;
 
 handler.limit = 1
 handler.register = true

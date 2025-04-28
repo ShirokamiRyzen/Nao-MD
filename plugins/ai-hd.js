@@ -1,84 +1,36 @@
-import FormData from "form-data"
-import Jimp from "jimp"
+import fetch from 'node-fetch'
+import { uploadPomf } from '../lib/uploadImage.js'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
-  conn.hdr = conn.hdr ? conn.hdr : {}
-  if (m.sender in conn.hdr)
-    throw "Masih Ada Proses Yang Belum Selesai Kak, Silahkan Tunggu Sampai Selesai Yah >//<"
-  let q = m.quoted ? m.quoted : m
-  let mime = (q.msg || q).mimetype || q.mediaType || ""
-  if (!mime)
-    throw `Fotonya Mana Kak?`
-  if (!/image\/(jpe?g|png)/.test(mime))
-    throw `Mime ${mime} tidak support`
-  else conn.hdr[m.sender] = true;
-  m.reply("Proses Kak...")
-  let img = await q.download?.()
-  let error
-  try {
-    const This = await processing(img, "enhance")
-    conn.sendFile(m.chat, This, "", "Sudah Jadi Kak >//<", m)
-  } catch (er) {
-    error = true
-  } finally {
-    if (error) {
-      m.reply("Proses Gagal :(")
+let handler = async (m, { conn, usedPrefix, command, text }) => {
+    try {
+        let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+        let name = await conn.getName(who)
+        let q = m.quoted ? m.quoted : m
+        let mime = (q.msg || q).mimetype || ''
+        if (!mime) throw 'Kirim/Reply Gambar dengan caption .toanime'
+        m.reply(wait)
+        let media = await q.download()
+        let url = await uploadPomf(media)
+
+        // Mengirim permintaan ke API waifu2x dan mendapatkan buffer
+        let response = await fetch(`${APIs.ryzen}/api/ai/upscaler?url=${url}`)
+        if (!response.ok) throw new Error('Gagal menghubungi Ryzen API')
+
+        let hasil = await response.buffer()
+
+        // Mengirim file buffer langsung ke chat
+        await conn.sendFile(m.chat, hasil, 'hasil.jpg', global.wm, m)
+    } catch (error) {
+        console.error(error)
+        m.reply('Internal server error')
     }
-    delete conn.hdr[m.sender]
-  }
 }
 
-handler.help = ['hd', 'remini']
+handler.help = ['hd']
 handler.tags = ['ai']
-handler.command = /^(hd|remini)$/i
+handler.command = /^(hd)$/i
 
 handler.register = true
 handler.limit = 15
-handler.disable = false
 
 export default handler
-
-async function processing(urlPath, method) {
-  return new Promise(async (resolve, reject) => {
-    let Methods = ["enhance"]
-    Methods.includes(method) ? (method = method) : (method = Methods[0]);
-    let buffer,
-      Form = new FormData(),
-      scheme = "https" + "://" + "inferenceengine" + ".vyro" + ".ai/" + method;
-    Form.append("model_version", 1, {
-      "Content-Transfer-Encoding": "binary",
-      contentType: "multipart/form-data; charset=uttf-8",
-    });
-    Form.append("image", Buffer.from(urlPath), {
-      filename: "enhance_image_body.jpg",
-      contentType: "image/jpeg",
-    });
-    Form.submit(
-      {
-        url: scheme,
-        host: "inferenceengine" + ".vyro" + ".ai",
-        path: "/" + method,
-        protocol: "https:",
-        headers: {
-          "User-Agent": "okhttp/4.9.3",
-          Connection: "Keep-Alive",
-          "Accept-Encoding": "gzip",
-        },
-      },
-      function (err, res) {
-        if (err) reject();
-        let data = [];
-        res
-          .on("data", function (chunk, resp) {
-            data.push(chunk);
-          })
-          .on("end", () => {
-            resolve(Buffer.concat(data));
-          });
-        res.on("error", (e) => {
-          reject();
-        });
-      }
-    );
-  });
-}

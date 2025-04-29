@@ -54,13 +54,13 @@ global.wibb = `${wktuwib}`
 global.sig = 'https://www.instagram.com/fatih_frdaus'
 global.sgh = 'https://github.com/ShirokamiRyzen'
 global.sgc = 'https://whatsapp.com/channel/0029Vb2qO9Q5vKAGd2t7ap1F'
-global.sgw = 'https://ryzendesu.vip'
+global.sgw = 'https://ryzumi.vip'
 global.sdc = '-'
 global.sfb = 'https://www.facebook.com/Nao.Tomori.UwU'
 global.snh = 'https://www.instagram.com/fatih_frdaus'
 
 /*============= DONASI =============*/
-global.qris = 'https://api.ryzendesu.vip/images/qris.png'
+global.qris = 'https://api.ryzumi.vip/images/qris.png'
 global.psaweria = 'https://saweria.co/shirokamiryzen'
 
 
@@ -88,7 +88,7 @@ global.wait = 'Please Wait...'
 global.eror = 'Error!'
 
 global.APIs = {
-    ryzen: 'https://api.ryzendesu.vip',
+    ryzen: 'https://api.ryzumi.vip',
 
 }
 

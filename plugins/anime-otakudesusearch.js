@@ -11,7 +11,7 @@ let handler = async (m, { conn, text }) => {
   };
 
   // Try fetching from anime endpoint first
-  let otaku = await fetchData(`https://backend.ryzendesu.vip/anime/?search=${text}`);
+  let otaku = await fetchData(`https://backend.ryzumi.vip/anime/?search=${text}`);
   let isAnime = true;
 
   if (!otaku || otaku.length === 0) {
@@ -30,8 +30,8 @@ let handler = async (m, { conn, text }) => {
 
   // Membuat URL dengan menggabungkan URL dasar dan slug
   let animeUrl = isAnime ? 
-    `https://www.ryzendesu.vip/anime/${animeSlug}` : 
-    `https://www.ryzendesu.vip/movie/${animeSlug}`;
+    `https://www.ryzumi.vip/anime/${animeSlug}` : 
+    `https://www.ryzumi.vip/movie/${animeSlug}`;
 
   // Mengambil thumbnail URL
   let thumbnailUrl = otaku[0].gambar;

@@ -1,5 +1,5 @@
 let handler = async (m) => {
-  let gambar = 'https://api.ryzendesu.vip/images/qris.png'
+  let gambar = 'https://api.ryzumi.vip/images/qris.png'
   //let saweria = global.psaweria
   let qris = global.qris
   let numberowner = global.nomorown

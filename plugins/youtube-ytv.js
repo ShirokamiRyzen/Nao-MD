@@ -1,107 +1,87 @@
 import axios from 'axios'
 import fs from 'fs'
-import os from 'os'
-import { exec } from 'child_process'
+import path from 'path'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL> <resolution>`;
+  if (!text) throw `Usage: ${usedPrefix}${command} <YouTube Video URL> <resolution>`
 
-  m.reply(wait);
-  const args = text.split(' ');
-  const videoUrl = args[0];
-  const resolution = args[1] || '480p';
+  m.reply(wait)
 
-  const apiUrl = `${APIs.ryzen}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&quality=${resolution}`;
+  const args = text.split(' ')
+  const videoUrl = args[0]
+  const resolution = args[1] || '480p'
+
+  const apiUrl = `${APIs.ryzen}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&quality=${resolution}`
 
   try {
-    const response = await axios.get(apiUrl);
-    const data = response.data;
+    const response = await axios.get(apiUrl)
+    const data = response.data
 
-    if (!data.url) throw 'Download URL not found in API response.';
+    if (!data.url) throw 'Download URL not found in API response.'
 
-    const { title, author, authorUrl, lengthSeconds, views, uploadDate, description, videoUrl, thumbnail, filename } = data;
+    const tmpDir = path.join(process.cwd(), 'tmp')
+    if (!fs.existsSync(tmpDir)) {
+      fs.mkdirSync(tmpDir, { recursive: true })
+    }
 
-    const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${filename}`;
+    const safeTitle = data.title.replace(/[\\/:*?"<>|]/g, '').slice(0, 50) // amanin nama file
+    const filePath = path.join(tmpDir, `${safeTitle}.mp4`)
 
-    const writer = fs.createWriteStream(filePath);
+    const writer = fs.createWriteStream(filePath)
     const downloadResponse = await axios({
       url: data.url,
       method: 'GET',
       responseType: 'stream',
-    });
+    })
 
-    downloadResponse.data.pipe(writer);
+    downloadResponse.data.pipe(writer)
 
     await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
-
-    // Fix the video duration using ffmpeg
-    const outputFilePath = `${tmpDir}/fixed_${filename}`;
-    await new Promise((resolve, reject) => {
-      exec(`ffmpeg -i "${filePath}" -c copy "${outputFilePath}"`, (error) => {
-        if (error) reject(error);
-        else resolve();
-      });
-    });
+      writer.on('finish', resolve)
+      writer.on('error', reject)
+    })
 
     const caption = `Ini kak videonya @${m.sender.split('@')[0]}
 
-*Title*: ${title}
-*Author*: ${author} (${authorUrl})
-*Duration*: ${lengthSeconds}
-*Views*: ${views}
-*Uploaded*: ${uploadDate}
-*URL*: ${videoUrl}
+*Title*: ${data.title}
+*Author*: ${data.author} (${data.authorUrl})
+*Duration*: ${data.lengthSeconds}
+*Views*: ${data.views}
+*Uploaded*: ${data.uploadDate}
+*URL*: ${data.videoUrl}
 
-*Description*: ${description}`;
+*Description*: ${data.description}`
 
     await conn.sendMessage(m.chat, {
-      video: { url: outputFilePath },
+      video: { url: filePath },
       mimetype: 'video/mp4',
-      fileName: filename,
+      fileName: `${safeTitle}.mp4`,
       caption,
       mentions: [m.sender],
       contextInfo: {
         externalAdReply: {
           showAdAttribution: true,
           mediaType: 2,
-          mediaUrl: videoUrl,
-          title: title,
+          mediaUrl: data.videoUrl,
+          title: data.title,
           body: 'Video Download',
-          sourceUrl: videoUrl,
-          thumbnail: await (await conn.getFile(thumbnail)).data,
+          sourceUrl: data.videoUrl,
+          thumbnail: await (await conn.getFile(data.thumbnail)).data,
         },
       },
-    }, { quoted: m });
+    }, { quoted: m })
 
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.error(`Failed to delete original video file: ${err}`);
-      } else {
-        console.log(`Deleted original video file: ${filePath}`);
-      }
-    });
-
-    fs.unlink(outputFilePath, (err) => {
-      if (err) {
-        console.error(`Failed to delete fixed video file: ${err}`);
-      } else {
-        console.log(`Deleted fixed video file: ${outputFilePath}`);
-      }
-    });
+    fs.unlink(filePath, () => {})
 
   } catch (error) {
-    console.error(`Error: ${error.message}`);
-    throw `Failed to process request: ${error.message || error}`;
+    console.error(`Error: ${error.message}`)
+    throw `Gagal: ${error.message || error}`
   }
-};
+}
 
-handler.help = ['ytmp4'].map((v) => v + ' <URL> <resolution>');
-handler.tags = ['downloader'];
-handler.command = /^(ytmp4)$/i;
+handler.help = ['ytmp4'].map((v) => v + ' <URL> <resolution>')
+handler.tags = ['downloader']
+handler.command = /^(ytmp4)$/i
 
 handler.limit = 10
 handler.register = true

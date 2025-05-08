@@ -1,87 +1,78 @@
 import yts from 'yt-search'
 import fs from 'fs'
-import os from 'os'
+import path from 'path'
 import axios from 'axios'
+import { pipeline } from 'stream'
+import { promisify } from 'util'
+
+const streamPipeline = promisify(pipeline)
 
 const handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Use example ${usedPrefix}${command} <search term>`;
+  if (!text) throw `Use example: ${usedPrefix}${command} <search term>`
 
-  // Pencarian video berdasarkan query text
-  const search = await yts(text);
-  const vid = search.videos[Math.floor(Math.random() * search.videos.length)];
-  if (!vid) throw 'Video not found, try another title';
+  const search = await yts(text)
+  const vid = search.videos[Math.floor(Math.random() * search.videos.length)]
+  if (!vid) throw 'Video not found, coba judul lain ya Sayang~'
 
-  const { title, thumbnail, timestamp, views, ago, url } = vid;
+  const { title, thumbnail, timestamp, views, ago, url } = vid
 
-  // Mengirim pesan awal dengan thumbnail
-  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: wait }, { quoted: m });
+  await conn.sendMessage(m.chat, {
+    image: { url: thumbnail },
+    caption: `🔍 Menemukan lagu: *${title}*\nSedang diunduh ya...`,
+  }, { quoted: m })
 
   try {
-    // Mendapatkan URL audio menggunakan API ryzendesu
-    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`);
-    const data = response.data;
+    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`)
+    const data = response.data
 
-    if (!data.url) throw new Error('Audio URL not found');
+    if (!data.url) throw new Error('Audio URL not found')
 
-    // Lokasi file sementara
-    const tmpDir = os.tmpdir();
-    const filePath = `${tmpDir}/${data.filename}`;
+    const safeTitle = data.title.replace(/[\\/:*?"<>|]/g, '').slice(0, 50)
+    const tmpDir = path.join(process.cwd(), 'tmp')
 
-    // Mengunduh file audio dan menyimpannya di direktori sementara
+    if (!fs.existsSync(tmpDir)) {
+      fs.mkdirSync(tmpDir, { recursive: true })
+    }
+
+    const filePath = path.join(tmpDir, `${safeTitle}.mp3`)
+
     const audioResponse = await axios({
       method: 'get',
       url: data.url,
       responseType: 'stream',
-    });
+    })
 
-    const writableStream = fs.createWriteStream(filePath);
-    audioResponse.data.pipe(writableStream);
+    await streamPipeline(audioResponse.data, fs.createWriteStream(filePath))
 
-    writableStream.on('finish', async () => {
-      // Mengirim file audio
-      await conn.sendMessage(m.chat, {
-        audio: {
-          url: filePath
+    await conn.sendMessage(m.chat, {
+      audio: { url: filePath },
+      mimetype: 'audio/mpeg',
+      fileName: `${safeTitle}.mp3`,
+      caption: `*${data.title}*\n*Duration*: ${data.lengthSeconds} sec\n*Views*: ${data.views}\n*Uploaded*: ${data.uploadDate}`,
+      contextInfo: {
+        externalAdReply: {
+          showAdAttribution: true,
+          mediaType: 2,
+          mediaUrl: data.videoUrl,
+          title: data.title,
+          body: 'Audio Download',
+          sourceUrl: data.videoUrl,
+          thumbnail: await (await conn.getFile(data.thumbnail)).data,
         },
-        mimetype: 'audio/mpeg',
-        fileName: data.filename,
-        caption: `Title: ${data.title}\nLength: ${data.lengthSeconds}\nViews: ${data.views}\nUploaded: ${data.uploadDate}`,
-        contextInfo: {
-          externalAdReply: {
-            showAdAttribution: true,
-            mediaType: 2,
-            mediaUrl: data.videoUrl,
-            title: data.title,
-            body: 'Audio Download',
-            sourceUrl: data.videoUrl,
-            thumbnail: await (await conn.getFile(data.thumbnail)).data,
-          },
-        },
-      }, { quoted: m });
+      },
+    }, { quoted: m })
 
-      // Menghapus file setelah dikirim
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error(`Failed to delete audio file: ${err}`);
-        } else {
-          console.log(`Deleted audio file: ${filePath}`);
-        }
-      });
-    });
+    fs.unlink(filePath, () => { })
 
-    writableStream.on('error', (err) => {
-      console.error(`Failed to write audio file: ${err}`);
-      m.reply('Failed to download audio');
-    });
   } catch (error) {
-    console.error('Error:', error.message);
-    throw `Error: ${error.message}. Please check the URL and try again.`;
+    console.error('Error:', error.message)
+    throw `Gagal download audionya Sayang 😢: ${error.message}`
   }
-};
+}
 
-handler.help = ['play'].map((v) => v + ' <query>');
-handler.tags = ['downloader'];
-handler.command = /^(play)$/i;
+handler.help = ['play'].map(v => v + ' <query>')
+handler.tags = ['downloader']
+handler.command = /^(play)$/i
 
 handler.limit = 8
 handler.register = true

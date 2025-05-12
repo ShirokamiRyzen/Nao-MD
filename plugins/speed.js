@@ -94,10 +94,9 @@ ${readMore}
 \`SERVER\`
 Memory: ${format(totalmem() - freemem())} / ${format(totalmem())}
 Os: ${os.platform()}
-Hostname: root@shirokami
-IPv4: ${ipv4Addresses.length ? ipv4Addresses.join(', ') : 'N/A'}
-IPv6: ${ipv6Addresses.length ? ipv6Addresses.join(', ') : 'N/A'}
-
+Hostname: ${os.hostname()}
+IPv4: ${ipv4Addresses.length ? ipv4Addresses.map(maskIP).join(', ') : 'N/A'}
+IPv6: ${ipv6Addresses.length ? ipv6Addresses.map(maskIP).join(', ') : 'N/A'}
 
 \`NODEJS MEMORY USAGE\`
 ${Object.keys(used).map(key => `${key.padEnd(10)}: ${format(used[key])}`).join('\n')}
@@ -123,7 +122,6 @@ ${Object.keys(cpu.times).map(type =>
 
 handler.help = ['ping', 'speed']
 handler.tags = ['info']
-
 handler.command = /^(ping|speed)$/i
 
 export default handler
@@ -136,4 +134,15 @@ function clockString(ms) {
   return [d, ' *Days ☀️*\n ', h, ' *Hours 🕐*\n ', m, ' *Minute ⏰*\n ', s, ' *Second ⏱️* ']
     .map(v => v.toString().padStart(2, '0'))
     .join('')
+}
+
+function maskIP(ip) {
+  if (ip.includes('.')) { // IPv4
+    let parts = ip.split('.')
+    return `${parts[0]}.${parts[1]}.xxx.xxx`
+  } else if (ip.includes(':')) { // IPv6
+    let parts = ip.split(':')
+    return `${parts.slice(0, 2).join(':')}:xxxx:xxxx:xxxx:xxxx`
+  }
+  return ip
 }

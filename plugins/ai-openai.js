@@ -1,41 +1,58 @@
 import fetch from "node-fetch"
+import { ryzenCDN } from '../lib/uploadFile.js'
 
-let previousMessages = [];
-
-const handler = async (m, { text, usedPrefix, command, conn }) => {
-
-  if (!text) throw `Mana textnya?`;
-
+const handler = async (m, { text, conn }) => {
   try {
-    let { key } = await conn.sendMessage(m.chat, {
-      text: "...",
-    });
-
-    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.';
-
-    let response = await fetch(`${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}`);
-
-    if (!response.ok) {
-      throw new Error("Request to OpenAI API failed");
+    if (!text && !m.quoted && !m.mtype.includes('imageMessage')) {
+      throw "Masukkan pertanyaan atau kirim gambar untuk deskripsi!\n\n*Contoh:* Siapa presiden Indonesia?";
     }
 
-    let result = await response.json();
+    let imgUrl = null
 
-    await conn.sendMessage(m.chat, {
-      text: "" + result.response,
-      edit: key,
-    });
+    if (m.quoted && m.quoted.mtype === 'imageMessage') {
+      let img = await m.quoted.download()
+      if (img) {
+        img = Buffer.from(img)
+        let link = await ryzenCDN(img)
+        if (!link) throw 'Gagal mengupload gambar'
+        imgUrl = typeof link === 'object' ? link.url : link
+      }
+    } else if (m.mtype.includes('imageMessage')) {
+      let img = await m.download()
+      if (img) {
+        img = Buffer.from(img)
+        let link = await ryzenCDN(img)
+        if (!link) throw 'Gagal mengupload gambar'
+        imgUrl = typeof link === 'object' ? link.url : link
+      }
+    }
 
-    previousMessages = [...previousMessages, { role: "user", content: text }];
+    let anu = 'Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.'
+    let apiUrl
+
+    if (imgUrl) {
+      apiUrl = `${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(text || '')}&prompt=${encodeURIComponent(anu)}&imageUrl=${encodeURIComponent(imgUrl)}`
+    } else if (text) {
+      apiUrl = `${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}`
+    } else {
+      throw "Tidak ada teks atau gambar yang valid untuk diproses."
+    }
+
+    let hasil = await fetch(apiUrl)
+    if (!hasil.ok) throw new Error("Request ke API gagal: " + hasil.statusText)
+
+    let result = await hasil.json()
+    let responseMessage = result.result || "Tidak ada respons dari AI."
+
+    await conn.sendMessage(m.chat, { text: responseMessage })
+
   } catch (error) {
-    await conn.sendMessage(m.chat, {
-      text: "" + `Error: ${error.message}`,
-      edit: key,
-    });
+    console.error('Error in handler:', error)
+    await conn.sendMessage(m.chat, { text: `Error: Mana textnya njir?` })
   }
 }
 
-handler.help = ['gpt <pertanyaan>']
+handler.help = ['gpt']
 handler.tags = ['ai']
 handler.command = /^(gpt)$/i
 

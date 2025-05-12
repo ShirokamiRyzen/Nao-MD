@@ -1,16 +1,11 @@
 import fetch from "node-fetch"
 import { ryzenCDN } from '../lib/uploadFile.js'
 
-let previousMessages = [];
-
 const handler = async (m, { text, usedPrefix, command, conn }) => {
-  let key;
   try {
     if (!text && !m.quoted && !m.mtype.includes('imageMessage')) {
       throw "Masukkan pertanyaan atau kirim gambar untuk deskripsi!\n\n*Contoh:* Siapa presiden Indonesia?";
     }
-
-    ({ key } = await conn.sendMessage(m.chat, { text: "..." }));
 
     let imgUrl = null;
 
@@ -42,33 +37,24 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
     }
 
     let hasil = await fetch(apiUrl);
-    if (!hasil.ok) {
-      throw new Error("Request ke API gagal: " + hasil.statusText);
-    }
+    if (!hasil.ok) throw new Error("Request ke API gagal: " + hasil.statusText);
 
     let result = await hasil.json();
-
-    if (!result.success) {
-      throw new Error("Response API tidak berhasil");
-    }
+    if (!result.success) throw new Error("Response API tidak berhasil");
 
     let responseMessage = result.answer || "Tidak ada respons dari AI.";
 
-    await conn.sendMessage(m.chat, { text: responseMessage, edit: key });
-    previousMessages.push({ role: "user", content: text || '[Image]' });
+    await conn.sendMessage(m.chat, { text: responseMessage });
+
   } catch (error) {
     console.error('Error in handler:', error);
-    if (key) {
-      await conn.sendMessage(m.chat, { text: `Error: ${error.message}`, edit: key });
-    } else {
-      await conn.sendMessage(m.chat, { text: `Error: ${error.message}` });
-    }
+    await conn.sendMessage(m.chat, { text: `Error: Mana textnya njir?` });
   }
-};
+}
 
-handler.help = ['gemini'];
-handler.tags = ['ai'];
-handler.command = /^(gemini)$/i;
+handler.help = ['gemini']
+handler.tags = ['ai']
+handler.command = /^(gemini)$/i
 
 handler.limit = 8
 handler.premium = false

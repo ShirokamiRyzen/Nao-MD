@@ -39,7 +39,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:baileys@6.7.16",
+        "@adiwajshing/baileys": "npm:baileys@6.7.18",
         "@bochilteam/scraper": "^5.0.1",
         "@ibaraki-douji/pixivts": "^2.4.1",
         "@vitalets/google-translate-api": "^9.2.0",
@@ -75,6 +75,7 @@
         "perf_hooks": "^0.0.1",
         "pino": "^8.15.0",
         "qrcode": "^1.5.3",
+        "qrcode-terminal": "^0.12.0",
         "readline": "^1.3.0",
         "request": "^2.88.2",
         "sharp": "^0.32.2",

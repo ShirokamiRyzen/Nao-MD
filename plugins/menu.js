@@ -249,7 +249,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
             mediaType: 1,
             previewType: 0,
             renderLargerThumbnail: true,
-            thumbnailUrl: await genProfile(conn, m),
+            thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
             sourceUrl: sgc,
           }
         }, mentions: [m.sender]

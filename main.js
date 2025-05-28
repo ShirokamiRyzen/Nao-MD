@@ -16,7 +16,7 @@ import './config.js'
 import path, { join } from 'path'
 import { platform } from 'process'
 import { fileURLToPath, pathToFileURL } from 'url'
-import { createRequire } from 'module'
+import { createRequire } from 'module' // Bring in the ability to create the 'require' method
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 import {
   readdirSync,
@@ -45,6 +45,7 @@ const {
   DisconnectReason,
   fetchLatestBaileysVersion,
   makeInMemoryStore,
+  jidNormalizedUser,
   makeCacheableSignalKeyStore,
   PHONENUMBER_MCC
 } = await import('@adiwajshing/baileys')
@@ -58,13 +59,16 @@ import {
 
 const { CONNECTING } = ws
 const { chain } = lodash
-const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
+const PORT = process.env.PORT || process.env.SERVER_PORT || 3999
 
 protoType()
 serialize()
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 // global.Fn = function functionCallBack(fn, ...args) { return fn.call(global.conn, ...args) }
+
+global.adReply = {};
+
 global.timestamp = {
   start: new Date
 }
@@ -118,7 +122,7 @@ const { version, isLatest } = await fetchLatestBaileysVersion()
 const { state, saveCreds } = await useMultiFileAuthState('./sessions')
 const connectionOptions = {
   version,
-  logger: pino({ level: 'silent' }),
+  logger: pino({ level: 'fatal' }),
   printQRInTerminal: !usePairingCode,
   // Optional If Linked Device Could'nt Connected
   // browser: ['Mac OS', 'chrome', '125.0.6422.53']
@@ -131,8 +135,9 @@ const connectionOptions = {
     })),
   },
   getMessage: async key => {
-    const messageData = await store.loadMessage(key.remoteJid, key.id);
-    return messageData?.message || undefined;
+    const jid = jidNormalizedUser(key.remoteJid);
+    const messageData = await store.loadMessage(jid, key.id);
+    return messageData?.message || '';
   },
   generateHighQualityLinkPreview: true,
   patchMessageBeforeSending: (message) => {

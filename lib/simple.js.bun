@@ -15,10 +15,10 @@ import store from './store.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-import Baileys from '@adiwajshing/baileys'
+const baileysImport = await import('@adiwajshing/baileys')
 
+const _makeWaSocket = baileysImport.default
 const {
-    default: _makeWaSocket,
     proto,
     areJidsSameUser,
     downloadContentFromMessage,
@@ -31,7 +31,7 @@ const {
     jidNormalizedUser,
     MessageType,
     Mimetype
-} = Baileys
+} = baileysImport
 
 export function makeWASocket(connectionOptions, options = {}) {
     /**

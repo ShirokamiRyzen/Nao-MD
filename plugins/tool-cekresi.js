@@ -72,8 +72,9 @@ ${historyText}
         });
 
     } catch (e) {
+        const available = Object.keys(ekspedisiList).join(', ');
         await conn.sendMessage(m.chat, {
-            text: `Gagal melacak resi:\n${e}`,
+            text: `Gagal melacak resi:\n\nCoba sertakan ekspedisi secara manual.\n\nContoh: \`.cekresi SPXIDxxxxxx shopee-express\`\n\nList ekspedisi:\n${available}`,
         });
     }
 }

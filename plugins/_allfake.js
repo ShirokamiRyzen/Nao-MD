@@ -31,10 +31,10 @@ handler.all = async function (m) {
         global.adReply = {
             contextInfo: {
                 mentionedJid:[m.sender], 
-                forwardingScore: 9999,
+                forwardingScore: 256,
                 //isForwarded: true, // ini biar ada tulisannya diteruskan berkali-kali, jika ingin di hilangkan ganti true menjadi false
                 externalAdReply: { // Bagian ini sesuka kalian berkreasi :'v
-                    showAdAttribution: true,
+                    ////showAdAttribution: true,
                     title: global.ucapan,
                     body: wm,
                     mediaUrl: sgw,
@@ -49,7 +49,7 @@ handler.all = async function (m) {
         global.sig = {
             contextInfo: {
                 externalAdReply: {
-                    showAdAttribution: true,
+                    ////showAdAttribution: true,
                     title: global.ucapan,
                     body: wm,
                     thumbnailUrl: pp,
@@ -60,7 +60,7 @@ handler.all = async function (m) {
         global.sfb = {
             contextInfo: {
                 externalAdReply: {
-                    showAdAttribution: true,
+                    ////showAdAttribution: true,
                     title: global.ucapan,
                     body: wm,
                     thumbnailUrl: pp,

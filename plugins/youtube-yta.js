@@ -56,7 +56,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       caption,
       contextInfo: {
         externalAdReply: {
-          showAdAttribution: true,
+          //showAdAttribution: true,
           mediaType: 2,
           mediaUrl: videoUrl,
           title: title,

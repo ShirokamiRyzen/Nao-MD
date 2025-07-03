@@ -51,7 +51,7 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
       caption: `*${data.title}*\n*Duration*: ${data.lengthSeconds} sec\n*Views*: ${data.views}\n*Uploaded*: ${data.uploadDate}`,
       contextInfo: {
         externalAdReply: {
-          showAdAttribution: true,
+          //showAdAttribution: true,
           mediaType: 2,
           mediaUrl: data.videoUrl,
           title: data.title,

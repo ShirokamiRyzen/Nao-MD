@@ -40,7 +40,7 @@ handler.all = async function (m) {
                     mediaUrl: sgw,
                     description: namebot,
                     previewType: "PHOTO",
-                    thumbnail: fs.readFileSync('./thumbnail.jpg'),
+                    thumbnail: fs.readFileSync('../media/thumbnail.jpg'),
                     //thumbnail: await (await fetch(pp)).buffer(),
                     sourceUrl: sgw,
                 }

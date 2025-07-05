@@ -6,12 +6,7 @@ import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
-import os from 'os'
-import jimp from 'jimp'
-import fs from 'fs'
-import PhoneNumber from 'awesome-phonenumber'
-import { uploadPomf } from '../lib/uploadImage.js'
-const { getDevice } = (await import('@adiwajshing/baileys')).default
+import { platform } from 'os'
 
 const defaultMenu = {
   before: `
@@ -91,7 +86,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let lprem = global.lopr
     let llim = global.lolm
     let tag = `@${m.sender.split('@')[0]}`
-    let device = await getDevice(m.id)
 
     //-----------TIME---------
     let ucpn = `${ucapan()}`
@@ -158,7 +152,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let name = await conn.getName(m.sender)
     let premium = global.db.data.users[m.sender].premiumTime
     let prems = `${premium > 0 ? 'Premium' : 'Free'}`
-    let platform = os.platform()
+    let platform = platform()
 
     //---------------------
 
@@ -219,7 +213,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       xp4levelup: max - exp,
       github: _package.homepage ? _package.homepage.url || _package.homepage : '[unknown github url]',
       tag, dash, m1, m2, m3, m4, cc, c1, c2, c3, c4, lprem, llim,
-      ucpn, platform, wib, mode, _p, money, age, tag, name, prems, level, limit, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
+      ucpn, platform, wib, mode, _p, money, age, name, prems, level, limit, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
@@ -239,8 +233,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       }
     };
 
-    conn.relayMessage(m.chat, {
-      extendedTextMessage: {
+    conn.sendMessage(m.chat, {
         text: text,
         contextInfo: {
           mentionedJid: [m.sender],
@@ -252,8 +245,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
             thumbnailUrl: 'https://telegra.ph/file/14a7745f434cd21e900d6.jpg',
             sourceUrl: sgc,
           }
-        }, mentions: [m.sender]
-      }
+        }
     }, { quoted: fkon });
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
@@ -297,46 +289,4 @@ function ucapan() {
     res = "Malam Kak 🌙"
   }
   return res
-}
-
-async function genProfile(conn, m) {
-  let font = await jimp.loadFont('./names.fnt'),
-    mask = await jimp.read(fs.readFileSync('./src/mask.png')),
-    border = await jimp.read(fs.readFileSync('./src/premium_border.png')),
-    welcome = await jimp.read(thumbnailUrl.getRandom()),
-    avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => fs.readFileSync('./src/avatar_contact.png'))),
-    status = (await conn.fetchStatus(m.sender).catch(console.log) || {}).status?.slice(0, 30) || 'Not Detected',
-    premiumUnixTime = global.db.data.users[m.sender].premiumTime,
-    prems = `${premiumUnixTime > 0 ? 'Premium User' : 'Free User'}`;
-
-  const gmtPlus7Time = premiumUnixTime + 7 * 60 * 60 * 1000;
-
-  await avatar.resize(460, 460);
-  await mask.resize(460, 460);
-  await avatar.mask(mask);
-
-  await welcome.resize(welcome.getWidth(), welcome.getHeight());
-
-  await welcome.print(font, 550, 150, 'Name:');
-  await welcome.print(font, 800, 150, m.pushName.slice(0, 25));
-  await welcome.print(font, 550, 215, 'About:');
-  await welcome.print(font, 800, 215, status);
-  await welcome.print(font, 550, 280, 'Number:');
-  await welcome.print(font, 800, 280, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'));
-  await welcome.print(font, 550, 400, 'Status:');
-  await welcome.print(font, 800, 400, prems);
-
-  if (premiumUnixTime > 0) {
-    const gmtPlus7DateString = new Date(gmtPlus7Time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-    await border.resize(460, 460);
-    await welcome.print(font, 550, 460, 'Until:');
-    await welcome.print(font, 800, 460, gmtPlus7DateString);
-    await welcome.composite(border, 50, 170);
-  }
-
-  await welcome.composite(avatar, 50, 170);
-  const buffer = await welcome.getBufferAsync('image/png');
-
-  const imageUrl = await uploadPomf(buffer);
-  return imageUrl;
 }

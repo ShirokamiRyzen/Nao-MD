@@ -61,7 +61,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     'tools': 'Tools',
     'group': 'Group',
     'quotes': 'Quotes',
-    'maker': 'Maker Text Logo',
+    // 'maker': 'Maker Text Logo',
     'nulis': 'Nulis',
     'info': 'Info',
     'owner': 'Owner',

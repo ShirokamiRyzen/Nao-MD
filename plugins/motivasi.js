@@ -11,7 +11,7 @@ let motivasii = pickRandom(global.motivasi)
     title: 'Ｍｏｔｉｖａｓｉ', 
     body: 'Dibaca Ya Kak😉',  
     sourceUrl: sgc, 
-    thumbnail: fs.readFileSync('./thumbnail.jpg')
+    thumbnail: fs.readFileSync('../media/thumbnail.jpg')
       }}
      })
 }

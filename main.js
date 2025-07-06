@@ -130,7 +130,7 @@ if(global.db) {
     if(global.db.data) await global.db.write().catch(console.error);
     if(global.support?.find) {
       const tmp = [tmpdir(), 'tmp'];
-      tmp.forEach(filename => cp.spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete']));
+      tmp.forEach(filename => spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete']));
     }
   }, 60000);
 }

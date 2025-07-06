@@ -89,5 +89,7 @@ node index.js --autocleartmp
 [![ShirokamiRyzen](https://github.com/ShirokamiRyzen.png?size=100)](https://github.com/ShirokamiRyzen)
 #### Contributor
 [![ShirokamiRyzen](https://github.com/ShirokamiRyzen.png?size=100)](https://github.com/ShirokamiRyzen)
+[![KilerBots](https://github.com/KilerBots.png?size=100)](https://github.com/KilerBots)
+[![MythEclipse](https://github.com/MythEclipse.png?size=100)](https://github.com/MythEclipse)
 
 ---------

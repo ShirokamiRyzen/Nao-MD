@@ -53,7 +53,6 @@ import {
 
 const { CONNECTING } = ws
 const { chain } = lodash
-const PORT = process.env.PORT || process.env.SERVER_PORT || 3999
 
 protoType()
 serialize()
@@ -175,7 +174,6 @@ async function resetLimit() {
 }
 
 if (!opts['test']) {
-  (await import('./server.js')).default(PORT)
   setInterval(async () => {
     if (global.db.data) await global.db.write().catch(console.error)
     // if (opts['autocleartmp']) try {

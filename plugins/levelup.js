@@ -1,6 +1,5 @@
 import { canLevelUp, xpRange } from '../lib/levelling.js'
 import { levelup } from '../lib/canvas.js'
-import db from '../lib/database.js'
 
 let handler = async (m, { conn }) => {
     let user = global.db.data.users[m.sender]

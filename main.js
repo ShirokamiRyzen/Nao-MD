@@ -28,9 +28,6 @@ import {
 } from 'fs'
 
 import yargs from 'yargs/yargs';
-import { hideBin } from 'yargs/helpers';
-const argv = yargs(hideBin(process.argv)).argv;
-
 import { spawn } from 'child_process'
 import lodash from 'lodash'
 import syntaxerror from 'syntax-error'
@@ -44,10 +41,7 @@ const {
   useMultiFileAuthState,
   DisconnectReason,
   fetchLatestBaileysVersion,
-  makeInMemoryStore,
-  jidNormalizedUser,
   makeCacheableSignalKeyStore,
-  PHONENUMBER_MCC
 } = await import('@adiwajshing/baileys')
 import { Low, JSONFile } from 'lowdb'
 import { makeWASocket, protoType, serialize } from './lib/simple.js'
@@ -66,8 +60,6 @@ serialize()
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 // global.Fn = function functionCallBack(fn, ...args) { return fn.call(global.conn, ...args) }
-
-global.adReply = {};
 
 global.timestamp = {
   start: new Date
@@ -108,22 +100,13 @@ global.loadDatabase = async function loadDatabase() {
   global.db.chain = chain(db.data)
 }
 loadDatabase()
-const usePairingCode = !process.argv.includes('--use-pairing-code')
-const useMobile = process.argv.includes('--mobile')
 
-var question = function (text) {
-  return new Promise(function (resolve) {
-    rl.question(text, resolve);
-  });
-};
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-
-const { version, isLatest } = await fetchLatestBaileysVersion()
+const { version } = await fetchLatestBaileysVersion()
 const { state, saveCreds } = await useMultiFileAuthState('./sessions')
 const connectionOptions = {
   version,
   logger: pino({ level: 'fatal' }),
-  printQRInTerminal: !usePairingCode,
+  //printQRInTerminal: false,
   // Optional If Linked Device Could'nt Connected
   // browser: ['Mac OS', 'chrome', '125.0.6422.53']
   browser: ['Mac OS', 'safari', '5.1.10'],
@@ -133,11 +116,6 @@ const connectionOptions = {
       level: 'silent',
       stream: 'store'
     })),
-  },
-  getMessage: async key => {
-    const jid = jidNormalizedUser(key.remoteJid);
-    const messageData = await store.loadMessage(jid, key.id);
-    return messageData?.message || '';
   },
   generateHighQualityLinkPreview: true,
   patchMessageBeforeSending: (message) => {
@@ -168,13 +146,10 @@ const connectionOptions = {
 global.conn = makeWASocket(connectionOptions)
 conn.isInit = false
 
-if (usePairingCode && !conn.authState.creds.registered) {
-  if (useMobile) throw new Error('Cannot use pairing code with mobile api')
-  const { registration } = { registration: {} }
-  let phoneNumber = global.pairing
+if (!conn.authState.creds.registered) {
   console.log(chalk.bgWhite(chalk.blue('Generating code...')))
   setTimeout(async () => {
-    let code = await conn.requestPairingCode(phoneNumber)
+    let code = await conn.requestPairingCode(global.pairing)
     code = code?.match(/.{1,4}/g)?.join('-') || code
     console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
   }, 3000)

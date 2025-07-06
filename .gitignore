@@ -3,6 +3,8 @@ sessions
 tmp/*
 enc/*
 *.bak
+package-lock.json
+bun.lock
 main.js.bak
 plugins_bak/
 handlerr.js

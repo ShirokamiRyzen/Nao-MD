@@ -1,5 +1,6 @@
 let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isROwner }) => {
   let isEnable = /true|enable|(turn)?on|1/i.test(command)
+  let setting = db.data.settings[conn.user.jid]
   let chat = global.db.data.chats[m.chat]
   let user = global.db.data.users[m.sender]
   let type = (args[0] || '').toLowerCase()
@@ -84,7 +85,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
         global.dfail('rowner', m, conn)
         throw false
       }
-      global.opts['self'] = !isEnable
+      setting.public = !isEnable
       break
     case 'antilink':
       if (m.isGroup) {
@@ -156,55 +157,13 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       conn.callWhitelistMode = isEnable
       break
-    case 'restrict':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['restrict'] = isEnable
-      break
-    case 'nyimak':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['nyimak'] = isEnable
-      break
     case 'autoread':
       isAll = true
       if (!isROwner) {
         global.dfail('rowner', m, conn)
         throw false
       }
-      global.opts['autoread'] = isEnable
-      break
-    case 'pconly':
-    case 'privateonly':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['pconly'] = isEnable
-      break
-    case 'owneronly':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['owneronly'] = isEnable
-      break
-    case 'gconly':
-    case 'grouponly':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['gconly'] = isEnable
+      setting.autoread = isEnable
       break
     case 'self':
       isAll = true
@@ -212,16 +171,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
         global.dfail('rowner', m, conn)
         throw false
       }
-      global.opts['self'] = isEnable
-      break
-    case 'swonly':
-    case 'statusonly':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['swonly'] = isEnable
+      setting.public = isEnable
       break
     case 'viewonce':
       if (m.isGroup) {
@@ -284,16 +234,11 @@ List option:
 | delete
 | detect
 | document
-| gconly
 | menu
 | nsfw
-| nyimak
-| owneronly
-| pconly
 | public
 | self
 | simi
-| swonly
 | whitelistmycontacts
 | welcome
 

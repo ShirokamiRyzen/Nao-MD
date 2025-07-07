@@ -32,7 +32,7 @@ let handler = async (m, { conn, text, participants, usedPrefix, command }) => {
             content: [{ tag: 'participant', attrs: { jid } }]
         }))
     })
-    const pp = await conn.profilePictureUrl(m.chat, 'image').catch(_ => null)
+    const pp = await conn.profilePictureUrl(m.chat, 'image').catch(e => './src/avatar_contact.png')
     const jpegThumbnail = pp ? await (await fetch(pp)).buffer() : Buffer.alloc(0)
     const add = getBinaryNodeChild(response, 'add')
     const participant = getBinaryNodeChildren(response, 'add')

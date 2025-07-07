@@ -19,8 +19,7 @@ export async function handler(chatUpdate) {
     this.pushMessage(chatUpdate.messages).catch(console.error)
     let m = chatUpdate.messages[chatUpdate.messages.length - 1]
     if(!m) return
-    if(global.db.data == null)
-        await global.loadDatabase()
+    if(global.db.data == null) await global.loadDatabase()
     try {
         m = smsg(this, m) || m
         if(!m) return
@@ -29,8 +28,7 @@ export async function handler(chatUpdate) {
         try {
             // TODO: use loop to insert data instead of this
             let user = global.db.data.users[m.sender]
-            if(typeof user !== 'object')
-                global.db.data.users[m.sender] = {}
+            if(typeof user !== 'object') global.db.data.users[m.sender] = {}
             if(user) {
                 if(!isNumber(user.exp))
                     user.exp = 0
@@ -67,8 +65,7 @@ export async function handler(chatUpdate) {
                     autolevelup: true,
                 }
             let chat = global.db.data.chats[m.chat]
-            if(typeof chat !== 'object')
-                global.db.data.chats[m.chat] = {}
+            if(typeof chat !== 'object') global.db.data.chats[m.chat] = {}
             if(chat) {
                 if(!('isBanned' in chat))
                     chat.isBanned = false
@@ -132,31 +129,23 @@ export async function handler(chatUpdate) {
             let settings = global.db.data.settings[this.user.jid]
             if(typeof settings !== 'object') global.db.data.settings[this.user.jid] = {}
             if(settings) {
-                if(!('self' in settings)) settings.self = false
-                if(!('autoread' in settings)) settings.autoread = false
-                if(!('restrict' in settings)) settings.restrict = false
+                if(!('public' in settings)) settings.public = true
+                if(!('autoread' in settings)) settings.autoread = true
                 if(!('anticall' in settings)) settings.anticall = true
-                if(!('restartDB' in settings)) settings.restartDB = 0
             } else global.db.data.settings[this.user.jid] = {
-                self: false,
-                autoread: false,
+                public: true,
+                autoread: true,
                 anticall: true,
-                restartDB: 0,
-                restrict: false
             }
         } catch (e) {
             console.error(e)
         }
-        if(opts['nyimak']) return
-        if(opts['pconly'] && m.chat.endsWith('g.us')) return
-        if(opts['gconly'] && !m.chat.endsWith('g.us')) return
-        if(opts['swonly'] && m.chat !== 'status@broadcast') return
         if(typeof m.text !== 'string') m.text = ''
         const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isOwner = isROwner || m.fromMe
         const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isPrems = isROwner || db.data.users[m.sender].premiumTime > 0
-        if(!isOwner && !m.fromMe && opts['self']) return;
+        if(!isOwner && !m.fromMe && !db.data.settings[this.user.jid].public) return;
         if(m.text && !(isMods || isPrems)) {
             let queque = this.msgqueque, time = 1000 * 5
             const previousID = queque[queque.length - 1]
@@ -204,7 +193,6 @@ export async function handler(chatUpdate) {
                 }
             }
 
-            if(!opts['restrict'])
             if(plugin.tags && plugin.tags.includes('admin')) continue
 
             const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
@@ -425,11 +413,11 @@ export async function handler(chatUpdate) {
             }
         }
         try {
-            if(!opts['noprint']) await (await import(`./lib/print.js`)).default(m, this)
+            await (await import(`./lib/print.js`)).default(m, this)
         } catch (e) {
             console.log(m, m.quoted, e)
         }
-        if(opts['autoread']) await conn.readMessages([m.key])
+        if(db.data.settings[this.user.jid].autoread) await conn.readMessages([m.key])
     }
 }
 /**
@@ -437,7 +425,6 @@ export async function handler(chatUpdate) {
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['group-participants.update']} groupsUpdate 
  */
 export async function participantsUpdate({ id, participants, action }) {
-    if(opts['self']) return
     // if(id in conn.chats) return // First login will spam
     if(this.isInit) return
     if(global.db.data == null) await loadDatabase()
@@ -505,7 +492,6 @@ export async function participantsUpdate({ id, participants, action }) {
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['groups.update']} groupsUpdate 
  */
 export async function groupsUpdate(groupsUpdate) {
-    if(opts['self']) return
     for (const groupUpdate of groupsUpdate) {
         const id = groupUpdate.id
         if(!id) continue

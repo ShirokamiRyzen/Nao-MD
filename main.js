@@ -14,7 +14,6 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1';
 import './config.js'
 
 import path, { join } from 'path'
-import yargs from 'yargs/yargs'
 import pino from 'pino'
 import ws from 'ws'
 import syntaxerror from 'syntax-error'
@@ -53,8 +52,7 @@ global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 const __dirname = global.__dirname(import.meta.url)
 
-global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
-global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
+global.prefix = new RegExp('^[' + '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-'.replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 global.db = new Low(new JSONFile('database.json'));
 
 global.loadDatabase = async function loadDatabase() {

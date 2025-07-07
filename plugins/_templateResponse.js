@@ -15,9 +15,6 @@ export async function all(m, chatUpdate) {
         let plugin = global.plugins[name]
         if (!plugin) continue
         if (plugin.disabled) continue
-        if (!opts['restrict']) {
-            if (plugin.tags && plugin.tags.includes('admin')) continue
-        }
         if (typeof plugin !== 'function') continue
         if (!plugin.command) continue
         const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')

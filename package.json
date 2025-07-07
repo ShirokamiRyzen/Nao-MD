@@ -70,11 +70,8 @@
         "sharp": "^0.32.2",
         "similarity": "^1.2.1",
         "syntax-error": "^1.4.0",
-        "terminal-image": "^1.0.0",
-        "url-regex-safe": "^4.0.0",
         "wa-sticker-formatter": "^4.4.4",
         "ws": "^8.13.0",
-        "yargs": "^17.7.2",
         "yt-search": "^2.10.4"
     }
 }

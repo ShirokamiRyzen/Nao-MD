@@ -8,12 +8,8 @@ const __dirname = path.dirname(__filename)
 const thumbPath = path.resolve(__dirname, '../media/thumbnail.jpg')
 
 let handler = m => m
-handler.all = async function (m) {
-    let name = await conn.getName(m.sender)
-    let pp = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-    try {
-        pp = await this.profilePictureUrl(m.sender, 'image')
-    } catch (e) { }
+handler.all = async function(m) {
+    const pp = await this.profilePictureUrl(m.sender, 'image').catch(e => './src/avatar_contact.png')
 
     global.doc = pickRandom([
         "application/vnd.ms-excel",
@@ -31,8 +27,8 @@ handler.all = async function (m) {
 
     global.adReply = {
         contextInfo: {
-            mentionedJid: [m.sender],
             forwardingScore: 256,
+            isForwarded: false,
             externalAdReply: {
                 title: global.ucapan,
                 body: wm,
@@ -68,7 +64,10 @@ handler.all = async function (m) {
     }
 
     global.ftroli = {
-        key: { remoteJid: 'status@broadcast', participant: '0@s.whatsapp.net' },
+        key: {
+            remoteJid: 'status@broadcast',
+            participant: '0@s.whatsapp.net'
+        },
         message: {
             orderMessage: {
                 itemCount: 999999999999999,
@@ -85,7 +84,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: `status@broadcast` } : {})
+            ...(m.chat ? {
+                remoteJid: `status@broadcast`
+            } : {})
         },
         message: {
             contactMessage: {
@@ -102,7 +103,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: "6282127487538-1625305606@g.us" } : {})
+            ...(m.chat ? {
+                remoteJid: "6282127487538-1625305606@g.us"
+            } : {})
         },
         message: {
             audioMessage: {
@@ -117,7 +120,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: "6282127487538-1625305606@g.us" } : {})
+            ...(m.chat ? {
+                remoteJid: "6282127487538-1625305606@g.us"
+            } : {})
         },
         message: {
             extendedTextMessage: {
@@ -132,7 +137,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: "status@broadcast" } : {})
+            ...(m.chat ? {
+                remoteJid: "status@broadcast"
+            } : {})
         },
         message: {
             liveLocationMessage: {
@@ -147,7 +154,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: "status@broadcast" } : {})
+            ...(m.chat ? {
+                remoteJid: "status@broadcast"
+            } : {})
         },
         message: {
             liveLocationMessage: {
@@ -162,7 +171,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: "6282127487538@s.whatsapp.net" } : {})
+            ...(m.chat ? {
+                remoteJid: "6282127487538@s.whatsapp.net"
+            } : {})
         },
         message: {
             productMessage: {
@@ -216,7 +227,9 @@ handler.all = async function (m) {
         key: {
             fromMe: false,
             participant: `0@s.whatsapp.net`,
-            ...(m.chat ? { remoteJid: "6282127487538-1625305606@g.us" } : {})
+            ...(m.chat ? {
+                remoteJid: "6282127487538-1625305606@g.us"
+            } : {})
         },
         message: {
             videoMessage: {

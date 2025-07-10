@@ -1,4 +1,5 @@
 import axios from 'axios'
+import moment from 'moment-timezone'
 
 let handler = async (m, { conn }) => {
   m.reply(wait)
@@ -9,34 +10,39 @@ let handler = async (m, { conn }) => {
 
     let teks = `🌼 *Grow a Garden Inventory* 🌼\n\n`
 
+    const formatItem = (item) => {
+      let time = moment(item.lastUpdated).tz('Asia/Jakarta').format('DD MMM YYYY, HH:mm:ss') + ' WIB'
+      return `• ${item.name} (${item.quantity})\n  ↳ Available: ${item.available ? '✅' : '❌'} | Updated: ${time}\n`
+    }
+
     // Seeds
     teks += `🌱 *Seeds*\n`
     garden.seeds.forEach(s => {
-      teks += `• ${s.name} (${s.quantity})\n`
+      teks += formatItem(s)
     })
 
     // Gear
     teks += `\n🧰 *Gear*\n`
     garden.gear.forEach(g => {
-      teks += `• ${g.name} (${g.quantity})\n`
+      teks += formatItem(g)
     })
 
     // Eggs
     teks += `\n🥚 *Eggs*\n`
     garden.eggs.forEach(e => {
-      teks += `• ${e.name} (${e.quantity})\n`
+      teks += formatItem(e)
     })
 
     // Cosmetics
     teks += `\n🎀 *Cosmetics*\n`
     garden.cosmetics.forEach(c => {
-      teks += `• ${c.name} (${c.quantity})\n`
+      teks += formatItem(c)
     })
 
     // Honey Items
     teks += `\n🍯 *Event/Honey Items*\n`
     garden.honey.forEach(h => {
-      teks += `• ${h.name} (${h.quantity})\n`
+      teks += formatItem(h)
     })
 
     // Weather
@@ -45,6 +51,8 @@ let handler = async (m, { conn }) => {
     weather.effects.forEach(eff => {
       teks += `- ${eff}\n`
     })
+    let weatherUpdated = moment(weather.lastUpdated).tz('Asia/Jakarta').format('DD MMM YYYY, HH:mm:ss') + ' WIB'
+    teks += `🕒 Update Cuaca: ${weatherUpdated}\n`
 
     await conn.reply(m.chat, teks.trim(), m)
   } catch (err) {

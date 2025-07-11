@@ -1,28 +1,34 @@
 import fetch from "node-fetch"
 import { sticker } from '../lib/sticker.js'
+
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-    if (!args[0]) throw `Example:\n${usedPrefix + command} https://t.me/addstickers/Porcientoreal`
-    if (!args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) throw `???`
-    let packName = args[0].replace("https://t.me/addstickers/", "") 
-    let gas = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getStickerSet?name=${encodeURIComponent(packName)}`, { method: "GET", headers: { "User-Agent": "GoogleBot" } })
-    if (!gas.ok) throw eror
-    let json = await gas.json()
-    m.reply(`*Sticker total:* ${json.result.stickers.length}`.trim())
-    for (let i = 0; i < json.result.stickers.length; i++) {
-        let fileId = json.result.stickers[i].thumb.file_id
-        let gasIn = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${fileId}`)
-        let jisin = await gasIn.json()
-        let stiker = await sticker(false, "https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/" + jisin.result.file_path, global.stickpack, global.stickauth)
-        await delay(1000)
-        if (stiker) conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, { quoted: m })
-        await delay(1000)
+    if (!args[0]) throw `Example:\n${usedPrefix + command} https://t.me/addstickers/sshaaaaa`
+    if (!args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) throw `Invalid URL`
+
+    let apiUrl = `https://api.ryzumi.vip/api/image/sticker-tele?url=${encodeURIComponent(args[0])}`
+    let res = await fetch(apiUrl)
+    if (!res.ok) throw `Error: ${res.status} ${res.statusText}`
+
+    let json = await res.json()
+    let stickers = json.stickers?.stickers || []
+    if (!stickers.length) throw `Not found`
+
+    m.reply(`*Total stiker:* ${stickers.length}`)
+
+    for (let s of stickers) {
+        if (!s.is_animated && s.image_url) {
+            let stiker = await sticker(false, s.image_url, global.stickpack, global.stickauth)
+            if (stiker) await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, { quoted: m })
+            await delay(1000)
+        }
     }
+
     throw `*Done*`
 }
-handler.help = ['stickertele <url>']
+
+handler.help = ['stickertele']
 handler.tags = ['sticker']
 handler.command = /^(stic?kertele(gram)?)$/i
-
 handler.limit = 15
 handler.register = true
 

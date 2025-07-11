@@ -5,7 +5,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     if (!args[0]) throw `Contoh:\n${usedPrefix + command} https://t.me/addstickers/sshaaaaa`
     if (!args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) throw `URL-nya gak valid, Sayang~`
 
-    let apiUrl = `https://api.ryzumi.vip/api/image/sticker-tele?url=${encodeURIComponent(args[0])}`
+    let apiUrl = `${APIs.ryzen}/api/image/sticker-tele?url=${encodeURIComponent(args[0])}`
     let res = await fetch(apiUrl)
     if (!res.ok) throw `Err: ${res.status}`
 

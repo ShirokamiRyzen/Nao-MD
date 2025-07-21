@@ -82,7 +82,7 @@ const { version } = await fetchLatestBaileysVersion()
 const { state, saveCreds } = await useMultiFileAuthState('./sessions')
 const connectionOptions = {
   version,
-  logger: pino({ level: 'fatal' }),
+  logger: pino({ level: 'silent' }),
   //printQRInTerminal: false,
   // Optional If Linked Device Could'nt Connected
   // browser: ['Mac OS', 'chrome', '125.0.6422.53']
@@ -141,7 +141,7 @@ if(existsSync('./sessions/creds.json') && !conn.authState.creds.registered) {
 if(!conn.authState.creds.registered) {
   console.log(chalk.bgWhite(chalk.blue('Generating code...')))
   setTimeout(async () => {
-    let code = await conn.requestPairingCode(global.pairingNumber)
+    let code = await conn.requestPairingCode(global.pairing)
     code = code?.match(/.{1,4}/g)?.join('-') || code
     console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
   }, 3000)
@@ -218,7 +218,7 @@ global.reloadHandler = async function (restatConn) {
   }
 
   conn.welcome = '❖━━━━━━[ Selamat Datang ]━━━━━━❖\n\n┏––––––━━━━━━━━•\n│☘︎ @subject\n┣━━━━━━━━┅┅┅\n│( 👋 Hallo @user)\n├[ Intro ]—\n│ NAMA: \n│ USIA: \n│ JENIS KELAMIN:\n┗––––––━━┅┅┅\n\n––––––┅┅ DESKRIPSI ┅┅––––––\n@desc'
-  conn.bye = '❖━━━━━━[ Meninggalkan ]━━━━━━❖\n𝚂𝚊𝚢𝚘𝚗𝚊𝚛𝚊𝚊 @user 👋😃'
+  conn.bye = '❖━━━━━━[ Meninggalkan ]━━━━━━❖\nSayonara @user 👋😃'
   conn.spromote = '@user Sekarang jadi admin!'
   conn.sdemote = '@user Sekarang bukan lagi admin!'
   conn.sDesc = 'Deskripsi telah diubah menjadi \n@desc'

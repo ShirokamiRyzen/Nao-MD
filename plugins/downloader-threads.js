@@ -2,9 +2,10 @@
 // Script by ShirokamiRyzen
 
 import axios from 'axios'
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args }) => {
-    if (!args[0]) throw 'Please provide a Threads post URL';
+    if (!args[0]) throw 'Please provide a Threads URL';
     const sender = m.sender.split('@')[0];
     const url = args[0];
 
@@ -13,60 +14,69 @@ let handler = async (m, { conn, args }) => {
     try {
         const { data } = await axios.get(`${APIs.ryzen}/api/downloader/threads?url=${encodeURIComponent(url)}`);
 
-        if (!data || (!data.images?.length && !data.videos?.length)) {
+        const images = data.images || [];
+        const videos = data.videos || [];
+        const userAgent = data.user_agent;
+
+        if (images.length === 0 && videos.length === 0) {
             throw 'No media found in that Threads post';
         }
 
-        // Send videos first
-        if (data.videos?.length > 0) {
-            for (const item of data.videos) {
-                try {
-                    const videoBuffer = await fetch(item.download).then(res => res.buffer());
-                    await conn.sendMessage(
-                        m.chat,
-                        {
-                            video: videoBuffer,
-                            mimetype: "video/mp4",
-                            fileName: "video.mp4",
-                            caption: `Ini kak videonya @${sender}`,
-                            mentions: [m.sender]
-                        },
-                        { quoted: m }
-                    );
-                } catch (err) {
-                    console.error('Error sending video:', err);
-                    await conn.reply(m.chat, `Gagal mengirim video: ${err.message}`, m);
-                }
-            }
+        if (!userAgent) {
+            throw 'Missing user-agent from API';
         }
 
-        // Send images after
-        if (data.images?.length > 0) {
+        // Send video
+        if (videos.length > 0) {
+            const videoUrl = videos[0].download;
+            const videoBuffer = await fetch(videoUrl, {
+                headers: {
+                    'User-Agent': userAgent
+                }
+            }).then(res => res.buffer());
+
+            await conn.sendMessage(
+                m.chat, {
+                    video: videoBuffer,
+                    mimetype: "video/mp4",
+                    fileName: `threads_video.mp4`,
+                    caption: `Ini kak videonya @${sender}`,
+                    mentions: [m.sender]
+                }, {
+                    quoted: m
+                }
+            );
+        }
+
+        // Send all images
+        if (images.length > 0) {
             let first = true;
-            for (const item of data.images) {
-                try {
-                    const imageBuffer = await fetch(item.download).then(res => res.buffer());
-                    const caption = first ? `Ini kak gambarnya @${sender}` : '';
-                    first = false;
+            for (const item of images) {
+                const imgUrl = item.download;
+                const imgBuffer = await fetch(imgUrl, {
+                    headers: {
+                        'User-Agent': userAgent
+                    }
+                }).then(res => res.buffer());
 
-                    await conn.sendMessage(
-                        m.chat,
-                        {
-                            image: imageBuffer,
-                            caption,
-                            mentions: [m.sender]
-                        },
-                        { quoted: m }
-                    );
-                } catch (err) {
-                    console.error('Error sending image:', err);
-                    await conn.reply(m.chat, `Gagal mengirim gambar: ${err.message}`, m);
-                }
+                const caption = first ? `Ini kak gambarnya @${sender}` : '';
+                first = false;
+
+                await conn.sendMessage(
+                    m.chat, {
+                        image: imgBuffer,
+                        caption,
+                        mentions: [m.sender]
+                    }, {
+                        quoted: m
+                    }
+                );
             }
         }
+
     } catch (error) {
         console.error('Handler Error:', error);
-        conn.reply(m.chat, `Terjadi kesalahan: ${error}`, m);
+        conn.reply(m.chat, `Terjadi kesalahan: ${error.message || error}`, m);
     }
 }
 

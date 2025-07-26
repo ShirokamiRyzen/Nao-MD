@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
     await m.reply(wait);
 
-    const apiUrl = `${APIs.ryzen}/api/ai/waifu-diff?prompt=${encodeURIComponent(text)}`;
+    const apiUrl = `${APIs.ryzen}/api/ai/v2/text2img?prompt=${encodeURIComponent(text)}`;
 
     try {
         let response = await fetch(apiUrl, {

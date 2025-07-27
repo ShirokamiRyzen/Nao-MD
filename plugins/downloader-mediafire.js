@@ -1,46 +1,42 @@
 import axios from 'axios'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-    if (!args[0]) throw `Use example ${usedPrefix}${command} https://www.mediafire.com/file/in5j3u2zwoq1x33/BLUR_BLUR_ASIK.zip/file`;
-    
-    let mediafireApi = `${APIs.ryzen}/api/downloader/mediafire?url=${encodeURIComponent(args[0])}`;
+    if (!args[0]) throw `Gunakan contoh: ${usedPrefix}${command} https://www.mediafire.com/file/in5j3u2zwoq1x33/BLUR_BLUR_ASIK.zip/file`;
 
-    m.reply(wait)
+    let mediafireApi = `${APIs.ryzen}/api/downloader/mediafire?url=${encodeURIComponent(args[0])}`;
+    m.reply(wait);
 
     try {
         let res = await axios.get(mediafireApi);
-        let data = res.data;
+        let { status, data, error } = res.data;
 
-        if (!data || !data.download) throw 'Failed to fetch download link. Please try again later.';
+        if (!status || !data || !data.downloadUrl) throw 'Gagal mengambil link download. Coba lagi nanti.';
 
-        let { filename, size, mimetype: ext, created, download, cookie } = data;
+        let { filename, filesize, downloadUrl } = data;
 
         let caption = `
-*💌 Name:* ${filename}
-*📊 Size:* ${size}
-*🗂️ Extension:* ${ext}
-*📨 Uploaded:* ${new Date(created).toLocaleString()}
+*📁 Nama File:* ${filename}
+*📦 Ukuran:* ${filesize}
 `.trim();
 
-        let fileRes = await axios.get(download, {
-            headers: {
-                Cookie: cookie
-            },
+        let fileRes = await axios.get(downloadUrl, {
             responseType: 'arraybuffer'
         });
 
         m.reply(caption);
         await conn.sendFile(
-            m.chat, 
-            Buffer.from(fileRes.data), 
-            filename, 
-            '', 
-            m, 
-            null, 
-            { mimetype: ext, asDocument: true }
+            m.chat,
+            Buffer.from(fileRes.data),
+            filename,
+            '',
+            m,
+            null,
+            {
+                asDocument: true
+            }
         );
     } catch (e) {
-        throw 'An error occurred: ' + e;
+        throw 'Terjadi kesalahan: ' + (e?.message || e);
     }
 };
 

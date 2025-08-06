@@ -1,13 +1,8 @@
 import { createHash } from 'crypto'
-import { getConsistentUserId } from '../lib/jid-utils.js'
 
 let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
 let handler = async function (m, { text, usedPrefix }) {
-  // Use consistent user ID to handle @lid issue
-  const consistentUserId = getConsistentUserId(m)
-  const userKey = consistentUserId || m.sender
-  
-  let user = global.db.data.users[userKey]
+  let user = global.db.data.users[m.sender]
   if (user.registered === true) throw `Anda sudah terdaftar\nMau daftar ulang? ${usedPrefix}unreg <SERIAL NUMBER>`
   if (!Reg.test(text)) throw `Format salah\n*${usedPrefix}register nama.umur*`
   let [_, name, splitter, age] = text.match(Reg)
@@ -20,7 +15,7 @@ let handler = async function (m, { text, usedPrefix }) {
   user.age = age
   user.regTime = + new Date
   user.registered = true
-  let sn = createHash('md5').update(userKey).digest('hex')
+  let sn = createHash('md5').update(m.sender).digest('hex')
   m.reply(`
 Daftar berhasil!
 

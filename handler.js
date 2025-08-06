@@ -5,6 +5,7 @@ import path from 'path'
 import { unwatchFile, watchFile } from 'fs'
 import chalk from 'chalk'
 import knights from 'knights-canvas'
+import { getConsistentUserId, standardizeJid } from './lib/jid-utils.js'
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 
@@ -26,9 +27,16 @@ export async function handler(chatUpdate) {
         m.exp = 0
         m.limit = false
         try {
+            // Get consistent user ID (convert @lid to @s.whatsapp.net if needed)
+            const consistentUserId = getConsistentUserId(m)
+            const originalSender = m.sender
+            
+            // Use consistent ID for database operations
+            const userKey = consistentUserId || originalSender
+            
             // TODO: use loop to insert data instead of this
-            let user = global.db.data.users[m.sender]
-            if(typeof user !== 'object') global.db.data.users[m.sender] = {}
+            let user = global.db.data.users[userKey]
+            if(typeof user !== 'object') global.db.data.users[userKey] = {}
             if(user) {
                 if(!isNumber(user.exp))
                     user.exp = 0
@@ -47,7 +55,7 @@ export async function handler(chatUpdate) {
                 if(!('autolevelup' in user))
                     user.autolevelup = true
             } else
-                global.db.data.users[m.sender] = {
+                global.db.data.users[userKey] = {
                     exp: 0,
                     limit: 10,
                     lastclaim: 0,
@@ -64,6 +72,31 @@ export async function handler(chatUpdate) {
                     role: 'Free user',
                     autolevelup: true,
                 }
+                
+            // If we converted @lid to @s.whatsapp.net, check if there's old data to migrate
+            if (userKey !== originalSender && global.db.data.users[originalSender]) {
+                const oldData = global.db.data.users[originalSender]
+                const newData = global.db.data.users[userKey]
+                
+                // Merge data, prioritizing newer/higher values
+                global.db.data.users[userKey] = {
+                    ...oldData,
+                    ...newData,
+                    // Keep registration status from any source
+                    registered: oldData.registered || newData.registered,
+                    // Keep higher exp
+                    exp: Math.max(oldData.exp || 0, newData.exp || 0),
+                    // Keep higher limit
+                    limit: Math.max(oldData.limit || 0, newData.limit || 0),
+                    // Keep more recent registration time
+                    regTime: Math.max(oldData.regTime || -1, newData.regTime || -1)
+                }
+                
+                // Remove old entry
+                delete global.db.data.users[originalSender]
+                console.log(`[HANDLER] Migrated user data: ${originalSender} -> ${userKey}`)
+            }
+            
             let chat = global.db.data.chats[m.chat]
             if(typeof chat !== 'object') global.db.data.chats[m.chat] = {}
             if(chat) {
@@ -141,10 +174,15 @@ export async function handler(chatUpdate) {
             console.error(e)
         }
         if(typeof m.text !== 'string') m.text = ''
-        const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+        
+        // Use consistent user ID for all operations
+        const consistentUserId = getConsistentUserId(m)
+        const userKey = consistentUserId || m.sender
+        
+        const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(userKey)
         const isOwner = isROwner || m.fromMe
-        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-        const isPrems = isROwner || db.data.users[m.sender].premiumTime > 0
+        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(userKey)
+        const isPrems = isROwner || db.data.users[userKey]?.premiumTime > 0
         if(!isOwner && !m.fromMe && !db.data.settings[this.user.jid].public) return;
         if(m.text && !(isMods || isPrems)) {
             let queque = this.msgqueque, time = 1000 * 5
@@ -160,10 +198,10 @@ export async function handler(chatUpdate) {
         m.exp += Math.ceil(Math.random() * 10)
 
         let usedPrefix
-        let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
+        let _user = global.db.data && global.db.data.users && global.db.data.users[userKey]
         const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
         const participants = (m.isGroup ? groupMetadata.participants : []) || []
-        const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
+        const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === userKey || conn.decodeJid(u.jid) === userKey) : {}) || {} // User Data
         const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
         const isRAdmin = user?.admin == 'superadmin' || false
         const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
@@ -303,7 +341,7 @@ export async function handler(chatUpdate) {
                     console.log("ngecit -_-");
                 else
                     m.exp += xp
-                if(!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
+                if(!isPrems && plugin.limit && global.db.data.users[userKey].limit < plugin.limit * 1) {
                     this.reply(m.chat, `[❗] Limit harian kamu telah habis, silahkan beli Premium melalui *${usedPrefix}premium*`, m)
                     continue // Limit habis
                 }
@@ -377,10 +415,12 @@ export async function handler(chatUpdate) {
             if(quequeIndex !== -1)
                 this.msgqueque.splice(quequeIndex, 1)
         }
-        //console.log(global.db.data.users[m.sender])
+        //console.log(global.db.data.users[userKey])
         let user, stats = global.db.data.stats
         if(m) {
-            if(m.sender && (user = global.db.data.users[m.sender])) {
+            // Use consistent user ID for database operations
+            const finalUserKey = getConsistentUserId(m) || m.sender
+            if(finalUserKey && (user = global.db.data.users[finalUserKey])) {
                 user.exp += m.exp
                 user.limit -= m.limit * 1
             }

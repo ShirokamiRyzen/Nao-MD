@@ -75,6 +75,22 @@ global.loadDatabase = async function loadDatabase() {
     settings: {},
     ...(db.data || {})
   }
+  
+  // Auto-migrate @lid entries to @s.whatsapp.net format
+  try {
+    const { migrateDbLidEntries } = await import('./lib/jid-utils.js')
+    const lidUserCount = Object.keys(db.data.users || {}).filter(id => id.includes('@lid')).length
+    const lidChatCount = Object.keys(db.data.chats || {}).filter(id => id.includes('@lid')).length
+    
+    if (lidUserCount > 0 || lidChatCount > 0) {
+      console.log(chalk.yellow(`[AUTO-MIGRATION] Found ${lidUserCount} @lid users and ${lidChatCount} @lid chats, migrating...`))
+      global.db = migrateDbLidEntries(global.db)
+      await global.db.write()
+      console.log(chalk.green(`[AUTO-MIGRATION] Migration completed!`))
+    }
+  } catch (error) {
+    console.error(chalk.red('[AUTO-MIGRATION] Error during auto-migration:'), error)
+  }
 }
 loadDatabase()
 

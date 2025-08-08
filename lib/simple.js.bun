@@ -1,5 +1,5 @@
 // To Simple Function
-import Jimp from 'jimp'
+import { Jimp } from 'jimp'
 import path from 'path'
 import { toAudio } from './converter.js'
 import chalk from 'chalk'

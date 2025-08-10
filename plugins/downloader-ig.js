@@ -4,7 +4,7 @@
 import axios from 'axios'
 
 let handler = async (m, { conn, args }) => {
-    if (!args[0]) throw 'Please provide an Instagram video URL';
+    if (!args[0]) throw 'Please provide an Instagram media URL';
     const sender = m.sender.split('@')[0];
     const url = args[0];
 
@@ -12,56 +12,74 @@ let handler = async (m, { conn, args }) => {
 
     try {
         const { data } = await axios.get(`${APIs.ryzen}/api/downloader/igdl?url=${encodeURIComponent(url)}`);
-        
-        if (!data.status || !data.data || data.data.length === 0) {
+
+        if (!data.status || !Array.isArray(data.data) || data.data.length === 0) {
             throw 'No available media found';
         }
 
         const mediaData = data.data;
-        const videos = mediaData.filter(item => item.url.includes('rapidcdn.app'));
-        const images = mediaData.filter(item => item.url.includes('cdninstagram.com'));
+        let first = true;
 
-        if (videos.length > 0) {
-            const videoUrl = videos[0].url;
-            const videoBuffer = await fetch(videoUrl).then(res => res.buffer());
-            const caption = `Ini kak videonya @${sender}`;
+        for (const item of mediaData) {
+            try {
+                const mediaUrl = item.url;
+                const type = (item.type || '').toLowerCase();
+                const buffer = await fetch(mediaUrl).then(res => res.buffer());
+                const caption = first ? `Ini kak @${sender}` : '';
+                first = false;
 
-            await conn.sendMessage(
-                m.chat, {
-                    video: videoBuffer,
-                    mimetype: "video/mp4",
-                    fileName: `video.mp4`,
-                    caption: caption,
-                    mentions: [m.sender],
-                }, {
-                    quoted: m
-                }
-            );
-        } else if (images.length > 0) {
-            let firstImage = true;
-            for (const item of images) {
-                try {
-                    const imageUrl = item.url;
-                    const imageBuffer = await fetch(imageUrl).then(res => res.buffer());
-                    const caption = firstImage ? `Ini kak gambarnya @${sender}` : '';
-                    firstImage = false;
-
+                if (type === 'video') {
                     await conn.sendMessage(
                         m.chat, {
-                            image: imageBuffer,
+                            video: buffer,
+                            mimetype: "video/mp4",
+                            fileName: `video.mp4`,
+                            caption: caption,
+                            mentions: [m.sender],
+                        }, {
+                            quoted: m
+                        }
+                    );
+                } else if (type === 'image') {
+                    await conn.sendMessage(
+                        m.chat, {
+                            image: buffer,
                             caption: caption,
                             mentions: [m.sender]
                         }, {
                             quoted: m
                         }
                     );
-                } catch (error) {
-                    console.error('Error sending image:', error);
-                    await conn.reply(m.chat, `Gagal mengirim gambar: ${error.message}`, m);
+                } else {
+                    // fallback kalau type tidak jelas
+                    try {
+                        await conn.sendMessage(
+                            m.chat, {
+                                image: buffer,
+                                caption: caption,
+                                mentions: [m.sender]
+                            }, {
+                                quoted: m
+                            }
+                        );
+                    } catch {
+                        await conn.sendMessage(
+                            m.chat, {
+                                video: buffer,
+                                mimetype: "video/mp4",
+                                fileName: `video.mp4`,
+                                caption: caption,
+                                mentions: [m.sender],
+                            }, {
+                                quoted: m
+                            }
+                        );
+                    }
                 }
+            } catch (error) {
+                console.error('Error sending media:', error);
+                await conn.reply(m.chat, `Gagal mengirim media: ${error.message}`, m);
             }
-        } else {
-            throw 'No available media found';
         }
     } catch (error) {
         console.error('Handler Error:', error);

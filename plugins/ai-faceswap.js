@@ -18,7 +18,7 @@ let handler = async (m, { conn, args }) => {
         let url = cdnResult.url || cdnResult
         if (!url) throw 'Gagal upload ke RyzenCDN!'
 
-        let response = await axios.get(`${APIs.ryzen}/api/ai/faceswap`, {
+        let response = await axios.get(`${APIs.ryzumi}/api/ai/faceswap`, {
             params: {
                 original: args[0],
                 face: url

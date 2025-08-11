@@ -8,10 +8,10 @@ let handler = async (m, { conn, args }) => {
   m.reply(wait);
 
   try {
-    let downloadResult = (await axios.get(`${APIs.ryzen}/api/downloader/twitter?url=${url}`)).data;
+    let downloadResult = (await axios.get(`${APIs.ryzumi}/api/downloader/twitter?url=${url}`)).data;
 
     if (!downloadResult.status || !downloadResult.media || downloadResult.media.length === 0) {
-      const tempResult = (await axios.get(`${APIs.ryzen}/api/downloader/v2/twitter?url=${url}`)).data;
+      const tempResult = (await axios.get(`${APIs.ryzumi}/api/downloader/v2/twitter?url=${url}`)).data;
       downloadResult = Array.isArray(tempResult) && tempResult.length > 0
         ? { status: true, media: tempResult }
         : { status: false, media: [] };

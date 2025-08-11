@@ -7,7 +7,7 @@ let handler = async (m, { conn, text }) => {
     m.reply(wait)
 
     try {
-        let { data } = await axios.get(`${APIs.ryzen}/api/stalk/twitter?username=${username}`)
+        let { data } = await axios.get(`${APIs.ryzumi}/api/stalk/twitter?username=${username}`)
         if (data.message !== 'OK') throw data.message || 'Terjadi kesalahan saat mengambil data!'
 
         let user = data.user

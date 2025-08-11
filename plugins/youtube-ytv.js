@@ -11,7 +11,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   const videoUrl = args[0]
   const resolution = args[1] || '480p'
 
-  const apiUrl = `${APIs.ryzen}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&quality=${resolution}`
+  const apiUrl = `${APIs.ryzumi}/api/downloader/ytmp4?url=${encodeURIComponent(videoUrl)}&quality=${resolution}`
 
   try {
     const response = await axios.get(apiUrl)

@@ -37,7 +37,7 @@ let handler = async (m, { conn, args }) => {
     };
 
     try {
-        const url = `${APIs.ryzen}/api/tool/cek-resi?resi=${noResi}${ekspedisi ? `&ekspedisi=${ekspedisi}` : ''}`;
+        const url = `${APIs.ryzumi}/api/tool/cek-resi?resi=${noResi}${ekspedisi ? `&ekspedisi=${ekspedisi}` : ''}`;
         const res = await axios.get(url);
         const result = res.data;
 

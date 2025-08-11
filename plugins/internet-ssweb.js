@@ -11,7 +11,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
 
     const ssweb = async (url, mode) => {
         try {
-            let response = await axios.get(`${APIs.ryzen}/api/tool/ssweb`, {
+            let response = await axios.get(`${APIs.ryzumi}/api/tool/ssweb`, {
                 params: { url, mode },
                 responseType: 'arraybuffer'
             });

@@ -22,7 +22,7 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
   }, { quoted: m })
 
   try {
-    const response = await axios.get(`${APIs.ryzen}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`)
+    const response = await axios.get(`${APIs.ryzumi}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`)
     const data = response.data
 
     if (!data.url) throw new Error('Audio URL not found')

@@ -15,7 +15,7 @@ let handler = async (m, { conn, usedPrefix, text }) => {
         let media = await q.download();
         let url = await uploadPomf(media);
 
-        let apiUrl = `${APIs.ryzen}/api/ai/v2/removebg?url=${url}&upscale=${upscale}`;
+        let apiUrl = `${APIs.ryzumi}/api/ai/v2/removebg?url=${url}&upscale=${upscale}`;
         let response = await fetch(apiUrl);
         if (!response.ok) throw new Error('Gagal mengambil gambar dari API');
 

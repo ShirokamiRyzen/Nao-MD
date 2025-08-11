@@ -16,7 +16,7 @@ let handler = async (m, { conn }) => {
         if (!cdnResult || !cdnResult.url) throw 'Gagal upload ke CDN!'
 
         let url = cdnResult.url
-        let res = await axios.get(`${APIs.ryzen}/api/search/lens`, {
+        let res = await axios.get(`${APIs.ryzumi}/api/search/lens`, {
             params: { url },
         })
 

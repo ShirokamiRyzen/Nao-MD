@@ -7,7 +7,7 @@ let handler = async (m, { conn, text }) => {
     m.reply(wait)
 
     try {
-        const { data } = await axios.get(`${APIs.ryzen}/api/tool/yt-transcript?url=${encodeURIComponent(youtubeUrl)}`)
+        const { data } = await axios.get(`${APIs.ryzumi}/api/tool/yt-transcript?url=${encodeURIComponent(youtubeUrl)}`)
         if (data.status) {
             let transcript = data.transcript
             let caption = `Transcript:\n\n${transcript}`

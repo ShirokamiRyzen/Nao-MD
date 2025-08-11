@@ -11,7 +11,7 @@ let handler = async (m, { conn, args }) => {
     m.reply(wait);
 
     try {
-        const { data } = await axios.get(`${APIs.ryzen}/api/downloader/igdl?url=${encodeURIComponent(url)}`);
+        const { data } = await axios.get(`${APIs.ryzumi}/api/downloader/igdl?url=${encodeURIComponent(url)}`);
 
         if (!data.status || !Array.isArray(data.data) || data.data.length === 0) {
             throw 'No available media found';

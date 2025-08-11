@@ -11,7 +11,7 @@ let handler = async (m, { conn, args }) => {
     m.reply(wait);
 
     try {
-        const { data } = await axios.get(`${APIs.ryzen}/api/downloader/pinterest?url=${encodeURIComponent(url)}`);
+        const { data } = await axios.get(`${APIs.ryzumi}/api/downloader/pinterest?url=${encodeURIComponent(url)}`);
 
         if (!data.success || !data.media || data.media.length === 0) {
             throw 'No available media found';

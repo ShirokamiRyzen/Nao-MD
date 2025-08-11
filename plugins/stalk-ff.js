@@ -10,7 +10,7 @@ let handler = async (m, { conn, args }) => {
     })
 
     try {
-        let res = await axios.get(`${APIs.ryzen}/api/stalk/freefire?userId=${userId}`)
+        let res = await axios.get(`${APIs.ryzumi}/api/stalk/freefire?userId=${userId}`)
         let result = res.data
 
         if (!result.name) throw 'API tidak mengembalikan data yang valid'

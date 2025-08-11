@@ -12,7 +12,7 @@ let handler = async (m, { conn, args }) => {
     m.reply(wait);
 
     try {
-        const { data } = await axios.get(`${APIs.ryzen}/api/downloader/threads?url=${encodeURIComponent(url)}`);
+        const { data } = await axios.get(`${APIs.ryzumi}/api/downloader/threads?url=${encodeURIComponent(url)}`);
 
         const images = data.images || [];
         const videos = data.videos || [];

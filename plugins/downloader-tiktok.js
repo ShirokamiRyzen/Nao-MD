@@ -9,8 +9,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   try {
     const isDouyin = args[0].includes("douyin")
     const API = isDouyin
-      ? `${APIs.ryzen}/api/downloader/v2/ttdl?url=${args[0]}`
-      : `${APIs.ryzen}/api/downloader/ttdl?url=${args[0]}`
+      ? `${APIs.ryzumi}/api/downloader/v2/ttdl?url=${args[0]}`
+      : `${APIs.ryzumi}/api/downloader/ttdl?url=${args[0]}`
 
     const { data: response } = await axios.get(API)
     let videoData, videoURL, videoURLWatermark, hdURL, info

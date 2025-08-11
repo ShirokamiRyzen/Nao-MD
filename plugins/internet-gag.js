@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
   m.reply(wait)
 
   try {
-    const { data } = await axios.get(`${APIs.ryzen}/api/tool/growagarden`)
+    const { data } = await axios.get(`${APIs.ryzumi}/api/tool/growagarden`)
     const garden = data.data
 
     let teks = `🌼 *Grow a Garden Inventory* 🌼\n\n`

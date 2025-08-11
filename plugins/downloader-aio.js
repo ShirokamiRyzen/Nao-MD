@@ -9,7 +9,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     m.reply(wait);
 
     try {
-        let response = await axios.get(`${APIs.ryzen}/api/downloader/aiodown?url=${encodeURIComponent(url)}`);
+        let response = await axios.get(`${APIs.ryzumi}/api/downloader/aiodown?url=${encodeURIComponent(url)}`);
         let data = response.data;
 
         if (!data.success) throw 'Gagal mengambil data video';

@@ -5,7 +5,7 @@ var handler = async (m, { conn, text }) => {
 
   conn.reply(m.chat, 'Sedang mencari orangnya... Silahkan tunggu.', m);
 
-  const url = `${APIs.ryzen}/api/search/mahasiswa?query=${encodeURIComponent(text)}`;
+  const url = `${APIs.ryzumi}/api/search/mahasiswa?query=${encodeURIComponent(text)}`;
 
   try {
     let res = await axios.get(url);

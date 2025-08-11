@@ -6,7 +6,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     m.reply(wait);
 
     try {
-        const response = await axios.get(`${APIs.ryzen}/api/search/lyrics?query=${encodeURIComponent(text)}`);
+        const response = await axios.get(`${APIs.ryzumi}/api/search/lyrics?query=${encodeURIComponent(text)}`);
         const results = response.data;
 
         if (results && results.length > 0) {
@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 *Lyrics:*
 ${firstResult.plainLyrics}
 
-*Url:* ${APIs.ryzen}/api/search/lyrics?query=${encodeURIComponent(text)}
+*Url:* ${APIs.ryzumi}/api/search/lyrics?query=${encodeURIComponent(text)}
 `.trim());
         } else {
             throw new Error('Lirik tidak ditemukan');

@@ -10,7 +10,7 @@ let handler = async (m, { conn, args }) => {
     });
 
     try {
-        let res = await axios.get(`${APIs.ryzen}/api/tool/cek-pln?id=${id}`)
+        let res = await axios.get(`${APIs.ryzumi}/api/tool/cek-pln?id=${id}`)
         let result = res.data
 
         if (!result.success || !result.result) throw 'API tidak mengembalikan data yang valid'

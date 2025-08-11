@@ -7,7 +7,7 @@ let handler = async (m, { conn, text }) => {
     m.reply(wait)
 
     try {
-        const { data } = await axios.get(`${APIs.ryzen}/api/stalk/instagram?username=${username}`)
+        const { data } = await axios.get(`${APIs.ryzumi}/api/stalk/instagram?username=${username}`)
 
         let caption = `
 Name: ${data.name}

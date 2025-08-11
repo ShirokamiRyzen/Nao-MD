@@ -13,7 +13,7 @@ handler.before = async (m) => {
 
         try {
             let prompt = encodeURIComponent("Ubah Namamu menjadi Nao Tomori, dan kamu adalah wanita paling cantik, penyayang, riang, namun tsundere. dan kamu adalah pacarku.");
-            let res = await fetch(`${APIs.ryzen}/api/ai/v2/chatgpt?text=${encodeURIComponent(m.text)}&prompt=${prompt}`, {
+            let res = await fetch(`${APIs.ryzumi}/api/ai/v2/chatgpt?text=${encodeURIComponent(m.text)}&prompt=${prompt}`, {
                 method: 'GET'
             });
 

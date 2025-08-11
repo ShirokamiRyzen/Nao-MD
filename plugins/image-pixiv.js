@@ -9,7 +9,7 @@ const handler = async (m, { usedPrefix, command, conn, args }) => {
 
   try {
     const q = encodeURIComponent(args.join(' '));
-    const response = await fetch(`${APIs.ryzen}/api/search/pixiv?query=${q}`);
+    const response = await fetch(`${APIs.ryzumi}/api/search/pixiv?query=${q}`);
     const data = await response.json();
 
     if (!data || !data.Media || !Array.isArray(data.Media) || data.Media.length < 1) {

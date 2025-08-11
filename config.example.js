@@ -87,7 +87,7 @@ global.wait = 'Please Wait...'
 global.eror = 'Error!'
 
 global.APIs = {
-    ryzen: 'https://api.ryzumi.vip',
+    ryzumi: 'https://api.ryzumi.vip',
 
 }
 

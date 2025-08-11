@@ -29,9 +29,9 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
 
     let apiUrl;
     if (imgUrl) {
-      apiUrl = `${APIs.ryzen}/api/ai/gemini?text=${encodeURIComponent(text || '')}&url=${encodeURIComponent(imgUrl)}`;
+      apiUrl = `${APIs.ryzumi}/api/ai/gemini?text=${encodeURIComponent(text || '')}&url=${encodeURIComponent(imgUrl)}`;
     } else if (text) {
-      apiUrl = `${APIs.ryzen}/api/ai/gemini?text=${encodeURIComponent(text)}`;
+      apiUrl = `${APIs.ryzumi}/api/ai/gemini?text=${encodeURIComponent(text)}`;
     } else {
       throw "Tidak ada teks atau gambar yang valid untuk diproses.";
     }

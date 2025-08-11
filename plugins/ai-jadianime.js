@@ -14,7 +14,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
         let media = await q.download();
         let url = await uploadPomf(media);
 
-        let response = await fetch(`${APIs.ryzen}/api/ai/toanime?url=${url}&style=${style}`);
+        let response = await fetch(`${APIs.ryzumi}/api/ai/toanime?url=${url}&style=${style}`);
         if (!response.ok) throw new Error('Failed to fetch image from API');
         let hasil = await response.buffer();
 

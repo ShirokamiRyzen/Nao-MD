@@ -15,7 +15,7 @@ let handler = async (m, { conn, text }) => {
   }
 
   try {
-    let url = `${APIs.ryzen}/api/image/calendar?month=${month}&year=${year}`;
+    let url = `${APIs.ryzumi}/api/image/calendar?month=${month}&year=${year}`;
 
     let res = await fetch(url);
     if (!res.ok) throw `Gagal mengambil gambar dari API! Status: ${res.status}`;

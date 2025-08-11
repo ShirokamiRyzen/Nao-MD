@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
     await m.reply(wait);
 
-    const apiUrl = `${APIs.ryzen}/api/ai/text2img?prompt=${encodeURIComponent(text)}`;
+    const apiUrl = `${APIs.ryzumi}/api/ai/text2img?prompt=${encodeURIComponent(text)}`;
 
     try {
         let response = await fetch(apiUrl);

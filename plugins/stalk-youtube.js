@@ -7,7 +7,7 @@ let handler = async (m, { conn, text }) => {
     m.reply(wait)
 
     try {
-        const { data } = await axios.get(`${APIs.ryzen}/api/stalk/youtube?username=${username}`)
+        const { data } = await axios.get(`${APIs.ryzumi}/api/stalk/youtube?username=${username}`)
         let channel = data.channelMetadata
         let videos = data.videoDataList || []
 

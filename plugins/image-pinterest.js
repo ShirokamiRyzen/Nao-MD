@@ -8,7 +8,7 @@ const handler = async (m, { usedPrefix, command, conn, args }) => {
 
   try {
     const q = encodeURIComponent(args.join(' '));
-    const response = await fetch(`${APIs.ryzen}/api/search/pinterest?query=${q}`);
+    const response = await fetch(`${APIs.ryzumi}/api/search/pinterest?query=${q}`);
     const data = await response.json();
     if (!Array.isArray(data) || data.length < 1) {
       return m.reply('Error, Foto Tidak Ditemukan');

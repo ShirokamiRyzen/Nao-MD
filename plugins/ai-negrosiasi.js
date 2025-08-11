@@ -25,7 +25,7 @@ let handler = async (m, { conn, args }) => {
             return m.reply(`Filter yang tersedia: ${validFilters.join(', ')}`);
         }
 
-        let response = await axios.get(`${APIs.ryzen}/api/ai/negro`, {
+        let response = await axios.get(`${APIs.ryzumi}/api/ai/negro`, {
             params: {
                 url: url,
                 filter: filter,

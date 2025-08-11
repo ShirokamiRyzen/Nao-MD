@@ -20,7 +20,7 @@ let handler = async (m, { conn, text }) => {
         }
         let url = cdnResult.url
 
-        let response = await axios.get(`${APIs.ryzen}/api/ai/image/gemini`, {
+        let response = await axios.get(`${APIs.ryzumi}/api/ai/image/gemini`, {
             params: {
                 text: text,
                 url: url

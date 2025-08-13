@@ -14,26 +14,20 @@ let handler = async (m, { conn, args }) => {
     try {
         const { data } = await axios.get(`${APIs.ryzumi}/api/downloader/threads?url=${encodeURIComponent(url)}`);
 
-        const images = data.images || [];
-        const videos = data.videos || [];
-        const userAgent = data.user_agent;
+        // Support both new and old API response shapes
+        const images = data.image_urls || data.images || [];
+        const videos = data.video_urls || data.videos || [];
 
-        if (images.length === 0 && videos.length === 0) {
+        if ((images?.length || 0) === 0 && (videos?.length || 0) === 0) {
             throw 'No media found in that Threads post';
-        }
-
-        if (!userAgent) {
-            throw 'Missing user-agent from API';
         }
 
         // Send video
         if (videos.length > 0) {
-            const videoUrl = videos[0].download;
-            const videoBuffer = await fetch(videoUrl, {
-                headers: {
-                    'User-Agent': userAgent
-                }
-            }).then(res => res.buffer());
+            // New API returns raw URLs, old API returns objects with { download }
+            const firstVideo = videos[0];
+            const videoUrl = typeof firstVideo === 'string' ? firstVideo : firstVideo.download;
+            const videoBuffer = await fetch(videoUrl).then(res => res.buffer());
 
             await conn.sendMessage(
                 m.chat, {
@@ -52,12 +46,8 @@ let handler = async (m, { conn, args }) => {
         if (images.length > 0) {
             let first = true;
             for (const item of images) {
-                const imgUrl = item.download;
-                const imgBuffer = await fetch(imgUrl, {
-                    headers: {
-                        'User-Agent': userAgent
-                    }
-                }).then(res => res.buffer());
+                const imgUrl = typeof item === 'string' ? item : item.download;
+                const imgBuffer = await fetch(imgUrl).then(res => res.buffer());
 
                 const caption = first ? `Ini kak gambarnya @${sender}` : '';
                 first = false;

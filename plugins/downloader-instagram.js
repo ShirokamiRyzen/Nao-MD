@@ -24,55 +24,43 @@ let handler = async (m, { conn, args }) => {
             try {
                 const mediaUrl = item.url;
                 const type = (item.type || '').toLowerCase();
-                const buffer = await fetch(mediaUrl).then(res => res.buffer());
                 const caption = first ? `Ini kak @${sender}` : '';
                 first = false;
 
                 if (type === 'video') {
                     await conn.sendMessage(
-                        m.chat, {
-                            video: buffer,
-                            mimetype: "video/mp4",
-                            fileName: `video.mp4`,
-                            caption: caption,
+                        m.chat,
+                        {
+                            video: { url: mediaUrl },
+                            mimetype: 'video/mp4',
+                            fileName: 'video.mp4',
+                            caption,
                             mentions: [m.sender],
-                        }, {
-                            quoted: m
-                        }
+                        },
+                        { quoted: m }
                     );
                 } else if (type === 'image') {
                     await conn.sendMessage(
-                        m.chat, {
-                            image: buffer,
-                            caption: caption,
-                            mentions: [m.sender]
-                        }, {
-                            quoted: m
-                        }
+                        m.chat,
+                        {
+                            image: { url: mediaUrl },
+                            caption,
+                            mentions: [m.sender],
+                        },
+                        { quoted: m }
                     );
                 } else {
-                    // fallback kalau type tidak jelas
                     try {
                         await conn.sendMessage(
-                            m.chat, {
-                                image: buffer,
-                                caption: caption,
-                                mentions: [m.sender]
-                            }, {
-                                quoted: m
-                            }
+                            m.chat,
+                            { image: { url: mediaUrl }, caption, mentions: [m.sender] },
+                            { quoted: m }
                         );
                     } catch {
                         await conn.sendMessage(
-                            m.chat, {
-                                video: buffer,
-                                mimetype: "video/mp4",
-                                fileName: `video.mp4`,
-                                caption: caption,
-                                mentions: [m.sender],
-                            }, {
-                                quoted: m
-                            }
+                            m.chat,
+                            { video: { url: mediaUrl }, mimetype: 'video/mp4', fileName: 'video.mp4', caption, mentions: [m.sender] },
+                            { quoted: m }
                         );
                     }
                 }

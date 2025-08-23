@@ -9,7 +9,7 @@ let handler = async (m, { conn, text }) => {
 		? await conn.profilePictureUrl(m.mentionedJid[0], 'image')
 			: await conn.profilePictureUrl(m.quoted?.sender || m.sender, 'image')
 	if (!image) throw `Couldn't fetch the required Image`
-	let level = text || '5', img = await jimp.read(image)
+	let level = text || '5', img = await Jimp.read(image)
 	img.blur(isNaN(level) ? 5 : parseInt(level))
 	img.getBuffer('image/jpeg', (err, buffer) => {
 		if (err) throw err?.message || `Couldn't blur the image`

@@ -72,25 +72,14 @@ global.loadDatabase = async function loadDatabase() {
     stats: {},
     msgs: {},
     sticker: {},
-    settings: {},
+  settings: {},
+  // LID <-> Phone JID mapping
+  jidMap: {},
+  jidMapReverse: {},
     ...(db.data || {})
   }
 }
 loadDatabase()
-
-// Purge sender-key files that can cause "Cannot create property 'senderMessageKeys' on number" errors
-function sanitizeSenderKeys(dir = './sessions') {
-  try {
-    const files = readdirSync(dir)
-    for (const f of files) {
-      if(!/^sender-key-.*\.json$/i.test(f)) continue
-      const full = join(dir, f)
-  try { unlinkSync(full); console.log(chalk.yellow(`[auth] purged sender-key file: ${f}`)) } catch {}
-    }
-  } catch {}
-}
-
-sanitizeSenderKeys()
 
 const { version } = await fetchLatestBaileysVersion()
 const { state, saveCreds } = await useMultiFileAuthState('./sessions')
@@ -198,16 +187,6 @@ async function connectionUpdate(update) {
 }
 
 process.on('uncaughtException', console.error)
-process.on('unhandledRejection', async (err) => {
-  const msg = String(err || '')
-  if(msg.includes("senderMessageKeys") || msg.includes("SenderKeyState")) {
-    console.log(chalk.red('[auth] Detected sender-key corruption, purging and reloading...'))
-    try { sanitizeSenderKeys() } catch {}
-    try { console.log(await global.reloadHandler(true)) } catch (e) { console.error(e) }
-    return
-  }
-  console.error(err)
-})
 // let strQuot = /(["'])(?:(?=(\\?))\2.)*?\1/
 
 let isInit = true

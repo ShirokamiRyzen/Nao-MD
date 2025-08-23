@@ -38,7 +38,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:baileys",
+        "@adiwajshing/baileys": "github:WhiskeySockets/Baileys",
         "@bochilteam/scraper": "^5.0.1",
         "@ibaraki-douji/pixivts": "^2.4.1",
         "@vitalets/google-translate-api": "^9.2.0",
@@ -51,7 +51,7 @@
         "fluent-ffmpeg": "^2.1.2",
         "form-data": "^4.0.0",
         "human-readable": "^0.2.1",
-        "jimp": "^0.16.1",
+        "jimp": "^1.6.0",
         "jsdom": "^22.1.0",
         "knights-canvas": "^1.3.7-a",
         "lowdb": "^3.0.0",

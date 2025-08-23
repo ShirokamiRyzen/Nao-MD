@@ -72,10 +72,7 @@ global.loadDatabase = async function loadDatabase() {
     stats: {},
     msgs: {},
     sticker: {},
-  settings: {},
-  // LID <-> Phone JID mapping
-  jidMap: {},
-  jidMapReverse: {},
+    settings: {},
     ...(db.data || {})
   }
 }

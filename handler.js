@@ -25,25 +25,6 @@ export async function handler(chatUpdate) {
         if(!m) return
         m.exp = 0
         m.limit = false
-        // Prepare user record early using idKey (LID-aware)
-        try {
-            const idKey = (this.decodeJid && /@s\.whatsapp\.net$/.test(this.decodeJid(m.sender))) ? this.decodeJid(m.sender) : (global.db.data.jidMap?.[m.sender] || m.sender)
-            let user = global.db.data.users[idKey]
-            if(typeof user !== 'object') global.db.data.users[idKey] = {}
-            user = global.db.data.users[idKey]
-            if(!isNumber(user.exp)) user.exp = 0
-            if(!isNumber(user.limit)) user.limit = 10
-            if(!isNumber(user.afk)) user.afk = -1
-            if(!('afkReason' in user)) user.afkReason = ''
-            if(!('banned' in user)) user.banned = false
-            if(!('banReason' in user)) user.banReason = ''
-            if(!('role' in user)) user.role = 'Free user'
-            if(!('autolevelup' in user)) user.autolevelup = true
-            if(!('registered' in user)) user.registered = false
-            if(!('name' in user)) user.name = m.name
-            if(!('age' in user)) user.age = -1
-            if(!('regTime' in user)) user.regTime = -1
-        } catch {}
         try {
             // TODO: use loop to insert data instead of this
             let user = global.db.data.users[m.sender]
@@ -160,32 +141,10 @@ export async function handler(chatUpdate) {
             console.error(e)
         }
         if(typeof m.text !== 'string') m.text = ''
-        // --- LID support: determine canonical sender and persist mapping ---
-        const maps = global.db.data
-        maps.jidMap = maps.jidMap || {}
-        maps.jidMapReverse = maps.jidMapReverse || {}
-        const originalSender = m.sender
-        let canonicalSender = originalSender
-        try {
-            const decoded = this.decodeJid ? this.decodeJid(originalSender) : originalSender
-            if(decoded && /@s\.whatsapp\.net$/.test(decoded)) {
-                canonicalSender = decoded
-                if(decoded !== originalSender) {
-                    maps.jidMap[originalSender] = decoded
-                    maps.jidMapReverse[decoded] = originalSender
-                }
-            } else if(!/@s\.whatsapp\.net$/.test(originalSender) && maps.jidMap[originalSender]) {
-                canonicalSender = maps.jidMap[originalSender]
-            }
-        } catch {}
-        // Use canonical for identity/permissions, but keep m.sender unchanged for message context
-        const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)]
-            .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
-            .includes(canonicalSender)
+        const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isOwner = isROwner || m.fromMe
-        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(canonicalSender)
-        const idKey = canonicalSender || originalSender
-        const isPrems = isROwner || !!(db.data.users[idKey] && db.data.users[idKey].premiumTime > 0)
+        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+        const isPrems = isROwner || db.data.users[m.sender].premiumTime > 0
         if(!isOwner && !m.fromMe && !db.data.settings[this.user.jid].public) return;
         if(m.text && !(isMods || isPrems)) {
             let queque = this.msgqueque, time = 1000 * 5
@@ -201,21 +160,11 @@ export async function handler(chatUpdate) {
         m.exp += Math.ceil(Math.random() * 10)
 
         let usedPrefix
-        let _user = global.db.data && global.db.data.users && (global.db.data.users[idKey] || global.db.data.users[m.sender])
+        let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
         const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
         const participants = (m.isGroup ? groupMetadata.participants : []) || []
-        const user = (m.isGroup ? participants.find(u => {
-            const dec = this.decodeJid ? this.decodeJid(u.id) : u.id
-            const norm = /@s\.whatsapp\.net$/.test(dec) ? dec : (maps.jidMap[dec] || dec)
-            return norm === canonicalSender || norm === m.sender
-        }) : {}) || {} // User Data
-        const bot = (m.isGroup ? participants.find(u => {
-            const dec = this.decodeJid ? this.decodeJid(u.id) : u.id
-            const norm = /@s\.whatsapp\.net$/.test(dec) ? dec : (maps.jidMap[dec] || dec)
-            const self = this.user && (this.user.jid || this.user.id)
-            const selfNorm = /@s\.whatsapp\.net$/.test(self) ? self : (maps.jidMap[self] || self)
-            return norm == selfNorm
-        }) : {}) || {} // Your Data
+        const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
+        const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
         const isRAdmin = user?.admin == 'superadmin' || false
         const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
         const isBotAdmin = bot?.admin || false // Are you Admin?
@@ -343,18 +292,9 @@ export async function handler(chatUpdate) {
                     fail('private', m, this)
                     continue
                 }
-                if(plugin.register == true && (!_user || _user.registered == false)) { // Butuh daftar?
-                    if(String(m.sender).endsWith('@lid')) {
-                        const idKey = (global.db.data.jidMap?.[m.sender] || m.sender)
-                        let u = global.db.data.users[idKey] || (global.db.data.users[idKey] = {})
-                        u.registered = true
-                        u.name = u.name || m.name
-                        u.regTime = u.regTime > 0 ? u.regTime : Date.now()
-                        _user = u
-                    } else {
-                        fail('unreg', m, this)
-                        continue
-                    }
+                if(plugin.register == true && _user.registered == false) { // Butuh daftar?
+                    fail('unreg', m, this)
+                    continue
                 }
                 m.isCommand = true
                 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17 // XP Earning per command
@@ -363,7 +303,7 @@ export async function handler(chatUpdate) {
                     console.log("ngecit -_-");
                 else
                     m.exp += xp
-                if(!isPrems && plugin.limit && (global.db.data.users[idKey]?.limit ?? 0) < plugin.limit * 1) {
+                if(!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
                     this.reply(m.chat, `[❗] Limit harian kamu telah habis, silahkan beli Premium melalui *${usedPrefix}premium*`, m)
                     continue // Limit habis
                 }

@@ -32,37 +32,62 @@ export async function handler(chatUpdate) {
                     return (meta?.participants) || []
                 }
 
-                // Map sender @lid -> @s.whatsapp.net
-                if(typeof m.sender === 'string' && m.sender.endsWith('@lid')) {
-                    const parts = await getParts()
-                    const match = parts.find(p => p?.id === m.sender && p?.jid)
+                const parts = await getParts()
+
+                // sender: update underlying fields used by the getter
+                const current = m?.key?.participant || m?.participant
+                if(typeof current === 'string' && current.endsWith('@lid')) {
+                    const match = parts.find(p => p?.id === current && p?.jid)
                     if(match?.jid) {
-                        const oldSender = m.sender
-                        m.sender = this.decodeJid ? this.decodeJid(match.jid) : match.jid
-                        // migrate any existing user data saved under @lid
+                        const newJid = this.decodeJid ? this.decodeJid(match.jid) : match.jid
+                        const oldKey = current
+                        if(m.key) m.key.participant = newJid
+                        m.participant = newJid
+                        // also ensure the computed m.sender (if cached by access) is aligned
+                        if(typeof m.sender === 'string' && m.sender.endsWith('@lid')) m.sender = newJid
+                        // migrate user data from @lid to normalized JID
                         try {
-                            if(global?.db?.data?.users) {
-                                const users = global.db.data.users
-                                if(users[oldSender] && !users[m.sender]) {
-                                    users[m.sender] = users[oldSender]
-                                    delete users[oldSender]
-                                }
+                            const users = global?.db?.data?.users
+                            if(users && users[oldKey] && !users[newJid]) {
+                                users[newJid] = users[oldKey]
+                                delete users[oldKey]
                             }
                         } catch {}
                     }
                 }
 
-                // Map quoted sender if it's a LID
-                if(m?.quoted?.sender && String(m.quoted.sender).endsWith('@lid')) {
-                    const parts = await getParts()
-                    const qMatch = parts.find(p => p?.id === m.quoted.sender && p?.jid)
-                    if(qMatch?.jid) m.quoted.sender = this.decodeJid ? this.decodeJid(qMatch.jid) : qMatch.jid
+                // fallback: if getter already gave us @lid, still try to map via parts by m.sender
+                if(typeof m.sender === 'string' && m.sender.endsWith('@lid')) {
+                    const f = parts.find(p => p?.id === m.sender && p?.jid)
+                    if(f?.jid) {
+                        const real = this.decodeJid ? this.decodeJid(f.jid) : f.jid
+                        if(m.key) m.key.participant = real
+                        m.participant = real
+                        m.sender = real
+                        try {
+                            const users = global?.db?.data?.users
+                            if(users && users[m.sender] && users[real] == null) {
+                                users[real] = users[m.sender]
+                                delete users[m.sender]
+                            }
+                        } catch {}
+                    }
                 }
 
-                // Normalize mentioned JIDs array
-                if(Array.isArray(m?.mentionedJid) && m.mentionedJid.some(j => typeof j === 'string' && j.endsWith('@lid'))){
-                    const parts = await getParts()
-                    m.mentionedJid = m.mentionedJid.map(j => {
+                // quoted sender normalization
+                const qPart = m?.msg?.contextInfo?.participant
+                if(typeof qPart === 'string' && qPart.endsWith('@lid')) {
+                    const qMatch = parts.find(p => p?.id === qPart && p?.jid)
+                    if(qMatch?.jid) {
+                        const nj = this.decodeJid ? this.decodeJid(qMatch.jid) : qMatch.jid
+                        if(m.msg?.contextInfo) m.msg.contextInfo.participant = nj
+                    }
+                }
+
+                // mentioned JIDs normalization (in contextInfo)
+                const mentioned = m?.msg?.contextInfo?.mentionedJid
+                if(Array.isArray(mentioned) && mentioned.some(j => typeof j === 'string' && j.endsWith('@lid'))){
+                    m.msg.contextInfo.mentionedJid = mentioned.map(j => {
                         if(typeof j === 'string' && j.endsWith('@lid')) {
                             const mt = parts.find(p => p?.id === j && p?.jid)
                             return mt?.jid ? (this.decodeJid ? this.decodeJid(mt.jid) : mt.jid) : j
